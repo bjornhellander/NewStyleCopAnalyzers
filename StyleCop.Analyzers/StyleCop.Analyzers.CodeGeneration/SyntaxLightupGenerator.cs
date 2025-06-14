@@ -247,7 +247,7 @@ namespace StyleCop.Analyzers.CodeGeneration
                             new[]
                             {
                                 SyntaxFactory.IdentifierName(concreteBase),
-                                SyntaxFactory.IdentifierName(elementNode.WrapperName),
+                                SyntaxFactory.IdentifierName(elementNode.WrapperName!), // TODO: Check why this can be null
                             })));
                 }
                 else
@@ -301,7 +301,7 @@ namespace StyleCop.Analyzers.CodeGeneration
                             new[]
                             {
                                 SyntaxFactory.IdentifierName(concreteBase),
-                                SyntaxFactory.IdentifierName(elementNode.WrapperName),
+                                SyntaxFactory.IdentifierName(elementNode.WrapperName!), // TODO: Check why this can be null
                             })));
                 }
                 else
