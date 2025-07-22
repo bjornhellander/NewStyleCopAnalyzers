@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0"?>
 <package>
   <metadata minClientVersion="2.7">
-    <id>$id$</id>
+    <id>NewStyleCop.Analyzers</id>
     <version>0.0.0</version>
-    <title>$id$</title>
-    <authors>Sam Harwell et. al.</authors>
-    <owners>Sam Harwell</owners>
+    <title>NewStyleCop.Analyzers</title>
+    <authors>Björn Hellander et. al.</authors>
+    <owners>Björn Hellander</owners>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/DotNetAnalyzers/StyleCopAnalyzers</projectUrl>
+    <projectUrl>https://github.com/bjornhellander/NewStyleCopAnalyzers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>An implementation of StyleCop's rules using Roslyn analyzers and code fixes</description>
-    <releaseNotes>https://github.com/DotNetAnalyzers/StyleCopAnalyzers/releases/$tag$</releaseNotes>
     <copyright>Copyright 2015 Tunnel Vision Laboratories, LLC</copyright>
     <tags>StyleCop DotNetAnalyzers Roslyn Diagnostic Analyzer</tags>
     <developmentDependency>true</developmentDependency>

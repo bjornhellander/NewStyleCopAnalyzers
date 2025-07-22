@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.codecov.yml = .codecov.yml
 		.editorconfig = .editorconfig
-		appveyor.yml = appveyor.yml
+		.github\workflows\build.yml = .github\workflows\build.yml
 		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE = LICENSE
 		README.md = README.md
@@ -25,12 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A0840AD0-B615-487C-AEFF-9DCB691D037B}"
 	ProjectSection(SolutionItems) = preProject
-		build\build-and-test.yml = build\build-and-test.yml
-		build\build.ps1 = build\build.ps1
 		StyleCop.Analyzers\Directory.Build.props = StyleCop.Analyzers\Directory.Build.props
 		StyleCop.Analyzers\Directory.Build.targets = StyleCop.Analyzers\Directory.Build.targets
-		build\opencover-report.ps1 = build\opencover-report.ps1
-		build\test.yml = build\test.yml
+		global.json = global.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentation", "{19DD9E9D-877A-4492-9B7F-2E681DD58308}"
