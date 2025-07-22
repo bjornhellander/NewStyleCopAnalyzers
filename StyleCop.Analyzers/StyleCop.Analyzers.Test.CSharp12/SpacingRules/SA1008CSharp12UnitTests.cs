@@ -50,5 +50,48 @@ class TestClass
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
+
+        [Fact]
+        [WorkItem(3894, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3894")]
+        public async Task TestCollectionExpressionAsync()
+        {
+            var testCode = @"
+namespace TestNamespace
+{
+    public class TestClass
+    {
+        public void TestMethod()
+        {
+            int[] x = [ {|#0:(|} 0 + 0)];
+        }
+    }
+}
+";
+
+            var fixedCode = @"
+namespace TestNamespace
+{
+    public class TestClass
+    {
+        public void TestMethod()
+        {
+            int[] x = [(0 + 0)];
+        }
+    }
+}
+";
+
+            DiagnosticResult[] expectedResults =
+            {
+                Diagnostic(DescriptorNotPreceded).WithLocation(0),
+                Diagnostic(DescriptorNotFollowed).WithLocation(0),
+            };
+
+            await VerifyCSharpFixAsync(
+                testCode,
+                expectedResults,
+                fixedCode,
+                CancellationToken.None).ConfigureAwait(false);
+        }
     }
 }
