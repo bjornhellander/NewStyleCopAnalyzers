@@ -3,9 +3,8 @@
 
   <PropertyGroup>
     <Description>An implementation of StyleCop rules using the .NET Compiler Platform</Description>
-    <Product>StyleCop.Analyzers</Product>
-    <Company>Tunnel Vision Laboratories, LLC</Company>
-    <Copyright>Copyright © Tunnel Vision Laboratories, LLC 2015</Copyright>
+    <Product>NewStyleCop.Analyzers</Product>
+    <Copyright>Copyright © Contributors to the New StyleCop Analyzers project</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 

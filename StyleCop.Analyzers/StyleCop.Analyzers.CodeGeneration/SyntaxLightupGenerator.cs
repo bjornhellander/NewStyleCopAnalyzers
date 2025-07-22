@@ -1,4 +1,4 @@
-﻿// Copyright (c) Tunnel Vision Laboratories, LLC. All Rights Reserved.
+﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 namespace StyleCop.Analyzers.CodeGeneration
@@ -849,7 +849,7 @@ namespace StyleCop.Analyzers.CodeGeneration
             wrapperNamespace = wrapperNamespace
                 .NormalizeWhitespace()
                 .WithLeadingTrivia(
-                    SyntaxFactory.Comment("// Copyright (c) Tunnel Vision Laboratories, LLC. All Rights Reserved."),
+                    SyntaxFactory.Comment("// Copyright (c) Contributors to the New StyleCop Analyzers project."),
                     SyntaxFactory.CarriageReturnLineFeed,
                     SyntaxFactory.Comment("// Licensed under the MIT License. See LICENSE in the project root for license information."),
                     SyntaxFactory.CarriageReturnLineFeed,
@@ -1236,7 +1236,7 @@ namespace StyleCop.Analyzers.CodeGeneration
             wrapperNamespace = wrapperNamespace
                 .NormalizeWhitespace()
                 .WithLeadingTrivia(
-                    SyntaxFactory.Comment("// Copyright (c) Tunnel Vision Laboratories, LLC. All Rights Reserved."),
+                    SyntaxFactory.Comment("// Copyright (c) Contributors to the New StyleCop Analyzers project."),
                     SyntaxFactory.CarriageReturnLineFeed,
                     SyntaxFactory.Comment("// Licensed under the MIT License. See LICENSE in the project root for license information."),
                     SyntaxFactory.CarriageReturnLineFeed,

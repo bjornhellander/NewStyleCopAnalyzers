@@ -2,7 +2,7 @@
 <package>
   <metadata minClientVersion="2.7">
     <id>NewStyleCop.Analyzers</id>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <title>NewStyleCop.Analyzers</title>
     <authors>Björn Hellander et. al.</authors>
     <owners>Björn Hellander</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/bjornhellander/NewStyleCopAnalyzers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>An implementation of StyleCop's rules using Roslyn analyzers and code fixes</description>
-    <copyright>Copyright 2015 Tunnel Vision Laboratories, LLC</copyright>
+    <copyright>Copyright (c) Contributors to the New StyleCop Analyzers project</copyright>
     <tags>StyleCop DotNetAnalyzers Roslyn Diagnostic Analyzer</tags>
     <developmentDependency>true</developmentDependency>
   </metadata>
