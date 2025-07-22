@@ -3,9 +3,8 @@
 
   <PropertyGroup>
     <Description>An implementation of StyleCop rules using the .NET Compiler Platform</Description>
-    <Product>StyleCop.Analyzers</Product>
-    <Company>Tunnel Vision Laboratories, LLC</Company>
-    <Copyright>Copyright © Tunnel Vision Laboratories, LLC 2015</Copyright>
+    <Product>NewStyleCop.Analyzers</Product>
+    <Copyright>Copyright © Contributors to the New StyleCop Analyzers project</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
@@ -41,12 +40,15 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <SharedMicrosoftCodeAnalysisAnalyzersVersion>3.11.0-beta1.24052.1</SharedMicrosoftCodeAnalysisAnalyzersVersion>
+    <!--
+      Targeting .NET Standard 1.x is not longer recommended.
+    -->
+    <NoWarn>$(NoWarn),NETSDK1215</NoWarn>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" Version="2.2.13" PrivateAssets="all" />
-  </ItemGroup>
+  <PropertyGroup>
+    <SharedMicrosoftCodeAnalysisAnalyzersVersion>3.11.0-beta1.24052.1</SharedMicrosoftCodeAnalysisAnalyzersVersion>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AsyncUsageAnalyzers" Version="1.0.0-alpha003" PrivateAssets="all" />
