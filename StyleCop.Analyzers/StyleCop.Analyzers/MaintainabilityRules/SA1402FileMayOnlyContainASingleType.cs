@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.MaintainabilityRules
 {
     using System;
@@ -111,30 +109,36 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         private static bool IsRelevantType(SyntaxNode node, StyleCopSettings settings)
         {
             var topLevelTypes = settings.MaintainabilityRules.TopLevelTypes;
-            var isRelevant = false;
 
+            var isRelevant = false;
+            SyntaxTokenList modifiers = default;
             switch (node.Kind())
             {
             case SyntaxKind.ClassDeclaration:
             case SyntaxKindEx.RecordDeclaration:
                 isRelevant = topLevelTypes.Contains(TopLevelType.Class);
+                modifiers = ((BaseTypeDeclarationSyntax)node).Modifiers;
                 break;
             case SyntaxKind.InterfaceDeclaration:
                 isRelevant = topLevelTypes.Contains(TopLevelType.Interface);
+                modifiers = ((BaseTypeDeclarationSyntax)node).Modifiers;
                 break;
             case SyntaxKind.StructDeclaration:
             case SyntaxKindEx.RecordStructDeclaration:
                 isRelevant = topLevelTypes.Contains(TopLevelType.Struct);
+                modifiers = ((BaseTypeDeclarationSyntax)node).Modifiers;
                 break;
             case SyntaxKind.EnumDeclaration:
                 isRelevant = topLevelTypes.Contains(TopLevelType.Enum);
+                modifiers = ((BaseTypeDeclarationSyntax)node).Modifiers;
                 break;
             case SyntaxKind.DelegateDeclaration:
                 isRelevant = topLevelTypes.Contains(TopLevelType.Delegate);
+                modifiers = ((DelegateDeclarationSyntax)node).Modifiers;
                 break;
             }
 
-            return isRelevant;
+            return isRelevant && !modifiers.Any(x => x.IsKind(SyntaxKindEx.FileKeyword));
         }
     }
 }
