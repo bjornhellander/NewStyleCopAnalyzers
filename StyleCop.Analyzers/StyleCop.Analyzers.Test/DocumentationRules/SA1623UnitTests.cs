@@ -365,5 +365,52 @@ public class TestClass
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
+
+        [Theory]
+        [InlineData("public", "int", "{ get; init; }", "Gets or initializes")]
+        [InlineData("public", "bool", "{ get; init; }", "Gets or initializes a value indicating whether")]
+        [WorkItem(3939, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3939")]
+        public async Task VerifyInitOnlyPropertyRequiresGetsOrInitializesPrefixAsync(string accessibility, string type, string accessors, string expectedArgument)
+        {
+            var testCode = $@"
+public class TestClass
+{{
+    /// <summary>
+    /// The test value.
+    /// </summary>
+    {accessibility} {type} TestProperty {accessors}
+}}";
+
+            var fixedTestCode = $@"
+public class TestClass
+{{
+    /// <summary>
+    /// {expectedArgument} the test value.
+    /// </summary>
+    {accessibility} {type} TestProperty {accessors}
+}}";
+
+            var expected = Diagnostic(PropertySummaryDocumentationAnalyzer.SA1623Descriptor)
+                .WithLocation(7, 7 + accessibility.Length + type.Length)
+                .WithArguments(expectedArgument);
+            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Theory]
+        [InlineData("public", "int", "{ get; init; }", "Gets or initializes")]
+        [InlineData("public", "bool", "{ get; init; }", "Gets or initializes a value indicating whether")]
+        public async Task VerifyCorrectInitOnlySummaryDoesNotProduceDiagnosticAsync(string accessibility, string type, string accessors, string expectedArgument)
+        {
+            var testCode = $@"
+public class TestClass
+{{
+    /// <summary>
+    /// {expectedArgument} the test value.
+    /// </summary>
+    {accessibility} {type} TestProperty {accessors}
+}}";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
     }
 }
