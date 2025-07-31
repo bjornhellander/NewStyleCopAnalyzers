@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.SpacingRules
 {
     using System;
@@ -330,9 +328,11 @@ namespace StyleCop.Analyzers.SpacingRules
                 break;
             }
 
-            // If the next token is a close brace token we are in an anonymous object creation or an initialization.
-            // Then we allow a new line
-            bool allowEndOfLine = followingToken.IsKind(SyntaxKind.CloseBraceToken);
+            var isLastInAnonymousObjectCreationOrInitialization = followingToken.IsKind(SyntaxKind.CloseBraceToken);
+            var isConditionalAccessExpression = unaryExpression.IsKind(SyntaxKindEx.SuppressNullableWarningExpression);
+            var allowEndOfLine =
+                isLastInAnonymousObjectCreationOrInitialization ||
+                isConditionalAccessExpression;
 
             CheckToken(context, unaryExpression.OperatorToken, false, allowEndOfLine, mustHaveTrailingWhitespace);
         }
@@ -381,7 +381,7 @@ namespace StyleCop.Analyzers.SpacingRules
             CheckToken(context, arrowExpressionClause.ArrowToken, true, true, true);
         }
 
-        private static void CheckToken(SyntaxNodeAnalysisContext context, SyntaxToken token, bool withLeadingWhitespace, bool allowAtEndOfLine, bool withTrailingWhitespace, string tokenText = null)
+        private static void CheckToken(SyntaxNodeAnalysisContext context, SyntaxToken token, bool withLeadingWhitespace, bool allowAtEndOfLine, bool withTrailingWhitespace, string? tokenText = null)
         {
             tokenText = tokenText ?? token.Text;
 
