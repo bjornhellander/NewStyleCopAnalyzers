@@ -303,6 +303,7 @@ namespace StyleCop.Analyzers.SpacingRules
             switch (followingToken.Kind())
             {
             case SyntaxKind.CloseParenToken:
+            case SyntaxKind.OpenBracketToken: // Example: x![i]
             case SyntaxKind.CloseBracketToken:
             case SyntaxKind.SemicolonToken:
             case SyntaxKind.CommaToken:
