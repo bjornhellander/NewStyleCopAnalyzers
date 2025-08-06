@@ -85,6 +85,11 @@ namespace StyleCop.Analyzers.DocumentationRules
 
                 if (string.Compare(fileName, expectedFileName, StringComparison.OrdinalIgnoreCase) != 0)
                 {
+                    if (IsRazorPageModel(firstTypeDeclaration, context))
+                    {
+                        return;
+                    }
+
                     if (settings.DocumentationRules.FileNamingConvention == FileNamingConvention.StyleCop
                         && string.Compare(fileName, FileNameHelpers.GetSimpleFileName(firstTypeDeclaration), StringComparison.OrdinalIgnoreCase) == 0)
                     {
@@ -119,6 +124,34 @@ namespace StyleCop.Analyzers.DocumentationRules
                 }
 
                 return firstTypeDeclaration;
+            }
+
+            private static bool IsRazorPageModel(MemberDeclarationSyntax typeDeclaration, SyntaxTreeAnalysisContext context)
+            {
+                if (typeDeclaration is not ClassDeclarationSyntax classDecl)
+                {
+                    return false;
+                }
+
+                if (!classDecl.Identifier.Text.EndsWith("Model", StringComparison.Ordinal))
+                {
+                    return false;
+                }
+
+                var filePath = context.Tree.FilePath;
+                if (string.IsNullOrEmpty(filePath) || !filePath.EndsWith(".cshtml.cs", StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+
+                var baseType = classDecl.BaseList?.Types.FirstOrDefault();
+                if (baseType == null)
+                {
+                    return false;
+                }
+
+                var baseTypeName = baseType.Type.ToString();
+                return baseTypeName == "PageModel" || baseTypeName.EndsWith(".PageModel");
             }
         }
     }
