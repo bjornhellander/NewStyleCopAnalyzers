@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
 {
     using System.Threading;
@@ -99,8 +97,8 @@ namespace TestNamespace
 
             var expected = new[]
             {
-                    Diagnostic(DescriptorPrecededByWhitespace).WithLocation(0).WithArguments("??="),
-                    Diagnostic(DescriptorFollowedByWhitespace).WithLocation(0).WithArguments("??="),
+                Diagnostic(DescriptorPrecededByWhitespace).WithLocation(0).WithArguments("??="),
+                Diagnostic(DescriptorFollowedByWhitespace).WithLocation(0).WithArguments("??="),
             };
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
@@ -137,10 +135,64 @@ namespace TestNamespace
 
             var expected = new[]
             {
-                    Diagnostic(DescriptorNotPrecededByWhitespace).WithLocation(0).WithArguments("!"),
-                    Diagnostic(DescriptorNotFollowedByWhitespace).WithLocation(0).WithArguments("!"),
+                Diagnostic(DescriptorNotPrecededByWhitespace).WithLocation(0).WithArguments("!"),
+                Diagnostic(DescriptorNotFollowedByWhitespace).WithLocation(0).WithArguments("!"),
             };
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Theory]
+        [InlineData(".Length")]
+        [InlineData("+ 'a'")]
+        public async Task TestNullForgivingOperatorLastAtLineAsync(string expr)
+        {
+            var testCode = $@"
+namespace TestNamespace
+{{
+    public class TestClass
+    {{
+        public void TestMethod(string? x)
+        {{
+            _ = x!
+                {expr};
+        }}
+    }}
+}}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestNullForgivingOperatorBeforeIndexingAsync()
+        {
+            var testCode = @"
+namespace TestNamespace
+{
+    public class TestClass
+    {
+        public void TestMethod(string? x)
+        {
+            _ = x[|!|] [0];
+        }
+    }
+}
+";
+
+            var fixedCode = @"
+namespace TestNamespace
+{
+    public class TestClass
+    {
+        public void TestMethod(string? x)
+        {
+            _ = x![0];
+        }
+    }
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }
