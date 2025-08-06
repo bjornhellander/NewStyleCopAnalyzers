@@ -660,6 +660,9 @@
   <data name="StartingTextGets" xml:space="preserve">
     <value>Gets</value>
   </data>
+  <data name="StartingTextGetsOrInitializesWhether" xml:space="preserve">
+    <value>Gets or initializes a value indicating whether</value>
+  </data>
   <data name="StartingTextGetsOrSets" xml:space="preserve">
     <value>Gets or sets</value>
   </data>

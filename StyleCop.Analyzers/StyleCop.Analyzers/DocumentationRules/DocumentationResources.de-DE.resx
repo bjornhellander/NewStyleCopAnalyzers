@@ -141,6 +141,9 @@
   <data name="StartingTextGets" xml:space="preserve">
     <value>Holt</value>
   </data>
+  <data name="StartingTextGetsOrInitializesWhether" xml:space="preserve">
+    <value />
+  </data>
   <data name="StartingTextGetsOrSets" xml:space="preserve">
     <value>Holt oder setzt</value>
   </data>

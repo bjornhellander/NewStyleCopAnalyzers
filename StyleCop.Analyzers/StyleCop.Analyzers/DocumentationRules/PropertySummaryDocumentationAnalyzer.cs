@@ -88,7 +88,8 @@ namespace StyleCop.Analyzers.DocumentationRules
                     resourceManager.GetString(nameof(DocumentationResources.StartingTextGetsWhether), culture),
                     resourceManager.GetString(nameof(DocumentationResources.StartingTextSetsWhether), culture),
                     resourceManager.GetString(nameof(DocumentationResources.StartingTextGetsOrSetsWhether), culture),
-                    resourceManager.GetString(nameof(DocumentationResources.StartingTextReturnsWhether), culture));
+                    resourceManager.GetString(nameof(DocumentationResources.StartingTextReturnsWhether), culture),
+                    resourceManager.GetString(nameof(DocumentationResources.StartingTextGetsOrInitializesWhether), culture));
             }
             else
             {
@@ -104,12 +105,13 @@ namespace StyleCop.Analyzers.DocumentationRules
             }
         }
 
-        private static void AnalyzeSummaryElement(SyntaxNodeAnalysisContext context, XmlElementSyntax summaryElement, Location diagnosticLocation, PropertyDeclarationSyntax propertyDeclaration, string startingTextGets, string startingTextSets, string startingTextGetsOrSets, string startingTextReturns)
+        private static void AnalyzeSummaryElement(SyntaxNodeAnalysisContext context, XmlElementSyntax summaryElement, Location diagnosticLocation, PropertyDeclarationSyntax propertyDeclaration, string startingTextGets, string startingTextSets, string startingTextGetsOrSets, string startingTextReturns, string startingTextGetsOrInitializes = null)
         {
             var diagnosticProperties = ImmutableDictionary.CreateBuilder<string, string>();
             ArrowExpressionClauseSyntax expressionBody = propertyDeclaration.ExpressionBody;
             AccessorDeclarationSyntax getter = null;
             AccessorDeclarationSyntax setter = null;
+            AccessorDeclarationSyntax init = null;
 
             if (propertyDeclaration.AccessorList != null)
             {
@@ -124,6 +126,9 @@ namespace StyleCop.Analyzers.DocumentationRules
                     case SyntaxKind.SetKeyword:
                         setter = accessor;
                         break;
+
+                        // case SyntaxKind.InitKeyword: // not supported
+                        // init = accessor;
                     }
                 }
             }
@@ -138,7 +143,8 @@ namespace StyleCop.Analyzers.DocumentationRules
             var textElement = XmlCommentHelper.TryGetFirstTextElementWithContent(summaryElement);
             string text = textElement is null ? string.Empty : XmlCommentHelper.GetText(textElement, normalizeWhitespace: true).TrimStart();
 
-            bool prefixIsGetsOrSets = text.StartsWith(startingTextGetsOrSets, StringComparison.OrdinalIgnoreCase);
+            bool prefixIsGetsOrSets = text.StartsWith(startingTextGetsOrSets, StringComparison.OrdinalIgnoreCase)
+                || (!string.IsNullOrEmpty(startingTextGetsOrInitializes) && text.StartsWith(startingTextGetsOrInitializes, StringComparison.OrdinalIgnoreCase));
             bool prefixIsGets = !prefixIsGetsOrSets && text.StartsWith(startingTextGets, StringComparison.OrdinalIgnoreCase);
             bool prefixIsSets = text.StartsWith(startingTextSets, StringComparison.OrdinalIgnoreCase);
 

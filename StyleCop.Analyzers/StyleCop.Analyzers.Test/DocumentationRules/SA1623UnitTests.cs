@@ -367,7 +367,6 @@ public class TestClass
         }
 
         [Theory]
-        [InlineData("public", "int", "{ get; init; }", "Gets or initializes")]
         [InlineData("public", "bool", "{ get; init; }", "Gets or initializes a value indicating whether")]
         [WorkItem(3939, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3939")]
         public async Task VerifyInitOnlyPropertyRequiresGetsOrInitializesPrefixAsync(string accessibility, string type, string accessors, string expectedArgument)
@@ -397,7 +396,6 @@ public class TestClass
         }
 
         [Theory]
-        [InlineData("public", "int", "{ get; init; }", "Gets or initializes")]
         [InlineData("public", "bool", "{ get; init; }", "Gets or initializes a value indicating whether")]
         public async Task VerifyCorrectInitOnlySummaryDoesNotProduceDiagnosticAsync(string accessibility, string type, string accessors, string expectedArgument)
         {

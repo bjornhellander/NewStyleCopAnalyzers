@@ -376,6 +376,8 @@ namespace StyleCop.Analyzers.DocumentationRules
         public static string @SA1651Title => GetResourceString("SA1651Title")!;
         /// <summary>Gets</summary>
         public static string @StartingTextGets => GetResourceString("StartingTextGets")!;
+        /// <summary>Gets or initializes a value indicating whether</summary>
+        public static string @StartingTextGetsOrInitializesWhether => GetResourceString("StartingTextGetsOrInitializesWhether")!;
         /// <summary>Gets or sets</summary>
         public static string @StartingTextGetsOrSets => GetResourceString("StartingTextGetsOrSets")!;
         /// <summary>Gets or sets a value indicating whether</summary>
