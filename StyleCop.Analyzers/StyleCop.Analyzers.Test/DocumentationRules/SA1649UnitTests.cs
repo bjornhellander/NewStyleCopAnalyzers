@@ -5,6 +5,7 @@
 
 namespace StyleCop.Analyzers.Test.DocumentationRules
 {
+    using System.Collections.Immutable;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
@@ -539,6 +540,72 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
                 // Then we would still get a diagnostic in the additional project.
                 TestBehaviors = TestBehaviors.SkipSuppressionCheck,
             }.RunAsync().ConfigureAwait(false);
+        }
+
+        [Fact]
+        [WorkItem(3909, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3909")]
+        public async Task RazorPageModelDoesNotTriggerDiagnosticWhenFileNameDoesNotMatchClassNameAsync()
+        {
+            var testCode = @"
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+public class IndexModel : PageModel
+{
+    public void OnGet() { }
+}
+";
+
+            var test = new StyleCopCodeFixVerifier<SA1649FileNameMustMatchTypeName, SA1649CodeFixProvider>.CSharpTest
+            {
+                TestSources = { ("Index.cshtml.cs", testCode) },
+                ReferenceAssemblies = ReferenceAssemblies.Net.Net60
+                    .AddPackages(ImmutableArray.Create(new PackageIdentity("Microsoft.AspNetCore.Mvc.RazorPages", "2.2.0"))),
+            };
+
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task RazorPageModelFullyQualifiedBaseClassDoesNotTriggerDiagnosticAsync()
+        {
+            var testCode = @"
+public class IndexModel : Microsoft.AspNetCore.Mvc.RazorPages.PageModel
+{
+    public void OnGet() { }
+}
+";
+            var test = new StyleCopCodeFixVerifier<SA1649FileNameMustMatchTypeName, SA1649CodeFixProvider>.CSharpTest
+            {
+                TestSources = { ("Index.cshtml.cs", testCode) },
+                ReferenceAssemblies = ReferenceAssemblies.Net.Net60
+                    .AddPackages(ImmutableArray.Create(new PackageIdentity("Microsoft.AspNetCore.Mvc.RazorPages", "2.2.0"))),
+            };
+
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task NonModelClassInCshtmlCsFileTriggersDiagnosticAsync()
+        {
+            var testCode = @"
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+public class {|#0:IndexHandler|} : PageModel
+{
+    public void OnGet() { }
+}
+";
+            var expectedDiagnostic = Diagnostic().WithLocation(0);
+
+            var test = new StyleCopCodeFixVerifier<SA1649FileNameMustMatchTypeName, SA1649CodeFixProvider>.CSharpTest
+            {
+                TestSources = { ("Index.cshtml.cs", testCode) },
+                ReferenceAssemblies = ReferenceAssemblies.Net.Net60
+                    .AddPackages(ImmutableArray.Create(new PackageIdentity("Microsoft.AspNetCore.Mvc.RazorPages", "2.2.0"))),
+            };
+
+            test.ExpectedDiagnostics.Add(expectedDiagnostic);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
         }
 
         protected static string GetTypeDeclaration(string typeKind, string typeName, int? diagnosticKey = null)
