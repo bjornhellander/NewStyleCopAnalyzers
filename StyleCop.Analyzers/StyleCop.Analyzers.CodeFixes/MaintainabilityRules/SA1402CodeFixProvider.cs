@@ -9,6 +9,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Composition;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
@@ -108,6 +109,24 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             // Add the new file
             SyntaxNode extractedDocumentNode = root.RemoveNodes(nodesToRemoveFromExtracted, SyntaxRemoveOptions.KeepUnbalancedDirectives);
             Solution updatedSolution = document.Project.Solution.AddDocument(extractedDocumentId, extractedDocumentName, extractedDocumentNode, document.Folders);
+
+            // Get unused usings and remove them from the extracted document
+            var newDoc = updatedSolution.GetDocument(extractedDocumentId);
+            var semanticModel = await newDoc.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
+            var diagnostics = semanticModel.GetDiagnostics();
+
+            var newRoot = await newDoc.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
+            var usingsToRemove = diagnostics
+                .Where(d => d.Id == "CS8019")
+                .Select(d => newRoot.FindNode(d.Location.SourceSpan))
+                .OfType<UsingDirectiveSyntax>()
+                .ToList();
+
+            if (usingsToRemove.Count > 0)
+            {
+                var cleanedRoot = newRoot.RemoveNodes(usingsToRemove, SyntaxRemoveOptions.KeepUnbalancedDirectives);
+                updatedSolution = updatedSolution.WithDocumentSyntaxRoot(extractedDocumentId, cleanedRoot);
+            }
 
             // Make sure to also add the file to linked projects
             foreach (var linkedDocumentId in document.GetLinkedDocumentIds())
