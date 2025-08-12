@@ -28,6 +28,10 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
 
         protected abstract bool IsConfiguredAsTopLevelTypeByDefault { get; }
 
+        protected virtual string MemberModifier => "public ";
+
+        protected virtual bool SupportsStaticMemberUsageInBodies => true;
+
         [Fact]
         public async Task TestTwoGenericElementsAsync()
         {
@@ -188,6 +192,666 @@ public {this.Keyword} Test0
 }}";
 
             await this.VerifyCSharpDiagnosticAsync(testCode, this.GetSettings(), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        [WorkItem(3109, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3109")]
+        public async Task TestCodeFixRemovesUnnecessaryUsingsInBothTypesAsync()
+        {
+            var testCode = $@"
+namespace TestNamespace
+{{
+    using System;
+    using System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+    using System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+    using System;
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixKeepsNeededUsingsInBothTypesAsync()
+        {
+            var testCode = $@"
+namespace TestNamespace
+{{
+    using System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} List<string> Items2 {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+    using System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+    using System.Collections.Generic;
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} List<string> Items2 {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[]
+            {
+        this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"),
+            };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixRemovesUnneededUsingFromFirstTypeAsync()
+        {
+            var testCode = $@"
+namespace TestNamespace
+{{
+    using System;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int X {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int X {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+    using System;
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[]
+            {
+                this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"),
+            };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeWithNoUsingsAsync()
+        {
+            var testCode = $@"
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int MyProperty {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} string MyProperty {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int MyProperty {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} string MyProperty {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[]
+            {
+                this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"),
+            };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixKeepsAliasUsingInBothTypesAsync()
+        {
+            var testCode = $@"
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col::List<int> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} Col::List<string> Items2 {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col::List<int> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} Col::List<string> Items2 {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[]
+            {
+                this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"),
+            };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixKeepsAliasUsingFromFirstTypeAsync()
+        {
+            var testCode = $@"
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col::List<int> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} string Name {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col::List<int> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} string Name {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[]
+            {
+                this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"),
+            };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixKeepsAliasUsingFromSecondTypeAsync()
+        {
+            var testCode = $@"
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int Id {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} Col::List<int> Items2 {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int Id {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} Col::List<int> Items2 {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[]
+            {
+                this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"),
+            };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixRemovesAliasUsingFromBothTypesAsync()
+        {
+            var testCode = $@"
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int X {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} string Name {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int X {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} string Name {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[]
+            {
+                this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"),
+            };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixKeepsStaticUsingInBothTypesAsync()
+        {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
+            var testCode = $@"
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double R1 => PI;
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} double R2 => 2 * PI;
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double R1 => PI;
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} double R2 => 2 * PI;
+    }}
+}}
+"),
+            };
+
+            var expected = new[]
+            {
+                this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"),
+            };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixKeepstaticUsingFromFirstTypeAsync()
+        {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
+            var testCode = $@"
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double R1 => PI;
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} int Id {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double R1 => PI;
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} int Id {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[]
+            {
+                this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"),
+            };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixKeepsStaticUsingFromSecondTypeAsync()
+        {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
+            var testCode = $@"
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int X {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} double R2 => Sqrt(4);
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int X {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} double R2 => Sqrt(4);
+    }}
+}}
+"),
+            };
+
+            var expected = new[]
+            {
+                this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"),
+            };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixRemovesStaticUsingsFromBothTypesAsync()
+        {
+            var testCode = $@"
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int X {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} string Name {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} int X {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} string Name {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[]
+            {
+                this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"),
+            };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
         protected override string GetSettings()

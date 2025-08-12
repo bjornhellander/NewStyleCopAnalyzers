@@ -110,24 +110,6 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             SyntaxNode extractedDocumentNode = root.RemoveNodes(nodesToRemoveFromExtracted, SyntaxRemoveOptions.KeepUnbalancedDirectives);
             Solution updatedSolution = document.Project.Solution.AddDocument(extractedDocumentId, extractedDocumentName, extractedDocumentNode, document.Folders);
 
-            // Get unused usings and remove them from the extracted document
-            var newDoc = updatedSolution.GetDocument(extractedDocumentId);
-            var semanticModel = await newDoc.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
-            var diagnostics = semanticModel.GetDiagnostics();
-
-            var newRoot = await newDoc.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
-            var usingsToRemove = diagnostics
-                .Where(d => d.Id == "CS8019")
-                .Select(d => newRoot.FindNode(d.Location.SourceSpan))
-                .OfType<UsingDirectiveSyntax>()
-                .ToList();
-
-            if (usingsToRemove.Count > 0)
-            {
-                var cleanedRoot = newRoot.RemoveNodes(usingsToRemove, SyntaxRemoveOptions.KeepUnbalancedDirectives);
-                updatedSolution = updatedSolution.WithDocumentSyntaxRoot(extractedDocumentId, cleanedRoot);
-            }
-
             // Make sure to also add the file to linked projects
             foreach (var linkedDocumentId in document.GetLinkedDocumentIds())
             {
@@ -138,7 +120,39 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             // Remove the type from its original location
             updatedSolution = updatedSolution.WithDocumentSyntaxRoot(document.Id, root.RemoveNode(node, SyntaxRemoveOptions.KeepUnbalancedDirectives));
 
+            updatedSolution = await RemoveUnusedUsingsFromDocumentsAsync(updatedSolution, new[] { document.Id, extractedDocumentId }, cancellationToken).ConfigureAwait(false);
+
             return updatedSolution;
+        }
+
+        private static async Task<Solution> RemoveUnusedUsingsFromDocumentsAsync(Solution solution, IEnumerable<DocumentId> documentIds, CancellationToken cancellationToken)
+        {
+            foreach (var documentId in documentIds)
+            {
+                var document = solution.GetDocument(documentId);
+                if (document == null)
+                {
+                    continue;
+                }
+
+                var semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
+                var diagnostics = semanticModel.GetDiagnostics();
+
+                var root = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
+                var unusedUsings = diagnostics
+                    .Where(d => d.Id == "CS8019")
+                    .Select(d => root.FindNode(d.Location.SourceSpan))
+                    .OfType<UsingDirectiveSyntax>()
+                    .ToList();
+
+                if (unusedUsings.Count > 0)
+                {
+                    var cleanedRoot = root.RemoveNodes(unusedUsings, SyntaxRemoveOptions.KeepUnbalancedDirectives);
+                    solution = solution.WithDocumentSyntaxRoot(documentId, cleanedRoot);
+                }
+            }
+
+            return solution;
         }
     }
 }
