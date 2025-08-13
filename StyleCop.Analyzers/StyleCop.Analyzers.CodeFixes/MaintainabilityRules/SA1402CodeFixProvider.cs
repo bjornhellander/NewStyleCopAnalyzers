@@ -135,14 +135,30 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                     continue;
                 }
 
+                var root = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
+
+                var hasUsings = root.DescendantNodes(descendIntoTrivia: false)
+                    .OfType<UsingDirectiveSyntax>()
+                    .Any();
+
+                if (!hasUsings)
+                {
+                    continue;
+                }
+
+                if (root is CompilationUnitSyntax cu && HasPreprocessorDirectives(cu))
+                {
+                    continue;
+                }
+
                 var semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
                 var diagnostics = semanticModel.GetDiagnostics();
 
-                var root = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
                 var unusedUsings = diagnostics
                     .Where(d => d.Id == "CS8019")
                     .Select(d => root.FindNode(d.Location.SourceSpan))
                     .OfType<UsingDirectiveSyntax>()
+                    .Where(u => !HasCommentTrivia(u))
                     .ToList();
 
                 if (unusedUsings.Count > 0)
@@ -153,6 +169,30 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             }
 
             return solution;
+        }
+
+        private static bool HasPreprocessorDirectives(SyntaxNode root)
+        {
+            foreach (var trivia in root.DescendantTrivia(descendIntoTrivia: true))
+            {
+                if (trivia.HasStructure && trivia.GetStructure() is DirectiveTriviaSyntax)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool HasCommentTrivia(UsingDirectiveSyntax usingDirective)
+        {
+            bool hasComment = usingDirective.GetTrailingTrivia().Any(t =>
+                t.IsKind(SyntaxKind.SingleLineCommentTrivia) ||
+                t.IsKind(SyntaxKind.MultiLineCommentTrivia) ||
+                t.IsKind(SyntaxKind.SingleLineDocumentationCommentTrivia) ||
+                t.IsKind(SyntaxKind.MultiLineDocumentationCommentTrivia));
+
+            return hasComment;
         }
     }
 }
