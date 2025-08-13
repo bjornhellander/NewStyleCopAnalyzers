@@ -9,6 +9,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Composition;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
@@ -119,7 +120,79 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             // Remove the type from its original location
             updatedSolution = updatedSolution.WithDocumentSyntaxRoot(document.Id, root.RemoveNode(node, SyntaxRemoveOptions.KeepUnbalancedDirectives));
 
+            updatedSolution = await RemoveUnusedUsingsFromDocumentsAsync(updatedSolution, new[] { document.Id, extractedDocumentId }, cancellationToken).ConfigureAwait(false);
+
             return updatedSolution;
+        }
+
+        private static async Task<Solution> RemoveUnusedUsingsFromDocumentsAsync(Solution solution, IEnumerable<DocumentId> documentIds, CancellationToken cancellationToken)
+        {
+            foreach (var documentId in documentIds)
+            {
+                var document = solution.GetDocument(documentId);
+                if (document == null)
+                {
+                    continue;
+                }
+
+                var root = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
+
+                var hasUsings = root.DescendantNodes(descendIntoTrivia: false)
+                    .OfType<UsingDirectiveSyntax>()
+                    .Any();
+
+                if (!hasUsings)
+                {
+                    continue;
+                }
+
+                if (root is CompilationUnitSyntax cu && HasPreprocessorDirectives(cu))
+                {
+                    continue;
+                }
+
+                var semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
+                var diagnostics = semanticModel.GetDiagnostics();
+
+                var unusedUsings = diagnostics
+                    .Where(d => d.Id == "CS8019")
+                    .Select(d => root.FindNode(d.Location.SourceSpan))
+                    .OfType<UsingDirectiveSyntax>()
+                    .Where(u => !HasCommentTrivia(u))
+                    .ToList();
+
+                if (unusedUsings.Count > 0)
+                {
+                    var cleanedRoot = root.RemoveNodes(unusedUsings, SyntaxRemoveOptions.KeepUnbalancedDirectives);
+                    solution = solution.WithDocumentSyntaxRoot(documentId, cleanedRoot);
+                }
+            }
+
+            return solution;
+        }
+
+        private static bool HasPreprocessorDirectives(SyntaxNode root)
+        {
+            foreach (var trivia in root.DescendantTrivia(descendIntoTrivia: true))
+            {
+                if (trivia.HasStructure && trivia.GetStructure() is DirectiveTriviaSyntax)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool HasCommentTrivia(UsingDirectiveSyntax usingDirective)
+        {
+            bool hasComment = usingDirective.GetTrailingTrivia().Any(t =>
+                t.IsKind(SyntaxKind.SingleLineCommentTrivia) ||
+                t.IsKind(SyntaxKind.MultiLineCommentTrivia) ||
+                t.IsKind(SyntaxKind.SingleLineDocumentationCommentTrivia) ||
+                t.IsKind(SyntaxKind.MultiLineDocumentationCommentTrivia));
+
+            return hasComment;
         }
     }
 }

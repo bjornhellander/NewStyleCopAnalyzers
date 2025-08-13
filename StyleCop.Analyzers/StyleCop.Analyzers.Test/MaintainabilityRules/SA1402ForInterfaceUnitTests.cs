@@ -10,5 +10,9 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
         public override string Keyword => "interface";
 
         protected override bool IsConfiguredAsTopLevelTypeByDefault => false;
+
+        protected override string MemberModifier => string.Empty;
+
+        protected override bool SupportsStaticMemberUsageInBodies => false;
     }
 }
