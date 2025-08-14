@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System.Collections.Immutable;
@@ -28,7 +26,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             ImmutableArray.Create(SA1649FileNameMustMatchTypeName.DiagnosticId);
 
         /// <inheritdoc/>
-        public override FixAllProvider GetFixAllProvider()
+        public override FixAllProvider? GetFixAllProvider()
         {
             // The batch fixer can't handle code fixes that create new files
             return null;
@@ -67,7 +65,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             return newSolution;
         }
 
-        private static Solution RenameDocument(Solution solution, Document document, DocumentId documentId, SyntaxNode syntaxRoot, string expectedFileName)
+        private static Solution RenameDocument(Solution solution, Document? document, DocumentId documentId, SyntaxNode syntaxRoot, string expectedFileName)
         {
             // First try to use the "new" WithDocumentName method. This will return null if it is not available in the current Roslyn version.
             var newSolution = solution.WithDocumentName(documentId, expectedFileName);
