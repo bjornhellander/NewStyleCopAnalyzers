@@ -469,5 +469,149 @@ namespace System.Threading
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
+
+        [Fact]
+        [WorkItem(2619, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2619")]
+        public async Task TestAliasToGenericTypeWithClrTypeArgsAsync()
+        {
+            var testCode = @"
+namespace System.Collections
+{
+    using Dictionary = Generic.Dictionary<Int32, String>;
+}
+";
+
+            var fixedCode = @"
+namespace System.Collections
+{
+    using Dictionary = System.Collections.Generic.Dictionary<Int32, String>;
+}
+";
+
+            DiagnosticResult[] expected =
+            {
+                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(4, 5).WithArguments("System.Collections.Generic.Dictionary<int, string>"),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestAliasToGenericTypeWithMixedKeywordAndClrArgsAsync()
+        {
+            var testCode = @"
+namespace System.Collections
+{
+    using Dictionary = Generic.Dictionary<int, String>;
+}
+";
+
+            var fixedCode = @"
+namespace System.Collections
+{
+    using Dictionary = System.Collections.Generic.Dictionary<int, String>;
+}
+";
+
+            DiagnosticResult[] expected =
+            {
+                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(4, 5).WithArguments("System.Collections.Generic.Dictionary<int, string>"),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestAliasToNestedGenericTypeWithClrArgsAsync()
+        {
+            var testCode = @"
+namespace System.Collections
+{
+    using Map = Generic.Dictionary<Int32, Generic.List<String>>;
+}
+";
+
+            var fixedCode = @"
+namespace System.Collections
+{
+    using Map = System.Collections.Generic.Dictionary<Int32, System.Collections.Generic.List<String>>;
+}
+";
+
+            DiagnosticResult[] expected =
+            {
+                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(4, 5).WithArguments("System.Collections.Generic.Dictionary<int, System.Collections.Generic.List<string>>"),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestAliasToGenericTypeWithClrArrayAndNullableValueArgsAsync()
+        {
+            var testCode = @"
+namespace System.Collections
+{
+    using Dict = Generic.Dictionary<Int32[], Int32?>;
+}
+";
+
+            var fixedCode = @"
+namespace System.Collections
+{
+    using Dict = System.Collections.Generic.Dictionary<Int32[], Int32?>;
+}
+";
+
+            DiagnosticResult[] expected =
+            {
+        Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType)
+            .WithLocation(4, 5)
+            .WithArguments("System.Collections.Generic.Dictionary<int[], int?>"),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestNoDiagnosticsWhenAliasIsAlreadyFullyQualifiedWithClrArgsAsync()
+        {
+            var testCode = @"
+namespace System.Collections
+{
+    using Dictionary = System.Collections.Generic.Dictionary<int, string>;
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestFixAllMultipleAliasesMixedKeywordAndClrArgsAsync()
+        {
+            var testCode = @"
+namespace System.Collections
+{
+    using D1 = Generic.Dictionary<int, string>;
+    using D2 = Generic.Dictionary<Int32, String>;
+}
+";
+
+            var fixedCode = @"
+namespace System.Collections
+{
+    using D1 = System.Collections.Generic.Dictionary<int, string>;
+    using D2 = System.Collections.Generic.Dictionary<Int32, String>;
+}
+";
+
+            DiagnosticResult[] expected =
+            {
+                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(4, 5).WithArguments("System.Collections.Generic.Dictionary<int, string>"),
+                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(5, 5).WithArguments("System.Collections.Generic.Dictionary<int, string>"),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+        }
     }
 }
