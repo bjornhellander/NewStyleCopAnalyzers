@@ -42,12 +42,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
 }}
 ";
 
-            await new CSharpTest
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-                FixedCode = testCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, testCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Theory]
@@ -64,12 +59,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
 }}
 ";
 
-            await new CSharpTest
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-                FixedCode = testCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, testCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Theory]
@@ -86,12 +76,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
 }}
 ";
 
-            await new CSharpTest
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-                FixedCode = testCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, testCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Fact]
@@ -130,12 +115,7 @@ class TestClass
     }
 }";
 
-            await new CSharpTest
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-                FixedCode = fixedCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

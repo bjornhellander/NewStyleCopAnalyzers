@@ -59,11 +59,7 @@ public class Foo
 }
 ";
 
-            await new CSharpTest
-            {
-                TestCode = testCode,
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

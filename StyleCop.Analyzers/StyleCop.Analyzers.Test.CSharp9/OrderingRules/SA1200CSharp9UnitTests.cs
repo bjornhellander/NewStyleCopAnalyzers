@@ -8,7 +8,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp8.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
@@ -34,7 +33,6 @@ return 0;
 
             await new CSharpTest()
             {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
                 TestState =
                 {
                     OutputKind = OutputKind.ConsoleApplication,

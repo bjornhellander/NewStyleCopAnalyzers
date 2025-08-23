@@ -56,13 +56,8 @@ namespace TestNamespace
 }
 ";
 
-            await new CSharpTest()
-            {
-                ReferenceAssemblies = ReferenceAssemblies.NetCore.NetCoreApp31,
-                TestCode = testCode,
-                ExpectedDiagnostics = { Diagnostic(DescriptorNotPrecededByWhitespace).WithLocation(0).WithArguments("(int)") },
-                FixedCode = fixedCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            var expected = Diagnostic(DescriptorNotPrecededByWhitespace).WithLocation(0).WithArguments("(int)");
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Fact]

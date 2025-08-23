@@ -5,7 +5,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
 {
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
@@ -44,26 +43,21 @@ class C
     }
 }";
 
-            await new CSharpTest()
+            var expected = new[]
             {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                ExpectedDiagnostics =
-                {
-                    // /0/Test0.cs(6,17): warning SA1008: Opening parenthesis should be preceded by a space.
-                    Diagnostic(DescriptorPreceded).WithLocation(0),
+                // /0/Test0.cs(6,17): warning SA1008: Opening parenthesis should be preceded by a space.
+                Diagnostic(DescriptorPreceded).WithLocation(0),
 
-                    // /0/Test0.cs(6,17): warning SA1008: Opening parenthesis should not be followed by a space.
-                    Diagnostic(DescriptorNotFollowed).WithLocation(0),
+                // /0/Test0.cs(6,17): warning SA1008: Opening parenthesis should not be followed by a space.
+                Diagnostic(DescriptorNotFollowed).WithLocation(0),
 
-                    // /0/Test0.cs(7,17): warning SA1008: Opening parenthesis should be preceded by a space.
-                    Diagnostic(DescriptorPreceded).WithLocation(1),
+                // /0/Test0.cs(7,17): warning SA1008: Opening parenthesis should be preceded by a space.
+                Diagnostic(DescriptorPreceded).WithLocation(1),
 
-                    // /0/Test0.cs(8,18): warning SA1008: Opening parenthesis should not be followed by a space.
-                    Diagnostic(DescriptorNotFollowed).WithLocation(2),
-                },
-                TestCode = testCode,
-                FixedCode = fixedCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+                // /0/Test0.cs(8,18): warning SA1008: Opening parenthesis should not be followed by a space.
+                Diagnostic(DescriptorNotFollowed).WithLocation(2),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Fact]

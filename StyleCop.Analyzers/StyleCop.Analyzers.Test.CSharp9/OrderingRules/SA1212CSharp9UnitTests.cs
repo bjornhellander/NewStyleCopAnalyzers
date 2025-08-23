@@ -30,12 +30,7 @@ public class Foo
     public int Prop { get; init; }
 }";
 
-            await new CSharpTest
-            {
-                TestCode = testCode,
-                FixedCode = fixedCode,
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Fact]
@@ -80,12 +75,7 @@ public class Foo
     }
 }";
 
-            await new CSharpTest
-            {
-                TestCode = testCode,
-                FixedCode = fixedCode,
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }
