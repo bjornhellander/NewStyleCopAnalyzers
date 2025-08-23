@@ -37,7 +37,6 @@ return 0;
 
             var test = new CSharpTest()
             {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
                 TestState =
                 {
                     OutputKind = OutputKind.ConsoleApplication,
@@ -64,7 +63,6 @@ return i;
 
             await new CSharpTest()
             {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
                 TestState =
                 {
                     OutputKind = OutputKind.ConsoleApplication,
@@ -91,7 +89,6 @@ record A();
 
             var test = new CSharpTest()
             {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
                 TestState =
                 {
                     OutputKind = OutputKind.ConsoleApplication,
@@ -143,12 +140,7 @@ public class Foo
 }
 ";
 
-            await new CSharpTest
-            {
-                TestCode = testCode,
-                FixedCode = fixedCode,
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         protected virtual DiagnosticResult[] GetExpectedResultTestUsingAndGlobalStatementSpacingInTopLevelProgram()

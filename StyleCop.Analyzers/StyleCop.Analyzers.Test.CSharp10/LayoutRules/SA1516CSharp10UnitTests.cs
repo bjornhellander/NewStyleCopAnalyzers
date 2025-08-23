@@ -5,12 +5,10 @@ namespace StyleCop.Analyzers.Test.CSharp10.LayoutRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp9.LayoutRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using Verifier = StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1516ElementsMustBeSeparatedByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1516CodeFixProvider>;
 
@@ -227,17 +225,7 @@ public enum Foobar
 
         private static Task VerifyCSharpFixAsync(string testCode, string fixedCode)
         {
-            var test = new CSharpTest
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net60,
-                TestState =
-                {
-                    Sources = { testCode },
-                },
-                FixedCode = fixedCode,
-            };
-
-            return test.RunAsync(CancellationToken.None);
+            return Verifier.VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None);
         }
     }
 }

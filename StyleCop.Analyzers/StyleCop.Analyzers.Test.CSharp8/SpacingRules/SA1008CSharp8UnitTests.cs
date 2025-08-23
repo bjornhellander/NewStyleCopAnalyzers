@@ -65,17 +65,12 @@ namespace TestNamespace
 }
 ";
 
-            await new CSharpTest()
+            var expected = new[]
             {
-                ReferenceAssemblies = ReferenceAssemblies.NetCore.NetCoreApp31,
-                TestCode = testCode,
-                ExpectedDiagnostics =
-                {
-                    Diagnostic(DescriptorNotPreceded).WithLocation(0),
-                    Diagnostic(DescriptorNotPreceded).WithLocation(1),
-                },
-                FixedCode = fixedCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+                Diagnostic(DescriptorNotPreceded).WithLocation(0),
+                Diagnostic(DescriptorNotPreceded).WithLocation(1),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Fact]

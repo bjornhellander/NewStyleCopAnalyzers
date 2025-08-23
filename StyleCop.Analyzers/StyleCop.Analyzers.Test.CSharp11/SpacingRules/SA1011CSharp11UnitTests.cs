@@ -5,7 +5,6 @@ namespace StyleCop.Analyzers.Test.CSharp11.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp10.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
@@ -42,16 +41,8 @@ namespace StyleCop.Analyzers.Test.CSharp11.SpacingRules
     }}
 ";
 
-            await new CSharpTest
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net70,
-                TestCode = testCode,
-                ExpectedDiagnostics =
-                {
-                    Diagnostic().WithLocation(0).WithArguments(" not", "followed"),
-                },
-                FixedCode = fixedCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            var expected = Diagnostic().WithLocation(0).WithArguments(" not", "followed");
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }
