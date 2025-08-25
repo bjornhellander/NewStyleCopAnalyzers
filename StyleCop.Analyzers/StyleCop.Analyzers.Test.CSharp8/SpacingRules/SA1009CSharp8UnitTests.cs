@@ -199,13 +199,8 @@ namespace TestNamespace
 }
 ";
 
-            await new CSharpTest()
-            {
-                ReferenceAssemblies = ReferenceAssemblies.NetCore.NetCoreApp31,
-                TestCode = testCode,
-                ExpectedDiagnostics = { Diagnostic(DescriptorNotFollowed).WithLocation(0) },
-                FixedCode = fixedCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            var expected = Diagnostic(DescriptorNotFollowed).WithLocation(0);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

@@ -38,11 +38,7 @@ class Foo
     }
 }";
 
-            await new CSharpTest()
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Fact]
@@ -70,11 +66,7 @@ class Foo
     }
 }";
 
-            await new CSharpTest()
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Fact]
@@ -102,11 +94,7 @@ class Foo
         }
     }";
 
-            await new CSharpTest()
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

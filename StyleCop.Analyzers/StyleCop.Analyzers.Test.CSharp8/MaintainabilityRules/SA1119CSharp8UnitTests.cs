@@ -271,11 +271,7 @@ public class TestClass
 }
 ";
 
-            await new CSharpTest()
-            {
-                ReferenceAssemblies = ReferenceAssemblies.NetCore.NetCoreApp31,
-                TestCode = testCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Fact]
@@ -318,15 +314,7 @@ public class TestClass
                 Diagnostic(ParenthesesDiagnosticId).WithLocation(9, 27),
             };
 
-            var test = new CSharpTest()
-            {
-                ReferenceAssemblies = ReferenceAssemblies.NetCore.NetCoreApp31,
-                TestCode = testCode,
-                FixedCode = fixedCode,
-            };
-            test.ExpectedDiagnostics.AddRange(expected);
-
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

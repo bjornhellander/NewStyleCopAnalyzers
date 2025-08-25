@@ -19,3 +19,4 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp11")]
 [assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp12")]
 [assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp13")]
+[assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp14")]

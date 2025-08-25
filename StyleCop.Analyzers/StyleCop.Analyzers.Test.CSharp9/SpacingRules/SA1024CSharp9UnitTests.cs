@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp8.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1024ColonsMustBeSpacedCorrectly;
@@ -32,26 +31,21 @@ public record MyQuery1() : BaseQuery<object>;
 public record MyQuery2() : BaseQuery<object>;
 public record MyQuery3() : BaseQuery<object>;";
 
-            await new CSharpTest()
+            var expected = new[]
             {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                ExpectedDiagnostics =
-                {
-                    // /0/Test0.cs(3,25): warning SA1024: Colon should be preceded by a space
-                    Diagnostic(DescriptorPreceded).WithLocation(0),
+                // /0/Test0.cs(3,25): warning SA1024: Colon should be preceded by a space
+                Diagnostic(DescriptorPreceded).WithLocation(0),
 
-                    // /0/Test0.cs(3,25): warning SA1024: Colon should be followed by a space
-                    Diagnostic(DescriptorFollowed).WithLocation(0),
+                // /0/Test0.cs(3,25): warning SA1024: Colon should be followed by a space
+                Diagnostic(DescriptorFollowed).WithLocation(0),
 
-                    // /0/Test0.cs(4,25): warning SA1024: Colon should be preceded by a space
-                    Diagnostic(DescriptorPreceded).WithLocation(1),
+                // /0/Test0.cs(4,25): warning SA1024: Colon should be preceded by a space
+                Diagnostic(DescriptorPreceded).WithLocation(1),
 
-                    // /0/Test0.cs(5,26): warning SA1024: Colon should be followed by a space
-                    Diagnostic(DescriptorFollowed).WithLocation(2),
-                },
-                TestCode = testCode,
-                FixedCode = fixedCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+                // /0/Test0.cs(5,26): warning SA1024: Colon should be followed by a space
+                Diagnostic(DescriptorFollowed).WithLocation(2),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

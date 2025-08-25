@@ -84,6 +84,13 @@ namespace StyleCop.Analyzers.Test.Verifiers
             // NOTE: If needed, this method can be temporarily updated to default to a preview version
             private LanguageVersion? GetDefaultLanguageVersion()
             {
+                // Temporary fix since c# 14 is not yet the default language version
+                // in the c# 14 test project.
+                if (LightupHelpers.SupportsCSharp14)
+                {
+                    return LanguageVersionEx.Preview;
+                }
+
                 return null;
             }
         }

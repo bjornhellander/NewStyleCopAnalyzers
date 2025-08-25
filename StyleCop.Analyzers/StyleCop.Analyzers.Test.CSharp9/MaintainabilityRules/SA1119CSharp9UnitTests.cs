@@ -34,11 +34,7 @@ record Foo(int Value)
 }
 ";
 
-            await new CSharpTest()
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -70,18 +66,13 @@ record Foo(int Value)
 }
 ";
 
-            await new CSharpTest()
+            var expected = new[]
             {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-                ExpectedDiagnostics =
-                {
-                    Diagnostic(DiagnosticId).WithLocation(0),
-                    Diagnostic(ParenthesesDiagnosticId).WithLocation(1),
-                    Diagnostic(ParenthesesDiagnosticId).WithLocation(2),
-                },
-                FixedCode = fixedCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+                Diagnostic(DiagnosticId).WithLocation(0),
+                Diagnostic(ParenthesesDiagnosticId).WithLocation(1),
+                Diagnostic(ParenthesesDiagnosticId).WithLocation(2),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -112,18 +103,13 @@ record Foo(int Value)
 }
 ";
 
-            await new CSharpTest()
+            var expected = new[]
             {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-                ExpectedDiagnostics =
-                {
-                    Diagnostic(DiagnosticId).WithLocation(0),
-                    Diagnostic(ParenthesesDiagnosticId).WithLocation(1),
-                    Diagnostic(ParenthesesDiagnosticId).WithLocation(2),
-                },
-                FixedCode = fixedCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+                Diagnostic(DiagnosticId).WithLocation(0),
+                Diagnostic(ParenthesesDiagnosticId).WithLocation(1),
+                Diagnostic(ParenthesesDiagnosticId).WithLocation(2),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Theory]
@@ -146,11 +132,7 @@ record Foo(int Value)
 }}
 ";
 
-            await new CSharpTest()
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

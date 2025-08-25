@@ -22,11 +22,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
         {
             var testCode = @"public record Result(int Value);";
 
-            await new CSharpTest()
-            {
-                ReferenceAssemblies = ReferenceAssemblies.Net.Net50,
-                TestCode = testCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }
