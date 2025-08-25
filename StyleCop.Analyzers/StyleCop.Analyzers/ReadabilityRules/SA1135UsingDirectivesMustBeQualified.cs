@@ -34,6 +34,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly LocalizableString MessageFormatNamespace = new LocalizableResourceString(nameof(ReadabilityResources.SA1135MessageFormatNamespace), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString MessageFormatType = new LocalizableResourceString(nameof(ReadabilityResources.SA1135MessageFormatType), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1135Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
+        private static readonly SymbolDisplayFormat QualifiedTypeDisplayFormatWithKeywords = new SymbolDisplayFormat(SymbolDisplayGlobalNamespaceStyle.Omitted, SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces, SymbolDisplayGenericsOptions.IncludeTypeParameters, miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers);
 
         public static DiagnosticDescriptor DescriptorNamespace { get; } =
             new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatNamespace, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
@@ -114,7 +115,9 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     var containingNamespace = ((BaseNamespaceDeclarationSyntaxWrapper)usingDirective.Parent).Name.ToString();
                     if (containingNamespace != symbol.ContainingNamespace.ToString())
                     {
-                        context.ReportDiagnostic(Diagnostic.Create(DescriptorType, usingDirective.GetLocation(), symbolString));
+                        var typeSymbolForMessage = (ITypeSymbol)symbol;
+                        var messageArg = typeSymbolForMessage.ToDisplayString(QualifiedTypeDisplayFormatWithKeywords);
+                        context.ReportDiagnostic(Diagnostic.Create(DescriptorType, usingDirective.GetLocation(), messageArg));
                     }
 
                     break;
