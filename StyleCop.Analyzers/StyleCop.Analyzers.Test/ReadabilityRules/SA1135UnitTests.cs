@@ -484,7 +484,7 @@ namespace System.Collections
             var fixedCode = @"
 namespace System.Collections
 {
-    using Dictionary = System.Collections.Generic.Dictionary<Int32, String>;
+    using Dictionary = System.Collections.Generic.Dictionary<System.Int32, System.String>;
 }
 ";
 
@@ -509,7 +509,7 @@ namespace System.Collections
             var fixedCode = @"
 namespace System.Collections
 {
-    using Dictionary = System.Collections.Generic.Dictionary<int, String>;
+    using Dictionary = System.Collections.Generic.Dictionary<int, System.String>;
 }
 ";
 
@@ -534,7 +534,7 @@ namespace System.Collections
             var fixedCode = @"
 namespace System.Collections
 {
-    using Map = System.Collections.Generic.Dictionary<Int32, System.Collections.Generic.List<String>>;
+    using Map = System.Collections.Generic.Dictionary<System.Int32, System.Collections.Generic.List<System.String>>;
 }
 ";
 
@@ -559,7 +559,7 @@ namespace System.Collections
             var fixedCode = @"
 namespace System.Collections
 {
-    using Dict = System.Collections.Generic.Dictionary<Int32[], Int32?>;
+    using Dict = System.Collections.Generic.Dictionary<System.Int32[], System.Int32?>;
 }
 ";
 
@@ -601,7 +601,7 @@ namespace System.Collections
 namespace System.Collections
 {
     using D1 = System.Collections.Generic.Dictionary<int, string>;
-    using D2 = System.Collections.Generic.Dictionary<Int32, String>;
+    using D2 = System.Collections.Generic.Dictionary<System.Int32, System.String>;
 }
 ";
 
