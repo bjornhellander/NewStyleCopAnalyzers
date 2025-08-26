@@ -34,7 +34,6 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly LocalizableString MessageFormatNamespace = new LocalizableResourceString(nameof(ReadabilityResources.SA1135MessageFormatNamespace), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString MessageFormatType = new LocalizableResourceString(nameof(ReadabilityResources.SA1135MessageFormatType), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1135Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
-        private static readonly SymbolDisplayFormat QualifiedTypeDisplayFormatWithKeywords = new SymbolDisplayFormat(SymbolDisplayGlobalNamespaceStyle.Omitted, SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces, SymbolDisplayGenericsOptions.IncludeTypeParameters, miscellaneousOptions: SymbolDisplayMiscellaneousOptions.UseSpecialTypes | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers);
 
         public static DiagnosticDescriptor DescriptorNamespace { get; } =
             new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatNamespace, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
@@ -115,8 +114,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     var containingNamespace = ((BaseNamespaceDeclarationSyntaxWrapper)usingDirective.Parent).Name.ToString();
                     if (containingNamespace != symbol.ContainingNamespace.ToString())
                     {
-                        var typeSymbolForMessage = (ITypeSymbol)symbol;
-                        var messageArg = typeSymbolForMessage.ToDisplayString(QualifiedTypeDisplayFormatWithKeywords);
+                        var messageArg = ConvertSpecialTypesToKeywords(symbolString);
                         context.ReportDiagnostic(Diagnostic.Create(DescriptorType, usingDirective.GetLocation(), messageArg));
                     }
 
@@ -223,6 +221,71 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     return false;
                 }
             }
+        }
+
+        private static string ConvertSpecialTypesToKeywords(string text)
+        {
+            (string clr, string kw)[] map = new[]
+            {
+                ("System.Boolean", "bool"),
+                ("System.Byte", "byte"),
+                ("System.SByte", "sbyte"),
+                ("System.Int16", "short"),
+                ("System.UInt16", "ushort"),
+                ("System.Int32", "int"),
+                ("System.UInt32", "uint"),
+                ("System.Int64", "long"),
+                ("System.UInt64", "ulong"),
+                ("System.Single", "float"),
+                ("System.Double", "double"),
+                ("System.Decimal", "decimal"),
+                ("System.Char", "char"),
+                ("System.String", "string"),
+                ("System.Object", "object"),
+                ("System.Void", "void"),
+            };
+
+            foreach (var (clr, kw) in map)
+            {
+                text = ReplaceWholeIdentifier(text, clr, kw);
+            }
+
+            return text;
+        }
+
+        private static string ReplaceWholeIdentifier(string text, string identifier, string replacement)
+        {
+            var sb = StringBuilderPool.Allocate();
+            int i = 0;
+            while (i < text.Length)
+            {
+                if (i + identifier.Length <= text.Length &&
+                    string.CompareOrdinal(text, i, identifier, 0, identifier.Length) == 0 &&
+                    IsBoundary(text, i - 1) &&
+                    IsBoundary(text, i + identifier.Length))
+                {
+                    sb.Append(replacement);
+                    i += identifier.Length;
+                }
+                else
+                {
+                    sb.Append(text[i]);
+                    i++;
+                }
+            }
+
+            return StringBuilderPool.ReturnAndFree(sb);
+        }
+
+        private static bool IsBoundary(string s, int index)
+        {
+            if (index < 0 || index >= s.Length)
+            {
+                return true;
+            }
+
+            char c = s[index];
+            return !(char.IsLetterOrDigit(c) || c == '_');
         }
     }
 }
