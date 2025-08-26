@@ -809,5 +809,55 @@ public class TestType : BaseType
 
             await VerifyCSharpFixAsync(testCode, DefaultTestSettings, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
+
+        [Fact]
+        [WorkItem(3878, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3878")]
+        public async Task DeconstructionAssignmentTargetIgnoredWithPascalCaseInferredTestSettingsAsync()
+        {
+            var testCode = @"
+public class C
+{
+    public void Method((string k, string v) a)
+    {
+        (string k, string v) = a;
+    }
+}
+";
+            await VerifyCSharpDiagnosticAsync(testCode, PascalCaseInferredTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task ForeachDeconstructionTargetIgnoredWithPascalCaseInferredTestSettingsAsync()
+        {
+            var testCode = @"
+using System.Collections.Generic;
+
+public class C
+{
+    public void Method(List<(string k, string v)> list)
+    {
+        foreach ((string k, string v) in list)
+        {
+        }
+    }
+}
+";
+            await VerifyCSharpDiagnosticAsync(testCode, PascalCaseInferredTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task NestedDeconstructionTargetIgnoredWithPascalCaseInferredTestSettingsAsync()
+        {
+            var testCode = @"
+public class C
+{
+    public void M(((string k, string v) pair, int n) a)
+    {
+        ((string k, string v) pair, int n) = a;
+    }
+}
+";
+            await VerifyCSharpDiagnosticAsync(testCode, PascalCaseInferredTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
     }
 }
