@@ -817,7 +817,7 @@ public class TestType : BaseType
             var testCode = @"
 public class C
 {
-    public void Method((string k, string v) a)
+    public void M((string K, string V) a)
     {
         (string k, string v) = a;
     }
@@ -834,7 +834,7 @@ using System.Collections.Generic;
 
 public class C
 {
-    public void Method(List<(string k, string v)> list)
+    public void M(List<(string K, string V)> list)
     {
         foreach ((string k, string v) in list)
         {
@@ -851,12 +851,11 @@ public class C
             var testCode = @"
 public class C
 {
-    public void M(((string k, string v) pair, int n) a)
+    public void M(((string K, string V) Pair, int N) a)
     {
         ((string k, string v) pair, int n) = a;
     }
-}
-";
+}";
             await VerifyCSharpDiagnosticAsync(testCode, PascalCaseInferredTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
     }
