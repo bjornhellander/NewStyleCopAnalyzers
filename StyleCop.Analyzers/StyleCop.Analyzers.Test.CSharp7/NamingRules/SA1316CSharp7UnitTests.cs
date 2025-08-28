@@ -858,5 +858,20 @@ public class C
 }";
             await VerifyCSharpDiagnosticAsync(testCode, PascalCaseInferredTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
+
+        [Fact]
+        public async Task ForeachDeconstructionTargetIgnored_WithPascalCaseInferredAsync()
+        {
+            var testCode = @"
+using System.Collections.Generic;
+public class C
+{
+    public void M(List<(string K, string V)> list)
+    {
+        foreach ((string k, string v) in list) { }
+    }
+}";
+            await VerifyCSharpDiagnosticAsync(testCode, PascalCaseInferredTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
     }
 }
