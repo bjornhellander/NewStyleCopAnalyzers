@@ -183,7 +183,7 @@ public class TestClass
         }
 
         /// <summary>
-        /// Validates the properly explicitly named tuple elements, even when using inferred tuple element names, will not produce diagnostics.
+        /// Validates that properly explicitly named tuple elements will not produce diagnostics.
         /// </summary>
         /// <param name="settings">The test settings to use.</param>
         /// <param name="tupleElementName1">The expected tuple element name for the first field.</param>
@@ -192,25 +192,47 @@ public class TestClass
         /// <param name="tupleInferred2">The name of the second tuple element that would be inferred if not given explicitly.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Theory]
+        [InlineData(CamelCaseTestSettings, "elementName1", "elementName2", "ElementValue1", "ElementValue2")]
         [InlineData(CamelCaseInferredTestSettings, "elementName1", "elementName2", "ElementValue1", "ElementValue2")]
+        [InlineData(PascalCaseTestSettings, "ElementName1", "ElementName2", "elementValue1", "elementValue2")]
         [InlineData(PascalCaseInferredTestSettings, "ElementName1", "ElementName2", "elementValue1", "elementValue2")]
-        public async Task ValidateProperCasedExplicitNamesEvenWithInferredTupleElementNamesAsync(string settings, string tupleElementName1, string tupleElementName2, string tupleInferred1, string tupleInferred2)
+        public async Task ValidateProperCasedExplicitTupleExpressionNamesAsync(string settings, string tupleElementName1, string tupleElementName2, string tupleInferred1, string tupleInferred2)
         {
             var testCode = $@"
 public class TestClass
 {{
-    public void TestMethod1()
+    public void TestMethod(int {tupleInferred1}, string {tupleInferred2})
     {{
-        var {tupleInferred1} = 1;
-        var {tupleInferred2} = ""test"";
         var tuple = ({tupleElementName1}: {tupleInferred1}, {tupleElementName2}: {tupleInferred2});
     }}
+}}
+";
 
-    public void TestMethod2()
+            await VerifyCSharpDiagnosticAsync(LanguageVersion.CSharp7_1.OrLaterDefault(), testCode, settings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Validates that improperly explicitly named tuple elements will produce diagnostics.
+        /// </summary>
+        /// <param name="settings">The test settings to use.</param>
+        /// <param name="tupleElementName1">The expected tuple element name for the first field.</param>
+        /// <param name="tupleElementName2">The expected tuple element name for the second field.</param>
+        /// <param name="tupleInferred1">The name of the first tuple element that would be inferred if not given explicitly.</param>
+        /// <param name="tupleInferred2">The name of the second tuple element that would be inferred if not given explicitly.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Theory]
+        [InlineData(CamelCaseTestSettings, "ElementName1", "ElementName2", "elementValue1", "elementValue2")]
+        [InlineData(CamelCaseInferredTestSettings, "ElementName1", "ElementName2", "elementValue1", "elementValue2")]
+        [InlineData(PascalCaseTestSettings, "elementName1", "elementName2", "ElementValue1", "ElementValue2")]
+        [InlineData(PascalCaseInferredTestSettings, "elementName1", "elementName2", "ElementValue1", "ElementValue2")]
+        public async Task ValidateImproperCasedExplicitTupleExpressionNamesAsync(string settings, string tupleElementName1, string tupleElementName2, string tupleInferred1, string tupleInferred2)
+        {
+            var testCode = $@"
+public class TestClass
+{{
+    public void TestMethod(int {tupleInferred1}, string {tupleInferred2})
     {{
-        var {tupleInferred1} = 1;
-        var {tupleElementName2} = ""test"";
-        var tuple = ({tupleElementName1}: {tupleInferred1}, {tupleElementName2});
+        var tuple = ({tupleElementName1}: [|{tupleInferred1}|], {tupleElementName2}: [|{tupleInferred2}|]);
     }}
 }}
 ";

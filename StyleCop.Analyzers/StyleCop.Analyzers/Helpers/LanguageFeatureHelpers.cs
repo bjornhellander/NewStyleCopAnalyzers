@@ -43,6 +43,7 @@ namespace StyleCop.Analyzers.Helpers
         /// <returns>True if inferred tuple names are supported by the compiler.</returns>
         internal static bool SupportsInferredTupleElementNames(this SyntaxNodeAnalysisContext context)
         {
+            // TODO: Shouldn't this be based on the Roslyn version instead of selected language version?
             var csharpParseOptions = context.Node.SyntaxTree.Options as CSharpParseOptions;
             return (csharpParseOptions != null) && (csharpParseOptions.LanguageVersion >= LanguageVersionEx.CSharp7_1);
         }

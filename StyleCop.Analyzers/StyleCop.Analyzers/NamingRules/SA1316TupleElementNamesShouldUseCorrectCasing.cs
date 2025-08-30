@@ -62,6 +62,7 @@ namespace StyleCop.Analyzers.NamingRules
 
         private static void HandleTupleTypeAction(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
         {
+            // TODO: We have been called, so is this check really needed?
             if (!context.SupportsTuples())
             {
                 return;
@@ -79,23 +80,36 @@ namespace StyleCop.Analyzers.NamingRules
         {
             if (!context.SupportsInferredTupleElementNames())
             {
-                return;
-            }
-
-            if (!settings.NamingRules.IncludeInferredTupleElementNames)
-            {
+                // NOTE: We could have checked explicit names in earlier Roslyn versions, but skipping it for simplicity.
                 return;
             }
 
             var tupleExpression = (TupleExpressionSyntaxWrapper)context.Node;
             foreach (var argument in tupleExpression.Arguments)
             {
-                var inferredMemberName = SyntaxFactsEx.TryGetInferredMemberName(argument.NameColon?.Name ?? argument.Expression);
-                if (inferredMemberName != null)
+                var memberName = TryGetMemberName(argument, settings);
+                if (memberName != null)
                 {
-                    CheckName(context, settings, tupleElement: null, inferredMemberName, argument.Expression.GetLocation(), false);
+                    CheckName(context, settings, tupleElement: null, memberName, argument.Expression.GetLocation(), false);
                 }
             }
+        }
+
+        private static string TryGetMemberName(ArgumentSyntax argument, StyleCopSettings settings)
+        {
+            var explicitName = argument.NameColon?.Name.Identifier.ValueText;
+            if (explicitName != null)
+            {
+                return explicitName;
+            }
+
+            if (settings.NamingRules.IncludeInferredTupleElementNames)
+            {
+                var inferredName = SyntaxFactsEx.TryGetInferredMemberName(argument.Expression);
+                return inferredName;
+            }
+
+            return null;
         }
 
         private static void CheckTupleElement(SyntaxNodeAnalysisContext context, StyleCopSettings settings, TupleElementSyntaxWrapper tupleElement)
