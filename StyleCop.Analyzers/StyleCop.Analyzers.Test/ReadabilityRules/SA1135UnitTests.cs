@@ -613,5 +613,17 @@ namespace System.Collections
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
+
+        [Fact]
+        public async Task TestNoDiagnosticsWhenAliasIsAlreadyFullyQualifiedWithClrNamesAsync()
+        {
+            var testCode = @"
+namespace System.Collections
+{
+    using Dictionary = System.Collections.Generic.Dictionary<System.Int32, System.String>;
+}
+";
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
     }
 }
