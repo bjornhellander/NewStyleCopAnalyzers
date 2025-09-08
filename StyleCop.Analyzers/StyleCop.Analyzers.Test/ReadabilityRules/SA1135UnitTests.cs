@@ -490,7 +490,7 @@ namespace System.Collections
 
             DiagnosticResult[] expected =
             {
-                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(4, 5).WithArguments("System.Collections.Generic.Dictionary<int, string>"),
+                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(4, 5).WithArguments("System.Collections.Generic.Dictionary<System.Int32, System.String>"),
             };
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
@@ -515,7 +515,7 @@ namespace System.Collections
 
             DiagnosticResult[] expected =
             {
-                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(4, 5).WithArguments("System.Collections.Generic.Dictionary<int, string>"),
+                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(4, 5).WithArguments("System.Collections.Generic.Dictionary<int, System.String>"),
             };
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
@@ -540,7 +540,7 @@ namespace System.Collections
 
             DiagnosticResult[] expected =
             {
-                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(4, 5).WithArguments("System.Collections.Generic.Dictionary<int, System.Collections.Generic.List<string>>"),
+                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(4, 5).WithArguments("System.Collections.Generic.Dictionary<System.Int32, System.Collections.Generic.List<System.String>>"),
             };
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
@@ -567,7 +567,7 @@ namespace System.Collections
             {
         Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType)
             .WithLocation(4, 5)
-            .WithArguments("System.Collections.Generic.Dictionary<int[], int?>"),
+            .WithArguments("System.Collections.Generic.Dictionary<System.Int32[], System.Int32?>"),
             };
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
@@ -608,7 +608,7 @@ namespace System.Collections
             DiagnosticResult[] expected =
             {
                 Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(4, 5).WithArguments("System.Collections.Generic.Dictionary<int, string>"),
-                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(5, 5).WithArguments("System.Collections.Generic.Dictionary<int, string>"),
+                Diagnostic(SA1135UsingDirectivesMustBeQualified.DescriptorType).WithLocation(5, 5).WithArguments("System.Collections.Generic.Dictionary<System.Int32, System.String>"),
             };
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
