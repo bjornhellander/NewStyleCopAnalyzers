@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.NamingRules
 {
     using System;
@@ -62,6 +60,7 @@ namespace StyleCop.Analyzers.NamingRules
 
         private static void HandleTupleTypeAction(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
         {
+            // TODO: We have been called, so is this check really needed?
             if (!context.SupportsTuples())
             {
                 return;
@@ -79,23 +78,36 @@ namespace StyleCop.Analyzers.NamingRules
         {
             if (!context.SupportsInferredTupleElementNames())
             {
-                return;
-            }
-
-            if (!settings.NamingRules.IncludeInferredTupleElementNames)
-            {
+                // NOTE: We could have checked explicit names in earlier Roslyn versions, but skipping it for simplicity.
                 return;
             }
 
             var tupleExpression = (TupleExpressionSyntaxWrapper)context.Node;
             foreach (var argument in tupleExpression.Arguments)
             {
-                var inferredMemberName = SyntaxFactsEx.TryGetInferredMemberName(argument.NameColon?.Name ?? argument.Expression);
-                if (inferredMemberName != null)
+                var memberName = TryGetMemberName(argument, settings);
+                if (memberName != null)
                 {
-                    CheckName(context, settings, tupleElement: null, inferredMemberName, argument.Expression.GetLocation(), false);
+                    CheckName(context, settings, tupleElement: null, memberName, argument.Expression.GetLocation(), false);
                 }
             }
+        }
+
+        private static string? TryGetMemberName(ArgumentSyntax argument, StyleCopSettings settings)
+        {
+            var explicitName = argument.NameColon?.Name.Identifier.ValueText;
+            if (explicitName != null)
+            {
+                return explicitName;
+            }
+
+            if (settings.NamingRules.IncludeInferredTupleElementNames)
+            {
+                var inferredName = SyntaxFactsEx.TryGetInferredMemberName(argument.Expression);
+                return inferredName;
+            }
+
+            return null;
         }
 
         private static void CheckTupleElement(SyntaxNodeAnalysisContext context, StyleCopSettings settings, TupleElementSyntaxWrapper tupleElement)
@@ -108,7 +120,7 @@ namespace StyleCop.Analyzers.NamingRules
             CheckName(context, settings, tupleElement.SyntaxNode, tupleElement.Identifier.ValueText, tupleElement.Identifier.GetLocation(), true);
         }
 
-        private static void CheckName(SyntaxNodeAnalysisContext context, StyleCopSettings settings, SyntaxNode tupleElement, string tupleElementName, Location location, bool prepareCodeFix)
+        private static void CheckName(SyntaxNodeAnalysisContext context, StyleCopSettings settings, SyntaxNode? tupleElement, string tupleElementName, Location location, bool prepareCodeFix)
         {
             if (tupleElementName == "_")
             {
@@ -158,7 +170,7 @@ namespace StyleCop.Analyzers.NamingRules
         /// When overriding a base class or implementing an interface, the compiler requires the names to match
         /// the original definition. This method checks if we are allowed to change the name of the specified tuple element.
         /// </summary>
-        private static bool CanTupleElementNameBeChanged(SyntaxNodeAnalysisContext context, SyntaxNode tupleElement)
+        private static bool CanTupleElementNameBeChanged(SyntaxNodeAnalysisContext context, SyntaxNode? tupleElement)
         {
             var memberDeclaration = GetAncestorMemberDeclaration(tupleElement);
             if (memberDeclaration == null)
@@ -184,7 +196,7 @@ namespace StyleCop.Analyzers.NamingRules
         /// Returns the ancestor <see cref="MemberDeclarationSyntax"/>, if the node is part of its "signature",
         /// otherwise returns null.
         /// </summary>
-        private static MemberDeclarationSyntax GetAncestorMemberDeclaration(SyntaxNode node)
+        private static MemberDeclarationSyntax? GetAncestorMemberDeclaration(SyntaxNode? node)
         {
             // NOTE: Avoiding a simple FirstAncestorOrSelf<MemberDeclarationSyntax>() call here, since
             // that would also return true for e.g. tuple variable declarations inside a method body.
