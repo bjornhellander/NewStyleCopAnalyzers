@@ -110,11 +110,6 @@ namespace StyleCop.Analyzers.NamingRules
 
         private static void CheckName(SyntaxNodeAnalysisContext context, StyleCopSettings settings, SyntaxNode tupleElement, string tupleElementName, Location location, bool prepareCodeFix)
         {
-            if (tupleElement != null && IsInDeconstructionTarget(tupleElement))
-            {
-                return;
-            }
-
             if (tupleElementName == "_")
             {
                 return;
@@ -248,40 +243,6 @@ namespace StyleCop.Analyzers.NamingRules
             }
 
             return result;
-        }
-
-        private static bool IsInDeconstructionTarget(SyntaxNode node)
-        {
-            // Assignment deconstruction
-            var assignment = node.FirstAncestorOrSelf<AssignmentExpressionSyntax>();
-            if (assignment?.Left != null && assignment.Left.Span.Contains(node.SpanStart))
-            {
-                return true;
-            }
-
-            // Foreach deconstruction
-            for (SyntaxNode n = node; n != null; n = n.Parent)
-            {
-                if (ForEachVariableStatementSyntaxWrapper.IsInstance(n))
-                {
-                    var fe = (ForEachVariableStatementSyntaxWrapper)n;
-
-                    var variableNode = fe.Variable as SyntaxNode;
-                    if (variableNode != null && variableNode.Span.Contains(node.SpanStart))
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }
-
-                if (n is MemberDeclarationSyntax)
-                {
-                    break;
-                }
-            }
-
-            return false;
         }
     }
 }
