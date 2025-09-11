@@ -83,6 +83,12 @@ namespace StyleCop.Analyzers.NamingRules
             }
 
             var tupleExpression = (TupleExpressionSyntaxWrapper)context.Node;
+
+            if (IsInDeconstructionTarget(tupleExpression.SyntaxNode))
+            {
+                return;
+            }
+
             foreach (var argument in tupleExpression.Arguments)
             {
                 var memberName = TryGetMemberName(argument, settings);
@@ -255,6 +261,40 @@ namespace StyleCop.Analyzers.NamingRules
             }
 
             return result;
+        }
+
+        private static bool IsInDeconstructionTarget(SyntaxNode node)
+        {
+            // Assignment deconstruction
+            var assignment = node.FirstAncestorOrSelf<AssignmentExpressionSyntax>();
+            if (assignment?.Left != null && assignment.Left.Span.Contains(node.Span))
+            {
+                return true;
+            }
+
+            // Foreach deconstruction
+            for (SyntaxNode n = node; n != null && n is not MemberDeclarationSyntax; n = n.Parent)
+            {
+                if (CommonForEachStatementSyntaxWrapper.IsInstance(n))
+                {
+                    var fe = (CommonForEachStatementSyntaxWrapper)n;
+                    var open = fe.OpenParenToken;
+                    var inTk = fe.InKeyword;
+                    if (open != default && inTk != default)
+                    {
+                        var start = open.Span.End;
+                        var end = inTk.SpanStart;
+                        if (node.SpanStart >= start && node.SpanStart < end)
+                        {
+                            return true;
+                        }
+                    }
+
+                    break;
+                }
+            }
+
+            return false;
         }
     }
 }
