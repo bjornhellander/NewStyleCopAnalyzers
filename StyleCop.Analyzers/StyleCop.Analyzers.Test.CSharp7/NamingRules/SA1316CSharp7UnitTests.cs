@@ -829,5 +829,69 @@ public class TestType : BaseType
 
             await VerifyCSharpFixAsync(testCode, DefaultTestSettings, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
+
+        [Fact]
+        [WorkItem(3878, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3878")]
+        public async Task DeconstructionAssignmentTargetIgnoredWithPascalCaseInferredTestSettingsAsync()
+        {
+            var testCode = @"
+public class C
+{
+    public void M((string K, string V) a)
+    {
+        (string k, string v) = a;
+    }
+}
+";
+            await VerifyCSharpDiagnosticAsync(LanguageVersion.CSharp7_1.OrLaterDefault(), testCode, PascalCaseInferredTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task ForeachDeconstructionTargetIgnoredWithPascalCaseInferredTestSettingsAsync()
+        {
+            var testCode = @"
+using System.Collections.Generic;
+
+public class C
+{
+    public void M(List<(string K, string V)> list)
+    {
+        foreach ((string k, string v) in list)
+        {
+        }
+    }
+}
+";
+            await VerifyCSharpDiagnosticAsync(LanguageVersion.CSharp7_1.OrLaterDefault(), testCode, PascalCaseInferredTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task NestedDeconstructionTargetIgnoredWithPascalCaseInferredTestSettingsAsync()
+        {
+            var testCode = @"
+public class C
+{
+    public void M(((string K, string V) Pair, int N) a)
+    {
+        ((string k, string v), int n) = a;
+    }
+}";
+            await VerifyCSharpDiagnosticAsync(LanguageVersion.CSharp7_1.OrLaterDefault(), testCode, PascalCaseInferredTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task ForeachDeconstructionTargetIgnored_WithPascalCaseInferredAsync()
+        {
+            var testCode = @"
+using System.Collections.Generic;
+public class C
+{
+    public void M(List<(string K, string V)> list)
+    {
+        foreach ((string k, string v) in list) { }
+    }
+}";
+            await VerifyCSharpDiagnosticAsync(LanguageVersion.CSharp7_1.OrLaterDefault(), testCode, PascalCaseInferredTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
     }
 }
