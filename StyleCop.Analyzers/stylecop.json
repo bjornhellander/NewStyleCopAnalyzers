@@ -8,9 +8,6 @@
     },
     "layoutRules": {
       "newlineAtEndOfFile": "require"
-    },
-    "namingRules": {
-      "tupleElementNameCasing": "camelCase"
     }
   }
 }

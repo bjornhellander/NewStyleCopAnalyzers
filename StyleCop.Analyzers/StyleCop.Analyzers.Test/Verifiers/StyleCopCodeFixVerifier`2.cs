@@ -152,7 +152,7 @@ namespace StyleCop.Analyzers.Test.Verifiers
                 return;
 
                 // Local function
-                IEnumerable<(string filename, SourceText content)> GenerateSettingsFile()
+                IEnumerable<(string Filename, SourceText Content)> GenerateSettingsFile()
                 {
                     var settings = this.Settings;
 

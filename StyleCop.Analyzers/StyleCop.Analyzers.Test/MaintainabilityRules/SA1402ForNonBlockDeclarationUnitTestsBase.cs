@@ -38,10 +38,10 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
             return test.RunAsync(cancellationToken);
         }
 
-        protected static Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult expected, (string fileName, string content)[] fixedSources, CancellationToken cancellationToken)
+        protected static Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
             => VerifyCSharpFixAsync(source, testSettings, new[] { expected }, fixedSources, cancellationToken);
 
-        protected static Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult[] expected, (string fileName, string content)[] fixedSources, CancellationToken cancellationToken)
+        protected static Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult[] expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
         {
             var test = new StyleCopCodeFixVerifier<SA1402FileMayOnlyContainASingleType, SA1402CodeFixProvider>.CSharpTest
             {
