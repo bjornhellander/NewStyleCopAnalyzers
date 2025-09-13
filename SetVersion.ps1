@@ -11,3 +11,4 @@ function Update-Nuspec-File {
 Update-Nuspec-File -FileName "StyleCop.Analyzers\\StyleCop.Analyzers.CodeFixes\\StyleCop.Analyzers.nuspec"
 
 git commit -m "Set version $version" .
+git tag -a v$version -m "Version $version"
