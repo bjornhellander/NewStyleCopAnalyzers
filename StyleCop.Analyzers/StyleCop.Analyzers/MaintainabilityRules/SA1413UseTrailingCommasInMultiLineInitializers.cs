@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.MaintainabilityRules
 {
     using System;
@@ -62,6 +60,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> HandleAnonymousObjectInitializerAction = HandleAnonymousObjectInitializer;
         private static readonly Action<SyntaxNodeAnalysisContext> HandleEnumDeclarationAction = HandleEnumDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> HandleSwitchExpressionAction = HandleSwitchExpression;
+        private static readonly Action<SyntaxNodeAnalysisContext> HandleCollectionExpressionAction = HandleCollectionExpression;
 
         private static readonly ImmutableArray<SyntaxKind> ObjectInitializerKinds =
             ImmutableArray.Create(SyntaxKind.ObjectInitializerExpression, SyntaxKind.ArrayInitializerExpression, SyntaxKind.CollectionInitializerExpression, SyntaxKindEx.WithInitializerExpression);
@@ -80,6 +79,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             context.RegisterSyntaxNodeAction(HandleAnonymousObjectInitializerAction, SyntaxKind.AnonymousObjectCreationExpression);
             context.RegisterSyntaxNodeAction(HandleEnumDeclarationAction, SyntaxKind.EnumDeclaration);
             context.RegisterSyntaxNodeAction(HandleSwitchExpressionAction, SyntaxKindEx.SwitchExpression);
+            context.RegisterSyntaxNodeAction(HandleCollectionExpressionAction, SyntaxKindEx.CollectionExpression);
         }
 
         private static void HandleEnumDeclaration(SyntaxNodeAnalysisContext context)
@@ -136,6 +136,20 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             if (switchExpression.Arms.SeparatorCount < switchExpression.Arms.Count)
             {
                 context.ReportDiagnostic(Diagnostic.Create(Descriptor, switchExpression.Arms.Last().SyntaxNode.GetLocation()));
+            }
+        }
+
+        private static void HandleCollectionExpression(SyntaxNodeAnalysisContext context)
+        {
+            var collectionExpression = (CollectionExpressionSyntaxWrapper)context.Node;
+            if (collectionExpression.SyntaxNode == null || !collectionExpression.SyntaxNode.SpansMultipleLines())
+            {
+                return;
+            }
+
+            if (collectionExpression.Elements.SeparatorCount < collectionExpression.Elements.Count)
+            {
+                context.ReportDiagnostic(Diagnostic.Create(Descriptor, collectionExpression.Elements.Last().SyntaxNode.GetLocation()));
             }
         }
     }
