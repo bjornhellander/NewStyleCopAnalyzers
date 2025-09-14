@@ -858,7 +858,7 @@ namespace StyleCop.Analyzers.CodeGeneration
         {
             var operationKinds = wrapperTypes
                 .SelectMany(type => type.OperationKinds)
-                .OrderBy(kind => kind.value)
+                .OrderBy(kind => kind.Value)
                 .ToImmutableArray();
 
             var members = SyntaxFactory.List<MemberDeclarationSyntax>();
@@ -871,11 +871,11 @@ namespace StyleCop.Analyzers.CodeGeneration
                     declaration: SyntaxFactory.VariableDeclaration(
                         type: SyntaxFactory.IdentifierName("OperationKind"),
                         variables: SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator(
-                            identifier: SyntaxFactory.Identifier(operationKind.name),
+                            identifier: SyntaxFactory.Identifier(operationKind.Name),
                             argumentList: null,
                             initializer: SyntaxFactory.EqualsValueClause(SyntaxFactory.CastExpression(
                                 type: SyntaxFactory.IdentifierName("OperationKind"),
-                                expression: SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal($"0x{operationKind.value:x}", operationKind.value)))))))));
+                                expression: SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal($"0x{operationKind.Value:x}", operationKind.Value)))))))));
             }
 
             var operationKindExClass = SyntaxFactory.ClassDeclaration(
@@ -923,7 +923,7 @@ namespace StyleCop.Analyzers.CodeGeneration
 
                     if (!operationKinds.TryGetValue(node.RequiredAttribute("Name").Value, out var kinds))
                     {
-                        kinds = ImmutableArray<(string name, int value, string? extraDescription)>.Empty;
+                        kinds = ImmutableArray<(string Name, int Value, string? ExtraDescription)>.Empty;
                     }
 
                     var interfaceData = new InterfaceData(this, node, kinds);
@@ -939,7 +939,7 @@ namespace StyleCop.Analyzers.CodeGeneration
 
                     if (!operationKinds.TryGetValue(node.RequiredAttribute("Name").Value, out var kinds))
                     {
-                        kinds = ImmutableArray<(string name, int value, string? extraDescription)>.Empty;
+                        kinds = ImmutableArray<(string Name, int Value, string? ExtraDescription)>.Empty;
                     }
 
                     var interfaceData = new InterfaceData(this, node, kinds);
@@ -951,11 +951,11 @@ namespace StyleCop.Analyzers.CodeGeneration
 
             public ReadOnlyDictionary<string, InterfaceData> Interfaces { get; }
 
-            private static ImmutableDictionary<string, ImmutableArray<(string name, int value, string? extraDescription)>> GetOperationKinds(XDocument document)
+            private static ImmutableDictionary<string, ImmutableArray<(string Name, int Value, string? ExtraDescription)>> GetOperationKinds(XDocument document)
             {
                 var skippedOperationKinds = GetSkippedOperationKinds(document);
 
-                var builder = ImmutableDictionary.CreateBuilder<string, ImmutableArray<(string name, int value, string? extraDescription)>>();
+                var builder = ImmutableDictionary.CreateBuilder<string, ImmutableArray<(string Name, int Value, string? ExtraDescription)>>();
 
                 int operationKind = 0;
                 foreach (var node in document.XPathSelectElements("/Tree/AbstractNode|/Tree/Node"))
@@ -978,7 +978,7 @@ namespace StyleCop.Analyzers.CodeGeneration
                         }
                         else if (explicitKind.XPathSelectElements("Entry").Any())
                         {
-                            var nodeBuilder = ImmutableArray.CreateBuilder<(string name, int value, string? extraDescription)>();
+                            var nodeBuilder = ImmutableArray.CreateBuilder<(string Name, int Value, string? ExtraDescription)>();
                             foreach (var entry in explicitKind.XPathSelectElements("Entry"))
                             {
                                 if (entry.Attribute("EditorBrowsable")?.Value == "false")
@@ -1047,7 +1047,7 @@ namespace StyleCop.Analyzers.CodeGeneration
         {
             private readonly DocumentData documentData;
 
-            public InterfaceData(DocumentData documentData, XElement node, ImmutableArray<(string name, int value, string? extraDescription)> operationKinds)
+            public InterfaceData(DocumentData documentData, XElement node, ImmutableArray<(string Name, int Value, string? ExtraDescription)> operationKinds)
             {
                 this.documentData = documentData;
 
@@ -1077,7 +1077,7 @@ namespace StyleCop.Analyzers.CodeGeneration
                 this.Properties = node.XPathSelectElements("Property").Select(property => new PropertyData(property)).ToImmutableArray();
             }
 
-            public ImmutableArray<(string name, int value, string? extraDescription)> OperationKinds { get; }
+            public ImmutableArray<(string Name, int Value, string? ExtraDescription)> OperationKinds { get; }
 
             public string InterfaceName { get; }
 

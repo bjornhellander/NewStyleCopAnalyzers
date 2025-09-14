@@ -324,10 +324,10 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
             return test.RunAsync(cancellationToken);
         }
 
-        protected Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult expected, (string fileName, string content)[] fixedSources, CancellationToken cancellationToken)
+        protected Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
             => this.VerifyCSharpFixAsync(source, testSettings, new[] { expected }, fixedSources, cancellationToken);
 
-        protected Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult[] expected, (string fileName, string content)[] fixedSources, CancellationToken cancellationToken)
+        protected Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult[] expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
         {
             var test = new CSharpTest(this)
             {
