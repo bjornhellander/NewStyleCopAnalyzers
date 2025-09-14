@@ -158,7 +158,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                     .Where(d => d.Id == "CS8019")
                     .Select(d => root.FindNode(d.Location.SourceSpan))
                     .OfType<UsingDirectiveSyntax>()
-                    .Where(u => !HasCommentTrivia(u))
+                    .Where(u => !HasRelevantTrivia(u))
                     .ToList();
 
                 if (unusedUsings.Count > 0)
@@ -184,15 +184,22 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             return false;
         }
 
-        private static bool HasCommentTrivia(UsingDirectiveSyntax usingDirective)
+        private static bool HasRelevantTrivia(UsingDirectiveSyntax usingDirective)
         {
-            bool hasComment = usingDirective.GetTrailingTrivia().Any(t =>
-                t.IsKind(SyntaxKind.SingleLineCommentTrivia) ||
-                t.IsKind(SyntaxKind.MultiLineCommentTrivia) ||
-                t.IsKind(SyntaxKind.SingleLineDocumentationCommentTrivia) ||
-                t.IsKind(SyntaxKind.MultiLineDocumentationCommentTrivia));
+            var leadingTrivia = usingDirective.GetLeadingTrivia();
+            var hasLeadingComment = leadingTrivia.Any(t =>
+                !t.IsKind(SyntaxKind.WhitespaceTrivia) &&
+                !t.IsKind(SyntaxKind.EndOfLineTrivia));
+            if (hasLeadingComment)
+            {
+                return true;
+            }
 
-            return hasComment;
+            var trailingTrivia = usingDirective.GetTrailingTrivia();
+            var hasTrailingComment = trailingTrivia.Any(t =>
+                !t.IsKind(SyntaxKind.WhitespaceTrivia) &&
+                !t.IsKind(SyntaxKind.EndOfLineTrivia));
+            return hasTrailingComment;
         }
     }
 }

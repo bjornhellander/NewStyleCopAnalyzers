@@ -2208,6 +2208,68 @@ namespace TestNamespace
                 .ConfigureAwait(false);
         }
 
+        [Fact]
+        public async Task TestCodeFixDoesNotRemoveFileHeaderInSourceFile_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+";
+
+            // TODO: Would be nice to remove the unnecessary using directive in the original file
+            // TODO: Would be nice to remove the blank line before the type in the new file
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
         protected override string GetSettings()
         {
             return this.SettingsConfiguration.GetSettings(this.SettingKeyword);
