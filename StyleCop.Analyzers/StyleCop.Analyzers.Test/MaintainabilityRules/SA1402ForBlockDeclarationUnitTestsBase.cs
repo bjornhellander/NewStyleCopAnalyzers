@@ -2230,15 +2230,12 @@ namespace TestNamespace
 }}
 ";
 
-            // TODO: Would be nice to remove the unnecessary using directive in the original file
             // TODO: Would be nice to remove the blank line before the type in the new file
             var fixedCode = new[]
             {
         ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
-
-using System;
 
 namespace TestNamespace
 {{
