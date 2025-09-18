@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Composition;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
@@ -20,6 +19,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
     [Shared]
     internal class IndentationCodeFixProvider : CodeFixProvider
     {
+        private static readonly DiagnosticComparer Comparer = new();
+
         /// <inheritdoc/>
         public override ImmutableArray<string> FixableDiagnosticIds { get; } =
             ImmutableArray.Create(SA1137ElementsShouldHaveTheSameIndentation.DiagnosticId);
@@ -92,7 +93,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             protected override string CodeActionTitle =>
                 ReadabilityResources.IndentationCodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<SyntaxNode?> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
@@ -103,7 +104,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
                 List<TextChange> changes = new List<TextChange>();
 
-                foreach (var diagnostic in diagnostics)
+                foreach (var diagnostic in diagnostics.Distinct(Comparer))
                 {
                     TextChange textChange;
                     if (TryGetTextChange(diagnostic, syntaxRoot, out textChange))
@@ -116,6 +117,21 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
                 var text = await document.GetTextAsync().ConfigureAwait(false);
                 return await document.WithText(text.WithChanges(changes)).GetSyntaxRootAsync(fixAllContext.CancellationToken).ConfigureAwait(false);
+            }
+        }
+
+        // TODO: Temporarily added to get rid of duplicated diagnostics. Remove again when possible.
+        // Reported in https://github.com/dotnet/roslyn/issues/80319
+        private class DiagnosticComparer : IEqualityComparer<Diagnostic>
+        {
+            public bool Equals(Diagnostic x, Diagnostic y)
+            {
+                return x.Location == y.Location;
+            }
+
+            public int GetHashCode(Diagnostic obj)
+            {
+                return obj.Location.GetHashCode();
             }
         }
     }

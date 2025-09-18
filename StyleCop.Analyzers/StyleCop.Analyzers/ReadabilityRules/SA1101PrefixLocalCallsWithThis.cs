@@ -261,12 +261,14 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 case SyntaxKind.EventDeclaration:
                 case SyntaxKind.IndexerDeclaration:
                     var basePropertySyntax = (BasePropertyDeclarationSyntax)node;
-                    return !basePropertySyntax.Modifiers.Any(SyntaxKind.StaticKeyword);
+                    return !basePropertySyntax.Modifiers.Any(SyntaxKind.StaticKeyword)
+                        && !basePropertySyntax.Parent.IsKind(SyntaxKindEx.ExtensionDeclaration);
 
                 case SyntaxKind.PropertyDeclaration:
                     var propertySyntax = (PropertyDeclarationSyntax)node;
                     return !propertySyntax.Modifiers.Any(SyntaxKind.StaticKeyword)
-                        && propertySyntax.Initializer == null;
+                        && propertySyntax.Initializer == null // TODO: Check this exception!
+                        && !propertySyntax.Parent.IsKind(SyntaxKindEx.ExtensionDeclaration);
 
                 case SyntaxKind.MultiLineDocumentationCommentTrivia:
                 case SyntaxKind.SingleLineDocumentationCommentTrivia:
@@ -276,7 +278,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 case SyntaxKind.DestructorDeclaration:
                 case SyntaxKind.MethodDeclaration:
                     var baseMethodSyntax = (BaseMethodDeclarationSyntax)node;
-                    return !baseMethodSyntax.Modifiers.Any(SyntaxKind.StaticKeyword);
+                    return !baseMethodSyntax.Modifiers.Any(SyntaxKind.StaticKeyword)
+                        && !baseMethodSyntax.Parent.IsKind(SyntaxKindEx.ExtensionDeclaration);
 
                 case SyntaxKind.Attribute:
                     return false;
