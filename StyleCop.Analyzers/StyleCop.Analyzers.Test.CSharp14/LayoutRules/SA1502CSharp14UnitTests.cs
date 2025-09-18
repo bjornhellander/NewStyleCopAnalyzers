@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.LayoutRules
     public partial class SA1502CSharp14UnitTests : SA1502CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionBlockAsync()
+        public async Task TestExtensionDeclarationAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -40,6 +40,7 @@ public static class TestClass
                 Diagnostic().WithSpan(5, 5, 5, 6),
                 Diagnostic().WithSpan(5, 5, 5, 6),
             };
+
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
     }

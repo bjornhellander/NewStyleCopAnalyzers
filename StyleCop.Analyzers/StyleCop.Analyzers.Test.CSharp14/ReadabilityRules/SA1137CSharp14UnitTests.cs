@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.ReadabilityRules
     public partial class SA1137CSharp14UnitTests : SA1137CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionBlockAsync()
+        public async Task TestExtensionDeclarationAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -49,11 +49,12 @@ public static class TestClass
                 Diagnostic().WithSpan(8, 1, 8, 8),
                 Diagnostic().WithSpan(8, 1, 8, 8),
             };
+
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Fact]
-        public async Task TestGenericExtensionBlockConstraintsAsync()
+        public async Task TestGenericExtensionDeclarationConstraintsAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -88,6 +89,7 @@ public static class TestClass
                 Diagnostic().WithSpan(7, 1, 7, 8),
                 Diagnostic().WithSpan(7, 1, 7, 8),
             };
+
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
     }
