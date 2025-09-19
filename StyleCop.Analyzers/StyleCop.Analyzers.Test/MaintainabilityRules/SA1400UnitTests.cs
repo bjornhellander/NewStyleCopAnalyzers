@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.MaintainabilityRules
 {
     using System.Threading;
@@ -549,7 +547,7 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
             await this.TestNestedDeclarationWithDirectivesAsync("private", "TypeName", $"{keyword} TypeName", "{\n}", warning: warning).ConfigureAwait(false);
         }
 
-        private async Task TestDeclarationAsync(string modifier, string identifier, string keywordLine, string linesAfter, string elementName = null, bool warning = true)
+        private async Task TestDeclarationAsync(string modifier, string identifier, string keywordLine, string linesAfter, string? elementName = null, bool warning = true)
         {
             var testCode = $@"
  {Tab} {keywordLine}
@@ -570,7 +568,7 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
             await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
         }
 
-        private async Task TestDeclarationWithAttributesAsync(string modifier, string identifier, string keywordLine, string linesAfter, string elementName = null, bool warning = true)
+        private async Task TestDeclarationWithAttributesAsync(string modifier, string identifier, string keywordLine, string linesAfter, string? elementName = null, bool warning = true)
         {
             var testCode = $@"using System;
   [Obsolete]
@@ -593,7 +591,7 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
             await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
         }
 
-        private async Task TestDeclarationWithDirectivesAsync(string modifier, string identifier, string keywordLine, string linesAfter, string elementName = null, bool warning = true)
+        private async Task TestDeclarationWithDirectivesAsync(string modifier, string identifier, string keywordLine, string linesAfter, string? elementName = null, bool warning = true)
         {
             var testCode = $@"
  #  if true
@@ -618,7 +616,7 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
             await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
         }
 
-        private async Task TestNestedDeclarationAsync(string modifier, string identifier, string keywordLine, string linesAfter, string containingType = "class", string baseTypeList = "", string baseTypeDeclarations = "", string elementName = null, bool warning = true)
+        private async Task TestNestedDeclarationAsync(string modifier, string identifier, string keywordLine, string linesAfter, string containingType = "class", string baseTypeList = "", string baseTypeDeclarations = "", string? elementName = null, bool warning = true)
         {
             var testCode = $@"using System;
 public {containingType} OuterTypeName {baseTypeList} {{
@@ -643,7 +641,7 @@ public {containingType} OuterTypeName {baseTypeList} {{
             await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
         }
 
-        private async Task TestNestedDeclarationWithAttributesAsync(string modifier, string identifier, string keywordLine, string linesAfter, string containingType = "class", string baseTypeList = "", string baseTypeDeclarations = "", string elementName = null, bool warning = true)
+        private async Task TestNestedDeclarationWithAttributesAsync(string modifier, string identifier, string keywordLine, string linesAfter, string containingType = "class", string baseTypeList = "", string baseTypeDeclarations = "", string? elementName = null, bool warning = true)
         {
             var testCode = $@"using System;
 public {containingType} OuterTypeName {baseTypeList} {{
@@ -670,7 +668,7 @@ public {containingType} OuterTypeName {baseTypeList} {{
             await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
         }
 
-        private async Task TestNestedDeclarationWithDirectivesAsync(string modifier, string identifier, string keywordLine, string linesAfter, string containingType = "class", string baseTypeList = "", string baseTypeDeclarations = "", string elementName = null, bool warning = true)
+        private async Task TestNestedDeclarationWithDirectivesAsync(string modifier, string identifier, string keywordLine, string linesAfter, string containingType = "class", string baseTypeList = "", string baseTypeDeclarations = "", string? elementName = null, bool warning = true)
         {
             var testCode = $@"using System;
 public {containingType} OuterTypeName {baseTypeList} {{
