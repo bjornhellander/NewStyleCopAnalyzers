@@ -163,7 +163,93 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
                 if (unusedUsings.Count > 0)
                 {
+                    // Check if we need to preserve file header from the first token
+                    var firstToken = root.GetFirstToken(includeZeroWidth: true);
+                    SyntaxTriviaList fileHeaderTrivia = default;
+                    bool shouldPreserveHeader = false;
+
+                    if (!firstToken.IsKind(SyntaxKind.None))
+                    {
+                        var leadingTrivia = firstToken.LeadingTrivia;
+                        var headerTrivia = new List<SyntaxTrivia>();
+                        bool inHeader = false;
+
+                        // Extract file header comments from the beginning
+                        for (int i = 0; i < leadingTrivia.Count; i++)
+                        {
+                            var trivia = leadingTrivia[i];
+
+                            if (trivia.IsKind(SyntaxKind.SingleLineCommentTrivia) ||
+                                trivia.IsKind(SyntaxKind.MultiLineCommentTrivia))
+                            {
+                                headerTrivia.Add(trivia);
+                                inHeader = true;
+                            }
+                            else if (inHeader && (trivia.IsKind(SyntaxKind.EndOfLineTrivia) ||
+                                                  trivia.IsKind(SyntaxKind.WhitespaceTrivia)))
+                            {
+                                headerTrivia.Add(trivia);
+                            }
+                            else if (inHeader)
+                            {
+                                // End of header - add one final newline if not already present
+                                if (headerTrivia.Count > 0 && !headerTrivia.Last().IsKind(SyntaxKind.EndOfLineTrivia))
+                                {
+                                    headerTrivia.Add(SyntaxFactory.CarriageReturnLineFeed);
+                                }
+
+                                break;
+                            }
+                        }
+
+                        if (headerTrivia.Count > 0)
+                        {
+                            fileHeaderTrivia = SyntaxFactory.TriviaList(headerTrivia);
+                            shouldPreserveHeader = true;
+                        }
+                    }
+
                     var cleanedRoot = root.RemoveNodes(unusedUsings, SyntaxRemoveOptions.KeepUnbalancedDirectives);
+
+                    if (shouldPreserveHeader && fileHeaderTrivia.Count > 0)
+                    {
+                        var newFirstToken = cleanedRoot.GetFirstToken(includeZeroWidth: true);
+                        if (!newFirstToken.IsKind(SyntaxKind.None))
+                        {
+                            // Remove any existing leading trivia that might be header-related from the new first token
+                            var existingLeadingTrivia = newFirstToken.LeadingTrivia;
+                            var filteredTrivia = new List<SyntaxTrivia>();
+                            bool pastHeader = false;
+
+                            foreach (var trivia in existingLeadingTrivia)
+                            {
+                                if (!pastHeader && (trivia.IsKind(SyntaxKind.SingleLineCommentTrivia) ||
+                                                   trivia.IsKind(SyntaxKind.MultiLineCommentTrivia)))
+                                {
+                                    // Skip header comments that are already in fileHeaderTrivia
+                                    continue;
+                                }
+
+                                if (!pastHeader && trivia.IsKind(SyntaxKind.EndOfLineTrivia))
+                                {
+                                    pastHeader = true;
+                                    continue; // Skip the first newline after header
+                                }
+
+                                if (!pastHeader && trivia.IsKind(SyntaxKind.WhitespaceTrivia))
+                                {
+                                    continue; // Skip whitespace in header area
+                                }
+
+                                pastHeader = true;
+                                filteredTrivia.Add(trivia);
+                            }
+
+                            var newFirstTokenWithHeader = newFirstToken.WithLeadingTrivia(fileHeaderTrivia.AddRange(SyntaxFactory.TriviaList(filteredTrivia)));
+                            cleanedRoot = cleanedRoot.ReplaceToken(newFirstToken, newFirstTokenWithHeader);
+                        }
+                    }
+
                     solution = solution.WithDocumentSyntaxRoot(documentId, cleanedRoot);
                 }
             }
@@ -186,20 +272,13 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
         private static bool HasRelevantTrivia(UsingDirectiveSyntax usingDirective)
         {
-            var leadingTrivia = usingDirective.GetLeadingTrivia();
-            var hasLeadingComment = leadingTrivia.Any(t =>
-                !t.IsKind(SyntaxKind.WhitespaceTrivia) &&
-                !t.IsKind(SyntaxKind.EndOfLineTrivia));
-            if (hasLeadingComment)
-            {
-                return true;
-            }
+            bool hasComment = usingDirective.GetTrailingTrivia().Any(t =>
+                t.IsKind(SyntaxKind.SingleLineCommentTrivia) ||
+                t.IsKind(SyntaxKind.MultiLineCommentTrivia) ||
+                t.IsKind(SyntaxKind.SingleLineDocumentationCommentTrivia) ||
+                t.IsKind(SyntaxKind.MultiLineDocumentationCommentTrivia));
 
-            var trailingTrivia = usingDirective.GetTrailingTrivia();
-            var hasTrailingComment = trailingTrivia.Any(t =>
-                !t.IsKind(SyntaxKind.WhitespaceTrivia) &&
-                !t.IsKind(SyntaxKind.EndOfLineTrivia));
-            return hasTrailingComment;
+            return hasComment;
         }
     }
 }
