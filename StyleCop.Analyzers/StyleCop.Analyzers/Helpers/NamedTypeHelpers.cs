@@ -106,6 +106,14 @@ namespace StyleCop.Analyzers.Helpers
         internal static Location GetNameOrIdentifierLocation(SyntaxNode member)
         {
             Location location = null;
+
+            // TODO: Re-write this?
+            if (member.IsKind(SyntaxKindEx.ExtensionDeclaration))
+            {
+                var extensionDeclaration = (ExtensionDeclarationSyntaxWrapper)member;
+                location = extensionDeclaration.Keyword.GetLocation();
+            }
+
             location = location ?? (member as PropertyDeclarationSyntax)?.Identifier.GetLocation();
             location = location ?? (member as FieldDeclarationSyntax)?.Declaration?.Variables.FirstOrDefault()?.Identifier.GetLocation();
             location = location ?? (member as MethodDeclarationSyntax)?.Identifier.GetLocation();

@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
+// TODO: Seems to have poor code coverage. Improve tests!
 namespace StyleCop.Analyzers.OrderingRules
 {
     using System;
@@ -47,6 +46,7 @@ namespace StyleCop.Analyzers.OrderingRules
     /// <item><description>Events</description></item>
     /// <item><description>Enums</description></item>
     /// <item><description>Interfaces</description></item>
+    /// <item><description>Extensions</description></item>
     /// <item><description>Properties</description></item>
     /// <item><description>Indexers</description></item>
     /// <item><description>Methods</description></item>
@@ -141,6 +141,7 @@ namespace StyleCop.Analyzers.OrderingRules
             SyntaxKind.EventDeclaration,
             SyntaxKind.EnumDeclaration,
             SyntaxKind.InterfaceDeclaration,
+            SyntaxKindEx.ExtensionDeclaration,
             SyntaxKind.PropertyDeclaration,
             SyntaxKind.IndexerDeclaration,
             SyntaxKind.ConversionOperatorDeclaration,
@@ -160,6 +161,7 @@ namespace StyleCop.Analyzers.OrderingRules
             [SyntaxKind.ClassDeclaration] = "class",
             [SyntaxKindEx.RecordDeclaration] = "record",
             [SyntaxKindEx.RecordStructDeclaration] = "record struct",
+            [SyntaxKindEx.ExtensionDeclaration] = "extension",
             [SyntaxKind.FieldDeclaration] = "field",
             [SyntaxKind.ConstructorDeclaration] = "constructor",
             [SyntaxKind.DestructorDeclaration] = "destructor",
@@ -303,7 +305,9 @@ namespace StyleCop.Analyzers.OrderingRules
                     var nextElementMemberName = MemberNames.GetValueOrDefault(nextElementSyntaxKind, "<unknown>");
                     var elementMemberName = MemberNames.GetValueOrDefault(elementSyntaxKind, "<unknown>");
 
-                    context.ReportDiagnostic(Diagnostic.Create(Descriptor, NamedTypeHelpers.GetNameOrIdentifierLocation(members[i + 1]), nextElementMemberName, elementMemberName));
+                    var location = NamedTypeHelpers.GetNameOrIdentifierLocation(members[i + 1]);
+                    var diagnostic = Diagnostic.Create(Descriptor, location, nextElementMemberName, elementMemberName);
+                    context.ReportDiagnostic(diagnostic);
                 }
             }
         }
