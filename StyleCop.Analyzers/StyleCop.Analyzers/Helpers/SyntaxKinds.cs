@@ -31,6 +31,7 @@ namespace StyleCop.Analyzers.Helpers
         /// A collection of <see cref="SyntaxKind"/> values which appear in the syntax tree as a
         /// <see cref="BaseTypeDeclarationSyntax"/>.
         /// </value>
+        // NOTE: Intentionally not adding ExtentionDeclaration here, since it affects a lot of analyzers, like SA16xx
         public static ImmutableArray<SyntaxKind> BaseTypeDeclaration { get; } =
             ImmutableArray.Create(
                 SyntaxKind.ClassDeclaration,
@@ -38,8 +39,7 @@ namespace StyleCop.Analyzers.Helpers
                 SyntaxKind.InterfaceDeclaration,
                 SyntaxKind.EnumDeclaration,
                 SyntaxKindEx.RecordDeclaration,
-                SyntaxKindEx.RecordStructDeclaration,
-                SyntaxKindEx.ExtensionDeclaration);
+                SyntaxKindEx.RecordStructDeclaration);
 
         /// <summary>
         /// Gets a collection of <see cref="SyntaxKind"/> values which appear in the syntax tree as a
@@ -49,14 +49,14 @@ namespace StyleCop.Analyzers.Helpers
         /// A collection of <see cref="SyntaxKind"/> values which appear in the syntax tree as a
         /// <see cref="TypeDeclarationSyntax"/>.
         /// </value>
+        // NOTE: Intentionally not adding ExtentionDeclaration here, since it affects a lot of analyzers, like SA16xx
         public static ImmutableArray<SyntaxKind> TypeDeclaration { get; } =
             ImmutableArray.Create(
                 SyntaxKind.ClassDeclaration,
                 SyntaxKind.StructDeclaration,
                 SyntaxKind.InterfaceDeclaration,
                 SyntaxKindEx.RecordDeclaration,
-                SyntaxKindEx.RecordStructDeclaration,
-                SyntaxKindEx.ExtensionDeclaration);
+                SyntaxKindEx.RecordStructDeclaration);
 
         /// <summary>
         /// Gets a collection of <see cref="SyntaxKind"/> values which appear in the syntax tree as a

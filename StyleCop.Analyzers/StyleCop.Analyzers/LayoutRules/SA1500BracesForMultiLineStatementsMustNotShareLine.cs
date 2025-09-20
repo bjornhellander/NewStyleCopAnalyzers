@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.LayoutRules
 {
     using System;
@@ -94,6 +92,7 @@ namespace StyleCop.Analyzers.LayoutRules
             {
                 context.RegisterSyntaxNodeAction(NamespaceDeclarationAction, SyntaxKind.NamespaceDeclaration);
                 context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
+                context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.ExtensionDeclaration);
                 context.RegisterSyntaxNodeAction(AccessorListAction, SyntaxKind.AccessorList);
                 context.RegisterSyntaxNodeAction(BlockAction, SyntaxKind.Block);
                 context.RegisterSyntaxNodeAction(SwitchStatementAction, SyntaxKind.SwitchStatement);

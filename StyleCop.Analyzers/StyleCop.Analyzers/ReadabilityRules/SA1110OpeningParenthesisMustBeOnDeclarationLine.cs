@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
@@ -80,6 +78,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.EnableConcurrentExecution();
 
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
+            context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKindEx.ExtensionDeclaration);
             context.RegisterSyntaxNodeAction(PrimaryConstructorBaseTypeAction, SyntaxKindEx.PrimaryConstructorBaseType);
             context.RegisterSyntaxNodeAction(MethodDeclarationAction, SyntaxKind.MethodDeclaration);
             context.RegisterSyntaxNodeAction(LocalFunctionStatementAction, SyntaxKindEx.LocalFunctionStatement);
@@ -188,7 +187,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         {
             var attribute = (AttributeSyntax)context.Node;
 
-            IdentifierNameSyntax identifierNameSyntax = null;
+            IdentifierNameSyntax? identifierNameSyntax = null;
             if (attribute.Name is QualifiedNameSyntax qualifiedNameSyntax)
             {
                 identifierNameSyntax = qualifiedNameSyntax.DescendantNodes().OfType<IdentifierNameSyntax>().LastOrDefault();
