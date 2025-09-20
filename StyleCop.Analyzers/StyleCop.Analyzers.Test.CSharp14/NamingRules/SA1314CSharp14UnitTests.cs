@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.NamingRules
     public partial class SA1314CSharp14UnitTests : SA1314CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationeAsync()
+        public async Task TestExtensionDeclarationAsync()
         {
             var testCode = @"
 public static class TestClass
