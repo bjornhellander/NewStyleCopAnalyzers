@@ -36,6 +36,8 @@ public static class TestClass
 }
 ";
 
+            // TODO: Syntax node actions seems to be triggered twice
+            // Reported in https://github.com/dotnet/roslyn/issues/80319
             var expected = new[]
             {
                 Diagnostic().WithLocation(0),
