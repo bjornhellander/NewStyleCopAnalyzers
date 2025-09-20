@@ -1026,7 +1026,7 @@ public class TestClass
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
 
-        private async Task TestWhitespaceInStatementOrDeclAsync(string originalStatement, string fixedStatement, params DiagnosticResult[] expected)
+        private async Task TestWhitespaceInStatementOrDeclAsync(string originalStatement, string? fixedStatement, params DiagnosticResult[] expected)
         {
             string template = @"namespace Foo
 {{
