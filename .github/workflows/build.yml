@@ -30,5 +30,8 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v5
 
-    - name: Build & Test
-      run: dotnet test StyleCop.Analyzers/StyleCop.Analyzers.${{matrix.test}}/StyleCop.Analyzers.${{matrix.test}}.csproj -c ${{matrix.configuration}} --verbosity normal
+    - name: Build
+      run: dotnet build -c ${{matrix.configuration}} /p:BuildInParallel=false /p:MSBuildDisableParallelBuild=true
+
+    - name: Test
+      run: dotnet test StyleCop.Analyzers/StyleCop.Analyzers.${{matrix.test}}/StyleCop.Analyzers.${{matrix.test}}.csproj -c ${{matrix.configuration}} --no-build
