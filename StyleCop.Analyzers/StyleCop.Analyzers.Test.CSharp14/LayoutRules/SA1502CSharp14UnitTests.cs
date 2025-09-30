@@ -3,9 +3,45 @@
 
 namespace StyleCop.Analyzers.Test.CSharp14.LayoutRules
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using StyleCop.Analyzers.Test.CSharp13.LayoutRules;
+    using Xunit;
+    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+        StyleCop.Analyzers.LayoutRules.SA1502ElementMustNotBeOnASingleLine,
+        StyleCop.Analyzers.LayoutRules.SA1502CodeFixProvider>;
 
     public partial class SA1502CSharp14UnitTests : SA1502CSharp13UnitTests
     {
+        [Fact]
+        public async Task TestExtensionDeclarationAsync()
+        {
+            var testCode = @"
+public static class TestClass
+{
+    extension(string source)
+    { }
+}
+";
+
+            var fixedCode = @"
+public static class TestClass
+{
+    extension(string source)
+    {
+    }
+}
+";
+
+            // TODO: Syntax node actions seems to be triggered twice
+            // Reported in https://github.com/dotnet/roslyn/issues/80319
+            var expected = new[]
+            {
+                Diagnostic().WithSpan(5, 5, 5, 6),
+                Diagnostic().WithSpan(5, 5, 5, 6),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+        }
     }
 }

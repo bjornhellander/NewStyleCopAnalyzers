@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
@@ -85,6 +83,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.EnableConcurrentExecution();
 
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
+            context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKindEx.ExtensionDeclaration);
             context.RegisterSyntaxNodeAction(PrimaryConstructorBaseTypeAction, SyntaxKindEx.PrimaryConstructorBaseType);
             context.RegisterSyntaxNodeAction(BaseMethodDeclarationAction, HandledMethodSyntaxKinds);
             context.RegisterSyntaxNodeAction(LocalFunctionStatementAction, SyntaxKindEx.LocalFunctionStatement);
@@ -232,7 +231,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             CheckArgumentList(context, typeDeclarationSyntax.ArgumentList);
         }
 
-        private static void CheckParameterList(SyntaxNodeAnalysisContext context, ParameterListSyntax parameterList)
+        private static void CheckParameterList(SyntaxNodeAnalysisContext context, ParameterListSyntax? parameterList)
         {
             if (parameterList == null || parameterList.IsMissing || !parameterList.Parameters.Any())
             {

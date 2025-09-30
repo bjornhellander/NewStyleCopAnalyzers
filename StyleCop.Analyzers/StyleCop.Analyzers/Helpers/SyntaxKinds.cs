@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using System.Collections.Immutable;
@@ -33,6 +31,7 @@ namespace StyleCop.Analyzers.Helpers
         /// A collection of <see cref="SyntaxKind"/> values which appear in the syntax tree as a
         /// <see cref="BaseTypeDeclarationSyntax"/>.
         /// </value>
+        // NOTE: Intentionally not adding ExtentionDeclaration here, since it affects a lot of analyzers, like SA16xx
         public static ImmutableArray<SyntaxKind> BaseTypeDeclaration { get; } =
             ImmutableArray.Create(
                 SyntaxKind.ClassDeclaration,
@@ -50,6 +49,7 @@ namespace StyleCop.Analyzers.Helpers
         /// A collection of <see cref="SyntaxKind"/> values which appear in the syntax tree as a
         /// <see cref="TypeDeclarationSyntax"/>.
         /// </value>
+        // NOTE: Intentionally not adding ExtentionDeclaration here, since it affects a lot of analyzers, like SA16xx
         public static ImmutableArray<SyntaxKind> TypeDeclaration { get; } =
             ImmutableArray.Create(
                 SyntaxKind.ClassDeclaration,
