@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.SpacingRules
     public partial class SA1015CSharp14UnitTests : SA1015CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationWithSpaceBeforeBracketAsync()
+        public async Task TestExtensionBlockDeclarationWithSpaceBeforeBracketAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -41,7 +41,7 @@ public static class TestClass
         }
 
         [Fact]
-        public async Task TestExtensionDeclarationWithSpaceAfterBracketAsync()
+        public async Task TestExtensionBlockDeclarationWithSpaceAfterBracketAsync()
         {
             var testCode = @"
 public static class TestClass

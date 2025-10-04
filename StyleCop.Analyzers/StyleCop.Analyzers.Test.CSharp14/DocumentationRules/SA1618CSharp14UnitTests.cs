@@ -12,7 +12,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.DocumentationRules
     public partial class SA1618CSharp14UnitTests : SA1618CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationWithoutTypeParametersAsync()
+        public async Task TestExtensionBlockDeclarationWithoutTypeParametersAsync()
         {
             var testCode = @"
 /// <summary>
@@ -32,7 +32,7 @@ public static class TestClass
         }
 
         [Fact]
-        public async Task TestExtensionDeclarationWithMissingDocumentationAsync()
+        public async Task TestExtensionBlockDeclarationWithMissingDocumentationAsync()
         {
             var testCode = @"
 /// <summary>
@@ -52,7 +52,7 @@ public static class TestClass
         }
 
         [Fact]
-        public async Task TestExtensionDeclarationWithDocumentationAsync()
+        public async Task TestExtensionBlockDeclarationWithDocumentationAsync()
         {
             var testCode = @"
 /// <summary>

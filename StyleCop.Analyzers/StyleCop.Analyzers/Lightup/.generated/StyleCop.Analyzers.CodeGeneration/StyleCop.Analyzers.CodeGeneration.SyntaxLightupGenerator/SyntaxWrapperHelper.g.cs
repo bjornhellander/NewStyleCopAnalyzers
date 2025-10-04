@@ -42,7 +42,8 @@ namespace StyleCop.Analyzers.Lightup
             builder.Add(typeof(ExpressionColonSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(ExpressionColonSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(ExpressionElementSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(ExpressionElementSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(ExpressionOrPatternSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(ExpressionOrPatternSyntaxWrapper.WrappedTypeName));
-            builder.Add(typeof(ExtensionDeclarationSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(ExtensionDeclarationSyntaxWrapper.WrappedTypeName));
+            builder.Add(typeof(ExtensionBlockDeclarationSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(ExtensionBlockDeclarationSyntaxWrapper.WrappedTypeName));
+            builder.Add(typeof(ExtensionMemberCrefSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(ExtensionMemberCrefSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(FieldExpressionSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(FieldExpressionSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(FileScopedNamespaceDeclarationSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(FileScopedNamespaceDeclarationSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(ForEachVariableStatementSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(ForEachVariableStatementSyntaxWrapper.WrappedTypeName));

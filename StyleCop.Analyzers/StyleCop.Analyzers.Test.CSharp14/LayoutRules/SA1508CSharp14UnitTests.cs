@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.LayoutRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp13.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
@@ -14,7 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.LayoutRules
     public partial class SA1508CSharp14UnitTests : SA1508CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationAsync()
+        public async Task TestExtensionBlockDeclarationAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -23,7 +24,7 @@ public static class TestClass
     {
         public int Length1 => source.Length;
 
-    }
+    [|}|]
 }
 ";
 
@@ -37,15 +38,7 @@ public static class TestClass
 }
 ";
 
-            // TODO: Syntax node actions seems to be triggered twice
-            // Reported in https://github.com/dotnet/roslyn/issues/80319
-            var expected = new[]
-            {
-                Diagnostic().WithSpan(8, 5, 8, 6),
-                Diagnostic().WithSpan(8, 5, 8, 6),
-            };
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

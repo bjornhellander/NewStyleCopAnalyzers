@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.ReadabilityRules
     public partial class SA1137CSharp14UnitTests : SA1137CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationAsync()
+        public async Task TestExtensionBlockDeclarationAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -40,13 +40,9 @@ public static class TestClass
 }
 ";
 
-            // TODO: Syntax node actions seems to be triggered twice
-            // Reported in https://github.com/dotnet/roslyn/issues/80319
             var expected = new[]
             {
                 Diagnostic().WithSpan(7, 1, 7, 10),
-                Diagnostic().WithSpan(7, 1, 7, 10),
-                Diagnostic().WithSpan(8, 1, 8, 8),
                 Diagnostic().WithSpan(8, 1, 8, 8),
             };
 
@@ -54,7 +50,7 @@ public static class TestClass
         }
 
         [Fact]
-        public async Task TestGenericExtensionDeclarationConstraintsAsync()
+        public async Task TestGenericExtensionBlockDeclarationConstraintsAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -80,13 +76,9 @@ public static class TestClass
 }
 ";
 
-            // TODO: Syntax node actions seems to be triggered twice
-            // Reported in https://github.com/dotnet/roslyn/issues/80319
             var expected = new[]
             {
                 Diagnostic().WithSpan(6, 1, 6, 10),
-                Diagnostic().WithSpan(6, 1, 6, 10),
-                Diagnostic().WithSpan(7, 1, 7, 8),
                 Diagnostic().WithSpan(7, 1, 7, 8),
             };
 

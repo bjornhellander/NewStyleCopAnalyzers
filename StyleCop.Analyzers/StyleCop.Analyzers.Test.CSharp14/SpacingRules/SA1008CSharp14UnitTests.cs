@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp13.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly;
@@ -15,7 +16,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.SpacingRules
     public partial class SA1008CSharp14UnitTests : SA1008CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationWithSpaceBeforeParenthesisAsync()
+        public async Task TestExtensionBlockDeclarationWithSpaceBeforeParenthesisAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -41,7 +42,7 @@ public static class TestClass
         }
 
         [Fact]
-        public async Task TestExtensionDeclarationWithSpaceAfterParenthesisAsync()
+        public async Task TestExtensionBlockDeclarationWithSpaceAfterParenthesisAsync()
         {
             var testCode = @"
 public static class TestClass

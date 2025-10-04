@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.SpacingRules
     public partial class SA1009CSharp14UnitTests : SA1009CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationAsync()
+        public async Task TestExtensionBlockDeclarationAsync()
         {
             var testCode = @"
 public static class TestClass

@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.ReadabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp13.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
@@ -14,13 +15,13 @@ namespace StyleCop.Analyzers.Test.CSharp14.ReadabilityRules
     public partial class SA1111CSharp14UnitTests : SA1111CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationWithParameterNameAsync()
+        public async Task TestExtensionBlockDeclarationWithParameterNameAsync()
         {
             string testCode = @"
 public static class TestClass
 {
     extension(string source
-        {|#0:)|}
+        [|)|]
     {
     }
 }
@@ -35,25 +36,17 @@ public static class TestClass
 }
 ";
 
-            // TODO: Syntax node actions seems to be triggered twice
-            // Reported in https://github.com/dotnet/roslyn/issues/80319
-            var expected = new[]
-            {
-                Diagnostic().WithLocation(0),
-                Diagnostic().WithLocation(0),
-            };
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Fact]
-        public async Task TestExtensionDeclarationWithoutParameterNameAsync()
+        public async Task TestExtensionBlockDeclarationWithoutParameterNameAsync()
         {
             string testCode = @"
 public static class TestClass
 {
     extension(string
-        {|#0:)|}
+        [|)|]
     {
     }
 }
@@ -68,15 +61,7 @@ public static class TestClass
 }
 ";
 
-            // TODO: Syntax node actions seems to be triggered twice
-            // Reported in https://github.com/dotnet/roslyn/issues/80319
-            var expected = new[]
-            {
-                Diagnostic().WithLocation(0),
-                Diagnostic().WithLocation(0),
-            };
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }

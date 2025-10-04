@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.ReadabilityRules
     public partial class SA1101CSharp14UnitTests : SA1101CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationPropertyAsync()
+        public async Task TestExtensionBlockDeclarationPropertyAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -31,23 +31,7 @@ public static class TestClass
         }
 
         [Fact]
-        public async Task TestExtensionDeclarationIndexerAsync()
-        {
-            var testCode = @"
-public static class TestClass
-{
-    extension(object source)
-    {
-        public object? this[int index] => source;
-    }
-}
-";
-
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
-        }
-
-        [Fact]
-        public async Task TestExtensionDeclarationMethodAsync()
+        public async Task TestExtensionBlockDeclarationMethodAsync()
         {
             var testCode = @"
 public static class TestClass

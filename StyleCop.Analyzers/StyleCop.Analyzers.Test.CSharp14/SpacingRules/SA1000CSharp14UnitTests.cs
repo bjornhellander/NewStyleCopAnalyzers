@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.SpacingRules
         [Theory]
         [InlineData("")]
         [InlineData(" ")]
-        public async Task TestExtensionDeclarationAsync(string spaces)
+        public async Task TestExtensionBlockDeclarationAsync(string spaces)
         {
             var testCode = $@"
 public static class TestClass
