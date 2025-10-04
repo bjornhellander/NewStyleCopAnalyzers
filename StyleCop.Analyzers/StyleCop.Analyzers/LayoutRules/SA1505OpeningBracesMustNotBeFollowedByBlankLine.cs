@@ -77,7 +77,7 @@ namespace StyleCop.Analyzers.LayoutRules
             context.RegisterSyntaxNodeAction(SwitchStatementAction, SyntaxKind.SwitchStatement);
             context.RegisterSyntaxNodeAction(NamespaceDeclarationAction, SyntaxKind.NamespaceDeclaration);
             context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
-            context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.ExtensionDeclaration);
+            context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.ExtensionBlockDeclaration);
             context.RegisterSyntaxNodeAction(AccessorListAction, SyntaxKind.AccessorList);
         }
 

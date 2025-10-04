@@ -55,10 +55,8 @@ namespace StyleCop.Analyzers.Lightup
         public static bool SupportsCSharp13 { get; }
             = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp13));
 
-        // NOTE: Since c# 14 is only in preview yet, we need to check something else than available language versions. Picked a new syntax kind temporarily.
-        // TODO: Update when c# 14 is available as a language version.
         public static bool SupportsCSharp14 { get; }
-            = Enum.GetNames(typeof(SyntaxKind)).Contains(nameof(SyntaxKindEx.ExtensionDeclaration));
+            = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp14));
 
         public static bool SupportsIOperation => SupportsCSharp73;
 

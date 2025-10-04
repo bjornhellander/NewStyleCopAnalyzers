@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.LayoutRules
     public partial class SA1516CSharp14UnitTests : SA1516CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationsAsync()
+        public async Task TestExtensionBlockDeclarationsAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -46,7 +46,7 @@ public static class TestClass
         }
 
         [Fact]
-        public async Task TestInsideExtensionDeclarationAsync()
+        public async Task TestInsideExtensionBlockDeclarationAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -71,13 +71,7 @@ public static class TestClass
 }
 ";
 
-            // TODO: Syntax node actions seems to be triggered twice
-            // Reported in https://github.com/dotnet/roslyn/issues/80319
-            var expected = new[]
-            {
-                Diagnostic().WithSpan(7, 1, 7, 9),
-                Diagnostic().WithSpan(7, 1, 7, 9),
-            };
+            var expected = Diagnostic().WithSpan(7, 1, 7, 9);
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }

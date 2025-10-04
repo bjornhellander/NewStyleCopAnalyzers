@@ -262,13 +262,13 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 case SyntaxKind.IndexerDeclaration:
                     var basePropertySyntax = (BasePropertyDeclarationSyntax)node;
                     return !basePropertySyntax.Modifiers.Any(SyntaxKind.StaticKeyword)
-                        && !basePropertySyntax.Parent.IsKind(SyntaxKindEx.ExtensionDeclaration);
+                        && !basePropertySyntax.Parent.IsKind(SyntaxKindEx.ExtensionBlockDeclaration);
 
                 case SyntaxKind.PropertyDeclaration:
                     var propertySyntax = (PropertyDeclarationSyntax)node;
                     return !propertySyntax.Modifiers.Any(SyntaxKind.StaticKeyword)
                         && propertySyntax.Initializer == null // TODO: Check this exception!
-                        && !propertySyntax.Parent.IsKind(SyntaxKindEx.ExtensionDeclaration);
+                        && !propertySyntax.Parent.IsKind(SyntaxKindEx.ExtensionBlockDeclaration);
 
                 case SyntaxKind.MultiLineDocumentationCommentTrivia:
                 case SyntaxKind.SingleLineDocumentationCommentTrivia:
@@ -279,7 +279,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 case SyntaxKind.MethodDeclaration:
                     var baseMethodSyntax = (BaseMethodDeclarationSyntax)node;
                     return !baseMethodSyntax.Modifiers.Any(SyntaxKind.StaticKeyword)
-                        && !baseMethodSyntax.Parent.IsKind(SyntaxKindEx.ExtensionDeclaration);
+                        && !baseMethodSyntax.Parent.IsKind(SyntaxKindEx.ExtensionBlockDeclaration);
 
                 case SyntaxKind.Attribute:
                     return false;

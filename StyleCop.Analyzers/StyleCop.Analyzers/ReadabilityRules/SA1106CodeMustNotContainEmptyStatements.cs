@@ -50,7 +50,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
             context.RegisterSyntaxNodeAction(EmptyStatementAction, SyntaxKind.EmptyStatement);
             context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
-            context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.ExtensionDeclaration);
+            context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.ExtensionBlockDeclaration);
             context.RegisterSyntaxNodeAction(NamespaceDeclarationAction, SyntaxKind.NamespaceDeclaration);
         }
 
