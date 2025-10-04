@@ -377,7 +377,7 @@ class MyClass
             var testCode = @"
 namespace TestNamespace
 {
-    using Example = System.Collections.Immutable.ImmutableDictionary<int, int>.Builder;
+    using Example = System.Collections.Generic.List<int>.Enumerator;
 }
 ";
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);

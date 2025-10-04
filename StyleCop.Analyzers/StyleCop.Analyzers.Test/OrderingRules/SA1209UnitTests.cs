@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.OrderingRules
 {
     using System.Threading;
@@ -238,10 +236,10 @@ using MyList = System.Collections.Generic.List<int>;
 
 #if true
 using Threads = System.Threading;
-using Microsoft.CodeAnalysis;
+using Newtonsoft.Json;
 #else
 using Threads = System.Threading;
-using Microsoft.CodeAnalysis;
+using Newtonsoft.Json;
 #endif";
 
             var fixedTestCode = @"
@@ -250,11 +248,11 @@ using Microsoft.Win32;
 using MyList = System.Collections.Generic.List<int>;
 
 #if true
-using Microsoft.CodeAnalysis;
+using Newtonsoft.Json;
 using Threads = System.Threading;
 #else
 using Threads = System.Threading;
-using Microsoft.CodeAnalysis;
+using Newtonsoft.Json;
 #endif";
 
             // else block is skipped
