@@ -2230,15 +2230,12 @@ namespace TestNamespace
 }}
 ";
 
-            // TODO: Would be nice to remove the unnecessary using directive in the original file
             // TODO: Would be nice to remove the blank line before the type in the new file
             var fixedCode = new[]
             {
         ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
-
-using System;
 
 namespace TestNamespace
 {{
@@ -2266,6 +2263,2058 @@ namespace TestNamespace
 
             var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
 
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesTwoUsingsFromFirstType_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
+using System.Linq;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+
+        {this.MemberModifier} IQueryable<int> Query {{ get; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
+using System.Linq;
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+
+        {this.MemberModifier} IQueryable<int> Query {{ get; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesUsingsFromBothTypes_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
+using System.Linq;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderKeepsUsingsInBothTypes_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime Created {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime Created {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System;
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesUsingsFromSecondType_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System.Collections.Generic;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System.Collections.Generic;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderKeepsAliasInBothTypes_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Col = System.Collections.Generic;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col.List<string> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} Col.List<int> Numbers {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Col = System.Collections.Generic;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col.List<string> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Col = System.Collections.Generic;
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} Col.List<int> Numbers {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesAliasFromFirstType_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Col = System.Collections.Generic;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} Col.List<int> Numbers {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Col = System.Collections.Generic;
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} Col.List<int> Numbers {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesAliasFromSecondType_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Col = System.Collections.Generic;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col.List<string> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Col = System.Collections.Generic;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col.List<string> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesAliasFromBothTypes_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Col = System.Collections.Generic;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderKeepsStaticUsingInBothTypes_UsingsOutsideNamespaceAsync()
+        {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using static System.Math;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double A() => Abs(-1.0);
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} double B() => Abs(-2.0);
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using static System.Math;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double A() => Abs(-1.0);
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using static System.Math;
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} double B() => Abs(-2.0);
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesStaticUsingFromFirstType_UsingsOutsideNamespaceAsync()
+        {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using static System.Math;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} double B() => Abs(-2.0);
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using static System.Math;
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} double B() => Abs(-2.0);
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesStaticUsingFromSecondType_UsingsOutsideNamespaceAsync()
+        {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using static System.Math;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double A() => Abs(-1.0);
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using static System.Math;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double A() => Abs(-1.0);
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesStaticUsingFromBothTypes_UsingsOutsideNamespaceAsync()
+        {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using static System.Math;
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderKeepsNeededUsingsAndPreprocessorDirectivesFromBothTypes_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime Created {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime Created {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderDoesNotRemoveUneededUsingsWithPreprocessorDirectivesFromFirstType_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderDoesNotRemoveUsingsWithPreprocessorDirectivesFromSecondType_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime Created {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime Created {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderDoesNotRemoveUsingsWithPreprocessorDirectivesFromBothTypes_UsingsOutsideNamespaceAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+#if true
+using System;
+#endif
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesTwoUsingsFromFirstTypeAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System;
+    using System.Linq;
+
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+
+        {this.MemberModifier} IQueryable<int> Query {{ get; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System;
+    using System.Linq;
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+
+        {this.MemberModifier} IQueryable<int> Query {{ get; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesUsingsFromBothTypesAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System;
+    using System.Linq;
+
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderKeepsUsingsInBothTypesAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime Created {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime Created {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System;
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesUsingsFromSecondTypeAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderKeepsAliasInBothTypesAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col.List<string> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} Col.List<int> Numbers {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col.List<string> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} Col.List<int> Numbers {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesAliasFromFirstTypeAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} Col.List<int> Numbers {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} Col.List<int> Numbers {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesAliasFromSecondTypeAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col.List<string> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} Col.List<string> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesAliasFromBothTypesAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using Col = System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderKeepsStaticUsingInBothTypesAsync()
+        {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double A() => Abs(-1.0);
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} double B() => Abs(-2.0);
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double A() => Abs(-1.0);
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} double B() => Abs(-2.0);
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesStaticUsingFromFirstTypeAsync()
+        {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} double B() => Abs(-2.0);
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} double B() => Abs(-2.0);
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesStaticUsingFromSecondTypeAsync()
+        {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double A() => Abs(-1.0);
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} double A() => Abs(-1.0);
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderRemovesStaticUsingFromBothTypesAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using static System.Math;
+
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderDoesNotRemoveUsingsWithPreprocessorFromBothTypesAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+#if true
+    using System;
+#endif
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime A {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime B {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+#if true
+    using System;
+#endif
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime A {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+#if true
+    using System;
+
+#endif
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime B {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderDoesNotRemoveUsingsWithPreprocessorFromFirstTypeAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+#if true
+    using System;
+#endif
+
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime B {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+#if true
+    using System;
+#endif
+
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+#if true
+    using System;
+
+#endif
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime B {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderDoesNotRemoveUsingsWithPreprocessorFromSecondTypeAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+#if true
+    using System;
+#endif
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime A {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+#if true
+    using System;
+#endif
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} DateTime A {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+#if true
+    using System;
+
+#endif
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderDoesNotRemoveUnnecessaryUsingInFirstTypeDueToCommentAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System; // Interesting comment
+    using System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System; // Interesting comment
+    using System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System; // Interesting comment
+
+    public {this.Keyword} TestType2
+    {{
+        {this.MemberModifier} DateTime Date {{ get; set; }}
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderDoesNotRemoveUnnecessaryUsingInSecondTypeDueToCommentAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System; // Interesting comment
+    using System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System; // Interesting comment
+    using System.Collections.Generic;
+
+    public {this.Keyword} TestType
+    {{
+        {this.MemberModifier} List<string> Items {{ get; set; }}
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System; // Interesting comment
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
+            await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestCodeFixWithFileHeaderDoesNotRemoveUnnecessaryUsingInBothTypesDueToCommentAsync()
+        {
+            var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System; // Interesting comment
+
+    public {this.Keyword} TestType
+    {{
+    }}
+
+    public {this.Keyword} {{|#0:TestType2|}}
+    {{
+    }}
+}}
+";
+
+            var fixedCode = new[]
+            {
+        ("/0/Test0.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System; // Interesting comment
+
+    public {this.Keyword} TestType
+    {{
+    }}
+}}
+"),
+        ("TestType2.cs", $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TestNamespace
+{{
+    using System; // Interesting comment
+
+    public {this.Keyword} TestType2
+    {{
+    }}
+}}
+"),
+            };
+
+            var expected = new[] { this.Diagnostic().WithLocation(0).WithArguments("not", "preceded"), };
             await this.VerifyCSharpFixAsync(testCode, this.GetSettings(), expected, fixedCode, CancellationToken.None)
                 .ConfigureAwait(false);
         }
