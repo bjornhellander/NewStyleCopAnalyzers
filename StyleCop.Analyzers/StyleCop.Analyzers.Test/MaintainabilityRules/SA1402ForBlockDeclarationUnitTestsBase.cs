@@ -2287,7 +2287,7 @@ namespace TestNamespace
     {{
         {this.MemberModifier} DateTime Date {{ get; set; }}
 
-        {this.MemberModifier} int CountInts(int[] a) => a.Count();
+        {this.MemberModifier} IQueryable<int> Query {{ get; }}
     }}
 }}
 ";
@@ -2319,7 +2319,7 @@ namespace TestNamespace
     {{
         {this.MemberModifier} DateTime Date {{ get; set; }}
 
-        {this.MemberModifier} int CountInts(int[] a) => a.Count();
+        {this.MemberModifier} IQueryable<int> Query {{ get; }}
     }}
 }}
 "),
@@ -3258,7 +3258,7 @@ namespace TestNamespace
     {{
         {this.MemberModifier} DateTime Date {{ get; set; }}
 
-        {this.MemberModifier} int CountInts(int[] a) => a.Count();
+        {this.MemberModifier} IQueryable<int> Query {{ get; }}
     }}
 }}
 ";
@@ -3290,7 +3290,7 @@ namespace TestNamespace
     {{
         {this.MemberModifier} DateTime Date {{ get; set; }}
 
-        {this.MemberModifier} int CountInts(int[] a) => a.Count();
+        {this.MemberModifier} IQueryable<int> Query {{ get; }}
     }}
 }}
 "),
@@ -3704,6 +3704,11 @@ namespace TestNamespace
         [Fact]
         public async Task TestCodeFixWithFileHeaderKeepsStaticUsingInBothTypesAsync()
         {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
             var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
@@ -3764,6 +3769,11 @@ namespace TestNamespace
         [Fact]
         public async Task TestCodeFixWithFileHeaderRemovesStaticUsingFromFirstTypeAsync()
         {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
             var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
@@ -3821,6 +3831,11 @@ namespace TestNamespace
         [Fact]
         public async Task TestCodeFixWithFileHeaderRemovesStaticUsingFromSecondTypeAsync()
         {
+            if (!this.SupportsStaticMemberUsageInBodies)
+            {
+                return;
+            }
+
             var testCode = $@"// <copyright file=""TestFile.cs"" company=""PlaceholderCompany"">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
