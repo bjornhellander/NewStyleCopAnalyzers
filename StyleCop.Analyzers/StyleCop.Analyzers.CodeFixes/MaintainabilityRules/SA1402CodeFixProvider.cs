@@ -171,7 +171,6 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                     continue;
                 }
 
-                // Remove all unused usings in one shot.
                 var cleanedRoot = root.RemoveNodes(unusedUsings, SyntaxRemoveOptions.KeepUnbalancedDirectives);
 
                 // If the file had a header, make sure the new first token still has it.
