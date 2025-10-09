@@ -151,107 +151,48 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                     continue;
                 }
 
+                var firstToken = root.GetFirstToken(includeZeroWidth: true);
+                var headerTrivia = firstToken.LeadingTrivia;
+                bool hasHeader = headerTrivia.Any(IsCommentOrDoc);
+
                 var semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
                 var diagnostics = semanticModel.GetDiagnostics();
 
                 var unusedUsings = diagnostics
-                    .Where(d => d.Id == "CS8019")
+                    .Where(d => d.Id == "CS8019" && d.Location.SourceTree == root.SyntaxTree)
                     .Select(d => root.FindNode(d.Location.SourceSpan))
                     .OfType<UsingDirectiveSyntax>()
-                    .Where(u => !HasRelevantTrivia(u))
+                    .Where(u => !HasTrailingTrivia(u))
+                    .OrderBy(u => u.SpanStart)
                     .ToList();
 
-                if (unusedUsings.Count > 0)
+                if (unusedUsings.Count == 0)
                 {
-                    // Check if we need to preserve file header from the first token
-                    var firstToken = root.GetFirstToken(includeZeroWidth: true);
-                    SyntaxTriviaList fileHeaderTrivia = default;
-                    bool shouldPreserveHeader = false;
-
-                    if (!firstToken.IsKind(SyntaxKind.None))
-                    {
-                        var leadingTrivia = firstToken.LeadingTrivia;
-                        var headerTrivia = new List<SyntaxTrivia>();
-                        bool inHeader = false;
-
-                        // Extract file header comments from the beginning
-                        for (int i = 0; i < leadingTrivia.Count; i++)
-                        {
-                            var trivia = leadingTrivia[i];
-
-                            if (trivia.IsKind(SyntaxKind.SingleLineCommentTrivia) ||
-                                trivia.IsKind(SyntaxKind.MultiLineCommentTrivia))
-                            {
-                                headerTrivia.Add(trivia);
-                                inHeader = true;
-                            }
-                            else if (inHeader && (trivia.IsKind(SyntaxKind.EndOfLineTrivia) ||
-                                                  trivia.IsKind(SyntaxKind.WhitespaceTrivia)))
-                            {
-                                headerTrivia.Add(trivia);
-                            }
-                            else if (inHeader)
-                            {
-                                // End of header - add one final newline if not already present
-                                if (headerTrivia.Count > 0 && !headerTrivia.Last().IsKind(SyntaxKind.EndOfLineTrivia))
-                                {
-                                    headerTrivia.Add(SyntaxFactory.CarriageReturnLineFeed);
-                                }
-
-                                break;
-                            }
-                        }
-
-                        if (headerTrivia.Count > 0)
-                        {
-                            fileHeaderTrivia = SyntaxFactory.TriviaList(headerTrivia);
-                            shouldPreserveHeader = true;
-                        }
-                    }
-
-                    var cleanedRoot = root.RemoveNodes(unusedUsings, SyntaxRemoveOptions.KeepUnbalancedDirectives);
-
-                    if (shouldPreserveHeader && fileHeaderTrivia.Count > 0)
-                    {
-                        var newFirstToken = cleanedRoot.GetFirstToken(includeZeroWidth: true);
-                        if (!newFirstToken.IsKind(SyntaxKind.None))
-                        {
-                            // Remove any existing leading trivia that might be header-related from the new first token
-                            var existingLeadingTrivia = newFirstToken.LeadingTrivia;
-                            var filteredTrivia = new List<SyntaxTrivia>();
-                            bool pastHeader = false;
-
-                            foreach (var trivia in existingLeadingTrivia)
-                            {
-                                if (!pastHeader && (trivia.IsKind(SyntaxKind.SingleLineCommentTrivia) ||
-                                                   trivia.IsKind(SyntaxKind.MultiLineCommentTrivia)))
-                                {
-                                    // Skip header comments that are already in fileHeaderTrivia
-                                    continue;
-                                }
-
-                                if (!pastHeader && trivia.IsKind(SyntaxKind.EndOfLineTrivia))
-                                {
-                                    pastHeader = true;
-                                    continue; // Skip the first newline after header
-                                }
-
-                                if (!pastHeader && trivia.IsKind(SyntaxKind.WhitespaceTrivia))
-                                {
-                                    continue; // Skip whitespace in header area
-                                }
-
-                                pastHeader = true;
-                                filteredTrivia.Add(trivia);
-                            }
-
-                            var newFirstTokenWithHeader = newFirstToken.WithLeadingTrivia(fileHeaderTrivia.AddRange(SyntaxFactory.TriviaList(filteredTrivia)));
-                            cleanedRoot = cleanedRoot.ReplaceToken(newFirstToken, newFirstTokenWithHeader);
-                        }
-                    }
-
-                    solution = solution.WithDocumentSyntaxRoot(documentId, cleanedRoot);
+                    continue;
                 }
+
+                // Remove all unused usings in one shot.
+                var cleanedRoot = root.RemoveNodes(unusedUsings, SyntaxRemoveOptions.KeepUnbalancedDirectives);
+
+                // If the file had a header, make sure the new first token still has it.
+                if (hasHeader)
+                {
+                    var cleanedFirst = cleanedRoot.GetFirstToken(includeZeroWidth: true);
+                    var cleanedHasHeader = cleanedFirst.LeadingTrivia.Any(IsCommentOrDoc);
+
+                    if (!cleanedHasHeader)
+                    {
+                        var newFirst = cleanedFirst.WithLeadingTrivia(headerTrivia.Concat(cleanedFirst.LeadingTrivia));
+                        cleanedRoot = cleanedRoot.ReplaceToken(cleanedFirst, newFirst);
+
+                        if (cleanedRoot is CompilationUnitSyntax cleanedCompilationUnit)
+                        {
+                            cleanedRoot = CollapseExtraEolAfterHeaderPreserveSpacing(cleanedCompilationUnit);
+                        }
+                    }
+                }
+
+                solution = solution.WithDocumentSyntaxRoot(documentId, cleanedRoot);
             }
 
             return solution;
@@ -270,15 +211,83 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             return false;
         }
 
-        private static bool HasRelevantTrivia(UsingDirectiveSyntax usingDirective)
-        {
-            bool hasComment = usingDirective.GetTrailingTrivia().Any(t =>
-                t.IsKind(SyntaxKind.SingleLineCommentTrivia) ||
-                t.IsKind(SyntaxKind.MultiLineCommentTrivia) ||
-                t.IsKind(SyntaxKind.SingleLineDocumentationCommentTrivia) ||
-                t.IsKind(SyntaxKind.MultiLineDocumentationCommentTrivia));
+        private static bool IsCommentOrDoc(SyntaxTrivia t) =>
+           t.IsKind(SyntaxKind.SingleLineCommentTrivia) ||
+           t.IsKind(SyntaxKind.MultiLineCommentTrivia) ||
+           t.IsKind(SyntaxKind.SingleLineDocumentationCommentTrivia) ||
+           t.IsKind(SyntaxKind.MultiLineDocumentationCommentTrivia);
 
-            return hasComment;
+        private static bool HasTrailingTrivia(UsingDirectiveSyntax usingDirective)
+        {
+            var trailingTrivia = usingDirective.GetTrailingTrivia();
+            var hasTrailingComment = trailingTrivia.Any(t =>
+                !t.IsKind(SyntaxKind.WhitespaceTrivia) &&
+                !t.IsKind(SyntaxKind.EndOfLineTrivia));
+            return hasTrailingComment;
+        }
+
+        private static CompilationUnitSyntax CollapseExtraEolAfterHeaderPreserveSpacing(CompilationUnitSyntax cu)
+        {
+            var first = cu.GetFirstToken(includeZeroWidth: true);
+            var leading = first.LeadingTrivia;
+
+            int lastComment = -1;
+            for (int i = 0; i < leading.Count; i++)
+            {
+                var k = leading[i].Kind();
+                if (k == SyntaxKind.SingleLineCommentTrivia ||
+                    k == SyntaxKind.MultiLineCommentTrivia ||
+                    k == SyntaxKind.SingleLineDocumentationCommentTrivia ||
+                    k == SyntaxKind.MultiLineDocumentationCommentTrivia)
+                {
+                    lastComment = i;
+                }
+                else if (lastComment >= 0 && !(k == SyntaxKind.WhitespaceTrivia || k == SyntaxKind.EndOfLineTrivia))
+                {
+                    break;
+                }
+            }
+
+            if (lastComment < 0)
+            {
+                return cu; // no header
+            }
+
+            int runStart = lastComment + 1;
+            int eolCount = 0;
+            for (int i = runStart; i < leading.Count; i++)
+            {
+                if (leading[i].IsKind(SyntaxKind.EndOfLineTrivia))
+                {
+                    eolCount++;
+                }
+                else if (!leading[i].IsKind(SyntaxKind.WhitespaceTrivia))
+                {
+                    break;
+                }
+            }
+
+            int targetEolCount = Math.Min(Math.Max(eolCount, 1), 2);
+
+            if (eolCount == targetEolCount)
+            {
+                return cu;
+            }
+
+            // Rebuild with target number of newlines
+            var newLeading = new List<SyntaxTrivia>(lastComment + 1 + targetEolCount);
+            for (int i = 0; i <= lastComment; i++)
+            {
+                newLeading.Add(leading[i]);
+            }
+
+            for (int i = 0; i < targetEolCount; i++)
+            {
+                newLeading.Add(SyntaxFactory.ElasticCarriageReturnLineFeed);
+            }
+
+            var newFirst = first.WithLeadingTrivia(SyntaxFactory.TriviaList(newLeading));
+            return cu.ReplaceToken(first, newFirst);
         }
     }
 }

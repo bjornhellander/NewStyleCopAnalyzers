@@ -3331,6 +3331,7 @@ namespace TestNamespace
 
 namespace TestNamespace
 {{
+
     public {this.Keyword} TestType
     {{
     }}
@@ -4044,6 +4045,7 @@ namespace TestNamespace
 {{
 #if true
     using System;
+
 #endif
 
     public {this.Keyword} {{|#0:TestType2|}}
