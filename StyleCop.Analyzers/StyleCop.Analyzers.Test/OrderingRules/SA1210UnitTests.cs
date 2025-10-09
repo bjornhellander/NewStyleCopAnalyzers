@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.OrderingRules
 {
     using System.Threading;
@@ -306,11 +304,11 @@ using Microsoft.Win32;
 using MyList = System.Collections.Generic.List<int>;
 
 #if true
-using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
 #else
-using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
 #endif";
 
             var fixedTestCode = @"
@@ -319,11 +317,11 @@ using Microsoft.Win32;
 using MyList = System.Collections.Generic.List<int>;
 
 #if true
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 #else
-using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
 #endif";
 
             // else block is skipped

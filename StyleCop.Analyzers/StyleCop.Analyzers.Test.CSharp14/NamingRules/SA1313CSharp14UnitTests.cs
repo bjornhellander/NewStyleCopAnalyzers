@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.NamingRules
     public partial class SA1313CSharp14UnitTests : SA1313CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationWithParameterNameAsync()
+        public async Task TestExtensionBlockDeclarationWithParameterNameAsync()
         {
             var testCode = @"
 public static class TestClass
@@ -35,19 +35,13 @@ public static class TestClass
 }
 ";
 
-            // TODO: Syntax node actions seems to be triggered twice
-            // Reported in https://github.com/dotnet/roslyn/issues/80319
-            var expected = new[]
-            {
-                Diagnostic().WithLocation(0).WithArguments("Param"),
-                Diagnostic().WithLocation(0).WithArguments("Param"),
-            };
+            var expected = Diagnostic().WithLocation(0).WithArguments("Param");
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
 
         [Fact]
-        public async Task TestExtensionDeclarationWithoutParameterNameAsync()
+        public async Task TestExtensionBlockDeclarationWithoutParameterNameAsync()
         {
             var testCode = @"
 public static class TestClass

@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.LayoutRules
     public partial class SA1515CSharp14UnitTests : SA1515CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationAsync()
+        public async Task TestExtensionBlockDeclarationAsync()
         {
             var testCode = @"
 public static class TestClass

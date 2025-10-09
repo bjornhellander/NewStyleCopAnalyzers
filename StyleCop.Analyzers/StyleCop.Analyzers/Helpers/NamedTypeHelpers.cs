@@ -108,9 +108,9 @@ namespace StyleCop.Analyzers.Helpers
             Location location = null;
 
             // TODO: Re-write this?
-            if (member.IsKind(SyntaxKindEx.ExtensionDeclaration))
+            if (member.IsKind(SyntaxKindEx.ExtensionBlockDeclaration))
             {
-                var extensionDeclaration = (ExtensionDeclarationSyntaxWrapper)member;
+                var extensionDeclaration = (ExtensionBlockDeclarationSyntaxWrapper)member;
                 location = extensionDeclaration.Keyword.GetLocation();
             }
 

@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.DocumentationRules
     public partial class SA1600CSharp14UnitTests : SA1600CSharp13UnitTests
     {
         [Fact]
-        public async Task TestExtensionDeclarationAsync()
+        public async Task TestExtensionBlockDeclarationAsync()
         {
             var testCode = @"
 /// <summary>

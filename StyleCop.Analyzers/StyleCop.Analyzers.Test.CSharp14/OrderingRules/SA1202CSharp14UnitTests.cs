@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.OrderingRules
     public partial class SA1202CSharp14UnitTests : SA1202CSharp13UnitTests
     {
         [Fact]
-        public async Task TestPropertyAfterExtensionDeclarationAsync()
+        public async Task TestPropertyAfterExtensionBlockDeclarationAsync()
         {
             string testCode = @"
 public static class TestClass
@@ -32,7 +32,7 @@ public static class TestClass
         }
 
         [Fact]
-        public async Task TestPropertyBeforeExtensionDeclarationAsync()
+        public async Task TestPropertyBeforeExtensionBlockDeclarationAsync()
         {
             string testCode = @"
 public static class TestClass
@@ -49,7 +49,7 @@ public static class TestClass
         }
 
         [Fact]
-        public async Task TestFieldBeforeExtensionDeclarationAsync()
+        public async Task TestFieldBeforeExtensionBlockDeclarationAsync()
         {
             string testCode = @"
 public static class TestClass
@@ -66,7 +66,7 @@ public static class TestClass
         }
 
         [Fact]
-        public async Task TestFieldAfterExtensionDeclarationAsync()
+        public async Task TestFieldAfterExtensionBlockDeclarationAsync()
         {
             string testCode = @"
 public static class TestClass
@@ -83,7 +83,7 @@ public static class TestClass
         }
 
         [Fact]
-        public async Task TestTwoExtensionDeclarationsAsync()
+        public async Task TestTwoExtensionBlockDeclarationsAsync()
         {
             string testCode = @"
 public static class TestClass
