@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.LayoutRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp13.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
@@ -44,6 +45,30 @@ public static class TestClass
             var expected = Diagnostic().WithSpan(6, 6, 7, 1);
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        [Fact]
+        public async Task TestNonAutoPropertyInitializationAsync()
+        {
+            var testCode = @"
+public class TestClass
+{
+    public object TestProperty
+    {
+        get
+        {
+            if (field == null)
+            {
+                field = new object();
+            }
+
+            return field;
+        }
+    } = null;
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
     }
 }
