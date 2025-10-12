@@ -232,6 +232,11 @@ namespace StyleCop.Analyzers.LayoutRules
                         return;
                     }
 
+                    if (token.Parent.IsKind(SyntaxKind.AccessorList) && nextToken.IsKind(SyntaxKind.EqualsToken))
+                    {
+                        return;
+                    }
+
                     if (IsPartOf<QueryExpressionSyntax>(token))
                     {
                         if (nextToken.Parent is QueryClauseSyntax

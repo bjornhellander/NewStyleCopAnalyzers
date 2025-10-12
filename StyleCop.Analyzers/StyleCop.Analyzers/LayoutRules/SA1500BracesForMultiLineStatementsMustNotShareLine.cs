@@ -283,6 +283,7 @@ namespace StyleCop.Analyzers.LayoutRules
                 case SyntaxKind.CommaToken:
                 case SyntaxKind.SemicolonToken:
                 case SyntaxKind.DotToken:
+                case SyntaxKind.EqualsToken when token.Parent.IsKind(SyntaxKind.AccessorList):
                     // these are allowed to appear on the same line
                     return;
 
