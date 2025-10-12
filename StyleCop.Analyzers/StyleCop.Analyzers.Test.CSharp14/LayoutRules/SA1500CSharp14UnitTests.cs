@@ -36,5 +36,29 @@ public static class TestClass
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
+
+        [Fact]
+        public async Task TestNonAutoPropertyInitializationAsync()
+        {
+            var testCode = @"
+public class TestClass
+{
+    public object TestProperty
+    {
+        get
+        {
+            if (field == null)
+            {
+                field = new object();
+            }
+
+            return field;
+        }
+    } = null;
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
     }
 }
