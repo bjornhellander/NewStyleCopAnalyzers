@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+#nullable disable
+
 namespace StyleCop.Analyzers.Test.OrderingRules
 {
     using System.Threading;
@@ -27,7 +29,7 @@ namespace StyleCop.Analyzers.Test.OrderingRules
         [Fact]
         public async Task VerifyUsingReorderingAsync()
         {
-            var testCode = @"using Newtonsoft.Json;
+            var testCode = @"using Microsoft.CodeAnalysis;
 using SystemAction = System.Action;
 using static System.Math;
 using System;
@@ -48,7 +50,7 @@ namespace NamespaceName
 
             var fixedTestCode = @"namespace NamespaceName
 {
-    using Newtonsoft.Json;
+    using Microsoft.CodeAnalysis;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -91,7 +93,7 @@ namespace NamespaceName
             var testCode = @"// This is a file header.
 
 using System;
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 
 namespace Foo
 {
@@ -105,7 +107,7 @@ namespace Foo
 
 namespace Foo
 {
-    using Newtonsoft.Json;
+    using Microsoft.CodeAnalysis;
     using System;
 
     public class Bar
@@ -130,7 +132,7 @@ namespace Foo
         [Fact]
         public async Task VerifyUsingReorderingWithoutMovingAsync()
         {
-            var testCode = @"using Newtonsoft.Json;
+            var testCode = @"using Microsoft.CodeAnalysis;
 using SystemAction = System.Action;
 using static System.Math;
 using System;
@@ -149,7 +151,7 @@ namespace NamespaceName
 }
 ";
 
-            var fixedTestCode = @"using Newtonsoft.Json;
+            var fixedTestCode = @"using Microsoft.CodeAnalysis;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -188,7 +190,7 @@ namespace NamespaceName
             var testCode = @"// This is a file header.
 
 using System;
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 
 namespace Foo
 {
@@ -200,7 +202,7 @@ namespace Foo
 
             var fixedTestCode = @"// This is a file header.
 
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 using System;
 
 namespace Foo
@@ -229,7 +231,7 @@ namespace Foo
 // </copyright>
 
 using System;
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 
 namespace Foo
 {
@@ -243,7 +245,7 @@ namespace Foo
 //   Copyright (c) FooCorp. All rights reserved.
 // </copyright>
 
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 using System;
 
 namespace Foo
@@ -272,7 +274,7 @@ namespace Foo
  */
 
 using System;
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 
 namespace Foo
 {
@@ -286,7 +288,7 @@ namespace Foo
  * Copyright by FooCorp Inc.
  */
 
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 using System;
 
 namespace Foo
@@ -309,7 +311,7 @@ namespace Foo
         [Fact]
         public async Task VerifyUsingReorderingWithMultipleNamespacesAsync()
         {
-            var testCode = @"using Newtonsoft.Json;
+            var testCode = @"using Microsoft.CodeAnalysis;
 using SystemAction = System.Action;
 using static System.Math;
 using System;
@@ -332,7 +334,7 @@ namespace TestNamespace2
 }
 ";
 
-            var fixedTestCode = @"using Newtonsoft.Json;
+            var fixedTestCode = @"using Microsoft.CodeAnalysis;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -392,7 +394,7 @@ namespace TestNamespace2
         [Fact]
         public async Task VerifyUsingReorderingWithGlobalAttributesAsync()
         {
-            var testCode = @"using Newtonsoft.Json;
+            var testCode = @"using Microsoft.CodeAnalysis;
 using SystemAction = System.Action;
 using static System.Math;
 using System.Reflection;
@@ -413,7 +415,7 @@ namespace NamespaceName
 }
 ";
 
-            var fixedTestCode = @"using Newtonsoft.Json;
+            var fixedTestCode = @"using Microsoft.CodeAnalysis;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;

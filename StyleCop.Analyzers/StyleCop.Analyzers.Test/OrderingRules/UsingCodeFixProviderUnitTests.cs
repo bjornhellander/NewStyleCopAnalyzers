@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+#nullable disable
+
 namespace StyleCop.Analyzers.Test.OrderingRules
 {
     using System.Threading;
@@ -26,7 +28,7 @@ namespace StyleCop.Analyzers.Test.OrderingRules
         [Fact]
         public async Task VerifyUsingReorderingAsync()
         {
-            var testCode = @"using Newtonsoft.Json;
+            var testCode = @"using Microsoft.CodeAnalysis;
 using SystemAction = System.Action;
 using static System.Math;
 using System;
@@ -50,7 +52,7 @@ namespace Foo
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using Newtonsoft.Json;
+    using Microsoft.CodeAnalysis;
     using static System.Math;
     using static System.String;
     using MyFunc = System.Func<int,bool>;
@@ -92,7 +94,7 @@ namespace Foo
         {
             var testCode = @"// This is a file header.
 
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 using System;
 
 namespace Foo
@@ -108,7 +110,7 @@ namespace Foo
 namespace Foo
 {
     using System;
-    using Newtonsoft.Json;
+    using Microsoft.CodeAnalysis;
 
     public class Bar
     {
@@ -120,7 +122,7 @@ namespace Foo
             {
                 Diagnostic(SA1200UsingDirectivesMustBePlacedCorrectly.DescriptorInside).WithLocation(3, 1),
                 Diagnostic(SA1200UsingDirectivesMustBePlacedCorrectly.DescriptorInside).WithLocation(4, 1),
-                StyleCopDiagnosticVerifier<SA1208SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives>.Diagnostic().WithLocation(4, 1).WithArguments("System", "Newtonsoft.Json"),
+                StyleCopDiagnosticVerifier<SA1208SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives>.Diagnostic().WithLocation(4, 1).WithArguments("System", "Microsoft.CodeAnalysis"),
             };
             await this.VerifyCSharpFixAsync(testCode, expected, fixedTestCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
@@ -132,7 +134,7 @@ namespace Foo
         [Fact]
         public async Task VerifyUsingReorderingWithoutMovingAsync()
         {
-            var testCode = @"using Newtonsoft.Json;
+            var testCode = @"using Microsoft.CodeAnalysis;
 using SystemAction = System.Action;
 using static System.Math;
 using System;
@@ -154,7 +156,7 @@ namespace Foo
             var fixedTestCode = @"using System;
 using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 using static System.Math;
 using static System.String;
 using MyFunc = System.Func<int, bool>;
@@ -192,7 +194,7 @@ namespace Foo
         {
             var testCode = @"// This is a file header.
 
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 using System;
 
 namespace Foo
@@ -206,7 +208,7 @@ namespace Foo
             var fixedTestCode = @"// This is a file header.
 
 using System;
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 
 namespace Foo
 {
@@ -217,7 +219,7 @@ namespace Foo
 ";
 
             this.usingDirectivesPlacement = UsingDirectivesPlacement.OutsideNamespace;
-            var expected = StyleCopDiagnosticVerifier<SA1208SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives>.Diagnostic().WithLocation(4, 1).WithArguments("System", "Newtonsoft.Json");
+            var expected = StyleCopDiagnosticVerifier<SA1208SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives>.Diagnostic().WithLocation(4, 1).WithArguments("System", "Microsoft.CodeAnalysis");
             await this.VerifyCSharpFixAsync(testCode, new[] { expected }, fixedTestCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
 
@@ -233,7 +235,7 @@ namespace Foo
 //   Copyright (c) FooCorp. All rights reserved.
 // </copyright>
 
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 using System;
 
 namespace Foo
@@ -249,7 +251,7 @@ namespace Foo
 // </copyright>
 
 using System;
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 
 namespace Foo
 {
@@ -260,7 +262,7 @@ namespace Foo
 ";
 
             this.usingDirectivesPlacement = UsingDirectivesPlacement.OutsideNamespace;
-            var expected = StyleCopDiagnosticVerifier<SA1208SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives>.Diagnostic().WithLocation(6, 1).WithArguments("System", "Newtonsoft.Json");
+            var expected = StyleCopDiagnosticVerifier<SA1208SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives>.Diagnostic().WithLocation(6, 1).WithArguments("System", "Microsoft.CodeAnalysis");
             await this.VerifyCSharpFixAsync(testCode, new[] { expected }, fixedTestCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
 
@@ -276,7 +278,7 @@ namespace Foo
  * Copyright by FooCorp Inc.
  */
 
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 using System;
 
 namespace Foo
@@ -292,7 +294,7 @@ namespace Foo
  */
 
 using System;
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 
 namespace Foo
 {
@@ -303,7 +305,7 @@ namespace Foo
 ";
 
             this.usingDirectivesPlacement = UsingDirectivesPlacement.OutsideNamespace;
-            var expected = StyleCopDiagnosticVerifier<SA1208SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives>.Diagnostic().WithLocation(6, 1).WithArguments("System", "Newtonsoft.Json");
+            var expected = StyleCopDiagnosticVerifier<SA1208SystemUsingDirectivesMustBePlacedBeforeOtherUsingDirectives>.Diagnostic().WithLocation(6, 1).WithArguments("System", "Microsoft.CodeAnalysis");
             await this.VerifyCSharpFixAsync(testCode, new[] { expected }, fixedTestCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
 
@@ -314,7 +316,7 @@ namespace Foo
         [Fact]
         public async Task VerifyUsingReorderingWithMultipleNamespacesAsync()
         {
-            var testCode = @"using Newtonsoft.Json;
+            var testCode = @"using Microsoft.CodeAnalysis;
 using SystemAction = System.Action;
 using static System.Math;
 using System;
@@ -340,7 +342,7 @@ namespace TestNamespace2
             var fixedTestCode = @"using System;
 using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 using static System.Math;
 using static System.String;
 using MyFunc = System.Func<int,bool>;
@@ -400,7 +402,7 @@ namespace TestNamespace2
         [Fact]
         public async Task VerifyUsingReorderingWithGlobalAttributesAsync()
         {
-            var testCode = @"using Newtonsoft.Json;
+            var testCode = @"using Microsoft.CodeAnalysis;
 using SystemAction = System.Action;
 using static System.Math;
 using System.Reflection;
@@ -424,7 +426,7 @@ namespace Foo
             var fixedTestCode = @"using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 using static System.Math;
 using static System.String;
 using MyFunc = System.Func<int,bool>;

@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+#nullable disable
+
 namespace StyleCop.Analyzers.Test.OrderingRules
 {
     using System.Threading;
@@ -310,35 +312,35 @@ namespace Test
             var testCode = @"using System;
 using Microsoft.Win32;
 using MyList = System.Collections.Generic.List<int>;
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 
 #if true
-using Newtonsoft.Json.Converters;
+using Microsoft.CodeAnalysis.CSharp;
 using System.Threading;
 using System.Collections;
 #if true
 using System.Collections.Generic;
 #endif
 #else
-using Newtonsoft.Json.Converters;
+using Microsoft.CodeAnalysis.CSharp;
 using System.Threading;
 using System.Collections;
 #endif";
 
             var fixedTestCode = @"using System;
+using Microsoft.CodeAnalysis;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using MyList = System.Collections.Generic.List<int>;
 
 #if true
 using System.Collections;
 using System.Threading;
-using Newtonsoft.Json.Converters;
+using Microsoft.CodeAnalysis.CSharp;
 #if true
 using System.Collections.Generic;
 #endif
 #else
-using Newtonsoft.Json.Converters;
+using Microsoft.CodeAnalysis.CSharp;
 using System.Threading;
 using System.Collections;
 #endif";
@@ -346,8 +348,8 @@ using System.Collections;
             // else block is skipped
             DiagnosticResult[] expected =
             {
-                Diagnostic().WithLocation(8, 1).WithArguments("System.Threading", "Newtonsoft.Json.Converters"),
-                Diagnostic().WithLocation(9, 1).WithArguments("System.Collections", "Newtonsoft.Json.Converters"),
+                Diagnostic().WithLocation(8, 1).WithArguments("System.Threading", "Microsoft.CodeAnalysis.CSharp"),
+                Diagnostic().WithLocation(9, 1).WithArguments("System.Collections", "Microsoft.CodeAnalysis.CSharp"),
             };
 
             await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);

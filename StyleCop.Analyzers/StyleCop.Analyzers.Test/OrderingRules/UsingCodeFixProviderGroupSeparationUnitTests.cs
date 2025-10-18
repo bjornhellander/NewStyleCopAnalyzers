@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+#nullable disable
+
 namespace StyleCop.Analyzers.Test.OrderingRules
 {
     using System.Threading;
@@ -30,7 +32,7 @@ namespace StyleCop.Analyzers.Test.OrderingRules
         {
             this.systemUsingDirectivesFirst = true;
 
-            var testCode = @"using Newtonsoft.Json;
+            var testCode = @"using Microsoft.CodeAnalysis;
 using SystemAction = System.Action;
 using static System.Math;
 using System;
@@ -53,7 +55,7 @@ namespace Foo
     using System.Collections;
     using System.Collections.Generic;
 
-    using Newtonsoft.Json;
+    using Microsoft.CodeAnalysis;
 
     using static System.Math;
     using static System.String;
@@ -95,7 +97,7 @@ namespace Foo
 
             var testCode = @"namespace Foo
 {
-    using Newtonsoft.Json;
+    using Microsoft.CodeAnalysis;
     using SystemAction = System.Action;
     using static System.Math;
     using System;
@@ -114,7 +116,7 @@ namespace Foo
 using System.Collections;
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
+using Microsoft.CodeAnalysis;
 
 using static System.Math;
 using static System.String;
