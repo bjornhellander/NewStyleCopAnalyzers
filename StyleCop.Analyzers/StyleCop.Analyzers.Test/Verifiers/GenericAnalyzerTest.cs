@@ -21,6 +21,17 @@ namespace StyleCop.Analyzers.Test.Verifiers
 
         static GenericAnalyzerTest()
         {
+            string codeAnalysisTestVersion =
+                typeof(Compilation).Assembly.GetName().Version.Major switch
+                {
+                    1 => "1.2.1",
+                    2 => "2.8.2",
+                    3 => "3.6.0",
+                    4 => "4.0.1",
+                    5 => "5.0.0-2.final",
+                    _ => throw new InvalidOperationException("Unknown version."),
+                };
+
             // Use appropriate default reference assemblies per the support matrix:
             // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version
             ReferenceAssemblies defaultReferenceAssemblies;
@@ -50,7 +61,7 @@ namespace StyleCop.Analyzers.Test.Verifiers
             }
 
             ReferenceAssemblies = defaultReferenceAssemblies.AddPackages(ImmutableArray.Create(
-                new PackageIdentity("Newtonsoft.Json", "13.0.4"),
+                new PackageIdentity("Microsoft.CodeAnalysis.CSharp", codeAnalysisTestVersion),
                 new PackageIdentity("System.ValueTuple", "4.5.0")));
 
             ExportProviderFactory = new Lazy<IExportProviderFactory>(
