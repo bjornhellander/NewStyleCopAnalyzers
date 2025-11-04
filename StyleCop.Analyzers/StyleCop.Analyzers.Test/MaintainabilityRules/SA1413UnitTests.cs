@@ -516,5 +516,69 @@ class TestClass
 
             await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Verifies that the code fix handles nested diagnostics in a single pass.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task VerifyNestedDiagnosticsFixAsync()
+        {
+            var testCode = @"
+class TestClass
+{
+    void Foo()
+    {
+        var test = new
+        {
+            MyArray = new[]
+            {
+                new
+                {
+                    MyProp = ""Test""
+                },
+                new
+                {
+                    MyProp = ""asdf""
+                }
+            }
+        };
+    }
+}
+";
+
+            var fixedTestCode = @"
+class TestClass
+{
+    void Foo()
+    {
+        var test = new
+        {
+            MyArray = new[]
+            {
+                new
+                {
+                    MyProp = ""Test"",
+                },
+                new
+                {
+                    MyProp = ""asdf"",
+                },
+            },
+        };
+    }
+}
+";
+
+            DiagnosticResult[] expected =
+            {
+                Diagnostic().WithSpan(8, 13, 18, 14),
+                Diagnostic().WithSpan(12, 21, 12, 36),
+                Diagnostic().WithSpan(14, 17, 17, 18),
+                Diagnostic().WithSpan(16, 21, 16, 36),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+        }
     }
 }

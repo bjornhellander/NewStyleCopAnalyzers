@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.MaintainabilityRules
 {
     using System.Collections.Immutable;
@@ -50,11 +48,9 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
         private static async Task<Document> GetTransformedDocumentAsync(Document document, Diagnostic diagnostic, CancellationToken cancellationToken)
         {
-            var syntaxRoot = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
             var text = await document.GetTextAsync(cancellationToken).ConfigureAwait(false);
-            var syntaxNode = syntaxRoot.FindNode(diagnostic.Location.SourceSpan);
-
-            TextChange textChange = new TextChange(diagnostic.Location.SourceSpan, syntaxNode.ToString() + ",");
+            var textSpan = new TextSpan(diagnostic.Location.SourceSpan.End, 0);
+            var textChange = new TextChange(textSpan, ",");
             return document.WithText(text.WithChanges(textChange));
         }
     }
