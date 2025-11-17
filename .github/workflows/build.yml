@@ -31,4 +31,9 @@ jobs:
       uses: actions/setup-dotnet@v5
 
     - name: Build & Test
-      run: dotnet test StyleCop.Analyzers/StyleCop.Analyzers.${{matrix.test}}/StyleCop.Analyzers.${{matrix.test}}.csproj -c ${{matrix.configuration}} --verbosity normal
+      run: dotnet test StyleCop.Analyzers/StyleCop.Analyzers.${{matrix.test}}/StyleCop.Analyzers.${{matrix.test}}.csproj -c ${{matrix.configuration}} --settings runsettings.xml --collect:"XPlat Code Coverage" --verbosity normal
+
+    - name: Upload coverage
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
