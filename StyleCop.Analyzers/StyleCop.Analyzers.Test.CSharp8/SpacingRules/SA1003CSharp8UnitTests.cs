@@ -189,5 +189,37 @@ namespace TestNamespace
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
         }
+
+        [Fact]
+        public async Task TestNullForgivingOperatorBeforeInvocationAsync()
+        {
+            var testCode = @"
+namespace TestNamespace
+{
+    public class TestClass
+    {
+        public void TestMethod(System.Action? x)
+        {
+            x[|!|] ();
+        }
+    }
+}
+";
+
+            var fixedCode = @"
+namespace TestNamespace
+{
+    public class TestClass
+    {
+        public void TestMethod(System.Action? x)
+        {
+            x!();
+        }
+    }
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
+        }
     }
 }
