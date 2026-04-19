@@ -65,7 +65,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
                 Diagnostic(SA110xQueryClauses.SA1103Descriptor).WithLocation(11, 21),
             };
 
-            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
             };
 
             test.ExpectedDiagnostics.AddRange(expectedDiagnostics);
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
             };
 
             test.ExpectedDiagnostics.AddRange(expectedDiagnostics);
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -249,7 +249,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
                 Diagnostic(SA110xQueryClauses.SA1103Descriptor).WithLocation(11, 21),
             };
 
-            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
             };
 
             test.ExpectedDiagnostics.AddRange(expectedDiagnostics);
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -365,7 +365,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
                 Diagnostic(SA110xQueryClauses.SA1103Descriptor).WithLocation(11, 21),
             };
 
-            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -390,7 +390,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
 ";
 
             var expectedDiagnostics = new DiagnosticResult("CS0742", DiagnosticSeverity.Error).WithLocation(12, 38).WithMessage("A query body must end with a select clause or a group clause");
-            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, testCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, testCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -451,7 +451,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
                     },
                 },
                 CodeActionIndex = 1,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

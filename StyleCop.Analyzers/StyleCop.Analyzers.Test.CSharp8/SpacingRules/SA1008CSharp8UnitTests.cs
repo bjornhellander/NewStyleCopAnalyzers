@@ -68,7 +68,7 @@ namespace TestNamespace
                 Diagnostic(DescriptorNotPreceded).WithLocation(0),
                 Diagnostic(DescriptorNotPreceded).WithLocation(1),
             };
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -103,7 +103,7 @@ class C
                 testCode,
                 expectedResults,
                 fixedCode,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -140,7 +140,7 @@ class C
                 testCode,
                 expectedResults,
                 fixedCode,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -185,7 +185,7 @@ internal class TestClass
                 testCode,
                 expectedResults,
                 fixedCode,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -228,7 +228,7 @@ namespace TestNamespace
                 testCode,
                 expectedResults,
                 fixedCode,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

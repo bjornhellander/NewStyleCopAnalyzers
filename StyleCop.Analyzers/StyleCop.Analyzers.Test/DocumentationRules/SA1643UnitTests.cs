@@ -33,43 +33,43 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
         }
     }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestDestructorCorrectDocumentationSimpleAsync()
         {
-            await TestDestructorCorrectDocumentationSimpleImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, false).ConfigureAwait(false);
+            await TestDestructorCorrectDocumentationSimpleImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, false).ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestDestructorCorrectDocumentationCustomizedAsync()
         {
-            await TestDestructorCorrectDocumentationCustomizedImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, false).ConfigureAwait(false);
+            await TestDestructorCorrectDocumentationCustomizedImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, false).ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestNonPrivateConstructorCorrectDocumentationGenericSimpleAsync()
         {
-            await TestDestructorCorrectDocumentationSimpleImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, true).ConfigureAwait(false);
+            await TestDestructorCorrectDocumentationSimpleImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, true).ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestDestructorCorrectDocumentationGenericCustomizedAsync()
         {
-            await TestDestructorCorrectDocumentationCustomizedImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, true).ConfigureAwait(false);
+            await TestDestructorCorrectDocumentationCustomizedImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, true).ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestDestructorMissingDocumentationAsync()
         {
-            await TestDestructorMissingDocumentationImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, false).ConfigureAwait(false);
+            await TestDestructorMissingDocumentationImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, false).ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestDestructorMissingDocumentationGenericAsync()
         {
-            await TestDestructorMissingDocumentationImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, true).ConfigureAwait(false);
+            await TestDestructorMissingDocumentationImplAsync(DocumentationResources.DestructorStandardTextFirstPart, DocumentationResources.DestructorStandardTextSecondPart, true).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ public class TestClass
 }
 ";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ public class TestClass
 }
 ";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ public class TestClass
 ";
 
             var expected = Diagnostic().WithLocation(4, 9);
-            await VerifyCSharpFixAsync(testCode, expected, testCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, testCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ public class TestClass
 ";
 
             var expected = Diagnostic().WithLocation(4, 9);
-            await VerifyCSharpFixAsync(testCode, expected, testCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, testCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ public class TestClass
 ";
 
             var expected = Diagnostic().WithLocation(4, 9);
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ public class TestClass
 ";
 
             var expected = Diagnostic().WithLocation(4, 9);
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -224,7 +224,7 @@ public class TestClass
         }
     }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         private static async Task TestDestructorCorrectDocumentationAsync(string part1, string part2, string part3, bool generic)

@@ -36,13 +36,13 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
         [Fact]
         public async Task TestConstantMessage_Field_PassAsync()
         {
-            await this.TestConstantMessage_Field_PassExecuterAsync("\" foo \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Field_PassExecuterAsync("\" foo \"").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Field_PassExpressionAsync()
         {
-            await this.TestConstantMessage_Field_PassExecuterAsync("\" \" + \"foo\" + \" \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Field_PassExecuterAsync("\" \" + \"foo\" + \" \"").ConfigureAwait(true);
         }
 
         [Fact]
@@ -55,19 +55,19 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
                 DiagnosticResult.CompilerError("CS0029").WithSpan(new FileLinePositionSpan("/0/Test0.cs", startLinePosition, endLinePosition)).WithMessage("Cannot implicitly convert type 'int' to 'string'"),
             };
 
-            await this.TestConstantMessage_Field_PassExecuterAsync("3", expected).ConfigureAwait(false);
+            await this.TestConstantMessage_Field_PassExecuterAsync("3", expected).ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Local_PassAsync()
         {
-            await this.TestConstantMessage_Local_PassExecuterAsync("\" foo \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Local_PassExecuterAsync("\" foo \"").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Local_PassExpressionAsync()
         {
-            await this.TestConstantMessage_Local_PassExecuterAsync("\" \" + \"foo\" + \" \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Local_PassExecuterAsync("\" \" + \"foo\" + \" \"").ConfigureAwait(true);
         }
 
         [Fact]
@@ -80,19 +80,19 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
                 DiagnosticResult.CompilerError("CS0029").WithSpan(new FileLinePositionSpan("/0/Test0.cs", startLinePosition, endLinePosition)).WithMessage("Cannot implicitly convert type 'int' to 'string'"),
             };
 
-            await this.TestConstantMessage_Local_PassExecuterAsync("3", expected).ConfigureAwait(false);
+            await this.TestConstantMessage_Local_PassExecuterAsync("3", expected).ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Inline_PassAsync()
         {
-            await this.TestConstantMessage_Inline_PassExecuterAsync("\" foo \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Inline_PassExecuterAsync("\" foo \"").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Inline_PassExpressionAsync()
         {
-            await this.TestConstantMessage_Inline_PassExecuterAsync("\" \" + \"foo\" + \" \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Inline_PassExecuterAsync("\" \" + \"foo\" + \" \"").ConfigureAwait(true);
         }
 
         [Fact]
@@ -118,79 +118,79 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
                 };
             }
 
-            await this.TestConstantMessage_Inline_PassExecuterAsync("3", expected).ConfigureAwait(false);
+            await this.TestConstantMessage_Inline_PassExecuterAsync("3", expected).ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Field_FailNullAsync()
         {
-            await this.TestConstantMessage_Field_FailAsync("null").ConfigureAwait(false);
+            await this.TestConstantMessage_Field_FailAsync("null").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Field_FailEmptyAsync()
         {
-            await this.TestConstantMessage_Field_FailAsync("\"\"").ConfigureAwait(false);
+            await this.TestConstantMessage_Field_FailAsync("\"\"").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Field_FailWhitespaceAsync()
         {
-            await this.TestConstantMessage_Field_FailAsync("\"  \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Field_FailAsync("\"  \"").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Field_FailExpressionWhitespaceAsync()
         {
-            await this.TestConstantMessage_Field_FailAsync("\"  \" + \"  \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Field_FailAsync("\"  \" + \"  \"").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Local_FailNullAsync()
         {
-            await this.TestConstantMessage_Local_FailAsync("null").ConfigureAwait(false);
+            await this.TestConstantMessage_Local_FailAsync("null").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Local_FailEmptyAsync()
         {
-            await this.TestConstantMessage_Local_FailAsync("\"\"").ConfigureAwait(false);
+            await this.TestConstantMessage_Local_FailAsync("\"\"").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Local_FailWhitespaceAsync()
         {
-            await this.TestConstantMessage_Local_FailAsync("\"  \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Local_FailAsync("\"  \"").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Local_FailExpressionWhitespaceAsync()
         {
-            await this.TestConstantMessage_Local_FailAsync("\"  \" + \"  \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Local_FailAsync("\"  \" + \"  \"").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Inline_FailNullAsync()
         {
-            await this.TestConstantMessage_Inline_FailAsync("null").ConfigureAwait(false);
+            await this.TestConstantMessage_Inline_FailAsync("null").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Inline_FailEmptyAsync()
         {
-            await this.TestConstantMessage_Inline_FailAsync("\"\"").ConfigureAwait(false);
+            await this.TestConstantMessage_Inline_FailAsync("\"\"").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Inline_FailWhitespaceAsync()
         {
-            await this.TestConstantMessage_Inline_FailAsync("\"  \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Inline_FailAsync("\"  \"").ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestConstantMessage_Inline_FailExpressionWhitespaceAsync()
         {
-            await this.TestConstantMessage_Inline_FailAsync("\"  \" + \"  \"").ConfigureAwait(false);
+            await this.TestConstantMessage_Inline_FailAsync("\"  \" + \"  \"").ConfigureAwait(true);
         }
 
         [Fact]
@@ -206,7 +206,7 @@ public class Foo
     }}
 }}";
 
-            await this.VerifyCSharpDiagnosticAsync(this.BuildTestCode(testCode), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(this.BuildTestCode(testCode), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -234,7 +234,7 @@ class Debug
 }}
 ";
 
-            await this.VerifyCSharpDiagnosticAsync(this.BuildTestCode(testCode), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(this.BuildTestCode(testCode), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -249,7 +249,7 @@ public class Foo
     }
 }";
 
-            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -279,7 +279,7 @@ public class Foo
                 this.Diagnostic().WithLocation(12, 9),
             };
 
-            await this.VerifyCSharpDiagnosticAsync(this.BuildTestCode(testCode), expected, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(this.BuildTestCode(testCode), expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         protected DiagnosticResult Diagnostic()

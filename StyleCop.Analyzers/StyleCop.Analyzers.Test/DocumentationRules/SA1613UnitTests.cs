@@ -40,7 +40,7 @@ public class ClassName
 {
     public ClassName Method() { return null; }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -58,7 +58,7 @@ public class ClassName
     /// </summary>
 $$
 }";
-            await VerifyCSharpDiagnosticAsync(testCode.Replace("$$", declaration), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode.Replace("$$", declaration), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -78,7 +78,7 @@ public class ClassName
     ///<param name=""bar"">Test</param>
 $$
 }";
-            await VerifyCSharpDiagnosticAsync(testCode.Replace("$$", declaration), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode.Replace("$$", declaration), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -109,7 +109,7 @@ $$
                 Diagnostic().WithLocation(13, 15),
             };
 
-            await VerifyCSharpDiagnosticAsync(testCode.Replace("$$", declaration), expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode.Replace("$$", declaration), expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -138,7 +138,7 @@ $$
                 Diagnostic().WithLocation(11, 15),
             };
 
-            await VerifyCSharpDiagnosticAsync(testCode.Replace("$$", declaration), expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode.Replace("$$", declaration), expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -153,7 +153,7 @@ public class ClassName
     /// <include file='MissingParamDocumentation.xml' path='/ClassName/Method/*' />
     public ClassName Method(string foo, string bar) { return null; }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -169,7 +169,7 @@ public class ClassName
     /// <include file='MissingFile.xml' path='/ClassName/Method/*' />
     public ClassName Method(string foo, string bar) { return null; }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -184,7 +184,7 @@ public class ClassName
     /// <include file='WithParamDocumentation.xml' path='/ClassName/Method/*' />
     public ClassName Method(string foo, string bar) { return null; }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -208,7 +208,7 @@ public class ClassName
                 Diagnostic().WithLocation(8, 22),
             };
 
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -232,7 +232,7 @@ public class ClassName
                 Diagnostic().WithLocation(8, 22),
             };
 
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         private static Task VerifyCSharpDiagnosticAsync(string source, DiagnosticResult[] expected, CancellationToken cancellationToken)

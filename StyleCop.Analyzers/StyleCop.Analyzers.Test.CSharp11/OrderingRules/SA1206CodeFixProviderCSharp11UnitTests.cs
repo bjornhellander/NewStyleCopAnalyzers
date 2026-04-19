@@ -22,7 +22,7 @@ namespace StyleCop.Analyzers.Test.CSharp11.OrderingRules
             var fixedTestCode = $"file static unsafe class TestClass {{}}";
 
             var expected = Diagnostic().WithLocation(0).WithArguments("file", "unsafe");
-            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -49,7 +49,7 @@ internal struct SomeStruct
                 Diagnostic().WithLocation(1).WithArguments("public", "required"),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

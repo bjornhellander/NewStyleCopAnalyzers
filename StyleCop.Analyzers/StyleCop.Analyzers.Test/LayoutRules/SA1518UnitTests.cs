@@ -48,7 +48,7 @@ public class Foo
             var fixedCode = BaseCode + result;
 
             var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(8, 2);
-            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -69,12 +69,12 @@ public class Foo
 
             if (expectedText == null)
             {
-                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
             }
             else
             {
                 var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(1, 1);
-                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
             }
         }
 
@@ -96,12 +96,12 @@ public class Foo
 
             if (expectedText == null)
             {
-                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
             }
             else
             {
                 var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(1, 1);
-                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
             }
         }
 
@@ -118,7 +118,7 @@ public class Foo
         internal async Task TestWithEmptyFileAsync(OptionSetting? newlineAtEndOfFile)
         {
             var testCode = string.Empty;
-            await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ public class Foo
             var fixedCode = BaseCode + result;
 
             var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(8, 2);
-            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -160,12 +160,12 @@ public class Foo
 
             if (expectedText == null)
             {
-                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
             }
             else
             {
                 var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(8, 2);
-                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
             }
         }
 
@@ -188,12 +188,12 @@ public class Foo
 
             if (expectedText == null)
             {
-                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
             }
             else
             {
                 var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(8, 2);
-                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
             }
         }
 
@@ -216,12 +216,12 @@ public class Foo
 
             if (expectedText == null)
             {
-                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
             }
             else
             {
                 var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(8, 2);
-                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
             }
         }
 
@@ -242,7 +242,7 @@ public class Foo
             var fixedCode = BaseCode + expectedText;
 
             var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(8, 2);
-            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -264,12 +264,12 @@ public class Foo
 
             if (expectedText == null)
             {
-                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
             }
             else
             {
                 var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(9, 16);
-                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
             }
         }
 
@@ -290,7 +290,7 @@ public class Foo
             var fixedCode = BaseCode + "\r\n// Test comment" + expectedText;
 
             var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(9, 16);
-            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -312,12 +312,12 @@ public class Foo
 
             if (expectedText == null)
             {
-                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpDiagnosticAsync(newlineAtEndOfFile, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
             }
             else
             {
                 var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(10, 7);
-                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+                await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
             }
         }
 
@@ -338,7 +338,7 @@ public class Foo
             var fixedCode = "#if true\r\n" + BaseCode + "\r\n#endif" + expectedText;
 
             var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(10, 7);
-            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -358,7 +358,7 @@ public class Foo
             var fixedCode = BaseCode + expectedText;
 
             var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(8, 2);
-            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -378,7 +378,7 @@ public class Foo
             var fixedCode = BaseCode + expectedText;
 
             var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(8, 2);
-            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -398,7 +398,7 @@ public class Foo
             var fixedCode = BaseCode + expectedText;
 
             var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(8, 2);
-            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -418,7 +418,7 @@ public class Foo
             var fixedCode = "#if true\r\n" + BaseCode + "\r\n#endif" + expectedText;
 
             var expected = Diagnostic(this.GetDescriptor(newlineAtEndOfFile)).WithLocation(10, 7);
-            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(newlineAtEndOfFile, testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         private static Task VerifyCSharpDiagnosticAsync(OptionSetting? newlineAtEndOfFile, string source, DiagnosticResult[] expected, CancellationToken cancellationToken)

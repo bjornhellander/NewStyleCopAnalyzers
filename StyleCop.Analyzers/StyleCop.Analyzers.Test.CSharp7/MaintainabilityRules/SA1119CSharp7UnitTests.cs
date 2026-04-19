@@ -64,7 +64,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -83,7 +83,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -111,7 +111,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
                 Diagnostic(ParenthesesDiagnosticId).WithLocation(5, 40),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -127,7 +127,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
     }}
 }}";
 
-            await VerifyCSharpDiagnosticAsync(LanguageVersionEx.CSharp7_2.OrLaterDefault(), testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(LanguageVersionEx.CSharp7_2.OrLaterDefault(), testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

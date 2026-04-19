@@ -51,7 +51,7 @@ stylecop.indentation.unrecognizedValue = 3
 
 stylecop.unrecognizedValue = 3
 ";
-            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(false);
+            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(true);
 
             var styleCopSettings = context.GetStyleCopSettingsInTests(CancellationToken.None);
 
@@ -78,7 +78,7 @@ stylecop.unrecognizedValue = 3
 [*]
 file_header_template = Line 1\nLine 2.
 ";
-            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(false);
+            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(true);
 
             var styleCopSettings = context.GetStyleCopSettingsInTests(CancellationToken.None);
 
@@ -93,7 +93,7 @@ file_header_template = Line 1\nLine 2.
 [*]
 stylecop.documentation.copyrightText = Line 1\nLine 2.
 ";
-            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(false);
+            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(true);
 
             var styleCopSettings = context.GetStyleCopSettingsInTests(CancellationToken.None);
 
@@ -114,7 +114,7 @@ stylecop.documentation.documentPrivateElements = {valueText}
 stylecop.documentation.documentInterfaces = {valueText}
 stylecop.documentation.documentPrivateFields = {valueText}
 ";
-            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(false);
+            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(true);
 
             var styleCopSettings = context.GetStyleCopSettingsInTests(CancellationToken.None);
 
@@ -135,7 +135,7 @@ stylecop.documentation.documentPrivateFields = {valueText}
 [*]
 stylecop.documentation.companyName = {companyName}
 ";
-            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(false);
+            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(true);
 
             var styleCopSettings = context.GetStyleCopSettingsInTests(CancellationToken.None);
 
@@ -151,7 +151,7 @@ stylecop.documentation.companyName = {companyName}
 [*]
 file_header_template = {copyrightText}
 ";
-            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(false);
+            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(true);
 
             var styleCopSettings = context.GetStyleCopSettingsInTests(CancellationToken.None);
 
@@ -166,7 +166,7 @@ file_header_template = {copyrightText}
 [*]
 file_header_template = {variable}
 ";
-            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(false);
+            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(true);
 
             var styleCopSettings = context.GetStyleCopSettingsInTests(CancellationToken.None);
 
@@ -189,7 +189,7 @@ file_header_template = {variable}
 [*]
 csharp_using_directive_placement = {placement}
 ";
-            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(false);
+            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(true);
 
             var styleCopSettings = context.GetStyleCopSettingsInTests(CancellationToken.None);
 

@@ -72,7 +72,7 @@ using Character = System.Char;
 using @int = System.Int32;
 ",
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

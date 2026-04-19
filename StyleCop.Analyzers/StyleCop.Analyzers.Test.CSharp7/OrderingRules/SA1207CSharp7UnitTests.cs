@@ -37,7 +37,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.OrderingRules
 ";
 
             var expectedDiagnostic = Diagnostic().WithArguments("private", "protected").WithLocation(5, 19);
-            await VerifyCSharpFixAsync(LanguageVersion.CSharp7_2.OrLaterDefault(), testCode, expectedDiagnostic, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(LanguageVersion.CSharp7_2.OrLaterDefault(), testCode, expectedDiagnostic, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

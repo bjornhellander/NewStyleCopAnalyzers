@@ -135,7 +135,7 @@ class Foo
 {{
     {declaration}
 }}";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -149,7 +149,7 @@ class Foo
 }}";
 
             DiagnosticResult expected = Diagnostic().WithLocation(0);
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -178,7 +178,7 @@ class Derived : Base
     }}
 }}";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -208,7 +208,7 @@ class Derived : Base
 }}";
 
             DiagnosticResult expected = Diagnostic().WithLocation(0);
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -234,7 +234,7 @@ class Foo
     public long this[int a, int b, int s] => a + b + s;
 }}";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -258,7 +258,7 @@ class Foo
 }}";
 
             DiagnosticResult expected = Diagnostic().WithLocation(0);
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -282,7 +282,7 @@ class Foo
 {{
 }}";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -305,7 +305,7 @@ class Foo
 
             DiagnosticResult expected = Diagnostic().WithLocation(0);
 
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

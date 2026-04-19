@@ -45,7 +45,7 @@ public record MyQuery3() : BaseQuery<object>;";
                 // /0/Test0.cs(5,26): warning SA1024: Colon should be followed by a space
                 Diagnostic(DescriptorFollowed).WithLocation(2),
             };
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

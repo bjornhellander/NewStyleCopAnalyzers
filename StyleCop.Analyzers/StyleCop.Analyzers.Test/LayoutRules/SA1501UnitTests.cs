@@ -56,7 +56,7 @@ public class Foo
         lock (this) { Debug.Assert(true); }
     }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, Diagnostic().WithLocation(6, 21), CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, Diagnostic().WithLocation(6, 21), CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ public class Foo
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, Diagnostic().WithLocation(10, 9), CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, Diagnostic().WithLocation(10, 9), CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ public class Foo
         }
     }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ public class Foo
         }
     }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ public class Foo
         MyDelegate d = delegate(int x) { Debug.WriteLine(x); };
     }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ public class Foo
         var test = new Action<int>(value => { Debug.WriteLine(value); });
     }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ public class Foo
 {
     public void Bar() { Debug.Assert(true); }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ public class Foo
         set { }
     }
 }";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -232,7 +232,7 @@ public class Foo
 }";
 
             var expected = Diagnostic().WithLocation(7, 11);
-            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -263,7 +263,7 @@ public class Foo
 }";
 
             var expected = Diagnostic().WithLocation(6, 21);
-            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ public class Foo
                 },
                 FixedCode = fixedTestCode,
                 UseTabs = true,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -336,7 +336,7 @@ public class Foo
 }";
 
             var expected = Diagnostic().WithLocation(6, 35);
-            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -380,7 +380,7 @@ public class Foo
 }";
 
             var expected = Diagnostic().WithLocation(10, 9);
-            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -402,7 +402,7 @@ public class Foo
 }
 ";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -451,7 +451,7 @@ public class Foo
                 Diagnostic().WithLocation(11, 13),
             };
 
-            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -485,7 +485,7 @@ public class Foo
 ";
 
             DiagnosticResult expectedDiagnostics = Diagnostic().WithLocation(7, 12);
-            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -531,7 +531,7 @@ class TypeName
                     DiagnosticResult.CompilerError("CS1513").WithLocation(11, 23).WithMessage("} expected"),
                     DiagnosticResult.CompilerError("CS1513").WithLocation(11, 23).WithMessage("} expected"),
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -555,7 +555,7 @@ class TypeName
                 {
                     SA1503BracesMustNotBeOmitted.DiagnosticId,
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -598,7 +598,7 @@ public class TypeName
                 {
                     SA1503BracesMustNotBeOmitted.DiagnosticId,
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -644,7 +644,7 @@ public class TypeName
                 {
                     SA1503BracesMustNotBeOmitted.DiagnosticId,
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -834,7 +834,7 @@ public class TypeName
                 {
                     SA1503BracesMustNotBeOmitted.DiagnosticId,
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -854,7 +854,7 @@ public class TypeName
                 {
                     SA1503BracesMustNotBeOmitted.DiagnosticId,
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -898,7 +898,7 @@ public class TypeName
                 {
                     SA1503BracesMustNotBeOmitted.DiagnosticId,
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -940,7 +940,7 @@ public class TypeName
                 {
                     SA1503BracesMustNotBeOmitted.DiagnosticId,
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -976,7 +976,7 @@ public class TypeName
                 {
                     SA1503BracesMustNotBeOmitted.DiagnosticId,
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -1019,7 +1019,7 @@ public class TypeName
                 {
                     SA1503BracesMustNotBeOmitted.DiagnosticId,
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -1075,7 +1075,7 @@ public class TypeName
                 {
                     SA1503BracesMustNotBeOmitted.DiagnosticId,
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -1100,7 +1100,7 @@ public class TypeName
                 {
                     SA1503BracesMustNotBeOmitted.DiagnosticId,
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         private string GenerateTestStatement(string statementText)

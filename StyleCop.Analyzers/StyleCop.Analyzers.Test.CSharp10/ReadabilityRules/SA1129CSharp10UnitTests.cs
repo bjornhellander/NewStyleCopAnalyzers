@@ -42,7 +42,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.ReadabilityRules
 }
 ";
 
-            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, testCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, testCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -87,7 +87,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.ReadabilityRules
                     },
                     AdditionalProjectReferences = { "Reference" },
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

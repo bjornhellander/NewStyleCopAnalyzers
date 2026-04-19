@@ -44,7 +44,7 @@ class ClassName
     }
 }
 ";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -102,7 +102,7 @@ class ClassName
 }
 ";
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -117,7 +117,7 @@ class ClassName
     }
 }
 ";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -138,7 +138,7 @@ class ClassName
 }
 ";
             DiagnosticResult expected = DiagnosticResult.CompilerError("CS1002").WithLocation(7, 14).WithMessage("; expected");
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -165,7 +165,7 @@ class Program
 
                 NumberOfIncrementalIterations = 1,
                 NumberOfFixAllIterations = 1,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         protected virtual string? GetFixedCodeTestEmptyStatementAfterBlock()

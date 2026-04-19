@@ -27,7 +27,7 @@ using TestAlias ={|#0:(|}string X, bool Y);";
 using TestAlias = (string X, bool Y);";
 
             var expected = Diagnostic(DescriptorPreceded).WithLocation(0);
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ class TestClass
 }
 ";
 
-            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace TestNamespace
                 testCode,
                 expectedResults,
                 fixedCode,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

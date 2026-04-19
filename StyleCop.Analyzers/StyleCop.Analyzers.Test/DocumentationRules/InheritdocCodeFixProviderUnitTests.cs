@@ -85,7 +85,7 @@ public class ChildClass : ParentClass
             };
 
             test.DisabledDiagnostics.Add(compilerWarning ? SA1600.Id : CS1591.Id);
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -150,7 +150,7 @@ public class ChildClass : IParent
             };
 
             test.DisabledDiagnostics.Add(compilerWarning ? SA1600.Id : CS1591.Id);
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -188,7 +188,7 @@ public class ChildClass : ParentClass
                 FixedCode = testCode,
                 NumberOfIncrementalIterations = 1,
                 NumberOfFixAllIterations = 1,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -226,7 +226,7 @@ public class ChildClass : ParentClass
                 FixedCode = testCode,
                 NumberOfIncrementalIterations = 1,
                 NumberOfFixAllIterations = 1,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

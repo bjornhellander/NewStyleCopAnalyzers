@@ -85,7 +85,7 @@ public class Foo<T> : object where T/* test */ : IFormattable
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ base()
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ public class Foo<T> :object where T :IFormattable
                 Diagnostic(DescriptorFollowed).WithLocation(10, 30),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, ExpectedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, ExpectedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -225,7 +225,7 @@ public class Foo<T>: object where T: IFormattable
                 Diagnostic(DescriptorPreceded).WithLocation(10, 29),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, ExpectedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, ExpectedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -274,7 +274,7 @@ public class Foo<T> : object where T : IFormattable
                 Diagnostic(DescriptorNotPreceded).WithLocation(24, 21),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, ExpectedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, ExpectedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -327,7 +327,7 @@ public class Foo<T>:object where T:IFormattable
                 Diagnostic(DescriptorFollowed).WithLocation(10, 29),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, ExpectedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, ExpectedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

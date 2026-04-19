@@ -45,7 +45,7 @@ public class TestClass
                 Diagnostic().WithLocation(6, 45),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

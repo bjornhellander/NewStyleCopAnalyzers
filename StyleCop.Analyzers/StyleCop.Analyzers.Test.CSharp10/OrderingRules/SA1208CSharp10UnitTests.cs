@@ -61,7 +61,7 @@ class A
                     Diagnostic().WithLocation(1).WithArguments("System.IO", "Xyz"),
                     Diagnostic().WithLocation(2).WithArguments("System.Threading.Tasks", "Xyz"),
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

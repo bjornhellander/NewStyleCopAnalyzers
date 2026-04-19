@@ -39,7 +39,7 @@ return 0;
                     Sources = { testCode },
                 },
                 Settings = TestSettings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

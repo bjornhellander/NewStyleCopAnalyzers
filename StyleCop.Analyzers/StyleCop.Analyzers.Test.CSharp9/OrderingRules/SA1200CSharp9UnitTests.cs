@@ -38,7 +38,7 @@ return 0;
                     OutputKind = OutputKind.ConsoleApplication,
                     Sources = { testCode },
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

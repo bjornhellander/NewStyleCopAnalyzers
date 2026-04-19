@@ -55,7 +55,7 @@ class C
                 // /0/Test0.cs(8,18): warning SA1008: Opening parenthesis should not be followed by a space.
                 Diagnostic(DescriptorNotFollowed).WithLocation(2),
             };
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -73,7 +73,7 @@ class C
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -100,7 +100,7 @@ class C
                     Diagnostic(DescriptorNotFollowed).WithLocation(0),
                 },
                 FixedCode = fixedCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
     }}
 }}";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -46,7 +46,7 @@ public class Foo
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -63,7 +63,7 @@ public class Foo
 }";
 
             DiagnosticResult expected = Diagnostic().WithLocation(4, 34);
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -101,7 +101,7 @@ public class Foo
                 },
                 NumberOfIncrementalIterations = 2,
                 NumberOfFixAllIterations = 2,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -141,7 +141,7 @@ public class Foo
                 },
                 NumberOfIncrementalIterations = 2,
                 NumberOfFixAllIterations = 2,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -181,7 +181,7 @@ public class Foo
                 },
                 NumberOfIncrementalIterations = 2,
                 NumberOfFixAllIterations = 2,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -219,7 +219,7 @@ public class Foo
                 },
                 NumberOfIncrementalIterations = 2,
                 NumberOfFixAllIterations = 2,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -257,7 +257,7 @@ public class Foo
                 },
                 NumberOfIncrementalIterations = 2,
                 NumberOfFixAllIterations = 2,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -295,7 +295,7 @@ public class Foo
                 },
                 NumberOfIncrementalIterations = 2,
                 NumberOfFixAllIterations = 2,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -333,7 +333,7 @@ public class Foo
                 },
                 NumberOfIncrementalIterations = 2,
                 NumberOfFixAllIterations = 2,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -349,7 +349,7 @@ public class Foo
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -389,7 +389,7 @@ public class Foo
                 },
                 NumberOfIncrementalIterations = 2,
                 NumberOfFixAllIterations = 2,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -410,7 +410,7 @@ public class Foo
                 Diagnostic().WithLocation(4, 66),
                 DiagnosticResult.CompilerError("CS0029").WithMessage("Cannot implicitly convert type 'int' to 'string'").WithLocation(4, 82),
             };
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -424,7 +424,7 @@ public class Foo
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -442,7 +442,7 @@ public class Foo
 {{
 }}";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

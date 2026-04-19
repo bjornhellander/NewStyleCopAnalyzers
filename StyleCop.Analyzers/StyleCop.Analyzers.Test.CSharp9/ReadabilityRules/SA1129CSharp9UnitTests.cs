@@ -44,7 +44,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 }
 ";
 
-            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

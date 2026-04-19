@@ -58,7 +58,7 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
 ";
 
             var expectedDiagnostic = Diagnostic(FileHeaderAnalyzers.SA1633DescriptorMissing).WithLocation(1, 1);
-            await this.VerifyCSharpDiagnosticAsync(testCode, expectedDiagnostic, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, expectedDiagnostic, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
 // </copyright>
 ";
 
-            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
 </copyright> */
 ";
 
-            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
 */
 ";
 
-            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
 </copyright>*/
 ";
 
-            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
 */
 ";
 
-            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace Bar
 ";
 
             var expected = Diagnostic(FileHeaderAnalyzers.SA1633DescriptorMissing).WithLocation(1, 1);
-            await this.VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace Bar
 }
 ";
 
-            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Foo
 ";
 
             var expectedDiagnostic = Diagnostic(FileHeaderAnalyzers.SA1633DescriptorMissing).WithLocation(1, 1);
-            await this.VerifyCSharpFixAsync(testCode, expectedDiagnostic, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpFixAsync(testCode, expectedDiagnostic, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace Foo
             this.useDecoratedXmlMultiLineHeaderTestSettings = true;
 
             var expectedDiagnostic = Diagnostic(FileHeaderAnalyzers.SA1633DescriptorMissing).WithLocation(1, 1);
-            await this.VerifyCSharpFixAsync(testCode, expectedDiagnostic, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpFixAsync(testCode, expectedDiagnostic, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -262,7 +262,7 @@ namespace Foo
 ";
 
             var expectedDiagnostic = Diagnostic(FileHeaderAnalyzers.SA1633DescriptorMalformed).WithLocation(1, 1);
-            await this.VerifyCSharpFixAsync(testCode, expectedDiagnostic, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpFixAsync(testCode, expectedDiagnostic, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace Foo
 ";
 
             var expected = Diagnostic(FileHeaderAnalyzers.SA1633DescriptorMalformed).WithLocation(1, 1);
-            await this.VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace Foo
 ";
 
             var expectedDiagnostic = Diagnostic(FileHeaderAnalyzers.SA1633DescriptorMalformed).WithLocation(1, 1);
-            await this.VerifyCSharpFixAsync(testCode, expectedDiagnostic, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpFixAsync(testCode, expectedDiagnostic, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -341,7 +341,7 @@ namespace Foo
 // </copyright>
 ";
 
-            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -363,7 +363,7 @@ namespace Foo
             var testCode = $@"{prefix}// copyright (c) FooCorp. All rights reserved.
 ";
 
-            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -398,7 +398,7 @@ namespace Foo
                 DiagnosticResult.CompilerError("CS1035").WithMessage("End-of-file found, '*/' expected").WithLocation(3, 1),
             };
 
-            await this.VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedCode, expectedFixedDiagnostics, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedCode, expectedFixedDiagnostics, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <inheritdoc/>

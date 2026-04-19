@@ -53,7 +53,7 @@ public class Foo
 }";
 
             var expected = Diagnostic(DescriptorNotPreceded).WithSpan(9, 49, 9, 50);
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

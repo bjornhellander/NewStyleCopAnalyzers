@@ -31,7 +31,7 @@ namespace NamespaceName { }
         [Fact]
         public async Task TestMissingSettingsAsync()
         {
-            await VerifyCSharpDiagnosticAsync(TestCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(TestCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace NamespaceName { }
                         },
                     },
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace NamespaceName { }
             {
                 TestCode = TestCode,
                 Settings = SettingsFileCodeFixProvider.DefaultSettingsFileContent,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -92,7 +92,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -116,7 +116,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -140,7 +140,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -164,7 +164,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -188,7 +188,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -212,7 +212,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -236,7 +236,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -260,7 +260,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -284,7 +284,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -306,7 +306,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -331,7 +331,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -349,7 +349,7 @@ namespace NamespaceName { }
                 TestCode = TestCode,
                 ExpectedDiagnostics = { expected },
                 Settings = settings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -379,7 +379,7 @@ namespace NamespaceName { }
                         return solution;
                     },
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         private class InvalidAdditionalText : AdditionalText

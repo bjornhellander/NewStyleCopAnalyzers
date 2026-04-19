@@ -100,7 +100,7 @@ public class TestClass
                 Diagnostic().WithLocation(16, 19),
             };
 
-            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

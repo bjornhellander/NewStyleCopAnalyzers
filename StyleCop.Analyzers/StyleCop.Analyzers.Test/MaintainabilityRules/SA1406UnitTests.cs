@@ -64,7 +64,7 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
                 this.Diagnostic().WithLocation(17, 13),
             };
 
-            await this.VerifyCSharpDiagnosticAsync(testCode, expected, includeSystemDll: false, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, expected, includeSystemDll: false, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
         {
             string statementWithoutSpace = "int a = new();";
 
-            await this.TestKeywordStatementAsync(statementWithoutSpace, DiagnosticResult.EmptyDiagnosticResults, statementWithoutSpace).ConfigureAwait(false);
+            await this.TestKeywordStatementAsync(statementWithoutSpace, DiagnosticResult.EmptyDiagnosticResults, statementWithoutSpace).ConfigureAwait(true);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
             var statementWithSpace = "_ = 1 is >1;";
 
             var expected = Diagnostic().WithArguments("is", string.Empty, "followed").WithLocation(0);
-            await this.TestKeywordStatementAsync(statementWithoutSpace, expected, statementWithSpace).ConfigureAwait(false);
+            await this.TestKeywordStatementAsync(statementWithoutSpace, expected, statementWithSpace).ConfigureAwait(true);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
             var statementWithSpace = "_ = 1 is not >1;";
 
             var expected = Diagnostic().WithArguments("not", string.Empty, "followed").WithLocation(0);
-            await this.TestKeywordStatementAsync(statementWithoutSpace, expected, statementWithSpace).ConfigureAwait(false);
+            await this.TestKeywordStatementAsync(statementWithoutSpace, expected, statementWithSpace).ConfigureAwait(true);
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
             var statementWithSpace = "_ = 1 is 1 and >0;";
 
             var expected = Diagnostic().WithArguments("and", string.Empty, "followed").WithLocation(0);
-            await this.TestKeywordStatementAsync(statementWithoutSpace, expected, statementWithSpace).ConfigureAwait(false);
+            await this.TestKeywordStatementAsync(statementWithoutSpace, expected, statementWithSpace).ConfigureAwait(true);
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
             var statementWithSpace = "_ = 1 is 1 or >1;";
 
             var expected = Diagnostic().WithArguments("or", string.Empty, "followed").WithLocation(0);
-            await this.TestKeywordStatementAsync(statementWithoutSpace, expected, statementWithSpace).ConfigureAwait(false);
+            await this.TestKeywordStatementAsync(statementWithoutSpace, expected, statementWithSpace).ConfigureAwait(true);
         }
     }
 }

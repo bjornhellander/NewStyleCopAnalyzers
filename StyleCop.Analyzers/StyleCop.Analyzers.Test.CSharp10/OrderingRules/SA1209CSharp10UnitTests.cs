@@ -45,7 +45,7 @@ class A
 }
 ";
 
-            await VerifyCSharpFixAsync(testCodeNamespace, DiagnosticResult.EmptyDiagnosticResults, fixedTestCodeNamespace, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCodeNamespace, DiagnosticResult.EmptyDiagnosticResults, fixedTestCodeNamespace, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

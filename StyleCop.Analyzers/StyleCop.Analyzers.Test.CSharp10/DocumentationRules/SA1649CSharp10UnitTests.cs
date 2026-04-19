@@ -45,7 +45,7 @@ public delegate void IgnoredDelegate();
 ";
 
             var expectedDiagnostic = Diagnostic().WithLocation(0);
-            await VerifyCSharpFixAsync("TestType2.cs", testCode, StyleCopSettings, expectedDiagnostic, "TestType.cs", fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync("TestType2.cs", testCode, StyleCopSettings, expectedDiagnostic, "TestType.cs", fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

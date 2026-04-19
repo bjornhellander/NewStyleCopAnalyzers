@@ -51,7 +51,7 @@ class C
                 testCode,
                 expectedResults,
                 fixedCode,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -91,7 +91,7 @@ class C
                 testCode,
                 expectedResults,
                 fixedCode,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -131,7 +131,7 @@ class C
                 testCode,
                 expectedResults,
                 fixedCode,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

@@ -38,7 +38,7 @@ public static class TestClass
 
             var expected = Diagnostic(DescriptorNotPreceded).WithLocation(0);
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -64,7 +64,7 @@ public static class TestClass
 
             var expected = Diagnostic(DescriptorNotFollowed).WithLocation(0);
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

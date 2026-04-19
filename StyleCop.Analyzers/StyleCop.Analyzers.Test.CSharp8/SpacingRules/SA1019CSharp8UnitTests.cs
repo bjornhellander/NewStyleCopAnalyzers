@@ -63,7 +63,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
                 Diagnostic(DescriptorNotPreceded).WithArguments("?").WithLocation(12, 40),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

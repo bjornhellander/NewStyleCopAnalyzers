@@ -36,7 +36,7 @@ public static class TestClass
 
             var expected = Diagnostic().WithLocation(0).WithArguments("preceded");
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -62,7 +62,7 @@ public static class TestClass
 
             var expected = Diagnostic().WithLocation(0).WithArguments("followed");
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

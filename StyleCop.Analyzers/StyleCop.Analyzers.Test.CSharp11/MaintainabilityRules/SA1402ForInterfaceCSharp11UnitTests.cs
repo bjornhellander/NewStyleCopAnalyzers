@@ -24,7 +24,7 @@ file interface TestType2 {{ }}
                 testCode,
                 this.GetSettings(),
                 DiagnosticResult.EmptyDiagnosticResults,
-                CancellationToken.None).ConfigureAwait(false);
+                CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

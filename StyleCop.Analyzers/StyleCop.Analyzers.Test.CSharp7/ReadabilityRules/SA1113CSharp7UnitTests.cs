@@ -41,7 +41,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
 }";
 
             DiagnosticResult expected = Diagnostic().WithLocation(6, 18);
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
                     Diagnostic().WithLocation(7, 18),
                 };
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -93,7 +93,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

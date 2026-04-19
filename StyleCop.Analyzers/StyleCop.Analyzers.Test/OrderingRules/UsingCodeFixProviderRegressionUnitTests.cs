@@ -84,7 +84,7 @@ namespace Microsoft.VisualStudio.Shell
 ";
 
             var expected = StyleCopDiagnosticVerifier<SA1210UsingDirectivesMustBeOrderedAlphabeticallyByNamespace>.Diagnostic().WithLocation(6, 1);
-            await this.VerifyCSharpFixAsync(testCode, new[] { expected }, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpFixAsync(testCode, new[] { expected }, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace MyNamespace
 ";
 
             var expected = StyleCopDiagnosticVerifier<SA1210UsingDirectivesMustBeOrderedAlphabeticallyByNamespace>.Diagnostic().WithLocation(2, 1);
-            await this.VerifyCSharpFixAsync(testCode, new[] { expected }, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpFixAsync(testCode, new[] { expected }, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         private Task VerifyCSharpFixAsync(string source, DiagnosticResult[] expected, string fixedSource, CancellationToken cancellationToken)
