@@ -45,6 +45,7 @@ namespace StyleCop.Analyzers.Lightup
 
         public SwitchLabelSyntax SyntaxNode => this.node;
 
+
         public SyntaxToken Keyword
         {
             get
