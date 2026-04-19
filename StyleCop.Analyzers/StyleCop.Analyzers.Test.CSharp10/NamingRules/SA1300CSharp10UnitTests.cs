@@ -21,7 +21,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.NamingRules
         {
             var testCode = @"namespace Test;";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.NamingRules
             var fixedCode = @"namespace Test;";
 
             DiagnosticResult expected = Diagnostic().WithArguments("test").WithLocation(0);
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.NamingRules
             {
                 TestCode = testCode,
                 Settings = customTestSettings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.NamingRules
                 Diagnostic().WithArguments("bar").WithLocation(2),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -93,7 +93,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.NamingRules
             {
                 TestCode = testCode,
                 Settings = customTestSettings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

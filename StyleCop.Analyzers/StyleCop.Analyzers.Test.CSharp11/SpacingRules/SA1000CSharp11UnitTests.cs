@@ -44,7 +44,7 @@ public class MyClass
                 Diagnostic().WithArguments("checked", string.Empty, "followed").WithLocation(0),
                 Diagnostic().WithArguments("checked", string.Empty, "followed").WithLocation(1),
             };
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

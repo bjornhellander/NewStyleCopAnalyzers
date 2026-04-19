@@ -39,7 +39,7 @@ class TestClass
             {
                 TestSources = { source1, oldSource2 },
                 FixedSources = { source1, newSource2 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

@@ -31,7 +31,7 @@ public {keyword} C(int {{|#0:param1|}}, string {{|#1:param2|}}) {{ }}";
                 Diagnostic().WithLocation(1).WithArguments("param2"),
             };
 
-            await VerifyCSharpDiagnosticAsync(testCode, expectedResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expectedResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -46,7 +46,7 @@ public {keyword} C(int {{|#0:param1|}}, string {{|#1:param2|}}) {{ }}";
 /// <param name=""param1"">Parameter one.</param>
 public {keyword} C(int param1, string {{|#0:param2|}}) {{ }}";
 
-            await VerifyCSharpDiagnosticAsync(testCode, new[] { Diagnostic().WithLocation(0).WithArguments("param2") }, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, new[] { Diagnostic().WithLocation(0).WithArguments("param2") }, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -62,7 +62,7 @@ public {keyword} C(int param1, string {{|#0:param2|}}) {{ }}";
 /// <param name=""param2"">Parameter two.</param>
 public {keyword} C(int param1, string param2) {{ }}";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -81,7 +81,7 @@ public {keyword} C(int {{|#0:param1|}}, string {{|#1:param2|}}, bool {{|#2:param
                 Diagnostic().WithLocation(2).WithArguments("param3"),
             };
 
-            await VerifyCSharpDiagnosticAsync(testCode, expectedResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expectedResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -93,7 +93,7 @@ public {keyword} C(int {{|#0:param1|}}, string {{|#1:param2|}}, bool {{|#2:param
 /// <include file='WithPartialClassDocumentation.xml' path='/TestType/*' />
 public {keyword} C(int {{|#0:param1|}}, string param2, bool param3) {{ }}";
 
-            await VerifyCSharpDiagnosticAsync(testCode, new[] { Diagnostic().WithLocation(0).WithArguments("param1") }, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, new[] { Diagnostic().WithLocation(0).WithArguments("param1") }, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -105,7 +105,7 @@ public {keyword} C(int {{|#0:param1|}}, string param2, bool param3) {{ }}";
 /// <include file='WithClassDocumentation.xml' path='/TestType/*' />
 public {keyword} C(int param1, string param2, bool param3) {{ }}";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

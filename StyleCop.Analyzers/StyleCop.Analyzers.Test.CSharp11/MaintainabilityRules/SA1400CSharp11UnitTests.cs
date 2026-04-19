@@ -22,7 +22,7 @@ namespace StyleCop.Analyzers.Test.CSharp11.MaintainabilityRules
         {
             var testCode = $@"file {typeName} TypeName {{ }}";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

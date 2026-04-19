@@ -50,7 +50,7 @@ namespace TestNamespace
                     Diagnostic(DescriptorPrecededByWhitespace).WithLocation(0).WithArguments(">>>="),
                     Diagnostic(DescriptorFollowedByWhitespace).WithLocation(0).WithArguments(">>>="),
             };
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -88,7 +88,7 @@ namespace TestNamespace
                     Diagnostic(DescriptorPrecededByWhitespace).WithLocation(0).WithArguments(">>>"),
                     Diagnostic(DescriptorFollowedByWhitespace).WithLocation(0).WithArguments(">>>"),
             };
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

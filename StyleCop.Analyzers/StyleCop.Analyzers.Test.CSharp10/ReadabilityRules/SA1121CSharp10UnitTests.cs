@@ -40,7 +40,7 @@ uint value = 3;
                 TestCode = oldSource,
                 ExpectedDiagnostics = { Diagnostic().WithLocation(0) },
                 FixedCode = newSource,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

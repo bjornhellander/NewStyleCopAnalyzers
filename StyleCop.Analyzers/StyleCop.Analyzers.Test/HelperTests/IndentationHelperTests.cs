@@ -113,8 +113,8 @@ namespace StyleCop.Analyzers.Test.HelperTests
         public async Task VerifyGetIndentationStepsAsync(string indentationString, int expectedIndentationSteps, int indentationSize, int tabSize)
         {
             var testSource = $"{indentationString}public class TestClass {{}}";
-            var document = await CreateTestDocumentAsync(testSource, indentationSize, false, tabSize, CancellationToken.None).ConfigureAwait(false);
-            var syntaxRoot = await document.GetSyntaxRootAsync(CancellationToken.None).ConfigureAwait(false);
+            var document = await CreateTestDocumentAsync(testSource, indentationSize, false, tabSize, CancellationToken.None).ConfigureAwait(true);
+            var syntaxRoot = await document.GetSyntaxRootAsync(CancellationToken.None).ConfigureAwait(true);
             StyleCopSettings settings = SettingsHelper.GetStyleCopSettingsInCodeFix(document.Project.AnalyzerOptions, syntaxRoot.SyntaxTree, CancellationToken.None);
 
             var firstToken = syntaxRoot.GetFirstToken();
@@ -131,8 +131,8 @@ namespace StyleCop.Analyzers.Test.HelperTests
         public async Task VerifyGetIndentationStepsForTokenNotAtStartOfLineAsync()
         {
             var testSource = "    public class TestClass {}";
-            var document = await CreateTestDocumentAsync(testSource, cancellationToken: CancellationToken.None).ConfigureAwait(false);
-            var syntaxRoot = await document.GetSyntaxRootAsync(CancellationToken.None).ConfigureAwait(false);
+            var document = await CreateTestDocumentAsync(testSource, cancellationToken: CancellationToken.None).ConfigureAwait(true);
+            var syntaxRoot = await document.GetSyntaxRootAsync(CancellationToken.None).ConfigureAwait(true);
             StyleCopSettings settings = SettingsHelper.GetStyleCopSettingsInCodeFix(document.Project.AnalyzerOptions, syntaxRoot.SyntaxTree, CancellationToken.None);
 
             var secondToken = syntaxRoot.GetFirstToken().GetNextToken();

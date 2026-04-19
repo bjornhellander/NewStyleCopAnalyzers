@@ -51,7 +51,7 @@ using System.Threading;
 ",
                 },
                 Settings = CombinedUsingDirectivesTestSettings,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

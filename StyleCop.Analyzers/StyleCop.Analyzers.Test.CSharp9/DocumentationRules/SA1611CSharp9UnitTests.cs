@@ -23,7 +23,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.DocumentationRules
 /// </summary>
 public {keyword} R(int Param1, string Param2);";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -35,7 +35,7 @@ public {keyword} R(int Param1, string Param2);";
 /// <include file='MissingClassDocumentation.xml' path='/TestType/*' />
 public {keyword} R(int Param1, string Param2);";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace NamespaceName
             };
 
             test.TestBehaviors |= TestBehaviors.SkipSuppressionCheck;
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace NamespaceName
             };
 
             test.TestBehaviors |= TestBehaviors.SkipSuppressionCheck;
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace NamespaceName
             };
 
             test.TestBehaviors |= TestBehaviors.SkipSuppressionCheck;
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace NamespaceName
             };
 
             test.TestBehaviors |= TestBehaviors.SkipSuppressionCheck;
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

@@ -78,7 +78,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
                 Diagnostic(SA110xQueryClauses.SA1105Descriptor).WithLocation(15, 51),
             };
 
-            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
                 Diagnostic(SA110xQueryClauses.SA1105Descriptor).WithLocation(15, 51),
             };
 
-            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
                 Diagnostic(SA110xQueryClauses.SA1105Descriptor).WithLocation(14, 24),
             };
 
-            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
                 Diagnostic(SA110xQueryClauses.SA1105Descriptor).WithLocation(15, 62),
             };
 
-            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expectedDiagnostics, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

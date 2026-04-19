@@ -42,7 +42,7 @@ public class TestClass
 }
 ";
 
-            await VerifyCSharpDiagnosticAsync(LanguageVersion.CSharp6, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(LanguageVersion.CSharp6, testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         //// TODO: Make sure that all paths are covered!

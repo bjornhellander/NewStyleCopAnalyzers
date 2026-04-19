@@ -25,7 +25,7 @@ class A
 {
 }";
 
-            await VerifyCSharpDiagnosticAsync(usingsInCompilationUnit, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(usingsInCompilationUnit, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ class A
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(usingsInNamespaceDeclaration, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(usingsInNamespaceDeclaration, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ class A
     using System.Threading;
 }";
 
-            await VerifyCSharpDiagnosticAsync(usingsInNamespaceDeclaration, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(usingsInNamespaceDeclaration, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -83,7 +83,7 @@ class A
                     Diagnostic().WithLocation("/0/Test2.cs", 3, 1).WithArguments("System.IO", "Xyz"),
                     Diagnostic().WithLocation("/0/Test2.cs", 5, 1).WithArguments("System.Threading.Tasks", "Xyz"),
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -112,7 +112,7 @@ class A
                     Diagnostic().WithLocation("/0/Test2.cs", 4, 5).WithArguments("System.Threading", "Namespace"),
                     Diagnostic().WithLocation("/0/Test2.cs", 5, 5).WithArguments("System.IO", "Namespace"),
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -146,7 +146,7 @@ namespace Test
                     Diagnostic().WithLocation("/0/Test3.cs", 8, 5).WithArguments("System.Threading", "Xyz"),
                     Diagnostic().WithLocation("/0/Test3.cs", 9, 5).WithArguments("System", "Xyz"),
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -178,7 +178,7 @@ namespace Test
                 {
                     Diagnostic().WithLocation("/0/Test3.cs", 8, 5).WithArguments("System.Threading", "Xyz"),
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -205,7 +205,7 @@ namespace Test
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(compilationUnitWithoutDiagnostic, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(compilationUnitWithoutDiagnostic, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
 
             await new CSharpTest
             {
@@ -219,7 +219,7 @@ namespace Test
                 {
                     Diagnostic().WithLocation("/0/Test2.cs", 6, 5).WithArguments("System.IO", "System.IO.Path"),
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -242,8 +242,8 @@ using System;
 
             DiagnosticResult expected = Diagnostic().WithLocation(2, 1).WithArguments("System", "System.IO.Path");
 
-            await VerifyCSharpDiagnosticAsync(namespaceDeclarationWithoutDiagnostic, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
-            await VerifyCSharpDiagnosticAsync(source, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(namespaceDeclarationWithoutDiagnostic, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(source, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -274,7 +274,7 @@ namespace Test
                 {
                     Diagnostic().WithLocation("/0/Test2.cs", 5, 5).WithArguments("System.Threading", "Namespace"),
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -303,7 +303,7 @@ namespace Test
                     Diagnostic().WithLocation("/0/Test2.cs", 4, 5).WithArguments("System.Threading", "Namespace"),
                     Diagnostic().WithLocation("/0/Test2.cs", 5, 5).WithArguments("System.IO", "Namespace"),
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -352,7 +352,7 @@ using System.Collections;
                 Diagnostic().WithLocation(9, 1).WithArguments("System.Collections", "Microsoft.CodeAnalysis.CSharp"),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -377,7 +377,7 @@ namespace Foo
     using Microsoft;
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

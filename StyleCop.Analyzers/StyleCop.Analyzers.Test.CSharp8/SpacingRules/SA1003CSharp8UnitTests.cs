@@ -57,7 +57,7 @@ namespace TestNamespace
 ";
 
             var expected = Diagnostic(DescriptorNotPrecededByWhitespace).WithLocation(0).WithArguments("(int)");
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace TestNamespace
                 Diagnostic(DescriptorPrecededByWhitespace).WithLocation(0).WithArguments("??="),
                 Diagnostic(DescriptorFollowedByWhitespace).WithLocation(0).WithArguments("??="),
             };
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -133,7 +133,7 @@ namespace TestNamespace
                 Diagnostic(DescriptorNotPrecededByWhitespace).WithLocation(0).WithArguments("!"),
                 Diagnostic(DescriptorNotFollowedByWhitespace).WithLocation(0).WithArguments("!"),
             };
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -155,7 +155,7 @@ namespace TestNamespace
 }}
 ";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -187,7 +187,7 @@ namespace TestNamespace
 }
 ";
 
-            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -219,7 +219,7 @@ namespace TestNamespace
 }
 ";
 
-            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

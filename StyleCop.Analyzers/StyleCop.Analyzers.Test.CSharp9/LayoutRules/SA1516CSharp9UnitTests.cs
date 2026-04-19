@@ -44,7 +44,7 @@ return 0;
             };
             var expectedDiagnostics = this.GetExpectedResultTestUsingAndGlobalStatementSpacingInTopLevelProgram();
             test.TestState.ExpectedDiagnostics.AddRange(expectedDiagnostics);
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ return i;
                     OutputKind = OutputKind.ConsoleApplication,
                     Sources = { testCode },
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ record A();
             };
             var expectedDiagnostics = this.GetExpectedResultTestGlobalStatementAndRecordSpacingInTopLevelProgram();
             test.TestState.ExpectedDiagnostics.AddRange(expectedDiagnostics);
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -138,7 +138,7 @@ public class Foo
 }
 ";
 
-            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         protected virtual DiagnosticResult[] GetExpectedResultTestUsingAndGlobalStatementSpacingInTopLevelProgram()

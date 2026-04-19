@@ -41,12 +41,12 @@ namespace StyleCop.Analyzers.Test.NamingRules
         {
             foreach (var modifier in this.modifiers)
             {
-                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, "m_", "m_").ConfigureAwait(false);
-                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, "s_", "s_").ConfigureAwait(false);
-                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, "t_", "t_").ConfigureAwait(false);
-                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, $"m{UnderscoreEscapeSequence}", "m_").ConfigureAwait(false);
-                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, $"s{UnderscoreEscapeSequence}", "s_").ConfigureAwait(false);
-                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, $"t{UnderscoreEscapeSequence}", "t_").ConfigureAwait(false);
+                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, "m_", "m_").ConfigureAwait(true);
+                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, "s_", "s_").ConfigureAwait(true);
+                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, "t_", "t_").ConfigureAwait(true);
+                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, $"m{UnderscoreEscapeSequence}", "m_").ConfigureAwait(true);
+                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, $"s{UnderscoreEscapeSequence}", "s_").ConfigureAwait(true);
+                await this.TestFieldSpecifyingModifierAndPrefixAsync(modifier, $"t{UnderscoreEscapeSequence}", "t_").ConfigureAwait(true);
             }
         }
 
@@ -60,7 +60,7 @@ private string m_ = ""baz"";
             DiagnosticResult expected = Diagnostic().WithArguments("m_", "m_").WithLocation(3, 16);
 
             // When the variable name is simply the disallowed prefix, we will not offer a code fix, as we cannot infer the correct variable name.
-            await VerifyCSharpFixAsync(originalCode, expected, originalCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(originalCode, expected, originalCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -72,7 +72,7 @@ private string m_ = ""baz"";
 string x_bar = ""baz"";
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -84,7 +84,7 @@ string x_bar = ""baz"";
 string m_bar = ""baz"";
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ string m_bar = ""baz"";
                 .WithLocation(3, 20);
 
             var fixedCode = testCode.Replace(prefix, string.Empty);
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -129,7 +129,7 @@ string m_bar = ""baz"";
                 .WithLocation(3, 20);
 
             // A code fix is not offered as removing the prefixes would create an empty identifier.
-            await VerifyCSharpFixAsync(testCode, expected, testCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, testCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ string m_bar = ""baz"";
                 .WithLocation(3, 20);
 
             var fixedCode = testCode.Replace(prefixes, string.Empty);
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -175,7 +175,7 @@ string m_bar = ""baz"";
                 .WithLocation(3, 20);
 
             // A code fix is not offered as removing the prefixes would create an empty identifier.
-            await VerifyCSharpFixAsync(testCode, expected, testCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, testCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         private static string UnescapeUnderscores(string identifier) => identifier.Replace(UnderscoreEscapeSequence, "_");

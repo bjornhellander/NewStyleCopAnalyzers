@@ -37,7 +37,7 @@ public record R(int A)
 }
 ";
 
-            await VerifyCSharpFixAsync(testCode, this.GetExpectedResultTestPositionalRecord1(), fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, this.GetExpectedResultTestPositionalRecord1(), fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -63,7 +63,7 @@ public record R(int A)
 }
 ";
 
-            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         protected virtual DiagnosticResult[] GetExpectedResultTestPositionalRecord1()

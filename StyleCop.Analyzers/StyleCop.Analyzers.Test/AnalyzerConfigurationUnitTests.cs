@@ -40,7 +40,7 @@ namespace StyleCop.Analyzers.Test
             await new CSharpTest(analyzerType)
             {
                 TestCode = string.Empty,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]

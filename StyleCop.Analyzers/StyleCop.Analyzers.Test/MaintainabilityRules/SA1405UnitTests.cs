@@ -47,7 +47,7 @@ public class Foo
 }";
 
             DiagnosticResult expected = this.Diagnostic().WithLocation(6, 9);
-            await this.VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -79,7 +79,7 @@ public class Foo
                 this.Diagnostic().WithLocation(17, 13),
             };
 
-            await this.VerifyCSharpDiagnosticAsync(testCode, expected, includeSystemDll: false, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, expected, includeSystemDll: false, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

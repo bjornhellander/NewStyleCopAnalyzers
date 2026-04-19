@@ -55,7 +55,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
                 FixedCode = fixedCode,
                 NumberOfIncrementalIterations = 5,
                 NumberOfFixAllIterations = 2,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

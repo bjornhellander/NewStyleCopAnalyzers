@@ -34,7 +34,7 @@ namespace Bar
 ";
 
             var expectedDiagnostic = Diagnostic(FileHeaderAnalyzers.SA1639Descriptor).WithLocation(1, 1);
-            await this.VerifyCSharpDiagnosticAsync(testCode, expectedDiagnostic, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, expectedDiagnostic, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Bar
 ";
 
             var expectedDiagnostic = Diagnostic(FileHeaderAnalyzers.SA1639Descriptor).WithLocation(4, 4);
-            await this.VerifyCSharpDiagnosticAsync(testCode, expectedDiagnostic, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, expectedDiagnostic, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Bar
 ";
 
             var expectedDiagnostic = Diagnostic(FileHeaderAnalyzers.SA1639Descriptor).WithLocation(4, 4);
-            await this.VerifyCSharpDiagnosticAsync(testCode, expectedDiagnostic, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, expectedDiagnostic, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>

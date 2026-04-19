@@ -51,7 +51,7 @@ using Bar;
 using Foo;
 ",
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

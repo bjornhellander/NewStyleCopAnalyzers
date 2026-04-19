@@ -24,7 +24,7 @@ namespace TestNamespace
     using KeyValue = System.Collections.Generic.KeyValuePair<string, object?>;
 }
 ";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
             await new CSharpTest
             {
                 TestState =
@@ -49,7 +49,7 @@ using A.B.C;
 ",
                     },
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

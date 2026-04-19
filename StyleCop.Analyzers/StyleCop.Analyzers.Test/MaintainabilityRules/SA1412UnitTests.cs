@@ -49,7 +49,7 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
             };
 
             test.TestBehaviors |= TestBehaviors.SkipSuppressionCheck;
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -68,15 +68,15 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
             };
 
             test.TestBehaviors |= TestBehaviors.SkipSuppressionCheck;
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
         [MemberData(nameof(NonUtf8Encodings))]
         public async Task TestFixAllAsync(int codepage)
         {
-            await this.TestFixAllExecuterAsync(codepage, FixAllScope.Project).ConfigureAwait(false);
-            await this.TestFixAllExecuterAsync(codepage, FixAllScope.Solution).ConfigureAwait(false);
+            await this.TestFixAllExecuterAsync(codepage, FixAllScope.Project).ConfigureAwait(true);
+            await this.TestFixAllExecuterAsync(codepage, FixAllScope.Solution).ConfigureAwait(true);
         }
 
         [Fact]
@@ -107,7 +107,7 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
             };
 
             test.TestBehaviors |= TestBehaviors.SkipSuppressionCheck;
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         private async Task TestFixAllExecuterAsync(int codepage, FixAllScope scope)

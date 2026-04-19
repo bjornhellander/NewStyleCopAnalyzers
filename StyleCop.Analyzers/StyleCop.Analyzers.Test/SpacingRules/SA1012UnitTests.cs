@@ -39,7 +39,7 @@ namespace StyleCop.Analyzers.Test.SpacingRules
     }
 }";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace StyleCop.Analyzers.Test.SpacingRules
 {";
 
             DiagnosticResult expected = DiagnosticResult.CompilerError("CS1513").WithLocation(2, 2).WithMessage("} expected");
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace StyleCop.Analyzers.Test.SpacingRules
                 Diagnostic().WithLocation(13, 20).WithArguments(" not", "followed"),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace StyleCop.Analyzers.Test.SpacingRules
                 Diagnostic().WithLocation(8, 33).WithArguments(string.Empty, "followed"),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace StyleCop.Analyzers.Test.SpacingRules
                 Diagnostic().WithLocation(13, 38).WithArguments(string.Empty, "followed"),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -226,7 +226,7 @@ class ClassName
                 DiagnosticResult.CompilerError("CS1514").WithMessage("{ expected").WithLocation(6, 25),
             };
 
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace StyleCop.Analyzers.Test.SpecialRules
                     DocumentationMode = documentationMode,
                     Sources = { testCode },
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
@@ -58,7 +58,7 @@ namespace StyleCop.Analyzers.Test.SpecialRules
                     Sources = { testCode },
                     ExpectedDiagnostics = { expected },
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

@@ -57,7 +57,7 @@ using static System.Math;
 using Execute = System.Action;
 ",
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

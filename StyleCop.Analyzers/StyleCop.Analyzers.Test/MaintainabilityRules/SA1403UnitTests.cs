@@ -35,7 +35,7 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
 }";
 
             DiagnosticResult expected = this.Diagnostic().WithLocation(3, 15);
-            await this.VerifyCSharpDiagnosticAsync(testCode, this.GetSettings(), expected, CancellationToken.None).ConfigureAwait(false);
+            await this.VerifyCSharpDiagnosticAsync(testCode, this.GetSettings(), expected, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

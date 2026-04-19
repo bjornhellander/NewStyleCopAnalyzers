@@ -109,7 +109,7 @@ namespace StyleCop.Analyzers.Test.SpacingRules
                     Diagnostic().WithLocation(13, 1),
                     Diagnostic().WithLocation(19, 1),
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -131,7 +131,7 @@ namespace StyleCop.Analyzers.Test.SpacingRules
 
             var expected = this.GetExpectedResultSyntaxErrorAtEndOfFile();
 
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         protected virtual DiagnosticResult[] GetExpectedResultSyntaxErrorAtEndOfFile()

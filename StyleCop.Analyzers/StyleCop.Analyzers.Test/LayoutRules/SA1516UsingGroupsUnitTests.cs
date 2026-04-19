@@ -45,7 +45,7 @@ using Factory = System.Activator;
             {
                 TestCode = testCode,
                 Settings = GetSettings(blankLinesBetweenUsingGroups: OptionSetting.Allow),
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         //// TODO: Add namespace checks to the remaining code using WrapWithNamespace
@@ -100,7 +100,7 @@ namespace TestNamespace
                 },
                 FixedCode = fixedTestCode,
                 Settings = GetSettings(systemUsingDirectivesFirst: true, blankLinesBetweenUsingGroups: OptionSetting.Omit),
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace TestNamespace
                 },
                 FixedCode = fixedTestCode,
                 Settings = GetSettings(systemUsingDirectivesFirst: false, blankLinesBetweenUsingGroups: OptionSetting.Omit),
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace TestNamespace
             {
                 TestCode = testCode,
                 Settings = GetSettings(systemUsingDirectivesFirst: true, blankLinesBetweenUsingGroups: OptionSetting.Omit),
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace TestNamespace
                 },
                 FixedCode = fixedTestCode,
                 Settings = GetSettings(systemUsingDirectivesFirst: true, blankLinesBetweenUsingGroups: OptionSetting.Require),
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace TestNamespace
                 },
                 FixedCode = fixedTestCode,
                 Settings = GetSettings(systemUsingDirectivesFirst: false, blankLinesBetweenUsingGroups: OptionSetting.Require),
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         private static string GetSettings(bool systemUsingDirectivesFirst = true, OptionSetting blankLinesBetweenUsingGroups = OptionSetting.Allow)

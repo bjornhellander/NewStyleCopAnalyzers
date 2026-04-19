@@ -38,7 +38,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
                 Diagnostic().WithArguments(" not", "followed").WithLocation(1),
             };
 
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(false);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

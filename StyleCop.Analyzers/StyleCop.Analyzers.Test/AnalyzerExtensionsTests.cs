@@ -38,7 +38,7 @@ class TypeName
             await new CSharpTest(this)
             {
                 TestCode = testCode,
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
 
             Assert.True(this.invokedBlockCallback);
             Assert.True(this.invokedMethodDeclarationCallback);

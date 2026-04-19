@@ -70,7 +70,7 @@ namespace StyleCop.Analyzers.Test
                 {
                     (filename, testCode),
                 },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace StyleCop.Analyzers.Test
             };
 
             test.TestBehaviors |= TestBehaviors.SkipSuppressionCheck;
-            await test.RunAsync(CancellationToken.None).ConfigureAwait(false);
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }
