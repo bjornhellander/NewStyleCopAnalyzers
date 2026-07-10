@@ -27,11 +27,5 @@
     <ProjectReference Include="..\StyleCop.Analyzers.CodeFixes\StyleCop.Analyzers.CodeFixes.csproj" />
     <ProjectReference Include="..\StyleCop.Analyzers\StyleCop.Analyzers.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <None Update="xunit.runner.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 
 </Project>
