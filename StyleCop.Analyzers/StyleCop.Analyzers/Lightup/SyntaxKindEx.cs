@@ -17,6 +17,7 @@ namespace StyleCop.Analyzers.Lightup
         public const SyntaxKind UnmanagedKeyword = (SyntaxKind)8446;
         public const SyntaxKind RequiredKeyword = (SyntaxKind)8447;
         public const SyntaxKind FileKeyword = (SyntaxKind)8449;
+        public const SyntaxKind UnionKeyword = (SyntaxKind)8452;
         public const SyntaxKind NullableKeyword = (SyntaxKind)8486;
         public const SyntaxKind EnableKeyword = (SyntaxKind)8487;
         public const SyntaxKind WarningsKeyword = (SyntaxKind)8488;
@@ -74,5 +75,7 @@ namespace StyleCop.Analyzers.Lightup
         public const SyntaxKind RecordStructDeclaration = (SyntaxKind)9068;
         public const SyntaxKind CollectionExpression = (SyntaxKind)9076;
         public const SyntaxKind ExtensionBlockDeclaration = (SyntaxKind)9079;
+        public const SyntaxKind WithElement = (SyntaxKind)9081;
+        public const SyntaxKind UnionDeclaration = (SyntaxKind)9082;
     }
 }
