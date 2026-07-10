@@ -28,7 +28,7 @@ internal sealed class IncludeTestClassesAnalyzer : DiagnosticAnalyzer
         context.RegisterCompilationStartAction(context =>
         {
             var assemblyName = context.Compilation.AssemblyName ?? string.Empty;
-            if (!Regex.IsMatch(assemblyName, @"^StyleCop\.Analyzers\.Test\.CSharp\d+$"))
+            if (!Regex.IsMatch(assemblyName, @"^StyleCop\.Analyzers\.Test\.CSharp\d+$") || assemblyName.EndsWith("CSharp6"))
             {
                 // This is not a test project where derived test classes are expected
                 return;
@@ -54,16 +54,8 @@ internal sealed class IncludeTestClassesAnalyzer : DiagnosticAnalyzer
             {
                 var currentVersion = int.Parse(assemblyName["StyleCop.Analyzers.Test.CSharp".Length..]);
                 var currentTestString = "CSharp" + currentVersion;
-                var previousTestString = currentVersion switch
-                {
-                    7 => string.Empty,
-                    _ => "CSharp" + (currentVersion - 1).ToString(),
-                };
-                var previousAssemblyName = previousTestString switch
-                {
-                    "" => "StyleCop.Analyzers.Test",
-                    _ => "StyleCop.Analyzers.Test." + previousTestString,
-                };
+                var previousTestString = "CSharp" + (currentVersion - 1).ToString();
+                var previousAssemblyName = "StyleCop.Analyzers.Test." + previousTestString;
 
                 var previousAssembly = context.Compilation.Assembly.Modules.First().ReferencedAssemblySymbols.First(
                     symbol => symbol.Identity.Name == previousAssemblyName);
