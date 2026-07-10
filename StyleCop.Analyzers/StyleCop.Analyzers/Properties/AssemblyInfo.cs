@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 [assembly: InternalsVisibleTo("StyleCop.Analyzers.CodeFixes")]
-[assembly: InternalsVisibleTo("StyleCop.Analyzers.Test")]
+[assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp6")]
 [assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp7")]
 [assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp8")]
 [assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp9")]

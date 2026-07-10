@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.PrivateAnalyzers
             var testData = context.CompilationProvider.Select((compilation, cancellationToken) =>
             {
                 var currentAssemblyName = compilation.AssemblyName ?? string.Empty;
-                if (!Regex.IsMatch(currentAssemblyName, @"^StyleCop\.Analyzers\.Test\.CSharp\d+$"))
+                if (!Regex.IsMatch(currentAssemblyName, @"^StyleCop\.Analyzers\.Test\.CSharp\d+$") || currentAssemblyName.EndsWith("CSharp6"))
                 {
                     // This is not a test project where derived test classes are expected
                     return null;
@@ -25,16 +25,8 @@ namespace StyleCop.Analyzers.PrivateAnalyzers
 
                 var currentVersion = int.Parse(currentAssemblyName["StyleCop.Analyzers.Test.CSharp".Length..]);
                 var currentTestString = "CSharp" + currentVersion;
-                var previousTestString = currentVersion switch
-                {
-                    7 => string.Empty,
-                    _ => "CSharp" + (currentVersion - 1).ToString(),
-                };
-                var previousAssemblyName = previousTestString switch
-                {
-                    "" => "StyleCop.Analyzers.Test",
-                    _ => "StyleCop.Analyzers.Test." + previousTestString,
-                };
+                var previousTestString = "CSharp" + (currentVersion - 1).ToString();
+                var previousAssemblyName = "StyleCop.Analyzers.Test." + previousTestString;
 
                 return new TestData(previousTestString, previousAssemblyName, currentTestString, currentAssemblyName);
             });

@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-[assembly: InternalsVisibleTo("StyleCop.Analyzers.Test")]
+[assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp6")]
 [assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp7")]
 [assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp8")]
 [assembly: InternalsVisibleTo("StyleCop.Analyzers.Test.CSharp9")]
