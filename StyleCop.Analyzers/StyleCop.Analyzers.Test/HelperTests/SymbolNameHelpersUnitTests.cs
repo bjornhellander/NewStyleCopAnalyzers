@@ -26,15 +26,15 @@ namespace StyleCop.Analyzers.Test.HelperTests
 
         private Solution testSolution;
 
-        public async Task InitializeAsync()
+        public async ValueTask InitializeAsync()
         {
             var compilationOptions = this.GetCompilationOptions();
             this.testSolution = await CreateTestSolutionAsync(compilationOptions).ConfigureAwait(false);
         }
 
-        public Task DisposeAsync()
+        public async ValueTask DisposeAsync()
         {
-            return Task.FromResult(true);
+            return;
         }
 
         /// <summary>

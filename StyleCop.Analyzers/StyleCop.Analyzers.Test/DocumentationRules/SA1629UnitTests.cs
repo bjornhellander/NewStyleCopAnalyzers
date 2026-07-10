@@ -541,7 +541,7 @@ public interface ITest
 ";
 
             DiagnosticResult expected = Diagnostic().WithLocation(3, 12);
-            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, default).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, TestContext.Current.CancellationToken).ConfigureAwait(true);
         }
 
         [Theory]
@@ -558,7 +558,7 @@ public interface ITest
 {{
 }}
 ";
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, default).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, TestContext.Current.CancellationToken).ConfigureAwait(true);
         }
 
         [Theory]
@@ -584,7 +584,7 @@ public interface ITest
 ";
 
             DiagnosticResult expected = Diagnostic().WithLocation(3, 25);
-            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, default).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, TestContext.Current.CancellationToken).ConfigureAwait(true);
         }
 
         [Fact]

@@ -41,9 +41,9 @@ namespace StyleCop.Analyzers.Test.HelperTests
     #error Bar
     private int r = 0;
 }";
-            var syntaxTree = CSharpSyntaxTree.ParseText(testCode);
+            var syntaxTree = CSharpSyntaxTree.ParseText(testCode, cancellationToken: TestContext.Current.CancellationToken);
 
-            foreach (var token in syntaxTree.GetRoot().DescendantTokens(descendIntoTrivia: true))
+            foreach (var token in syntaxTree.GetRoot(TestContext.Current.CancellationToken).DescendantTokens(descendIntoTrivia: true))
             {
                 token.WithoutLeadingBlankLines();
             }
@@ -52,7 +52,8 @@ namespace StyleCop.Analyzers.Test.HelperTests
         [Fact]
         public void TestHasLeadingBlankLines()
         {
-            var tree = CSharpSyntaxTree.ParseText(@"
+            var tree = CSharpSyntaxTree.ParseText(
+                @"
 public class Foo
 {
     private int i = 0;
@@ -68,9 +69,10 @@ public class Foo
             i = value;
         }
     }
-}");
+}",
+                cancellationToken: TestContext.Current.CancellationToken);
 
-            var accessor = tree.GetRoot().DescendantNodes().OfType<AccessorDeclarationSyntax>().Single();
+            var accessor = tree.GetRoot(TestContext.Current.CancellationToken).DescendantNodes().OfType<AccessorDeclarationSyntax>().Single();
             Assert.False(accessor.GetFirstToken().IsPrecededByBlankLines());
         }
 

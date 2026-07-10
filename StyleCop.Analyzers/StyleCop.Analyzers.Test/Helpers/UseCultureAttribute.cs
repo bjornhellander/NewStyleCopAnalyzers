@@ -9,7 +9,7 @@ namespace StyleCop.Analyzers.Test.Helpers
     using System.Globalization;
     using System.Reflection;
     using System.Threading;
-    using Xunit.Sdk;
+    using Xunit.v3;
 
     /// <summary>
     /// Apply this attribute to your test method to replace the
@@ -87,7 +87,8 @@ namespace StyleCop.Analyzers.Test.Helpers
         /// and replaces them with the new cultures defined in the constructor.
         /// </summary>
         /// <param name="methodUnderTest">The method under test.</param>
-        public override void Before(MethodInfo methodUnderTest)
+        /// <param name="test">The test being executed.</param>
+        public override void Before(MethodInfo methodUnderTest, IXunitTest test)
         {
             this.originalCulture = Thread.CurrentThread.CurrentCulture;
             this.originalUiCulture = Thread.CurrentThread.CurrentUICulture;
@@ -106,7 +107,8 @@ namespace StyleCop.Analyzers.Test.Helpers
         /// <see cref="CultureInfo.CurrentUICulture" /> to <see cref="Thread.CurrentPrincipal" />.
         /// </summary>
         /// <param name="methodUnderTest">The method under test.</param>
-        public override void After(MethodInfo methodUnderTest)
+        /// <param name="test">The test being executed.</param>
+        public override void After(MethodInfo methodUnderTest, IXunitTest test)
         {
             Thread.CurrentThread.CurrentCulture = this.originalCulture;
             Thread.CurrentThread.CurrentUICulture = this.originalUiCulture;
