@@ -6,7 +6,7 @@ namespace StyleCop.Analyzers.Test.CSharp11.LayoutRules
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp10.LayoutRules;
 
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1516ElementsMustBeSeparatedByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1516CodeFixProvider>;
 

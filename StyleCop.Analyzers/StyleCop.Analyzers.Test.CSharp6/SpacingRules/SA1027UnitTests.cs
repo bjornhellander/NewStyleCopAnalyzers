@@ -3,14 +3,14 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.SpacingRules
+namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.SpacingRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1027UseTabsCorrectly,
         StyleCop.Analyzers.SpacingRules.SA1027CodeFixProvider>;
 

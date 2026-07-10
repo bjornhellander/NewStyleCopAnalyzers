@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.NamingRules
+namespace StyleCop.Analyzers.Test.CSharp6.NamingRules
 {
     using Microsoft.CodeAnalysis;
     using StyleCop.Analyzers.NamingRules;

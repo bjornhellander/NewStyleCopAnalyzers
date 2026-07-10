@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace StyleCop.Analyzers.Test.LayoutRules
+namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -9,9 +9,9 @@ namespace StyleCop.Analyzers.Test.LayoutRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.LayoutRules;
-    using StyleCop.Analyzers.Test.Helpers;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1505OpeningBracesMustNotBeFollowedByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1505CodeFixProvider>;
 

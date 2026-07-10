@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test
+namespace StyleCop.Analyzers.Test.CSharp6
 {
     using Xunit;
 

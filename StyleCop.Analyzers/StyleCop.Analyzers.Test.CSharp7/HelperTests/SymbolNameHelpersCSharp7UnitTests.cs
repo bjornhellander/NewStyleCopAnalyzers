@@ -6,7 +6,8 @@
 namespace StyleCop.Analyzers.Test.CSharp7.HelperTests
 {
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.HelperTests;
+    using StyleCop.Analyzers.Test.CSharp6;
+    using StyleCop.Analyzers.Test.CSharp6.HelperTests;
     using Xunit;
 
     /// <summary>

@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.DocumentationRules
+namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -12,10 +12,10 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.DocumentationRules;
     using StyleCop.Analyzers.Lightup;
-    using StyleCop.Analyzers.Test.Helpers;
-    using StyleCop.Analyzers.Test.Verifiers;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
+    using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.CustomDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.SA1642ConstructorSummaryDocumentationMustBeginWithStandardText>;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.CustomDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.SA1642ConstructorSummaryDocumentationMustBeginWithStandardText>;
 
     /// <summary>
     /// This class contains unit tests for <see cref="SA1642ConstructorSummaryDocumentationMustBeginWithStandardText"/>.

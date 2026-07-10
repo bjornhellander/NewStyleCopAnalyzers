@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.HelperTests.ObjectPools
+namespace StyleCop.Analyzers.Test.CSharp6.HelperTests.ObjectPools
 {
     using System;
     using System.Collections.Generic;

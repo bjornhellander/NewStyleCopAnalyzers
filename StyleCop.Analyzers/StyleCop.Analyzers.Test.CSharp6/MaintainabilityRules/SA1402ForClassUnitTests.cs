@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.MaintainabilityRules
+namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
 {
     public class SA1402ForClassUnitTests : SA1402ForBlockDeclarationUnitTestsBase
     {

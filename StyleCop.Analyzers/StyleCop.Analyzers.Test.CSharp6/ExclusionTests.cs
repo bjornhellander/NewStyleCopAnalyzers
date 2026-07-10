@@ -3,14 +3,14 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test
+namespace StyleCop.Analyzers.Test.CSharp6
 {
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopDiagnosticVerifier<TestHelper.ExclusionTestAnalyzer>;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<TestHelper.ExclusionTestAnalyzer>;
 
     /// <summary>
     /// Unit tests for testing exclusion of auto generated files.

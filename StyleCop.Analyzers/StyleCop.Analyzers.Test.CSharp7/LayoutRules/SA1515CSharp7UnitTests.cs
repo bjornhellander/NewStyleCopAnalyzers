@@ -6,9 +6,10 @@ namespace StyleCop.Analyzers.Test.CSharp7.LayoutRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.LayoutRules;
+    using StyleCop.Analyzers.Test.CSharp6;
+    using StyleCop.Analyzers.Test.CSharp6.LayoutRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1515SingleLineCommentMustBePrecededByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1515CodeFixProvider>;
 

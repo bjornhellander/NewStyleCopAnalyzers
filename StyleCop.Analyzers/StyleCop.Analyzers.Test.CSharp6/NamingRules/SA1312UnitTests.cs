@@ -3,14 +3,14 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.NamingRules
+namespace StyleCop.Analyzers.Test.CSharp6.NamingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.Helpers;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.NamingRules.SA1312VariableNamesMustBeginWithLowerCaseLetter,
         StyleCop.Analyzers.NamingRules.RenameToLowerCaseCodeFixProvider>;
 

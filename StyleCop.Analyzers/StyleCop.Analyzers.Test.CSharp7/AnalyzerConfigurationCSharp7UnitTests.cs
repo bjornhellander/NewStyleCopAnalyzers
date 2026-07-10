@@ -3,6 +3,8 @@
 
 namespace StyleCop.Analyzers.Test.CSharp7
 {
+    using StyleCop.Analyzers.Test.CSharp6;
+
     public partial class AnalyzerConfigurationCSharp7UnitTests : AnalyzerConfigurationUnitTests
     {
     }

@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.SpacingRules
+namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -11,7 +11,7 @@ namespace StyleCop.Analyzers.Test.SpacingRules
     using StyleCop.Analyzers.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1010OpeningSquareBracketsMustBeSpacedCorrectly;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1010OpeningSquareBracketsMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 

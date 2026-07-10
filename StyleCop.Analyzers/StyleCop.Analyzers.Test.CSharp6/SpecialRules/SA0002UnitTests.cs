@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.SpecialRules
+namespace StyleCop.Analyzers.Test.CSharp6.SpecialRules
 {
     using System;
     using System.Collections.Immutable;
@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.Test.SpecialRules
     using StyleCop.Analyzers.Settings;
     using StyleCop.Analyzers.SpecialRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.SpecialRules.SA0002InvalidSettingsFile>;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.SpecialRules.SA0002InvalidSettingsFile>;
 
     /// <summary>
     /// Unit tests for <see cref="SA0002InvalidSettingsFile"/>.

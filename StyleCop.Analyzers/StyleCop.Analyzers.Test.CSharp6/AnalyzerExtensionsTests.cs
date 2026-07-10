@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test
+namespace StyleCop.Analyzers.Test.CSharp6
 {
     using System.Collections.Generic;
     using System.Collections.Immutable;
@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.Test
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.SpecialRules;
-    using StyleCop.Analyzers.Test.Verifiers;
+    using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using Xunit;
 
     public class AnalyzerExtensionsTests

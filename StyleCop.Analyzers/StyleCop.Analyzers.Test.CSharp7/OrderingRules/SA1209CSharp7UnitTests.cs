@@ -3,7 +3,7 @@
 
 namespace StyleCop.Analyzers.Test.CSharp7.OrderingRules
 {
-    using StyleCop.Analyzers.Test.OrderingRules;
+    using StyleCop.Analyzers.Test.CSharp6.OrderingRules;
 
     public partial class SA1209CSharp7UnitTests : SA1209UnitTests
     {

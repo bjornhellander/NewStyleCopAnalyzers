@@ -3,7 +3,7 @@
 
 namespace StyleCop.Analyzers.Test.CSharp7.LayoutRules
 {
-    using StyleCop.Analyzers.Test.LayoutRules;
+    using StyleCop.Analyzers.Test.CSharp6.LayoutRules;
 
     public partial class SA1506CSharp7UnitTests : SA1506UnitTests
     {

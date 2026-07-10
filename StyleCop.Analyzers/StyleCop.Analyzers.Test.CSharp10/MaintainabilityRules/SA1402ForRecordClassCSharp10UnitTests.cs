@@ -3,7 +3,7 @@
 
 namespace StyleCop.Analyzers.Test.CSharp10.MaintainabilityRules
 {
-    using StyleCop.Analyzers.Test.MaintainabilityRules;
+    using StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules;
 
     public class SA1402ForRecordClassCSharp10UnitTests : SA1402ForBlockDeclarationUnitTestsBase
     {

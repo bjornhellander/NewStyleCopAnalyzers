@@ -3,15 +3,15 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.DocumentationRules
+namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.DocumentationRules;
-    using StyleCop.Analyzers.Test.Verifiers;
+    using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.CustomDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.FileHeaderAnalyzers>;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.CustomDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.FileHeaderAnalyzers>;
 
     /// <summary>
     /// Unit tests for file header that do not follow the XML syntax.

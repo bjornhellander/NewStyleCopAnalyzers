@@ -3,14 +3,14 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.DocumentationRules
+namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.DocumentationRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.SA1602EnumerationItemsMustBeDocumented>;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.SA1602EnumerationItemsMustBeDocumented>;
 
     /// <summary>
     /// This class contains unit tests for <see cref="SA1602EnumerationItemsMustBeDocumented"/>.

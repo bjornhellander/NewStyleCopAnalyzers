@@ -3,13 +3,13 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.ReadabilityRules
+namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.ReadabilityRules.SA1114ParameterListMustFollowDeclaration>;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.ReadabilityRules.SA1114ParameterListMustFollowDeclaration>;
 
     public class SA1114UnitTests
     {

@@ -3,7 +3,7 @@
 
 namespace StyleCop.Analyzers.Test.CSharp7.DocumentationRules
 {
-    using StyleCop.Analyzers.Test.DocumentationRules;
+    using StyleCop.Analyzers.Test.CSharp6.DocumentationRules;
 
     public partial class SA1633CSharp7UnitTests : SA1633UnitTests
     {

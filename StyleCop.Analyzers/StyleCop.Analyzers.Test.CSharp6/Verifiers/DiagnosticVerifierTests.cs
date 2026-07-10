@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.Verifiers
+namespace StyleCop.Analyzers.Test.CSharp6.Verifiers
 {
     using System;
     using System.Threading;

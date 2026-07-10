@@ -3,14 +3,14 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.OrderingRules
+namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
 {
     using System.Collections.Generic;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Diagnostics;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.OrderingRules;
-    using StyleCop.Analyzers.Test.Verifiers;
+    using StyleCop.Analyzers.Test.CSharp6.Verifiers;
 
     internal static class CombinedUsingDirectivesVerifier
     {

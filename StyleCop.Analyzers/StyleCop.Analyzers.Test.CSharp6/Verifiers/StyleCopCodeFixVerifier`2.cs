@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.Verifiers
+namespace StyleCop.Analyzers.Test.CSharp6.Verifiers
 {
     using System;
     using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace StyleCop.Analyzers.Test.Verifiers
     using Microsoft.CodeAnalysis.Text;
     using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
-    using StyleCop.Analyzers.Test.Helpers;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
 
     internal static class StyleCopCodeFixVerifier<TAnalyzer, TCodeFix>

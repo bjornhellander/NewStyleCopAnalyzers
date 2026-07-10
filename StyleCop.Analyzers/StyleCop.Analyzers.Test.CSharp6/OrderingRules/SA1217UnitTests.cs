@@ -3,13 +3,13 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.OrderingRules
+namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.OrderingRules;
-    using StyleCop.Analyzers.Test.Verifiers;
+    using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using Xunit;
 
     /// <summary>

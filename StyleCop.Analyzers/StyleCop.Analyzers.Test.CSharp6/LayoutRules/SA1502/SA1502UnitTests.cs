@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.LayoutRules
+namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
 {
     using StyleCop.Analyzers.LayoutRules;
 

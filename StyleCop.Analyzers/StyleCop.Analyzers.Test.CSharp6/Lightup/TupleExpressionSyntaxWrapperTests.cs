@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.Lightup
+namespace StyleCop.Analyzers.Test.CSharp6.Lightup
 {
     using System;
     using System.Collections.Immutable;

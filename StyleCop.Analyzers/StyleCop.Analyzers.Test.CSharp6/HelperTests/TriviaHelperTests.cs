@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.HelperTests
+namespace StyleCop.Analyzers.Test.CSharp6.HelperTests
 {
     using System.Linq;
     using Microsoft.CodeAnalysis;

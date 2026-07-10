@@ -5,7 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp13.ReadabilityRules
 {
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp12.ReadabilityRules;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1110OpeningParenthesisMustBeOnDeclarationLine,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 

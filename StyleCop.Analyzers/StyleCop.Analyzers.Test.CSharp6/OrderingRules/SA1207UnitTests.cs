@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.OrderingRules
+namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace StyleCop.Analyzers.Test.OrderingRules
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.OrderingRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1207ProtectedMustComeBeforeInternal,
         StyleCop.Analyzers.OrderingRules.SA1207CodeFixProvider>;
 

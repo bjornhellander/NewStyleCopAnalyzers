@@ -5,7 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.DocumentationRules
 {
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp9.DocumentationRules;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.DocumentationRules.SA1600ElementsMustBeDocumented,
         StyleCop.Analyzers.DocumentationRules.SA1600CodeFixProvider>;
 

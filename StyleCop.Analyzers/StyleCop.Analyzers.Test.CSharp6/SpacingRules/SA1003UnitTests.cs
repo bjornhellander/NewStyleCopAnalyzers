@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.SpacingRules
+namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace StyleCop.Analyzers.Test.SpacingRules
     using Xunit;
 
     using static StyleCop.Analyzers.SpacingRules.SA1003SymbolsMustBeSpacedCorrectly;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1003SymbolsMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.SA1003CodeFixProvider>;
 

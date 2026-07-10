@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.LightJson.Serialization
+namespace StyleCop.Analyzers.Test.CSharp6.LightJson.Serialization
 {
     using global::LightJson;
     using global::LightJson.Serialization;

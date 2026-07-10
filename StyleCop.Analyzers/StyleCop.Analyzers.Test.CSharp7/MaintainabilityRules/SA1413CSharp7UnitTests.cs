@@ -7,10 +7,10 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.MaintainabilityRules;
+    using StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Helpers.LanguageVersionTestExtensions;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Helpers.LanguageVersionTestExtensions;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1413UseTrailingCommasInMultiLineInitializers,
         StyleCop.Analyzers.MaintainabilityRules.SA1413CodeFixProvider>;
 

@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.MaintainabilityRules
+namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
 {
     using System.Collections.Generic;
     using System.Linq;

@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.Helpers
+namespace StyleCop.Analyzers.Test.CSharp6.Helpers
 {
     using System;
     using System.Globalization;

@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.DocumentationRules
+namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
     using System.Threading;
     using System.Threading.Tasks;

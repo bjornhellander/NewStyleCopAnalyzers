@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.LayoutRules
+namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -11,9 +11,9 @@ namespace StyleCop.Analyzers.Test.LayoutRules
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.LayoutRules;
     using StyleCop.Analyzers.Settings.ObjectModel;
-    using StyleCop.Analyzers.Test.Verifiers;
+    using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.CustomDiagnosticVerifier<StyleCop.Analyzers.LayoutRules.SA1518UseLineEndingsCorrectlyAtEndOfFile>;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.CustomDiagnosticVerifier<StyleCop.Analyzers.LayoutRules.SA1518UseLineEndingsCorrectlyAtEndOfFile>;
 
     /// <summary>
     /// Unit tests for <see cref="SA1518UseLineEndingsCorrectlyAtEndOfFile"/>.

@@ -3,7 +3,7 @@
 
 namespace StyleCop.Analyzers.Test.CSharp7.Settings
 {
-    using StyleCop.Analyzers.Test.Settings;
+    using StyleCop.Analyzers.Test.CSharp6.Settings;
 
     public partial class SettingsFileCodeFixProviderCSharp7UnitTests : SettingsFileCodeFixProviderUnitTests
     {

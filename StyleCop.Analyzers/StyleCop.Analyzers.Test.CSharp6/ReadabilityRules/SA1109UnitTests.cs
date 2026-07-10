@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.ReadabilityRules
+namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
     using Microsoft.CodeAnalysis;
     using StyleCop.Analyzers.ReadabilityRules;

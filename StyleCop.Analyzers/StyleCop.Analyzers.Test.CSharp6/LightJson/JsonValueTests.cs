@@ -3,14 +3,14 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.LightJson
+namespace StyleCop.Analyzers.Test.CSharp6.LightJson
 {
     using System;
     using System.Diagnostics;
     using System.Reflection;
     using global::LightJson;
     using global::LightJson.Serialization;
-    using StyleCop.Analyzers.Test.Helpers;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
 
     [UseCulture("en-US")]

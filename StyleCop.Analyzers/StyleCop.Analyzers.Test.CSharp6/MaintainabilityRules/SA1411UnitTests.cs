@@ -3,13 +3,13 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.MaintainabilityRules
+namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1411AttributeConstructorMustNotUseUnnecessaryParenthesis,
         StyleCop.Analyzers.MaintainabilityRules.SA1410SA1411CodeFixProvider>;
 

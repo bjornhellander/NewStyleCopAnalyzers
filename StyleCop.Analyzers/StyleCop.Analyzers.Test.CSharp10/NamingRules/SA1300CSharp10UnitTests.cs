@@ -10,7 +10,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.NamingRules
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp9.NamingRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.NamingRules.SA1300ElementMustBeginWithUpperCaseLetter,
         StyleCop.Analyzers.NamingRules.RenameToUpperCaseCodeFixProvider>;
 

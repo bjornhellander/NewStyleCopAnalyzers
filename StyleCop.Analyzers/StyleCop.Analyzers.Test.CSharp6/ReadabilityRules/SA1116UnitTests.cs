@@ -7,14 +7,14 @@
 // supported parameters. See https://github.com/xunit/xunit/issues/1556.
 #pragma warning disable xUnit1026 // Theory methods should use all of their parameters
 
-namespace StyleCop.Analyzers.Test.ReadabilityRules
+namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1116SplitParametersMustStartOnLineAfterDeclaration,
         StyleCop.Analyzers.ReadabilityRules.SA1116CodeFixProvider>;
 

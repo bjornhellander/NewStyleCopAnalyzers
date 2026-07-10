@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.HelperTests
+namespace StyleCop.Analyzers.Test.CSharp6.HelperTests
 {
     using System.Linq;
     using System.Threading;
@@ -13,7 +13,7 @@ namespace StyleCop.Analyzers.Test.HelperTests
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Text;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Test.Verifiers;
+    using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using Xunit;
 
     /// <summary>

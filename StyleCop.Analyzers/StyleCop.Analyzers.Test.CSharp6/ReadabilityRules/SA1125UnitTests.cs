@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.ReadabilityRules
+namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.ReadabilityRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.ReadabilityRules.SA1125UseShorthandForNullableTypes>;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.ReadabilityRules.SA1125UseShorthandForNullableTypes>;
 
     /// <summary>
     /// This class contains unit tests for <see cref="SA1125UseShorthandForNullableTypes"/>.

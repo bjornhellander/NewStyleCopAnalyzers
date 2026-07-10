@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.LinqHelpers
+namespace StyleCop.Analyzers.Test.CSharp6.LinqHelpers
 {
     using System;
     using System.Linq;

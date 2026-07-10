@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.MaintainabilityRules
+namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
 {
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -16,7 +16,7 @@ namespace StyleCop.Analyzers.Test.MaintainabilityRules
     using Microsoft.CodeAnalysis.Testing;
     using Microsoft.CodeAnalysis.Text;
     using StyleCop.Analyzers.Lightup;
-    using StyleCop.Analyzers.Test.Verifiers;
+    using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using Xunit;
 
     public abstract class DebugMessagesUnitTestsBase

@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.LayoutRules
+namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
 {
     using System.Text;
     using System.Threading;
@@ -11,7 +11,7 @@ namespace StyleCop.Analyzers.Test.LayoutRules
     using StyleCop.Analyzers.LayoutRules;
     using StyleCop.Analyzers.Settings.ObjectModel;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1516ElementsMustBeSeparatedByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1516CodeFixProvider>;
 

@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.Settings
+namespace StyleCop.Analyzers.Test.CSharp6.Settings
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -11,7 +11,7 @@ namespace StyleCop.Analyzers.Test.Settings
     using StyleCop.Analyzers.DocumentationRules;
     using StyleCop.Analyzers.Settings;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.DocumentationRules.FileHeaderAnalyzers,
         StyleCop.Analyzers.Settings.SettingsFileCodeFixProvider>;
 

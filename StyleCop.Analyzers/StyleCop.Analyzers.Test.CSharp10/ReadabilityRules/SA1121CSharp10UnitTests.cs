@@ -9,7 +9,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.ReadabilityRules
     using System.Threading.Tasks;
     using StyleCop.Analyzers.Test.CSharp9.ReadabilityRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1121UseBuiltInTypeAlias,
         StyleCop.Analyzers.ReadabilityRules.SA1121CodeFixProvider>;
 

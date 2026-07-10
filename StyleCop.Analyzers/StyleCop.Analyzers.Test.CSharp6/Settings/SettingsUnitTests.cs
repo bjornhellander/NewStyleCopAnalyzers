@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.Settings
+namespace StyleCop.Analyzers.Test.CSharp6.Settings
 {
     using System.Collections.Immutable;
     using System.Globalization;
@@ -13,7 +13,7 @@ namespace StyleCop.Analyzers.Test.Settings
     using Microsoft.CodeAnalysis.Diagnostics;
     using Microsoft.CodeAnalysis.Text;
     using StyleCop.Analyzers.Settings.ObjectModel;
-    using StyleCop.Analyzers.Test.Verifiers;
+    using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using Xunit;
 
     public class SettingsUnitTests

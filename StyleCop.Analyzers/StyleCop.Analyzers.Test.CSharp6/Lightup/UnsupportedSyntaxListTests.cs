@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.Lightup
+namespace StyleCop.Analyzers.Test.CSharp6.Lightup
 {
     using Microsoft.CodeAnalysis;
     using StyleCop.Analyzers.Lightup;

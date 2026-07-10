@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.LayoutRules
+namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -11,7 +11,7 @@ namespace StyleCop.Analyzers.Test.LayoutRules
     using StyleCop.Analyzers.LayoutRules;
     using StyleCop.Analyzers.Lightup;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1500BracesForMultiLineStatementsMustNotShareLine,
         StyleCop.Analyzers.LayoutRules.SA1500CodeFixProvider>;
 

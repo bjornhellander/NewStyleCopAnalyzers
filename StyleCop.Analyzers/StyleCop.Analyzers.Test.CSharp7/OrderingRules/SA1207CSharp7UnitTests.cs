@@ -6,10 +6,10 @@ namespace StyleCop.Analyzers.Test.CSharp7.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
-    using StyleCop.Analyzers.Test.Helpers;
-    using StyleCop.Analyzers.Test.OrderingRules;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
+    using StyleCop.Analyzers.Test.CSharp6.OrderingRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1207ProtectedMustComeBeforeInternal,
         StyleCop.Analyzers.OrderingRules.SA1207CodeFixProvider>;
 

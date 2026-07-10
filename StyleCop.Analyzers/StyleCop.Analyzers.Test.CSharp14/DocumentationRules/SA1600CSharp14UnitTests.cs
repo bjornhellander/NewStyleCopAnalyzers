@@ -8,7 +8,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.DocumentationRules
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp13.DocumentationRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.DocumentationRules.SA1600ElementsMustBeDocumented,
         StyleCop.Analyzers.DocumentationRules.SA1600CodeFixProvider>;
 

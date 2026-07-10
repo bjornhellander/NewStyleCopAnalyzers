@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.LightJson
+namespace StyleCop.Analyzers.Test.CSharp6.LightJson
 {
     using System;
     using System.Collections.Generic;

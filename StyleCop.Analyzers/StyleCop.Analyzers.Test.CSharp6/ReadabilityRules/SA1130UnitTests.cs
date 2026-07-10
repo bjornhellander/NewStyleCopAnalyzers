@@ -3,7 +3,7 @@
 
 #nullable disable
 
-namespace StyleCop.Analyzers.Test.ReadabilityRules
+namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -12,7 +12,7 @@ namespace StyleCop.Analyzers.Test.ReadabilityRules
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Testing;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1130UseLambdaSyntax,
         StyleCop.Analyzers.ReadabilityRules.SA1130CodeFixProvider>;
 
