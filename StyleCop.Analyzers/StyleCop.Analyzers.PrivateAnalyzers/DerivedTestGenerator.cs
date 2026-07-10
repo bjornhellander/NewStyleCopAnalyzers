@@ -12,6 +12,8 @@ namespace StyleCop.Analyzers.PrivateAnalyzers
     [Generator]
     internal sealed class DerivedTestGenerator : IIncrementalGenerator
     {
+        private const string BaseTestString = "CSharp6";
+
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
             var testData = context.CompilationProvider.Select((compilation, cancellationToken) =>
@@ -62,7 +64,7 @@ namespace StyleCop.Analyzers.PrivateAnalyzers
                     }
 
                     string expectedTest;
-                    if (testData.PreviousTestString is "")
+                    if (testData.PreviousTestString == BaseTestString)
                     {
                         expectedTest = testType.Replace(testData.PreviousAssemblyName, testData.CurrentAssemblyName).Replace("UnitTests", testData.CurrentTestString + "UnitTests");
                     }
@@ -103,11 +105,11 @@ public partial class {typeName}
 
         private sealed class TestClassCollector : SymbolVisitor<ImmutableSortedSet<string>>
         {
-            private readonly string testString;
+            private readonly string previousTestString;
 
-            public TestClassCollector(string testString)
+            public TestClassCollector(string previousTestString)
             {
-                this.testString = testString;
+                this.previousTestString = previousTestString;
             }
 
             public override ImmutableSortedSet<string> Visit(ISymbol? symbol)
@@ -134,7 +136,7 @@ public partial class {typeName}
 
             public override ImmutableSortedSet<string> VisitNamedType(INamedTypeSymbol symbol)
             {
-                if (this.testString is "")
+                if (this.previousTestString == BaseTestString)
                 {
                     if (symbol.Name.EndsWith("UnitTests"))
                     {
@@ -145,7 +147,7 @@ public partial class {typeName}
                         return ImmutableSortedSet<string>.Empty;
                     }
                 }
-                else if (symbol.Name.Contains(this.testString))
+                else if (symbol.Name.Contains(this.previousTestString))
                 {
                     return ImmutableSortedSet.Create(symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat));
                 }
