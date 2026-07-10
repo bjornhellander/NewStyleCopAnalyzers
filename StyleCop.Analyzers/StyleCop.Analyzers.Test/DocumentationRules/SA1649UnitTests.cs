@@ -537,7 +537,7 @@ namespace StyleCop.Analyzers.Test.DocumentationRules
                 // point to the same file, and only inserts '#pragma warning disable' in the primary project's file.
                 // Then we would still get a diagnostic in the additional project.
                 TestBehaviors = TestBehaviors.SkipSuppressionCheck,
-            }.RunAsync().ConfigureAwait(true);
+            }.RunAsync(TestContext.Current.CancellationToken).ConfigureAwait(true);
         }
 
         [Fact]
