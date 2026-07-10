@@ -15,7 +15,7 @@ jobs:
       matrix:
         configuration: [ 'Debug', 'Release' ]
         os: [ 'windows-latest' ]
-        test: [ 'Test', 'Test.CSharp7', 'Test.CSharp8', 'Test.CSharp9', 'Test.CSharp10', 'Test.CSharp11', 'Test.CSharp12', 'Test.CSharp13', 'Test.CSharp14' ]
+        testversion: [ '6', '7', '8', '9', '10', '11', '12', '13', '14' ]
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
@@ -31,4 +31,4 @@ jobs:
       uses: actions/setup-dotnet@v5
 
     - name: Build & Test
-      run: dotnet test StyleCop.Analyzers/StyleCop.Analyzers.${{matrix.test}}/StyleCop.Analyzers.${{matrix.test}}.csproj -c ${{matrix.configuration}} --verbosity normal
+      run: dotnet test StyleCop.Analyzers/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}.csproj -c ${{matrix.configuration}} --verbosity normal

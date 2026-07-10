@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.31907.60
+# Visual Studio Version 18
+VisualStudioVersion = 18.6.11828.311 oobstable
 MinimumVisualStudioVersion = 17.0.31903.59
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleCop.Analyzers", "StyleCop.Analyzers\StyleCop.Analyzers\StyleCop.Analyzers.csproj", "{3B052737-06CE-4182-AE0F-08EB82DFA73E}"
 EndProject
@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E359E4
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleCop.Analyzers.Test", "StyleCop.Analyzers\StyleCop.Analyzers.Test\StyleCop.Analyzers.Test.csproj", "{3EB54B68-A7AA-45E8-A97B-A0746712140B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleCop.Analyzers.Test.CSharp6", "StyleCop.Analyzers\StyleCop.Analyzers.Test.CSharp6\StyleCop.Analyzers.Test.CSharp6.csproj", "{3EB54B68-A7AA-45E8-A97B-A0746712140B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5F9532E9-B126-402A-B338-54431A4882B2}"
 	ProjectSection(SolutionItems) = preProject
