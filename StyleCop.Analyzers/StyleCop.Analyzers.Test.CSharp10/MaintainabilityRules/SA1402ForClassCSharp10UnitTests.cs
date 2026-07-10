@@ -7,6 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.MaintainabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp9.MaintainabilityRules;
     using Xunit;
 

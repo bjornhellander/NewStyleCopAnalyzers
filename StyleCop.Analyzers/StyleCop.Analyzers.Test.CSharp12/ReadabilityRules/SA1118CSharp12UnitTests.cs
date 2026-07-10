@@ -7,9 +7,10 @@ namespace StyleCop.Analyzers.Test.CSharp12.ReadabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp11.ReadabilityRules;
+    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
 
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopDiagnosticVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1118ParameterMustNotSpanMultipleLines>;
 
     public partial class SA1118CSharp12UnitTests : SA1118CSharp11UnitTests

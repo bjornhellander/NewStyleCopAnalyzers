@@ -5,7 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.DocumentationRules
 {
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
-    using StyleCop.Analyzers.Test.DocumentationRules;
+    using StyleCop.Analyzers.Test.CSharp6.DocumentationRules;
     using Xunit;
 
     public partial class SA1600CSharp7UnitTests : SA1600UnitTests

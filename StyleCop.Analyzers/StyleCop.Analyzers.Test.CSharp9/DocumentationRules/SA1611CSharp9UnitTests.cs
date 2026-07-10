@@ -6,8 +6,9 @@ namespace StyleCop.Analyzers.Test.CSharp9.DocumentationRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Test.CSharp6;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using StyleCop.Analyzers.Test.CSharp8.DocumentationRules;
-    using StyleCop.Analyzers.Test.Helpers;
     using Xunit;
 
     public partial class SA1611CSharp9UnitTests : SA1611CSharp8UnitTests

@@ -7,6 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.OrderingRules;
+    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp9.OrderingRules;
     using Xunit;
 

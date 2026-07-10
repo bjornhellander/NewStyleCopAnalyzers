@@ -9,6 +9,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.HelperTests
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.HelperTests;
     using Xunit;
 

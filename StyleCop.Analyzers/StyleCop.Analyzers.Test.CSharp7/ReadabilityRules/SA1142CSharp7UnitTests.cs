@@ -10,7 +10,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.ReadabilityRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1142ReferToTupleElementsByName,
         StyleCop.Analyzers.ReadabilityRules.SA1142CodeFixProvider>;
 

@@ -1,0 +1,30 @@
+﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+#nullable disable
+
+namespace StyleCop.Analyzers.Test.CSharp6.LinqHelpers
+{
+    using System;
+    using System.Linq;
+    using Microsoft.CodeAnalysis.CSharp;
+    using Xunit;
+
+    /// <summary>
+    /// This class provides supplementary tests to improve code coverage in <see cref="SyntaxTriviaListEnumerable"/>.
+    /// </summary>
+    public class SyntaxTriviaListEnumerableTests
+    {
+        [Fact]
+        public void TestAnyWithNullArgument()
+        {
+            Assert.Throws<ArgumentNullException>(() => SyntaxTriviaListEnumerable.Any(SyntaxFactory.TriviaList(), null));
+        }
+
+        [Fact]
+        public void TestAllWithNullArgument()
+        {
+            Assert.Throws<ArgumentNullException>(() => SyntaxTriviaListEnumerable.All(SyntaxFactory.TriviaList(), null));
+        }
+    }
+}

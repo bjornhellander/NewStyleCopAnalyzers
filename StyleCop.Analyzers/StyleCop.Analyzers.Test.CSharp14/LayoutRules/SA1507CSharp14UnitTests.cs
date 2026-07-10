@@ -7,7 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.LayoutRules
     using System.Threading.Tasks;
     using StyleCop.Analyzers.Test.CSharp13.LayoutRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1507CodeMustNotContainMultipleBlankLinesInARow,
         StyleCop.Analyzers.LayoutRules.SA1507CodeFixProvider>;
 

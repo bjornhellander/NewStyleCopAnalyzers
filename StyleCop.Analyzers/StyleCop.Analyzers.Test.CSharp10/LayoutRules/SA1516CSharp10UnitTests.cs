@@ -6,9 +6,10 @@ namespace StyleCop.Analyzers.Test.CSharp10.LayoutRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp9.LayoutRules;
     using Xunit;
-    using Verifier = StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using Verifier = StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1516ElementsMustBeSeparatedByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1516CodeFixProvider>;
 

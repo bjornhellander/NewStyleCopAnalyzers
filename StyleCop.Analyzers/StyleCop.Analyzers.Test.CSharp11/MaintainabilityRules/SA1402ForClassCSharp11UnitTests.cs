@@ -7,6 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp11.MaintainabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp10.MaintainabilityRules;
+    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
 
     public partial class SA1402ForClassCSharp11UnitTests : SA1402ForClassCSharp10UnitTests

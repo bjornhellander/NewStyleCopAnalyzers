@@ -9,7 +9,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
     using System.Threading.Tasks;
     using StyleCop.Analyzers.Test.CSharp9.OrderingRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1216UsingStaticDirectivesMustBePlacedAtTheCorrectLocation,
         StyleCop.Analyzers.OrderingRules.UsingCodeFixProvider>;
 

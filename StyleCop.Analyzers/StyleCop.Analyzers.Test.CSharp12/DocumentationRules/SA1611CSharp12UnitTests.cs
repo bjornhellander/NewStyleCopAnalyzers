@@ -7,8 +7,9 @@ namespace StyleCop.Analyzers.Test.CSharp12.DocumentationRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp11.DocumentationRules;
+    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.CustomDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.SA1611ElementParametersMustBeDocumented>;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.CustomDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.SA1611ElementParametersMustBeDocumented>;
 
     public partial class SA1611CSharp12UnitTests : SA1611CSharp11UnitTests
     {

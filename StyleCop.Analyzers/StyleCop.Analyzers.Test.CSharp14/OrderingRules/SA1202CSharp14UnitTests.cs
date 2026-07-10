@@ -8,7 +8,7 @@ namespace StyleCop.Analyzers.Test.CSharp14.OrderingRules
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp13.OrderingRules;
     using Xunit;
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1202ElementsMustBeOrderedByAccess,
         StyleCop.Analyzers.OrderingRules.ElementOrderCodeFixProvider>;
 

@@ -1,0 +1,103 @@
+﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+#nullable disable
+
+namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
+{
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using StyleCop.Analyzers.DocumentationRules;
+    using Xunit;
+
+    /// <summary>
+    /// Unit tests for the SA1639 diagnostic.
+    /// </summary>
+    public class SA1639UnitTests : FileHeaderTestBase
+    {
+        /// <summary>
+        /// Verifies that a file header without a summary element will produce the correct diagnostic message.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestFileHeaderWithoutSummaryTagAsync()
+        {
+            var testCode = @"// <copyright file=""Test0.cs"" company=""FooCorp"">
+//   Copyright (c) FooCorp. All rights reserved.
+// </copyright>
+
+namespace Bar
+{
+}
+";
+
+            var expectedDiagnostic = Diagnostic(FileHeaderAnalyzers.SA1639Descriptor).WithLocation(1, 1);
+            await this.VerifyCSharpDiagnosticAsync(testCode, expectedDiagnostic, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies that a file header with an empty summary element will produce the correct diagnostic message.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestFileHeaderWithEmptySummaryTagAsync()
+        {
+            var testCode = @"// <copyright file=""Test0.cs"" company=""FooCorp"">
+//   Copyright (c) FooCorp. All rights reserved.
+// </copyright>
+// <summary/>
+
+namespace Bar
+{
+}
+";
+
+            var expectedDiagnostic = Diagnostic(FileHeaderAnalyzers.SA1639Descriptor).WithLocation(4, 4);
+            await this.VerifyCSharpDiagnosticAsync(testCode, expectedDiagnostic, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies that a file header with a whitespace only summary element will produce the correct diagnostic message.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestFileHeaderWithWhitespaceOnlySummaryTagAsync()
+        {
+            var testCode = @"// <copyright file=""Test0.cs"" company=""FooCorp"">
+//   Copyright (c) FooCorp. All rights reserved.
+// </copyright>
+// <summary>   </summary>
+
+namespace Bar
+{
+}
+";
+
+            var expectedDiagnostic = Diagnostic(FileHeaderAnalyzers.SA1639Descriptor).WithLocation(4, 4);
+            await this.VerifyCSharpDiagnosticAsync(testCode, expectedDiagnostic, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies that this analyzer is disabled by default.
+        /// </summary>
+        [Fact]
+        public void TestDisabledByDefault()
+        {
+            Assert.False(FileHeaderAnalyzers.SA1639Descriptor.IsEnabledByDefault);
+        }
+
+        /// <inheritdoc/>
+        protected override IEnumerable<string> GetDisabledDiagnostics()
+        {
+            return Enumerable.Empty<string>();
+        }
+
+        /// <inheritdoc/>
+        protected override IEnumerable<string> GetExplicitlyEnabledDiagnostics()
+        {
+            yield return FileHeaderAnalyzers.SA1639Descriptor.Id;
+        }
+    }
+}

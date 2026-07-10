@@ -6,8 +6,8 @@
 namespace StyleCop.Analyzers.Test.CSharp9.Lightup
 {
     using StyleCop.Analyzers.Lightup;
+    using StyleCop.Analyzers.Test.CSharp6.Lightup;
     using StyleCop.Analyzers.Test.CSharp8.Lightup;
-    using StyleCop.Analyzers.Test.Lightup;
 
     /// <summary>
     /// This class tests edge case behavior of <see cref="LightupHelpers"/> in Roslyn 3.8+. It extends

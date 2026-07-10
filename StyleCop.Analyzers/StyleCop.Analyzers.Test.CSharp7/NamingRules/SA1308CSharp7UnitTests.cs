@@ -3,7 +3,7 @@
 
 namespace StyleCop.Analyzers.Test.CSharp7.NamingRules
 {
-    using StyleCop.Analyzers.Test.NamingRules;
+    using StyleCop.Analyzers.Test.CSharp6.NamingRules;
 
     public partial class SA1308CSharp7UnitTests : SA1308UnitTests
     {

@@ -3,7 +3,7 @@
 
 namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
 {
-    using StyleCop.Analyzers.Test.MaintainabilityRules;
+    using StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules;
 
     public partial class SA1406CSharp7UnitTests : SA1406UnitTests
     {

@@ -6,6 +6,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.DocumentationRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.DocumentationRules;
     using Xunit;
 

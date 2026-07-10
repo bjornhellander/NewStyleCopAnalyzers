@@ -13,8 +13,8 @@ namespace StyleCop.Analyzers.Test.CSharp8.Settings
     using Microsoft.CodeAnalysis.Diagnostics;
     using Microsoft.CodeAnalysis.Text;
     using StyleCop.Analyzers.Settings.ObjectModel;
+    using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using StyleCop.Analyzers.Test.CSharp7.Settings;
-    using StyleCop.Analyzers.Test.Verifiers;
     using Xunit;
 
     public partial class SettingsCSharp8UnitTests : SettingsCSharp7UnitTests

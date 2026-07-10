@@ -8,7 +8,7 @@ namespace StyleCop.Analyzers.Test.CSharp11.SpacingRules
     using StyleCop.Analyzers.Test.CSharp10.SpacingRules;
     using Xunit;
 
-    using static StyleCop.Analyzers.Test.Verifiers.StyleCopCodeFixVerifier<
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1000KeywordsMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 

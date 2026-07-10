@@ -1,0 +1,28 @@
+﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+#nullable disable
+
+namespace StyleCop.Analyzers.Test.CSharp6.HelperTests
+{
+    using System;
+    using StyleCop.Analyzers.Helpers;
+    using Xunit;
+
+    public class RequiresTests
+    {
+        [Fact]
+        public void TestNotNull()
+        {
+            string parameterName = nameof(parameterName);
+            Requires.NotNull(string.Empty, parameterName);
+        }
+
+        [Fact]
+        public void TestNull()
+        {
+            string parameterName = nameof(parameterName);
+            Assert.Throws<ArgumentNullException>(parameterName, () => Requires.NotNull(default(string), parameterName));
+        }
+    }
+}
