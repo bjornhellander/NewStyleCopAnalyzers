@@ -30,4 +30,8 @@
     <ProjectReference Include="..\StyleCop.Analyzers\StyleCop.Analyzers.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Lightup\" />
+  </ItemGroup>
+
 </Project>

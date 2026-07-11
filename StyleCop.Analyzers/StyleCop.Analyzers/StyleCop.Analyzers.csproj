@@ -23,21 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="Lightup\OperationInterfaces.xml" />
-    <AdditionalFiles Include="Lightup\Syntax.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <!-- The .generated file is excluded by default, but we want to show the items in Solution Explorer so we included it as None -->
     <None Include="Lightup\.generated\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference
-      Include="..\StyleCop.Analyzers.CodeGeneration\StyleCop.Analyzers.CodeGeneration.csproj"
-      SetTargetFramework="TargetFramework=netstandard2.0"
-      OutputItemType="Analyzer"
-      ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>
