@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;

@@ -9,6 +9,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
+    using Microsoft.CodeAnalysis.Lightup;
+    using Microsoft.CodeAnalysis.Operations.Lightup;
     using StyleCop.Analyzers.Lightup;
 
     /// <summary>
@@ -52,7 +54,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleObjectCreationOperation(OperationAnalysisContext context)
         {
-            var objectCreation = IObjectCreationOperationWrapper.FromOperation(context.Operation);
+            var objectCreation = IObjectCreationOperationWrapper.Wrap(context.Operation);
 
             var typeToCreate = objectCreation.Constructor.ContainingType;
             if ((typeToCreate == null) || typeToCreate.IsReferenceType || IsReferenceTypeParameter(typeToCreate))
@@ -72,30 +74,30 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 return;
             }
 
-            if (objectCreation.Initializer.WrappedOperation != null)
+            if (objectCreation.Initializer.Value.Unwrap() != null) // !!!
             {
                 return;
             }
 
-            context.ReportDiagnostic(Diagnostic.Create(Descriptor, objectCreation.WrappedOperation.Syntax.GetLocation()));
+            context.ReportDiagnostic(Diagnostic.Create(Descriptor, objectCreation.Unwrap().Syntax.GetLocation()));
         }
 
         private static void HandleTypeParameterObjectCreationOperation(OperationAnalysisContext context)
         {
-            var objectCreation = ITypeParameterObjectCreationOperationWrapper.FromOperation(context.Operation);
+            var objectCreation = ITypeParameterObjectCreationOperationWrapper.Wrap(context.Operation);
 
-            var typeToCreate = objectCreation.Type;
+            var typeToCreate = objectCreation.Unwrap().Type;
             if ((typeToCreate == null) || typeToCreate.IsReferenceType || IsReferenceTypeParameter(typeToCreate))
             {
                 return;
             }
 
-            if (objectCreation.Initializer.WrappedOperation != null)
+            if (objectCreation.Initializer.Value.Unwrap() != null) // !!!
             {
                 return;
             }
 
-            context.ReportDiagnostic(Diagnostic.Create(Descriptor, objectCreation.WrappedOperation.Syntax.GetLocation()));
+            context.ReportDiagnostic(Diagnostic.Create(Descriptor, objectCreation.Unwrap().Syntax.GetLocation()));
         }
 
         private static void HandleObjectCreationExpression(SyntaxNodeAnalysisContext context)

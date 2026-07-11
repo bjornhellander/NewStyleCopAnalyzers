@@ -5,8 +5,9 @@ namespace StyleCop.Analyzers.Helpers
 {
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
-    using StyleCop.Analyzers.Lightup;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
 
     internal static class TypeSyntaxHelper
     {
@@ -50,7 +51,7 @@ namespace StyleCop.Analyzers.Helpers
                 return ((VariableDeclarationSyntax)syntax.Parent).Type == syntax;
 
             case SyntaxKindEx.LocalFunctionStatement:
-                return ((LocalFunctionStatementSyntaxWrapper)syntax.Parent).ReturnType == syntax;
+                return ((LocalFunctionStatementSyntaxWrapper)syntax.Parent).ReturnType == syntax; // !!!
 
             default:
                 return false;

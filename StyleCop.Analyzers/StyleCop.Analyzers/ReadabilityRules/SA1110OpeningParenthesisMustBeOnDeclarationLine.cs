@@ -8,10 +8,11 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using System.Linq;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.SpacingRules;
 
     /// <summary>
@@ -322,7 +323,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var localFunctionStatement = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var localFunctionStatement = LocalFunctionStatementSyntaxWrapper.Wrap((StatementSyntax)context.Node);
             if (localFunctionStatement.ParameterList != null
                 && !localFunctionStatement.ParameterList.OpenParenToken.IsMissing
                 && !localFunctionStatement.Identifier.IsMissing)
@@ -335,7 +336,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static void HandleTypeDeclaration(SyntaxNodeAnalysisContext context)
         {
             var typeDeclaration = (TypeDeclarationSyntax)context.Node;
-            var parameterList = typeDeclaration.ParameterList();
+            var parameterList = typeDeclaration.ParameterList(); // !!!
 
             if (parameterList != null
                 && !parameterList.OpenParenToken.IsMissing
@@ -348,7 +349,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandlePrimaryConstructorBaseType(SyntaxNodeAnalysisContext context)
         {
-            var primaryConstructorBaseType = (PrimaryConstructorBaseTypeSyntaxWrapper)context.Node;
+            var primaryConstructorBaseType = PrimaryConstructorBaseTypeSyntaxWrapper.Wrap((BaseTypeSyntax)context.Node);
 
             var identifierName = ((BaseTypeSyntax)primaryConstructorBaseType).ChildNodes()
                 .OfType<IdentifierNameSyntax>()

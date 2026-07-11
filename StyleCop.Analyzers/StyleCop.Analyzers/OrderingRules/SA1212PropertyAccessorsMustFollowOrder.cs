@@ -7,9 +7,9 @@ namespace StyleCop.Analyzers.OrderingRules
     using System.Collections.Immutable;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// A get accessor appears after a set accessor within a property or indexer.

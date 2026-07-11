@@ -8,10 +8,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using System.Linq;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// A parameter to a C# method or indexer, other than the first parameter, spans across multiple lines.

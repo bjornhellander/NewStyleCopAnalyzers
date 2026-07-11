@@ -9,9 +9,9 @@ namespace StyleCop.Analyzers.OrderingRules
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// The using-alias directives within a C# code file are not sorted alphabetically by alias name.
@@ -58,7 +58,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
         private static void HandleBaseNamespaceDeclaration(SyntaxNodeAnalysisContext context)
         {
-            var namespaceDeclaration = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            var namespaceDeclaration = BaseNamespaceDeclarationSyntaxWrapper.Wrap((MemberDeclarationSyntax)context.Node);
             HandleUsingDirectives(context, namespaceDeclaration.Usings);
         }
 

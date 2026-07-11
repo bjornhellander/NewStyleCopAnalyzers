@@ -8,10 +8,11 @@ namespace StyleCop.Analyzers.NamingRules
     using System.Text.RegularExpressions;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
 
     /// <summary>
@@ -188,7 +189,7 @@ namespace StyleCop.Analyzers.NamingRules
 
             public static void HandleSingleVariableDesignation(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
             {
-                CheckIdentifier(context, ((SingleVariableDesignationSyntaxWrapper)context.Node).Identifier, settings);
+                CheckIdentifier(context, SingleVariableDesignationSyntaxWrapper.Wrap((CSharpSyntaxNode)context.Node).Identifier, settings);
             }
 
             private static void CheckIdentifier(SyntaxNodeAnalysisContext context, SyntaxToken identifier, StyleCopSettings settings, string declarationType = "variable")

@@ -4,8 +4,8 @@
 namespace StyleCop.Analyzers.Helpers
 {
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// Helper methods for checking specific language versions.

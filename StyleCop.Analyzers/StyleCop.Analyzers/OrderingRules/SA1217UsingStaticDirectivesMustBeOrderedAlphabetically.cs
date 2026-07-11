@@ -8,9 +8,9 @@ namespace StyleCop.Analyzers.OrderingRules
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
 
     /// <summary>
@@ -59,7 +59,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
         private static void HandleBaseNamespaceDeclaration(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
         {
-            var namespaceDirective = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            var namespaceDirective = BaseNamespaceDeclarationSyntaxWrapper.Wrap((MemberDeclarationSyntax)context.Node);
             CheckUsingDeclarations(context, settings.OrderingRules, namespaceDirective.Usings);
         }
 

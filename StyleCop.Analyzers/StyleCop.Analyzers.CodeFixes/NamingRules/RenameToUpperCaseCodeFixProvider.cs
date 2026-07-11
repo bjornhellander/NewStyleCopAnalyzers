@@ -13,8 +13,8 @@ namespace StyleCop.Analyzers.NamingRules
     using Microsoft.CodeAnalysis.CodeFixes;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// Implements a code fix for all analyzers that require a symbol to be upper case.
@@ -67,7 +67,7 @@ namespace StyleCop.Analyzers.NamingRules
                 var newName = baseName;
                 var memberSyntax = RenameHelper.GetParentDeclaration(token);
 
-                if (BaseNamespaceDeclarationSyntaxWrapper.IsInstance(memberSyntax))
+                if (BaseNamespaceDeclarationSyntaxWrapper.Is(memberSyntax as MemberDeclarationSyntax) || memberSyntax is NamespaceDeclarationSyntax)
                 {
                     // namespaces are not symbols. So we are just renaming the namespace
                     Task<Document> RenameNamespace(CancellationToken cancellationToken)

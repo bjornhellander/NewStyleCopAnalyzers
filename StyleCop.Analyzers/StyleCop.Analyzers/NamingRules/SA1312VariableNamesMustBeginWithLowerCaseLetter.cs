@@ -7,10 +7,11 @@ namespace StyleCop.Analyzers.NamingRules
     using System.Collections.Immutable;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// The name of a variable in C# does not begin with a lower-case letter.
@@ -132,7 +133,7 @@ namespace StyleCop.Analyzers.NamingRules
 
         private static void HandleSingleVariableDesignation(SyntaxNodeAnalysisContext context)
         {
-            CheckIdentifier(context, ((SingleVariableDesignationSyntaxWrapper)context.Node).Identifier);
+            CheckIdentifier(context, SingleVariableDesignationSyntaxWrapper.Wrap((CSharpSyntaxNode)context.Node).Identifier);
         }
 
         private static void CheckIdentifier(SyntaxNodeAnalysisContext context, SyntaxToken identifier)

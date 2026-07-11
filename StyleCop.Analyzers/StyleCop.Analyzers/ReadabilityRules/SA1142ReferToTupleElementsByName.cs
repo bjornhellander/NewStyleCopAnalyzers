@@ -10,6 +10,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
+    using Microsoft.CodeAnalysis.Lightup;
+    using Microsoft.CodeAnalysis.Operations.Lightup;
     using StyleCop.Analyzers.Helpers;
     using StyleCop.Analyzers.Lightup;
 
@@ -54,13 +56,14 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 return;
             }
 
-            var fieldReference = IFieldReferenceOperationWrapper.FromOperation(context.Operation);
+            var fieldReference = IFieldReferenceOperationWrapper.Wrap(context.Operation);
 
             if (CheckFieldName(fieldReference.Field))
             {
-                var location = fieldReference.WrappedOperation.Syntax is MemberAccessExpressionSyntax memberAccessExpression
+                var syntax = ((IOperation)fieldReference.Unwrap()).Syntax; // !!!
+                var location = syntax is MemberAccessExpressionSyntax memberAccessExpression
                     ? memberAccessExpression.Name.GetLocation()
-                    : fieldReference.WrappedOperation.Syntax.GetLocation();
+                    : syntax.GetLocation();
                 context.ReportDiagnostic(Diagnostic.Create(Descriptor, location));
             }
         }
@@ -87,13 +90,13 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static bool CheckFieldName(IFieldSymbol fieldSymbol)
         {
-            if (!fieldSymbol.ContainingType.IsTupleType())
+            if (!fieldSymbol.ContainingType.IsTupleType()) // !!!
             {
                 return false;
             }
 
             // check if this already is a proper tuple field name
-            if (!Equals(fieldSymbol.CorrespondingTupleField(), fieldSymbol))
+            if (!Equals(fieldSymbol.CorrespondingTupleField(), fieldSymbol)) // !!!
             {
                 return false;
             }

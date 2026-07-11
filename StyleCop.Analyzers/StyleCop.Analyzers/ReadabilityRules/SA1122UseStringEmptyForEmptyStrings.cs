@@ -7,9 +7,9 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using System.Collections.Immutable;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// The C# code includes an empty string, written as <c>""</c>.

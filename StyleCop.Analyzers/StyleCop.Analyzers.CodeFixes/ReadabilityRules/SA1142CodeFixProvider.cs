@@ -13,8 +13,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using Microsoft.CodeAnalysis.CodeActions;
     using Microsoft.CodeAnalysis.CodeFixes;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.Lightup;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SA1142CodeFixProvider))]
     [Shared]

@@ -7,10 +7,11 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using System.Collections.Immutable;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// The parameters to a C# method or indexer call or declaration are not all on the same line or each on a separate
@@ -118,7 +119,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var statement = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var statement = LocalFunctionStatementSyntaxWrapper.Wrap((StatementSyntax)context.Node);
             HandleParameterListSyntax(context, statement.ParameterList);
         }
 

@@ -7,9 +7,9 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using System.Collections.Immutable;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// A comparison was made between a variable and a literal or constant value, and the variable appeared on the

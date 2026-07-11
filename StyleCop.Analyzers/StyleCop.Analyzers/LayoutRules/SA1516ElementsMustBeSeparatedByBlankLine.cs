@@ -9,11 +9,12 @@ namespace StyleCop.Analyzers.LayoutRules
     using System.Linq;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using Microsoft.CodeAnalysis.Text;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
 
     /// <summary>
@@ -212,7 +213,7 @@ namespace StyleCop.Analyzers.LayoutRules
 
         private static void HandleFileScopedNamespaceDeclaration(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
         {
-            var namespaceDeclaration = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            var namespaceDeclaration = (BaseNamespaceDeclarationSyntaxWrapper)(MemberDeclarationSyntax)context.Node;
 
             var usings = namespaceDeclaration.Usings;
             var members = namespaceDeclaration.Members;

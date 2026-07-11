@@ -9,7 +9,9 @@ namespace StyleCop.Analyzers.Helpers
     using System.Threading;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.Lightup;
     using StyleCop.Analyzers.Lightup;
 
     internal static class SyntaxTreeHelpers
@@ -106,8 +108,13 @@ namespace StyleCop.Analyzers.Helpers
             }
 
             // Check for global using aliases
-            var scopes = semanticModel.GetImportScopes(0, cancellationToken);
-            return scopes.Any(x => x.Aliases.Length > 0);
+            if (LightupHelpers.IsRoslynVersion_v4_3_0)
+            {
+                var scopes = semanticModel.GetImportScopes(0, cancellationToken);
+                return scopes.Any(x => x.Aliases.Length > 0);
+            }
+
+            return false;
         }
 
         private static Tuple<WeakReference<Compilation?>, ConcurrentDictionary<SyntaxTree, bool>?> CreateCache(Compilation? compilation)

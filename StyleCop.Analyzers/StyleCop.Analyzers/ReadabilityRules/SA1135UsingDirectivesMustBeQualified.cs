@@ -7,12 +7,13 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using System.Text;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
-
+    using Microsoft.CodeAnalysis.Lightup;
     using StyleCop.Analyzers.Helpers;
     using StyleCop.Analyzers.Helpers.ObjectPools;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// A using directive is not qualified.
@@ -102,7 +103,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     break;
 
                 case SymbolKind.NamedType:
-                    var containingNamespace = ((BaseNamespaceDeclarationSyntaxWrapper)usingDirective.Parent).Name.ToString();
+                    var containingNamespace = BaseNamespaceDeclarationSyntaxWrapper.Wrap((MemberDeclarationSyntax)usingDirective.Parent).Name.ToString();
                     if (containingNamespace != symbol.ContainingNamespace.ToString())
                     {
                         context.ReportDiagnostic(Diagnostic.Create(DescriptorType, usingDirective.GetLocation(), symbolString));
@@ -182,7 +183,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 return false;
 
             default:
-                if (TupleTypeSyntaxWrapper.IsInstance(type))
+                if (TupleTypeSyntaxWrapper.Is(type))
                 {
                     var tupleType = (TupleTypeSyntaxWrapper)type;
 

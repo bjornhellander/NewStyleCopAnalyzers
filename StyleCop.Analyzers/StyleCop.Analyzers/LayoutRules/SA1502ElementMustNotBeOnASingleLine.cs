@@ -8,10 +8,11 @@ namespace StyleCop.Analyzers.LayoutRules
     using System.Linq;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// A C# element containing opening and closing braces is written completely on a single line.
@@ -110,7 +111,7 @@ namespace StyleCop.Analyzers.LayoutRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var localFunctionStatement = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var localFunctionStatement = (LocalFunctionStatementSyntaxWrapper)(StatementSyntax)context.Node;
 
             // Expression-bodied local functions do not have a body
             if (localFunctionStatement.Body != null)

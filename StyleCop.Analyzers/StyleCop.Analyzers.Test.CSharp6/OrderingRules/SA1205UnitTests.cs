@@ -6,6 +6,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.OrderingRules;

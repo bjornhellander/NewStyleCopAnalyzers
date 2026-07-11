@@ -7,10 +7,11 @@ namespace StyleCop.Analyzers.SpacingRules
     using System.Collections.Immutable;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// An implicitly typed new array allocation within a C# code file is not spaced correctly.
@@ -66,7 +67,7 @@ namespace StyleCop.Analyzers.SpacingRules
 
         private static void HandleImplicitStackAllocArrayCreationExpression(SyntaxNodeAnalysisContext context)
         {
-            var arrayCreation = (ImplicitStackAllocArrayCreationExpressionSyntaxWrapper)context.Node;
+            var arrayCreation = ImplicitStackAllocArrayCreationExpressionSyntaxWrapper.Wrap((ExpressionSyntax)context.Node);
             var stackAllocKeywordToken = arrayCreation.StackAllocKeyword;
 
             if (stackAllocKeywordToken.IsFollowedByWhitespace() || stackAllocKeywordToken.IsLastInLine())

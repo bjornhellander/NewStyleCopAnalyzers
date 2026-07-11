@@ -7,10 +7,11 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     using System.Collections.Immutable;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// A multi-line initializer should use a comma on the last item.
@@ -123,29 +124,29 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
         private static void HandleSwitchExpression(SyntaxNodeAnalysisContext context)
         {
-            var switchExpression = (SwitchExpressionSyntaxWrapper)context.Node;
-            if (switchExpression.SyntaxNode == null || !switchExpression.SyntaxNode.SpansMultipleLines())
+            var switchExpression = (SwitchExpressionSyntaxWrapper)(ExpressionSyntax)context.Node;
+            if (/*switchExpression.SyntaxNode == null ||*/!switchExpression.Unwrap().SpansMultipleLines()) // !!!
             {
                 return;
             }
 
             if (switchExpression.Arms.SeparatorCount < switchExpression.Arms.Count)
             {
-                context.ReportDiagnostic(Diagnostic.Create(Descriptor, switchExpression.Arms.Last().SyntaxNode.GetLocation()));
+                context.ReportDiagnostic(Diagnostic.Create(Descriptor, switchExpression.Arms.Last().Unwrap().GetLocation()));
             }
         }
 
         private static void HandleCollectionExpression(SyntaxNodeAnalysisContext context)
         {
-            var collectionExpression = (CollectionExpressionSyntaxWrapper)context.Node;
-            if (collectionExpression.SyntaxNode == null || !collectionExpression.SyntaxNode.SpansMultipleLines())
+            var collectionExpression = (CollectionExpressionSyntaxWrapper)(ExpressionSyntax)context.Node;
+            if (/*collectionExpression.SyntaxNode == null ||*/!collectionExpression.Unwrap().SpansMultipleLines()) // !!!
             {
                 return;
             }
 
             if (collectionExpression.Elements.SeparatorCount < collectionExpression.Elements.Count)
             {
-                context.ReportDiagnostic(Diagnostic.Create(Descriptor, collectionExpression.Elements.Last().SyntaxNode.GetLocation()));
+                context.ReportDiagnostic(Diagnostic.Create(Descriptor, collectionExpression.Elements.Last().Unwrap().GetLocation()));
             }
         }
     }

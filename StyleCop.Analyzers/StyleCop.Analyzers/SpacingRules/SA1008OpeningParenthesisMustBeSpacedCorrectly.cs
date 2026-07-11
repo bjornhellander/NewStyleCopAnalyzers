@@ -8,10 +8,11 @@ namespace StyleCop.Analyzers.SpacingRules
     using System.Linq;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// An opening parenthesis within a C# statement is not spaced correctly.
@@ -218,7 +219,7 @@ namespace StyleCop.Analyzers.SpacingRules
             case SyntaxKind.ParenthesizedExpression:
             case SyntaxKindEx.TupleExpression:
                 if (prevToken.Parent.IsKind(SyntaxKind.Interpolation)
-                    || (token.Parent.Parent.IsKind(SyntaxKindEx.RangeExpression) && ((RangeExpressionSyntaxWrapper)token.Parent.Parent).RightOperand == token.Parent))
+                    || (token.Parent.Parent.IsKind(SyntaxKindEx.RangeExpression) && (RangeExpressionSyntaxWrapper.Wrap((ExpressionSyntax)token.Parent.Parent).RightOperand == token.Parent))) // !!!
                 {
                     haveLeadingSpace = false;
                     break;

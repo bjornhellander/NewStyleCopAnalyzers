@@ -1,0 +1,14 @@
+﻿{
+	"$schema": "https://raw.githubusercontent.com/bjornhellander/CodeAnalysis.Lightup/master/Configuration.schema.json",
+	"baselineVersion": "0.0.0.0",
+	"assemblies": [ "Microsoft.CodeAnalysis.Workspaces.Common", "Microsoft.CodeAnalysis.CSharp.Workspaces" ],
+	"useInternalAccessibility": true,
+	"includeTypes": [
+		"Microsoft.CodeAnalysis.Solution",
+		"Microsoft.CodeAnalysis.Host.SolutionServices",
+		"Microsoft.CodeAnalysis.AnalyzerConfigDocument",
+		"Microsoft.CodeAnalysis.SourceGeneratedDocument",
+		"Microsoft.CodeAnalysis.CompilationOutputInfo",
+		"Microsoft.CodeAnalysis.Host.LanguageServices"
+	]
+}

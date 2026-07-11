@@ -5,7 +5,7 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
 {
     using System.Collections.Immutable;
     using LightJson;
-    using StyleCop.Analyzers.Lightup;
+    using Microsoft.CodeAnalysis.Diagnostics.Lightup;
 
     internal class MaintainabilitySettings
     {
@@ -34,7 +34,7 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
         /// <param name="maintainabilitySettingsObject">The JSON object containing the settings.</param>
         /// <param name="analyzerConfigOptions">The <strong>.editorconfig</strong> options to use if
         /// <strong>stylecop.json</strong> does not provide values.</param>
-        protected internal MaintainabilitySettings(JsonObject maintainabilitySettingsObject, AnalyzerConfigOptionsWrapper analyzerConfigOptions)
+        protected internal MaintainabilitySettings(JsonObject maintainabilitySettingsObject, AnalyzerConfigOptionsWrapper? analyzerConfigOptions)
         {
             // Currently unused
             _ = analyzerConfigOptions;

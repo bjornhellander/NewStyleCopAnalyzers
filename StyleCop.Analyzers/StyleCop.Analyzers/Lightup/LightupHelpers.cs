@@ -6,13 +6,11 @@
 namespace StyleCop.Analyzers.Lightup
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Immutable;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Reflection;
-    using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
 
     internal static class LightupHelpers
     {
@@ -54,5 +52,19 @@ namespace StyleCop.Analyzers.Lightup
             = Enum.GetNames(typeof(SyntaxKind)).Contains(nameof(SyntaxKindEx.UnionKeyword));
 
         public static bool SupportsIOperation => SupportsCSharp73;
+
+        public static bool IsRoslynVersion_v2_0_0 { get; }
+            = GetRoslynVersion() >= new Version(2, 0, 0);
+
+        public static bool IsRoslynVersion_v4_3_0 { get; }
+            = GetRoslynVersion() >= new Version(4, 3, 0);
+
+        private static Version GetRoslynVersion()
+        {
+            var type = typeof(SyntaxKind);
+            var assembly = type.GetTypeInfo().Assembly;
+            var version = assembly.GetName().Version;
+            return version;
+        }
     }
 }

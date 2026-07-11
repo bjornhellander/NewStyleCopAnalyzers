@@ -11,8 +11,8 @@ namespace StyleCop.Analyzers.DocumentationRules
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CodeActions;
     using Microsoft.CodeAnalysis.CodeFixes;
+    using Microsoft.CodeAnalysis.Lightup;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// Implements a code fix for <see cref="SA1649FileNameMustMatchTypeName"/>.

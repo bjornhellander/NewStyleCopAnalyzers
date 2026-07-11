@@ -10,7 +10,7 @@ namespace StyleCop.Analyzers.OrderingRules
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
-    using StyleCop.Analyzers.Lightup;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
 
     /// <summary>
     /// Implements a code fix for all misaligned using statements.
@@ -124,7 +124,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
             private static void ProcessNodeMembers(TreeTextSpan.Builder builder, SyntaxList<MemberDeclarationSyntax> members)
             {
-                foreach (var namespaceDeclaration in members.Where(member => BaseNamespaceDeclarationSyntaxWrapper.IsInstance(member)))
+                foreach (var namespaceDeclaration in members.Where(member => BaseNamespaceDeclarationSyntaxWrapper.Is(member)))
                 {
                     var childBuilder = builder.AddChild(namespaceDeclaration.FullSpan.Start);
                     childBuilder.SetEnd(namespaceDeclaration.FullSpan.End);

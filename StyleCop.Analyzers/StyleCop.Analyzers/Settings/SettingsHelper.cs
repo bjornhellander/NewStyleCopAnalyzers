@@ -212,7 +212,7 @@ namespace StyleCop.Analyzers
                 // TODO: Tree can not be null. Simplify!
                 if (tree != null)
                 {
-                    var analyzerConfigOptions = options.AnalyzerConfigOptionsProvider().GetOptions(tree);
+                    var analyzerConfigOptions = options.GetAnalyzerConfigOptions(tree);
                     settings = new StyleCopSettings(new JsonObject(), analyzerConfigOptions);
                 }
                 else
@@ -226,7 +226,7 @@ namespace StyleCop.Analyzers
 
         private static StyleCopSettings CreateSettingsObjectFromFile(AnalyzerOptions options, SyntaxTree tree, SettingsFile settingsFile, DeserializationFailureBehavior failureBehavior)
         {
-            var analyzerConfigOptions = options.AnalyzerConfigOptionsProvider().GetOptions(tree);
+            var analyzerConfigOptions = options.GetAnalyzerConfigOptions(tree);
 
             try
             {

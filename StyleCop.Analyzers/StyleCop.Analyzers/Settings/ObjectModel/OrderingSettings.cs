@@ -5,8 +5,8 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
 {
     using System.Collections.Immutable;
     using LightJson;
+    using Microsoft.CodeAnalysis.Diagnostics.Lightup;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     internal class OrderingSettings
     {
@@ -55,7 +55,7 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
         /// <param name="orderingSettingsObject">The JSON object containing the settings.</param>
         /// <param name="analyzerConfigOptions">The <strong>.editorconfig</strong> options to use if
         /// <strong>stylecop.json</strong> does not provide values.</param>
-        protected internal OrderingSettings(JsonObject orderingSettingsObject, AnalyzerConfigOptionsWrapper analyzerConfigOptions)
+        protected internal OrderingSettings(JsonObject orderingSettingsObject, AnalyzerConfigOptionsWrapper? analyzerConfigOptions)
         {
             ImmutableArray<OrderingTrait>.Builder? elementOrder = null;
             bool? systemUsingDirectivesFirst = null;

@@ -7,10 +7,11 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using System.Collections.Immutable;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.SpacingRules;
 
     /// <summary>
@@ -215,19 +216,19 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var localFunctionStatementSyntax = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var localFunctionStatementSyntax = LocalFunctionStatementSyntaxWrapper.Wrap((StatementSyntax)context.Node);
             CheckParameterList(context, localFunctionStatementSyntax.ParameterList);
         }
 
         private static void HandleTypeDeclaration(SyntaxNodeAnalysisContext context)
         {
             var typeDeclarationSyntax = (TypeDeclarationSyntax)context.Node;
-            CheckParameterList(context, typeDeclarationSyntax.ParameterList());
+            CheckParameterList(context, typeDeclarationSyntax.ParameterList()); // !!!
         }
 
         private static void HandlePrimaryConstructorBaseType(SyntaxNodeAnalysisContext context)
         {
-            var typeDeclarationSyntax = (PrimaryConstructorBaseTypeSyntaxWrapper)context.Node;
+            var typeDeclarationSyntax = PrimaryConstructorBaseTypeSyntaxWrapper.Wrap((BaseTypeSyntax)context.Node);
             CheckArgumentList(context, typeDeclarationSyntax.ArgumentList);
         }
 

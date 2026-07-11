@@ -8,10 +8,11 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using System.Linq;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// The start of the parameter list for a method or indexer call or declaration does not begin on the same line as
@@ -177,7 +178,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var localFunctionStatement = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var localFunctionStatement = LocalFunctionStatementSyntaxWrapper.Wrap((StatementSyntax)context.Node);
 
             AnalyzeParametersList(context, localFunctionStatement.ParameterList);
         }

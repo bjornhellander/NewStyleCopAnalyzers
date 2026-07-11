@@ -10,9 +10,10 @@ namespace StyleCop.Analyzers.Helpers
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CodeActions;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Rename;
-    using StyleCop.Analyzers.Lightup;
 
     internal static class RenameHelper
     {

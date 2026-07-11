@@ -8,9 +8,9 @@ namespace StyleCop.Analyzers.OrderingRules
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// A using-alias directive is positioned before a regular using directive.
@@ -59,7 +59,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
         private static void HandleBaseNamespaceDeclaration(SyntaxNodeAnalysisContext context)
         {
-            var namespaceDeclaration = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            var namespaceDeclaration = BaseNamespaceDeclarationSyntaxWrapper.Wrap((MemberDeclarationSyntax)context.Node);
 
             ProcessUsingsAndReportDiagnostic(namespaceDeclaration.Usings, context);
         }

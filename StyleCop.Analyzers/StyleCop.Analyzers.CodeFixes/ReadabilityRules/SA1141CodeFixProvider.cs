@@ -12,10 +12,12 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using Microsoft.CodeAnalysis.CodeActions;
     using Microsoft.CodeAnalysis.CodeFixes;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
+    using Microsoft.CodeAnalysis.Lightup;
     using Microsoft.CodeAnalysis.Simplification;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(SA1141CodeFixProvider))]
     [Shared]
@@ -104,7 +106,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static SyntaxNode TransformGenericNameToTuple(SemanticModel semanticModel, GenericNameSyntax genericName)
         {
-            var implementationType = typeof(SeparatedSyntaxListWrapper<>.AutoWrapSeparatedSyntaxList<>).MakeGenericType(typeof(TupleElementSyntaxWrapper), SyntaxWrapperHelper.GetWrappedType(typeof(TupleElementSyntaxWrapper)));
+            var implementationType = typeof(SeparatedSyntaxListWrapper<>).MakeGenericType(typeof(TupleElementSyntaxWrapper), TupleElementSyntaxWrapper.WrappedType);
             var tupleElements = (SeparatedSyntaxListWrapper<TupleElementSyntaxWrapper>)Activator.CreateInstance(implementationType);
 
             foreach (var typeArgument in genericName.TypeArgumentList.Arguments)

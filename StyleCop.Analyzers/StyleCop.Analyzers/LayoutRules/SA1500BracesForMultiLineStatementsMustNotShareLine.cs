@@ -7,10 +7,11 @@ namespace StyleCop.Analyzers.LayoutRules
     using System.Collections.Immutable;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
 
     /// <summary>
@@ -189,7 +190,7 @@ namespace StyleCop.Analyzers.LayoutRules
                         break;
 
                     case SyntaxKindEx.ImplicitStackAllocArrayCreationExpression:
-                        if (((ImplicitStackAllocArrayCreationExpressionSyntaxWrapper)context.Node.Parent).StackAllocKeyword.GetLine() == openBraceTokenLine)
+                        if (((ImplicitStackAllocArrayCreationExpressionSyntaxWrapper)(ExpressionSyntax)context.Node.Parent).StackAllocKeyword.GetLine() == openBraceTokenLine) // !!!
                         {
                             return;
                         }

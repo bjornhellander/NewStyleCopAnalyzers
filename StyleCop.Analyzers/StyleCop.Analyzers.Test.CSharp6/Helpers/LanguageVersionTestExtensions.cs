@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.Helpers
 {
     using System;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using StyleCop.Analyzers.Lightup;
 
     internal static class LanguageVersionTestExtensions

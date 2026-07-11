@@ -11,8 +11,9 @@ namespace StyleCop.Analyzers.OrderingRules
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
+    using Microsoft.CodeAnalysis.Lightup;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
 
     /// <summary>
@@ -479,7 +480,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
             private void ProcessMembers(SyntaxList<MemberDeclarationSyntax> members)
             {
-                foreach (var namespaceDeclaration in members.Where(member => BaseNamespaceDeclarationSyntaxWrapper.IsInstance(member)))
+                foreach (var namespaceDeclaration in members.Where(member => BaseNamespaceDeclarationSyntaxWrapper.Is(member)))
                 {
                     this.ProcessUsingDirectives(((BaseNamespaceDeclarationSyntaxWrapper)namespaceDeclaration).Usings);
                     this.ProcessMembers(((BaseNamespaceDeclarationSyntaxWrapper)namespaceDeclaration).Members);

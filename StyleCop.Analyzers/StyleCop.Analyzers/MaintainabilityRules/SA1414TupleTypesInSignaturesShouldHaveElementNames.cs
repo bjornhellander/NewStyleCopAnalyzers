@@ -8,10 +8,11 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     using System.Linq;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     [NoCodeFix("Cannot generate appropriate names.")]
@@ -163,7 +164,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
                 if (tupleElementSyntax.Identifier.IsKind(SyntaxKind.None) && !NamedTypeHelpers.IsImplementingAnInterfaceMember(context.SemanticModel.GetDeclaredSymbol(context.Node)))
                 {
-                    var location = tupleElementSyntax.SyntaxNode.GetLocation();
+                    var location = ((SyntaxNode)tupleElementSyntax).GetLocation();
                     context.ReportDiagnostic(Diagnostic.Create(Descriptor, location));
                 }
             }

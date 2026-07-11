@@ -8,10 +8,11 @@ namespace StyleCop.Analyzers.NamingRules
     using System.Diagnostics;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
 
     /// <summary>
@@ -59,7 +60,7 @@ namespace StyleCop.Analyzers.NamingRules
                 return;
             }
 
-            var tupleType = (TupleTypeSyntaxWrapper)context.Node;
+            var tupleType = TupleTypeSyntaxWrapper.Wrap((TypeSyntax)context.Node);
 
             foreach (var tupleElement in tupleType.Elements)
             {
@@ -75,9 +76,9 @@ namespace StyleCop.Analyzers.NamingRules
                 return;
             }
 
-            var tupleExpression = (TupleExpressionSyntaxWrapper)context.Node;
+            var tupleExpression = TupleExpressionSyntaxWrapper.Wrap((ExpressionSyntax)context.Node);
 
-            if (IsInDeconstructionTarget(tupleExpression.SyntaxNode))
+            if (IsInDeconstructionTarget(tupleExpression))
             {
                 return;
             }
@@ -116,7 +117,7 @@ namespace StyleCop.Analyzers.NamingRules
                 return;
             }
 
-            CheckName(context, settings, tupleElement.SyntaxNode, tupleElement.Identifier.ValueText, tupleElement.Identifier.GetLocation(), true);
+            CheckName(context, settings, tupleElement, tupleElement.Identifier.ValueText, tupleElement.Identifier.GetLocation(), true);
         }
 
         private static void CheckName(SyntaxNodeAnalysisContext context, StyleCopSettings settings, SyntaxNode? tupleElement, string tupleElementName, Location location, bool prepareCodeFix)
@@ -268,9 +269,9 @@ namespace StyleCop.Analyzers.NamingRules
             // Foreach deconstruction
             for (SyntaxNode n = node; n != null && n is not MemberDeclarationSyntax; n = n.Parent)
             {
-                if (CommonForEachStatementSyntaxWrapper.IsInstance(n))
+                if (CommonForEachStatementSyntaxWrapper.Is(n as StatementSyntax))
                 {
-                    var fe = (CommonForEachStatementSyntaxWrapper)n;
+                    var fe = CommonForEachStatementSyntaxWrapper.Wrap((StatementSyntax)n);
                     var open = fe.OpenParenToken;
                     var inTk = fe.InKeyword;
                     if (open != default && inTk != default)

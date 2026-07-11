@@ -8,9 +8,9 @@ namespace StyleCop.Analyzers.OrderingRules
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
 
     /// <summary>
@@ -73,7 +73,7 @@ namespace StyleCop.Analyzers.OrderingRules
                 return;
             }
 
-            var namespaceDeclaration = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            var namespaceDeclaration = BaseNamespaceDeclarationSyntaxWrapper.Wrap((MemberDeclarationSyntax)context.Node);
             var usings = namespaceDeclaration.Usings;
             ProcessUsingsAndReportDiagnostic(usings, context);
         }

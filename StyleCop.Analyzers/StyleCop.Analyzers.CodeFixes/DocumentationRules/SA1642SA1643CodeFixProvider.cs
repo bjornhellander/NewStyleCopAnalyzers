@@ -15,10 +15,11 @@ namespace StyleCop.Analyzers.DocumentationRules
     using Microsoft.CodeAnalysis.CodeActions;
     using Microsoft.CodeAnalysis.CodeFixes;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Formatting;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// Implements a code fix for <see cref="SA1642ConstructorSummaryDocumentationMustBeginWithStandardText"/>
@@ -151,7 +152,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                 return structDeclaration.TypeParameterList;
             }
 
-            if (RecordDeclarationSyntaxWrapper.IsInstance(typeDeclaration))
+            if (RecordDeclarationSyntaxWrapper.Is(typeDeclaration as TypeDeclarationSyntax))
             {
                 var recordDeclaration = (RecordDeclarationSyntaxWrapper)typeDeclaration;
                 return recordDeclaration.TypeParameterList;

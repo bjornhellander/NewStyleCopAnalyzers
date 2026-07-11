@@ -9,9 +9,9 @@ namespace StyleCop.Analyzers.DocumentationRules
     using System.Xml.Linq;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
 
     /// <summary>
@@ -198,7 +198,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             return (node as BaseMethodDeclarationSyntax)?.ParameterList?.Parameters
                 ?? (node as IndexerDeclarationSyntax)?.ParameterList?.Parameters
                 ?? (node as DelegateDeclarationSyntax)?.ParameterList?.Parameters
-                ?? (node as TypeDeclarationSyntax)?.ParameterList()?.Parameters;
+                ?? (node as TypeDeclarationSyntax)?.ParameterList()?.Parameters; // !!!
         }
 
         private static SyntaxToken? GetIdentifier(SyntaxNode node)

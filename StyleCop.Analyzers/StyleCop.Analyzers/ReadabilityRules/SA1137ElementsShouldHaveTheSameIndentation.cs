@@ -9,10 +9,12 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using System.Linq;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
+    using Microsoft.CodeAnalysis.Lightup;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     internal class SA1137ElementsShouldHaveTheSameIndentation : DiagnosticAnalyzerBase
@@ -99,7 +101,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleBaseNamespaceDeclaration(SyntaxNodeAnalysisContext context)
         {
-            var namespaceDeclaration = (BaseNamespaceDeclarationSyntaxWrapper)context.Node;
+            var namespaceDeclaration = BaseNamespaceDeclarationSyntaxWrapper.Wrap((MemberDeclarationSyntax)context.Node);
 
             var elements = ImmutableList.CreateBuilder<SyntaxNode>();
 
@@ -265,7 +267,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleCollectionExpression(SyntaxNodeAnalysisContext context)
         {
-            var collectionExpression = (CollectionExpressionSyntaxWrapper)context.Node;
+            var collectionExpression = CollectionExpressionSyntaxWrapper.Wrap((ExpressionSyntax)context.Node);
 
             CheckBraces(context, collectionExpression.OpenBracketToken, collectionExpression.CloseBracketToken);
             CheckElements(context, collectionExpression.Elements);
@@ -281,14 +283,14 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleTupleType(SyntaxNodeAnalysisContext context)
         {
-            var tupleType = (TupleTypeSyntaxWrapper)context.Node;
+            var tupleType = TupleTypeSyntaxWrapper.Wrap((TypeSyntax)context.Node);
 
             CheckElements(context, tupleType.Elements);
         }
 
         private static void HandleTupleExpression(SyntaxNodeAnalysisContext context)
         {
-            var tupleExpression = (TupleExpressionSyntaxWrapper)context.Node;
+            var tupleExpression = TupleExpressionSyntaxWrapper.Wrap((ExpressionSyntax)context.Node);
 
             CheckElements(context, tupleExpression.Arguments);
         }
@@ -391,13 +393,14 @@ namespace StyleCop.Analyzers.ReadabilityRules
         }
 
         private static void CheckElements<T>(SyntaxNodeAnalysisContext context, SeparatedSyntaxListWrapper<T> elements)
+            where T : struct
         {
             if (elements.Count < 2)
             {
                 return;
             }
 
-            CheckElements(context, ((IEnumerable<SyntaxNode>)elements.UnderlyingList).ToImmutableList());
+            CheckElements(context, ((IEnumerable<SyntaxNode>)elements.Unwrap()).ToImmutableList()); // !!!
         }
 
         // BlockSyntax is analyzed separately because it needs to check both braces.

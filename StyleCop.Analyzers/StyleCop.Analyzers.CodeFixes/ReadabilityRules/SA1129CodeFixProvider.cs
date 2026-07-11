@@ -16,9 +16,9 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using Microsoft.CodeAnalysis.CodeFixes;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Editing;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// Implements a code fix for <see cref="SA1129DoNotUseDefaultValueTypeConstructor"/>.
@@ -117,13 +117,13 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
 
             return replacement
-                .WithLeadingTrivia(newExpression.SyntaxNode.GetLeadingTrivia())
-                .WithTrailingTrivia(newExpression.SyntaxNode.GetTrailingTrivia());
+                .WithLeadingTrivia(newExpression.Unwrap().GetLeadingTrivia())
+                .WithTrailingTrivia(newExpression.Unwrap().GetTrailingTrivia());
         }
 
         private static TypeSyntax GetOrCreateTypeSyntax(Project project, BaseObjectCreationExpressionSyntaxWrapper baseObjectCreationExpression, INamedTypeSymbol? constructedType)
         {
-            if (baseObjectCreationExpression.SyntaxNode is ObjectCreationExpressionSyntax objectCreationExpressionSyntax)
+            if (baseObjectCreationExpression.Unwrap() is ObjectCreationExpressionSyntax objectCreationExpressionSyntax) // !!!
             {
                 return objectCreationExpressionSyntax.Type;
             }
@@ -167,7 +167,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static bool IsDefaultParameterValue(BaseObjectCreationExpressionSyntaxWrapper expression)
         {
-            if (expression.SyntaxNode.Parent.Parent is ParameterSyntax parameterSyntax)
+            if (expression.Unwrap().Parent.Parent is ParameterSyntax parameterSyntax)
             {
                 return parameterSyntax.Parent.Parent is BaseMethodDeclarationSyntax;
             }

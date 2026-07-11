@@ -8,7 +8,7 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
     using System.Globalization;
     using System.Text.RegularExpressions;
     using LightJson;
-    using StyleCop.Analyzers.Lightup;
+    using Microsoft.CodeAnalysis.Diagnostics.Lightup;
 
     internal class DocumentationSettings
     {
@@ -138,7 +138,7 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
         /// <param name="documentationSettingsObject">The JSON object containing the settings.</param>
         /// <param name="analyzerConfigOptions">The <strong>.editorconfig</strong> options to use if
         /// <strong>stylecop.json</strong> does not provide values.</param>
-        protected internal DocumentationSettings(JsonObject documentationSettingsObject, AnalyzerConfigOptionsWrapper analyzerConfigOptions)
+        protected internal DocumentationSettings(JsonObject documentationSettingsObject, AnalyzerConfigOptionsWrapper? analyzerConfigOptions)
         {
             bool? documentExposedElements = null;
             bool? documentInternalElements = null;

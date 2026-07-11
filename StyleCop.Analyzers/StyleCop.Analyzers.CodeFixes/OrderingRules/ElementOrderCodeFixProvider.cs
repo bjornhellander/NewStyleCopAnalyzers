@@ -14,8 +14,8 @@ namespace StyleCop.Analyzers.OrderingRules
     using Microsoft.CodeAnalysis.CodeFixes;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
 
     /// <summary>
@@ -83,9 +83,9 @@ namespace StyleCop.Analyzers.OrderingRules
                 return HandleTypeDeclaration(memberToMove, (TypeDeclarationSyntax)parentDeclaration, elementOrder, syntaxRoot, indentationSettings);
             }
 
-            if (BaseNamespaceDeclarationSyntaxWrapper.IsInstance(parentDeclaration))
+            if (BaseNamespaceDeclarationSyntaxWrapper.Is(parentDeclaration as MemberDeclarationSyntax))
             {
-                return HandleBaseNamespaceDeclaration(memberToMove, (BaseNamespaceDeclarationSyntaxWrapper)parentDeclaration, elementOrder, syntaxRoot, indentationSettings);
+                return HandleBaseNamespaceDeclaration(memberToMove, BaseNamespaceDeclarationSyntaxWrapper.Wrap((MemberDeclarationSyntax)parentDeclaration), elementOrder, syntaxRoot, indentationSettings);
             }
 
             if (parentDeclaration is CompilationUnitSyntax)

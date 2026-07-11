@@ -7,9 +7,10 @@ namespace StyleCop.Analyzers.Helpers
     using System.Linq;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
-
-    using StyleCop.Analyzers.Lightup;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
+    using Microsoft.CodeAnalysis.Lightup;
 
     internal static class NamedTypeHelpers
     {
@@ -189,6 +190,6 @@ namespace StyleCop.Analyzers.Helpers
         }
 
         internal static INamedTypeSymbol TupleUnderlyingTypeOrSelf(this INamedTypeSymbol tupleSymbol)
-            => tupleSymbol.TupleUnderlyingType() ?? tupleSymbol;
+            => tupleSymbol.TupleUnderlyingType() ?? tupleSymbol; // !!!
     }
 }

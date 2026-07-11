@@ -12,9 +12,10 @@ namespace StyleCop.Analyzers.LayoutRules
     using Microsoft.CodeAnalysis.CodeActions;
     using Microsoft.CodeAnalysis.CodeFixes;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
 
     /// <summary>
@@ -84,7 +85,7 @@ namespace StyleCop.Analyzers.LayoutRules
             case SyntaxKind.Block:
                 if (node.Parent.IsKind(SyntaxKindEx.LocalFunctionStatement))
                 {
-                    newSyntaxRoot = this.RegisterLocalFunctionStatementCodeFix(syntaxRoot, (LocalFunctionStatementSyntaxWrapper)node.Parent, indentationSettings);
+                    newSyntaxRoot = this.RegisterLocalFunctionStatementCodeFix(syntaxRoot, (LocalFunctionStatementSyntaxWrapper)node.Parent!, indentationSettings);
                 }
                 else
                 {
@@ -118,7 +119,7 @@ namespace StyleCop.Analyzers.LayoutRules
 
         private SyntaxNode RegisterLocalFunctionStatementCodeFix(SyntaxNode syntaxRoot, LocalFunctionStatementSyntaxWrapper node, IndentationSettings indentationSettings)
         {
-            return this.ReformatElement(syntaxRoot, node, node.Body.OpenBraceToken, node.Body.CloseBraceToken, indentationSettings);
+            return this.ReformatElement(syntaxRoot, node, node.Body!.OpenBraceToken, node.Body.CloseBraceToken, indentationSettings);
         }
 
         private SyntaxNode RegisterNamespaceDeclarationCodeFix(SyntaxNode syntaxRoot, NamespaceDeclarationSyntax node, IndentationSettings indentationSettings)

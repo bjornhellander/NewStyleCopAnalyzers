@@ -4,10 +4,12 @@
 namespace StyleCop.Analyzers.Helpers
 {
     using System.Text;
+    using CodeAnalysis.Lightup.Runtime;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
-
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
+    using Microsoft.CodeAnalysis.Lightup;
     using StyleCop.Analyzers.Lightup;
 
     /// <summary>
@@ -44,7 +46,7 @@ namespace StyleCop.Analyzers.Helpers
         public static string ToFullyQualifiedValueTupleDisplayString(this INamedTypeSymbol tupleSymbol)
         {
             var tupleElements = tupleSymbol.TupleElements();
-            if (tupleElements.IsDefault)
+            if (tupleElements.IsDefault) // !!!
             {
                 // If the tuple elements API is not available, the default formatting will produce System.ValueTuple and not the C# tuple format.
                 return tupleSymbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
@@ -110,7 +112,7 @@ namespace StyleCop.Analyzers.Helpers
                     AppendNullableSuffixIfNeeded(builder, type);
                     return true;
                 }
-                else if (namedTypeSymbol.IsTupleType())
+                else if (LightupHelpers.IsRoslynVersion_v2_0_0 && namedTypeSymbol.IsTupleType())
                 {
                     return AppendTupleType(builder, namedTypeSymbol, type);
                 }
@@ -183,9 +185,9 @@ namespace StyleCop.Analyzers.Helpers
 
         private static bool AppendTupleType(StringBuilder builder, INamedTypeSymbol namedTypeSymbol, TypeSyntax? type)
         {
-            if (TupleTypeSyntaxWrapper.IsInstance(type))
+            if (TupleTypeSyntaxWrapper.Is(type))
             {
-                var tupleType = (TupleTypeSyntaxWrapper)type;
+                var tupleType = (TupleTypeSyntaxWrapper)type; // !!!
 
                 builder.Append(TupleTypeOpen);
                 var elements = namedTypeSymbol.TupleElements();

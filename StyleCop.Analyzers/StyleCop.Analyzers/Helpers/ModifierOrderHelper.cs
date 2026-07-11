@@ -5,7 +5,7 @@ namespace StyleCop.Analyzers.OrderingRules
 {
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
-    using StyleCop.Analyzers.Lightup;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
 
     internal static class ModifierOrderHelper
     {

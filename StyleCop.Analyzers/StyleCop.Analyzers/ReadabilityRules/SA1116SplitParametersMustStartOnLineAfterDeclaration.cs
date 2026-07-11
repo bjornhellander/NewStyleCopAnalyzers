@@ -7,10 +7,11 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using System.Collections.Immutable;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// The parameters to a C# method or indexer call or declaration span across multiple lines, but the first parameter
@@ -109,7 +110,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
         {
-            var statement = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            var statement = LocalFunctionStatementSyntaxWrapper.Wrap((StatementSyntax)context.Node);
             HandleParameterListSyntax(context, statement.ParameterList);
         }
 
@@ -127,7 +128,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleImplicitObjectCreationExpression(SyntaxNodeAnalysisContext context)
         {
-            var implicitObjectCreation = (ImplicitObjectCreationExpressionSyntaxWrapper)context.Node;
+            var implicitObjectCreation = ImplicitObjectCreationExpressionSyntaxWrapper.Wrap((ExpressionSyntax)context.Node);
             HandleArgumentListSyntax(context, implicitObjectCreation.ArgumentList);
         }
 

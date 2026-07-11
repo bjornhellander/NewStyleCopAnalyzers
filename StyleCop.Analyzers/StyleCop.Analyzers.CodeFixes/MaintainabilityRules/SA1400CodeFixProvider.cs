@@ -11,9 +11,10 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     using Microsoft.CodeAnalysis.CodeActions;
     using Microsoft.CodeAnalysis.CodeFixes;
     using Microsoft.CodeAnalysis.CSharp;
+    using Microsoft.CodeAnalysis.CSharp.Lightup;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using Microsoft.CodeAnalysis.CSharp.Syntax.Lightup;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// Implements a code fix for <see cref="SA1400AccessModifierMustBeDeclared"/>.
@@ -217,7 +218,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             return node
                 .WithKeyword(triviaToken)
                 .WithModifiers(modifiers)
-                .SyntaxNode
+                .Unwrap()
                 .WithoutFormatting();
         }
 

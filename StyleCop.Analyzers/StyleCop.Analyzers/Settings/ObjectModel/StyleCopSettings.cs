@@ -4,7 +4,7 @@
 namespace StyleCop.Analyzers.Settings.ObjectModel
 {
     using LightJson;
-    using StyleCop.Analyzers.Lightup;
+    using Microsoft.CodeAnalysis.Diagnostics.Lightup;
 
     internal class StyleCopSettings
     {
@@ -64,7 +64,7 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
             this.documentationRules = new DocumentationSettings();
         }
 
-        protected internal StyleCopSettings(JsonObject settingsObject, AnalyzerConfigOptionsWrapper analyzerConfigOptions)
+        protected internal StyleCopSettings(JsonObject settingsObject, AnalyzerConfigOptionsWrapper? analyzerConfigOptions)
         {
             foreach (var kvp in settingsObject)
             {
