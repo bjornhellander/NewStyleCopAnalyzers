@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.6.11828.311 oobstable
+VisualStudioVersion = 18.6.11828.311
 MinimumVisualStudioVersion = 17.0.31903.59
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleCop.Analyzers", "StyleCop.Analyzers\StyleCop.Analyzers\StyleCop.Analyzers.csproj", "{3B052737-06CE-4182-AE0F-08EB82DFA73E}"
 EndProject
@@ -279,6 +279,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StyleCop.Analyzers.Test.CSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleCop.Analyzers.Test.CSharp14", "StyleCop.Analyzers\StyleCop.Analyzers.Test.CSharp14\StyleCop.Analyzers.Test.CSharp14.csproj", "{2DBCAA9D-7302-D41B-67F7-3005BCC1281C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleCop.Analyzers.Test.CSharp15", "StyleCop.Analyzers\StyleCop.Analyzers.Test.CSharp15\StyleCop.Analyzers.Test.CSharp15.csproj", "{F86DD736-F70E-7311-18F0-CDE98C5F03C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -349,6 +351,10 @@ Global
 		{2DBCAA9D-7302-D41B-67F7-3005BCC1281C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DBCAA9D-7302-D41B-67F7-3005BCC1281C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DBCAA9D-7302-D41B-67F7-3005BCC1281C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F86DD736-F70E-7311-18F0-CDE98C5F03C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F86DD736-F70E-7311-18F0-CDE98C5F03C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F86DD736-F70E-7311-18F0-CDE98C5F03C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F86DD736-F70E-7311-18F0-CDE98C5F03C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
