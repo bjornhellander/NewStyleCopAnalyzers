@@ -92,6 +92,7 @@ namespace StyleCop.Analyzers.Lightup
             builder.Add(typeof(VariableDesignationSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(VariableDesignationSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(VarPatternSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(VarPatternSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(WhenClauseSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(WhenClauseSyntaxWrapper.WrappedTypeName));
+            builder.Add(typeof(WithElementSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(WithElementSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(WithExpressionSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(WithExpressionSyntaxWrapper.WrappedTypeName));
 
             WrappedTypes = builder.ToImmutable();
