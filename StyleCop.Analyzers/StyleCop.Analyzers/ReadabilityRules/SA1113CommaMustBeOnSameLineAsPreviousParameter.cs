@@ -72,6 +72,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> AttributeListAction = HandleAttributeList;
         private static readonly Action<SyntaxNodeAnalysisContext> ArrayCreationExpressionAction = HandleArrayCreationExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> ConstructorInitializerAction = HandleConstructorInitializer;
+        private static readonly Action<SyntaxNodeAnalysisContext> WithElementAction = HandleWithElement;
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
@@ -96,6 +97,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.RegisterSyntaxNodeAction(AttributeListAction, SyntaxKind.AttributeList);
             context.RegisterSyntaxNodeAction(ArrayCreationExpressionAction, SyntaxKind.ArrayCreationExpression);
             context.RegisterSyntaxNodeAction(ConstructorInitializerAction, SyntaxKinds.ConstructorInitializer);
+            context.RegisterSyntaxNodeAction(WithElementAction, SyntaxKindEx.WithElement);
         }
 
         private static void HandleArrayCreationExpression(SyntaxNodeAnalysisContext context)
@@ -209,6 +211,12 @@ namespace StyleCop.Analyzers.ReadabilityRules
         {
             var constructorInitializer = (ConstructorInitializerSyntax)context.Node;
             HandleBaseArgumentListSyntax(context, constructorInitializer.ArgumentList);
+        }
+
+        private static void HandleWithElement(SyntaxNodeAnalysisContext context)
+        {
+            var withElement = (WithElementSyntaxWrapper)context.Node;
+            HandleBaseArgumentListSyntax(context, withElement.ArgumentList);
         }
 
         private static void HandleBaseArgumentListSyntax(SyntaxNodeAnalysisContext context, BaseArgumentListSyntax argumentList)

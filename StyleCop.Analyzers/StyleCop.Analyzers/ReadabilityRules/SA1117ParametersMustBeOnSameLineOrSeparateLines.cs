@@ -81,6 +81,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> AttributeAction = HandleAttribute;
         private static readonly Action<SyntaxNodeAnalysisContext> AnonymousMethodExpressionAction = HandleAnonymousMethodExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> ParenthesizedLambdaExpressionAction = HandleParenthesizedLambdaExpression;
+        private static readonly Action<SyntaxNodeAnalysisContext> WithElementAction = HandleWithElement;
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; }
@@ -106,6 +107,13 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.RegisterSyntaxNodeAction(AttributeAction, SyntaxKind.Attribute);
             context.RegisterSyntaxNodeAction(AnonymousMethodExpressionAction, SyntaxKind.AnonymousMethodExpression);
             context.RegisterSyntaxNodeAction(ParenthesizedLambdaExpressionAction, SyntaxKind.ParenthesizedLambdaExpression);
+            context.RegisterSyntaxNodeAction(WithElementAction, SyntaxKindEx.WithElement);
+        }
+
+        private static void HandleWithElement(SyntaxNodeAnalysisContext context)
+        {
+            var withElement = (WithElementSyntaxWrapper)context.Node;
+            HandleArgumentListSyntax(context, withElement.ArgumentList);
         }
 
         private static void HandleBaseMethodDeclaration(SyntaxNodeAnalysisContext context)

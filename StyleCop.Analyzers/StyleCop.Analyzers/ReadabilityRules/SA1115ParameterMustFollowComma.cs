@@ -75,6 +75,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> ConstructorInitializerAction = HandleConstructorInitializer;
         private static readonly Action<SyntaxNodeAnalysisContext> ElementBindingExpressionAction = HandleElementBindingExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> ImplicitElementAccessAction = HandleImplicitElementAccess;
+        private static readonly Action<SyntaxNodeAnalysisContext> WithElementAction = HandleWithElement;
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
@@ -101,6 +102,13 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.RegisterSyntaxNodeAction(ConstructorInitializerAction, SyntaxKinds.ConstructorInitializer);
             context.RegisterSyntaxNodeAction(ElementBindingExpressionAction, SyntaxKind.ElementBindingExpression);
             context.RegisterSyntaxNodeAction(ImplicitElementAccessAction, SyntaxKind.ImplicitElementAccess);
+            context.RegisterSyntaxNodeAction(WithElementAction, SyntaxKindEx.WithElement);
+        }
+
+        private static void HandleWithElement(SyntaxNodeAnalysisContext context)
+        {
+            var withElement = (WithElementSyntaxWrapper)context.Node;
+            AnalyzeSyntaxList(context, withElement.ArgumentList.Arguments);
         }
 
         private static void HandleImplicitElementAccess(SyntaxNodeAnalysisContext context)
