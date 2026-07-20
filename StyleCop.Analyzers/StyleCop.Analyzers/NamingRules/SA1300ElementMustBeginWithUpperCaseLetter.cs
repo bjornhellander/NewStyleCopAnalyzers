@@ -86,6 +86,12 @@ namespace StyleCop.Analyzers.NamingRules
                 context.RegisterSyntaxNodeAction(EnumDeclarationAction, SyntaxKind.EnumDeclaration);
                 context.RegisterSyntaxNodeAction(EnumMemberDeclarationAction, SyntaxKind.EnumMemberDeclaration);
                 context.RegisterSyntaxNodeAction(StructDeclarationAction, SyntaxKind.StructDeclaration);
+
+                // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
+                // SyntaxKindEx.UnionDeclaration. Register it separately (with a duplicate-node guard, see the
+                // helper for why it is needed), reusing the same handler since it operates on StructDeclarationSyntax.
+                context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(StructDeclarationAction, SyntaxKindEx.UnionDeclaration);
+
                 context.RegisterSyntaxNodeAction(DelegateDeclarationAction, SyntaxKind.DelegateDeclaration);
                 context.RegisterSyntaxNodeAction(EventDeclarationAction, SyntaxKind.EventDeclaration);
                 context.RegisterSyntaxNodeAction(EventFieldDeclarationAction, SyntaxKind.EventFieldDeclaration);

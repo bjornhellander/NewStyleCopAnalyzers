@@ -39,6 +39,11 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
                     yield return new object[] { "record class Foo<{|#0:Ta|}, {|#1:Tb|}> { }" };
                     yield return new object[] { "record struct Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }" };
                 }
+
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    yield return new object[] { "union Foo<{|#0:Ta|}, {|#1:Tb|}>(string, int) { }" };
+                }
             }
         }
 

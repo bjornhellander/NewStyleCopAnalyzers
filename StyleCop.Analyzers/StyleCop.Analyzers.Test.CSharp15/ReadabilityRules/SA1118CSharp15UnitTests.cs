@@ -25,14 +25,12 @@ public class Foo
     public void Bar()
     {
         HashSet<string> set = [with(10,
-            {|#0:StringComparer
-                .Ordinal|})];
+            [|StringComparer
+                .Ordinal|])];
     }
 }";
 
-            var expected = Diagnostic().WithLocation(0);
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]

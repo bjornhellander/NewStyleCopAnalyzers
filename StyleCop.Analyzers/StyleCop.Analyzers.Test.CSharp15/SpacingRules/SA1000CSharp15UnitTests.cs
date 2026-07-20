@@ -33,5 +33,17 @@ public class Foo
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        public async Task TestUnionKeywordAsync(string spaces)
+        {
+            var testCode = $@"
+public union{spaces}@TestUnion(string, int);
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

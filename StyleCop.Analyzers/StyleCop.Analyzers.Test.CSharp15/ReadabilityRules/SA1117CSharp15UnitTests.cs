@@ -25,13 +25,11 @@ public class Foo
     public void Bar()
     {
         ConcurrentDictionary<string, string> map = [with(1, 10,
-            {|#0:StringComparer.Ordinal|})];
+            [|StringComparer.Ordinal|])];
     }
 }";
 
-            var expected = Diagnostic().WithLocation(0);
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]

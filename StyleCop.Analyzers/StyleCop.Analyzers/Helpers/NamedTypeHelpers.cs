@@ -90,6 +90,7 @@ namespace StyleCop.Analyzers.Helpers
             case SyntaxKind.StructDeclaration:
             case SyntaxKindEx.RecordDeclaration:
             case SyntaxKindEx.RecordStructDeclaration:
+            case SyntaxKindEx.UnionDeclaration:
                 return ((TypeDeclarationSyntax)member).Identifier.Text;
 
             case SyntaxKind.EnumDeclaration:

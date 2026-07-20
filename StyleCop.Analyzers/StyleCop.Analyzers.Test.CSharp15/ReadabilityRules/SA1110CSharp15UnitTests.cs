@@ -9,43 +9,31 @@ namespace StyleCop.Analyzers.Test.CSharp15.ReadabilityRules
     using StyleCop.Analyzers.Test.CSharp14.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<
-        StyleCop.Analyzers.ReadabilityRules.SA1114ParameterListMustFollowDeclaration>;
+        StyleCop.Analyzers.ReadabilityRules.SA1110OpeningParenthesisMustBeOnDeclarationLine>;
 
-    public partial class SA1114CSharp15UnitTests : SA1114CSharp14UnitTests
+    public partial class SA1110CSharp15UnitTests : SA1110CSharp14UnitTests
     {
         [Fact]
-        public async Task TestCollectionExpressionWithElementBlankLineBeforeFirstArgumentAsync()
+        public async Task TestUnionOpeningParenthesisNotOnDeclarationLineAsync()
         {
             var testCode = @"
-using System.Collections.Generic;
-
-public class Foo
+public union TestUnion
+    [|(|]string, int)
 {
-    public void Bar()
-    {
-        List<string> names = [with(
-
-            [|capacity: 10|]), ""a""];
-    }
-}";
+}
+";
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
-        public async Task TestCollectionExpressionWithElementFirstArgumentOnNextLineAsync()
+        public async Task TestUnionOpeningParenthesisOnDeclarationLineAsync()
         {
             var testCode = @"
-using System.Collections.Generic;
-
-public class Foo
+public union TestUnion(string, int)
 {
-    public void Bar()
-    {
-        List<string> names = [with(
-            capacity: 10), ""a""];
-    }
-}";
+}
+";
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }

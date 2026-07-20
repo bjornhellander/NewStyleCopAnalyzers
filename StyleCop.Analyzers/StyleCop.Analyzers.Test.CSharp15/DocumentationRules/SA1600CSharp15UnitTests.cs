@@ -3,14 +3,40 @@
 
 namespace StyleCop.Analyzers.Test.CSharp15.DocumentationRules
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp14.DocumentationRules;
+    using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.DocumentationRules.SA1600ElementsMustBeDocumented,
         StyleCop.Analyzers.DocumentationRules.SA1600CodeFixProvider>;
 
     public partial class SA1600CSharp15UnitTests : SA1600CSharp14UnitTests
     {
+        [Fact]
+        public async Task TestUnionWithoutDocumentationAsync()
+        {
+            var testCode = @"
+public union [|TestUnion|](string, int);
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestUnionWithDocumentationAsync()
+        {
+            var testCode = @"
+/// <summary>
+/// A test union.
+/// </summary>
+public union TestUnion(string, int);
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
         protected override DiagnosticResult[] GetExpectedResultTestRegressionMethodGlobalNamespace(string code)
         {
             if (code == "public void {|#0:TestMember|}() { }")
