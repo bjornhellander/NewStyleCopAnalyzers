@@ -12,6 +12,7 @@ namespace StyleCop.Analyzers.OrderingRules
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
+    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
 
     /// <summary>
@@ -51,6 +52,11 @@ namespace StyleCop.Analyzers.OrderingRules
             context.RegisterCompilationStartAction(context =>
             {
                 context.RegisterSyntaxNodeAction(TypeDeclarationAction, TypeDeclarationKinds);
+
+                // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
+                // SyntaxKindEx.UnionDeclaration, which is currently not included in TypeDeclarationKinds.
+                // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
+                context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
             });
         }
 

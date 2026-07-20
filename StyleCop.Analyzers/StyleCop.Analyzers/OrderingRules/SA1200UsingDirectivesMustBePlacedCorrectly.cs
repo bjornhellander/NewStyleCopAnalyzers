@@ -225,6 +225,7 @@ namespace StyleCop.Analyzers.OrderingRules
                 case SyntaxKind.InterfaceDeclaration:
                 case SyntaxKind.EnumDeclaration:
                 case SyntaxKind.StructDeclaration:
+                case SyntaxKindEx.UnionDeclaration:
                 case SyntaxKind.DelegateDeclaration:
                     // Suppress SA1200 if file contains a type in the global namespace
                     return;

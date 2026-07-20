@@ -80,6 +80,12 @@ Tests use `Microsoft.CodeAnalysis.Testing` via the repo's `StyleCopCodeFixVerifi
 `Verifiers` folder in `StyleCop.Analyzers.Test.CSharp6`), with an `EmptyDiagnosticResults` result for "no diagnostic
 expected" cases.
 
+When a test expects exactly one diagnostic, at one location, with no `.WithArguments(...)` and no non-default
+descriptor, mark the span with `[|Xyz|]` in the source and pass `DiagnosticResult.EmptyDiagnosticResults` as the
+expected result — the marker itself is expanded into the expected diagnostic. Reach for the more verbose
+`{|#0:Xyz|}` + `Diagnostic().WithLocation(0)` form only when you need to attach arguments, pick a specific
+descriptor (multi-diagnostic analyzers), or reference more than one location.
+
 ### Rule anatomy
 
 Each rule follows a consistent triad, all named by diagnostic ID (`SAxxxx`/`SXxxxx`):
