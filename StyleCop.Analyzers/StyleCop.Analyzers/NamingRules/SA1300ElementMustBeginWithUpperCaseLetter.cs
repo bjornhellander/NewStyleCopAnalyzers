@@ -154,7 +154,11 @@ namespace StyleCop.Analyzers.NamingRules
 
         private static void HandleStructDeclaration(SyntaxNodeAnalysisContext context)
         {
-            CheckElementNameToken(context, ((StructDeclarationSyntax)context.Node).Identifier);
+            // TODO: Update when representation of union has been changed
+            if (context.Node is StructDeclarationSyntax structDeclaration)
+            {
+                CheckElementNameToken(context, structDeclaration.Identifier);
+            }
         }
 
         private static void HandleDelegateDeclaration(SyntaxNodeAnalysisContext context)
