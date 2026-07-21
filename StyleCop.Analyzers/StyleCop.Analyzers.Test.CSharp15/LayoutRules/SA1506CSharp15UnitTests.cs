@@ -21,7 +21,7 @@ namespace StyleCop.Analyzers.Test.CSharp15.LayoutRules
 /// <summary>
 /// A test union.
 /// </summary>
-
+$$
 public union TestUnion(string, int)
 {
 }
@@ -36,24 +36,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            var expected = Diagnostic().WithSpan(5, 1, 6, 1);
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
-        }
-
-        [Fact]
-        public async Task TestUnionDocumentationHeaderNotFollowedByBlankLineAsync()
-        {
-            var testCode = @"
-/// <summary>
-/// A test union.
-/// </summary>
-public union TestUnion(string, int)
-{
-}
-";
-
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

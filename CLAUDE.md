@@ -80,11 +80,31 @@ Tests use `Microsoft.CodeAnalysis.Testing` via the repo's `StyleCopCodeFixVerifi
 `Verifiers` folder in `StyleCop.Analyzers.Test.CSharp6`), with an `EmptyDiagnosticResults` result for "no diagnostic
 expected" cases.
 
-When a test expects exactly one diagnostic, at one location, with no `.WithArguments(...)` and no non-default
-descriptor, mark the span with `[|Xyz|]` in the source and pass `DiagnosticResult.EmptyDiagnosticResults` as the
-expected result — the marker itself is expanded into the expected diagnostic. Reach for the more verbose
-`{|#0:Xyz|}` + `Diagnostic().WithLocation(0)` form only when you need to attach arguments, pick a specific
-descriptor (multi-diagnostic analyzers), or reference more than one location.
+When the rule under test has a registered code fix provider, prefer verifying the fix (`VerifyCSharpFixAsync` with
+the expected fixed source) over verifying only the diagnostic (`VerifyCSharpDiagnosticAsync`) — this also exercises
+the fix and catches fix-specific bugs (e.g. a fix that produces wrong output only for certain syntax) that
+diagnostic-only tests can't see. Fall back to diagnostic-only verification when there's no code fix provider for the
+rule, or the specific scenario under test isn't fixable (e.g. the fix is unavailable for that syntax shape).
+
+`VerifyCSharpFixAsync` also asserts that its `fixedCode` triggers zero diagnostics, so it already doubles as the
+negative case for whatever valid syntax the fix produces. Don't add a separate standalone negative test (a
+`VerifyCSharpDiagnosticAsync` call with `EmptyDiagnosticResults`) if its source is just that same fixed code — it's
+redundant. Do keep a separate negative test when it exercises a scenario the fix doesn't produce, e.g. a different
+valid construct (`default` literal vs. the fix's `default(int)`) or a precondition the analyzer treats specially
+(a call to `base.Method()` from inside an actual override, vs. the fix rewriting an invalid one to `this.Method()`).
+
+Prefer markup (`[|Xyz|]` or `{|#0:Xyz|}`) over hardcoded `.WithLocation(line, column)` / `.WithSpan(...)`
+coordinates: markup keeps the expected location anchored to the source text itself, so it stays correct if a line
+above it is later added or removed, whereas a hardcoded coordinate silently goes stale. Fall back to explicit
+coordinates only when markup can't cleanly express the location — e.g. the diagnostic isn't a visible span of source
+text (line-ending trivia), or if it would hinder readability (e.g. nesting one marker inside another).
+
+Between the two markup forms, use plain `[|Xyz|]` whenever the test expects exactly one diagnostic, at one
+location, with no `.WithArguments(...)` and no non-default descriptor — pass `DiagnosticResult.EmptyDiagnosticResults`
+as the expected result and the marker alone supplies the expected diagnostic. Use `{|#0:Xyz|}` +
+`Diagnostic().WithLocation(0)` instead once you need more than `[|Xyz|]` can express: attaching arguments, picking a
+specific descriptor (multi-diagnostic analyzers), or referencing more than one location (numbered markers
+`{|#0:...|}`, `{|#1:...|}`, ... — non-overlapping, not nested).
 
 ### Rule anatomy
 

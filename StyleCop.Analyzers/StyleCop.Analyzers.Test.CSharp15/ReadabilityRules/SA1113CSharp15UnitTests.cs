@@ -45,5 +45,34 @@ public class Foo
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestUnionMethodCommaNotOnSameLineAsPreviousParameterAsync()
+        {
+            var testCode = @"
+public union TestUnion(string, int)
+{
+    public static void TestMethod(string s
+                    {|#0:,|} int i)
+    {
+    }
+}
+";
+
+            var fixedCode = @"
+public union TestUnion(string, int)
+{
+    public static void TestMethod(string s,
+                    int i)
+    {
+    }
+}
+";
+
+            // TODO: Report bug - The compiler calls the registered token action three times
+            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

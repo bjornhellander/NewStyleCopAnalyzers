@@ -51,5 +51,51 @@ public class Foo
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestUnionMethodBlankLineAfterCommaAsync()
+        {
+            var testCode = @"
+public union TestUnion(string, int)
+{
+    public static void TestMethod()
+    {
+        Fun(10,
+
+            {|#0:20|});
+    }
+
+    private static void Fun(int a, int b)
+    {
+    }
+}
+";
+
+            // TODO: Report bug - The compiler calls the registered argument list action three times
+            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
+
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestUnionMethodNoBlankLineAfterCommaAsync()
+        {
+            var testCode = @"
+public union TestUnion(string, int)
+{
+    public static void TestMethod()
+    {
+        Fun(10,
+            20);
+    }
+
+    private static void Fun(int a, int b)
+    {
+    }
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

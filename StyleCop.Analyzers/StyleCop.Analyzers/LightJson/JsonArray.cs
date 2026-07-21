@@ -8,7 +8,6 @@ namespace LightJson
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Represents an ordered collection of JsonValues.

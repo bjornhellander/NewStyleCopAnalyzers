@@ -7,7 +7,6 @@ namespace LightJson
 {
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Represents a key-value pair collection of JsonValue objects.

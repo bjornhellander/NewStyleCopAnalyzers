@@ -19,11 +19,9 @@ namespace StyleCop.Analyzers.Test.CSharp15.DocumentationRules
             var testCode = @"
 ///
 public union
-TestUnion(string, int);";
+[|TestUnion|](string, int);";
 
-            DiagnosticResult expected = Diagnostic().WithLocation(4, 1);
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]

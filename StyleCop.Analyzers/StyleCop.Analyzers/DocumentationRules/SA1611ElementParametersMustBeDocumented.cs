@@ -10,7 +10,6 @@ namespace StyleCop.Analyzers.DocumentationRules
     using System.Linq;
     using System.Xml.Linq;
     using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
