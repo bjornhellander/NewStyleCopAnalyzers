@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
     using System.Collections.Generic;
@@ -349,7 +347,7 @@ internal class ClassName
         private static Task VerifyCSharpFixAsync(string source, DiagnosticResult expected, string fixedSource, CancellationToken cancellationToken)
             => VerifyCSharpFixAsync(source, new[] { expected }, fixedSource, cancellationToken);
 
-        private static Task VerifyCSharpFixAsync(string source, DiagnosticResult[] expected, string fixedSource, CancellationToken cancellationToken)
+        private static Task VerifyCSharpFixAsync(string source, DiagnosticResult[] expected, string? fixedSource, CancellationToken cancellationToken)
         {
             string contentWithReturns = @"<?xml version=""1.0"" encoding=""utf-8"" ?>
 <Class1>
@@ -383,7 +381,7 @@ internal class ClassName
             var test = new StyleCopCodeFixVerifier<SA1615ElementReturnValueMustBeDocumented, SA1615SA1616CodeFixProvider>.CSharpTest
             {
                 TestCode = source,
-                FixedCode = fixedSource,
+                FixedCode = fixedSource!,
                 XmlReferences =
                 {
                     { "MethodWithReturns.xml", contentWithReturns },

@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp8.Settings
 {
     using System;
     using System.Collections.Immutable;
+    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
@@ -213,14 +212,14 @@ csharp_using_directive_placement = {placement}
                 .AddAnalyzerConfigDocument(analyzerConfigDocumentId, "/.editorconfig", SourceText.From(editorConfig), filePath: "/.editorconfig");
 
             var document = solution.GetDocument(documentId);
-            var syntaxTree = await document.GetSyntaxTreeAsync(CancellationToken.None).ConfigureAwait(false);
+            var syntaxTree = await document!.GetSyntaxTreeAsync(CancellationToken.None).ConfigureAwait(false);
 
             var analyzerConfigSet = AnalyzerConfigSet.Create(new[] { AnalyzerConfig.Parse(SourceText.From(editorConfig), "/.editorconfig") });
             var additionalFiles = ImmutableArray<AdditionalText>.Empty;
             var optionsProvider = this.CreateAnalyzerConfigOptionsProvider(analyzerConfigSet);
             var analyzerOptions = new AnalyzerOptions(additionalFiles, optionsProvider);
 
-            return new SyntaxTreeAnalysisContext(syntaxTree, analyzerOptions, reportDiagnostic: _ => { }, isSupportedDiagnostic: _ => true, CancellationToken.None);
+            return new SyntaxTreeAnalysisContext(syntaxTree!, analyzerOptions, reportDiagnostic: _ => { }, isSupportedDiagnostic: _ => true, CancellationToken.None);
         }
 
         protected class TestAnalyzerConfigOptions : AnalyzerConfigOptions
@@ -232,7 +231,7 @@ csharp_using_directive_placement = {placement}
                 this.analyzerConfigOptionsResult = analyzerConfigOptionsResult;
             }
 
-            public override bool TryGetValue(string key, out string value)
+            public override bool TryGetValue(string key, [NotNullWhen(true)] out string? value)
             {
                 return this.analyzerConfigOptionsResult.AnalyzerOptions.TryGetValue(key, out value);
             }

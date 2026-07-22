@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
 {
     using System.Threading;
@@ -62,7 +60,7 @@ public class Foo
         [InlineData(OptionSetting.Allow, null)]
         [InlineData(OptionSetting.Require, "\r\n")]
         [InlineData(OptionSetting.Omit, null)]
-        internal async Task TestWithWhiteSpaceOnlyAsync(OptionSetting? newlineAtEndOfFile, string expectedText)
+        internal async Task TestWithWhiteSpaceOnlyAsync(OptionSetting? newlineAtEndOfFile, string? expectedText)
         {
             var testCode = WhiteSpace;
             var fixedCode = expectedText;
@@ -89,7 +87,7 @@ public class Foo
         [InlineData(OptionSetting.Allow, null)]
         [InlineData(OptionSetting.Require, null)]
         [InlineData(OptionSetting.Omit, "")]
-        internal async Task TestWithWhiteSpaceAndNewlineOnlyAsync(OptionSetting? newlineAtEndOfFile, string expectedText)
+        internal async Task TestWithWhiteSpaceAndNewlineOnlyAsync(OptionSetting? newlineAtEndOfFile, string? expectedText)
         {
             var testCode = WhiteSpace + "\r\n";
             var fixedCode = expectedText;
@@ -153,7 +151,7 @@ public class Foo
         [InlineData(OptionSetting.Allow, null)]
         [InlineData(OptionSetting.Require, null)]
         [InlineData(OptionSetting.Omit, "")]
-        internal async Task TestWithSingleCarriageReturnLineFeedAtEndOfFileAsync(OptionSetting? newlineAtEndOfFile, string expectedText)
+        internal async Task TestWithSingleCarriageReturnLineFeedAtEndOfFileAsync(OptionSetting? newlineAtEndOfFile, string? expectedText)
         {
             var testCode = BaseCode + "\r\n";
             var fixedCode = BaseCode + expectedText;
@@ -181,7 +179,7 @@ public class Foo
         [InlineData(OptionSetting.Allow, null)]
         [InlineData(OptionSetting.Require, null)]
         [InlineData(OptionSetting.Omit, "")]
-        internal async Task TestWithSingleLineFeedAtEndOfFileAsync(OptionSetting? newlineAtEndOfFile, string expectedText)
+        internal async Task TestWithSingleLineFeedAtEndOfFileAsync(OptionSetting? newlineAtEndOfFile, string? expectedText)
         {
             var testCode = BaseCode + "\n";
             var fixedCode = BaseCode + expectedText;
@@ -209,7 +207,7 @@ public class Foo
         [InlineData(OptionSetting.Allow, null)]
         [InlineData(OptionSetting.Require, "\r\n")]
         [InlineData(OptionSetting.Omit, null)]
-        internal async Task TestWithoutCarriageReturnLineFeedAtEndOfFileAsync(OptionSetting? newlineAtEndOfFile, string expectedText)
+        internal async Task TestWithoutCarriageReturnLineFeedAtEndOfFileAsync(OptionSetting? newlineAtEndOfFile, string? expectedText)
         {
             var testCode = BaseCode;
             var fixedCode = BaseCode + expectedText;
@@ -257,7 +255,7 @@ public class Foo
         [InlineData(OptionSetting.Allow, null)]
         [InlineData(OptionSetting.Require, "\r\n")]
         [InlineData(OptionSetting.Omit, null)]
-        internal async Task TestFileEndingWithCommentAsync(OptionSetting? newlineAtEndOfFile, string expectedText)
+        internal async Task TestFileEndingWithCommentAsync(OptionSetting? newlineAtEndOfFile, string? expectedText)
         {
             var testCode = BaseCode + "\r\n// Test comment";
             var fixedCode = BaseCode + "\r\n// Test comment" + expectedText;
@@ -305,7 +303,7 @@ public class Foo
         [InlineData(OptionSetting.Allow, null)]
         [InlineData(OptionSetting.Require, null)]
         [InlineData(OptionSetting.Omit, "")]
-        internal async Task TestFileEndingWithEndIfAsync(OptionSetting? newlineAtEndOfFile, string expectedText)
+        internal async Task TestFileEndingWithEndIfAsync(OptionSetting? newlineAtEndOfFile, string? expectedText)
         {
             var testCode = "#if true\r\n" + BaseCode + "\r\n#endif\r\n";
             var fixedCode = "#if true\r\n" + BaseCode + "\r\n#endif" + expectedText;
@@ -437,15 +435,15 @@ public class Foo
             return test.RunAsync(cancellationToken);
         }
 
-        private static Task VerifyCSharpFixAsync(OptionSetting? newlineAtEndOfFile, string source, DiagnosticResult expected, string fixedSource, CancellationToken cancellationToken)
+        private static Task VerifyCSharpFixAsync(OptionSetting? newlineAtEndOfFile, string source, DiagnosticResult expected, string? fixedSource, CancellationToken cancellationToken)
             => VerifyCSharpFixAsync(newlineAtEndOfFile, source, new[] { expected }, fixedSource, cancellationToken);
 
-        private static Task VerifyCSharpFixAsync(OptionSetting? newlineAtEndOfFile, string source, DiagnosticResult[] expected, string fixedSource, CancellationToken cancellationToken)
+        private static Task VerifyCSharpFixAsync(OptionSetting? newlineAtEndOfFile, string source, DiagnosticResult[] expected, string? fixedSource, CancellationToken cancellationToken)
         {
             var test = new StyleCopCodeFixVerifier<SA1518UseLineEndingsCorrectlyAtEndOfFile, SA1518CodeFixProvider>.CSharpTest
             {
                 TestCode = source,
-                FixedCode = fixedSource,
+                FixedCode = fixedSource!,
             };
 
             if (newlineAtEndOfFile != null)

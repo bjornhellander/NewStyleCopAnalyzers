@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 // Several test methods in this file use the same member data, but in some cases the test does not use all of the
 // supported parameters. See https://github.com/xunit/xunit/issues/1556.
 #pragma warning disable xUnit1026 // Theory methods should use all of their parameters
@@ -47,11 +45,11 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
             yield return new object[] { $"long ll = this[2,{delimiter} 2];", $"long ll = this[{fixDelimiter}2,{delimiter} 2];", 24 };
         }
 
-        public static IEnumerable<object[]> ValidTestExpressions()
+        public static IEnumerable<object?[]> ValidTestExpressions()
         {
-            yield return new object[] { $"System.Action func = () => Bar(0, 3)", null, 0 };
-            yield return new object[] { $"System.Action<int> func = x => Bar(x, 3)", null, 0 };
-            yield return new object[] { $"System.Action func = delegate {{ Bar(0, 0); }}", null, 0 };
+            yield return new object?[] { $"System.Action func = () => Bar(0, 3)", null, 0 };
+            yield return new object?[] { $"System.Action<int> func = x => Bar(x, 3)", null, 0 };
+            yield return new object?[] { $"System.Action func = delegate {{ Bar(0, 0); }}", null, 0 };
         }
 
         [Theory]

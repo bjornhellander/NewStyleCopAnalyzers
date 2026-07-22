@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.Verifiers
 {
     using System;
@@ -52,43 +50,43 @@ namespace StyleCop.Analyzers.Test.CSharp6.Verifiers
         internal static Task VerifyCSharpDiagnosticAsync(LanguageVersion? languageVersion, string source, DiagnosticResult[] expected, CancellationToken cancellationToken)
             => StyleCopDiagnosticVerifier<TAnalyzer>.VerifyCSharpDiagnosticAsync(languageVersion, source, settings: null, expected, cancellationToken);
 
-        internal static Task VerifyCSharpDiagnosticAsync(string source, string settings, DiagnosticResult[] expected, CancellationToken cancellationToken)
+        internal static Task VerifyCSharpDiagnosticAsync(string source, string? settings, DiagnosticResult[] expected, CancellationToken cancellationToken)
             => StyleCopDiagnosticVerifier<TAnalyzer>.VerifyCSharpDiagnosticAsync(languageVersion: null, source, settings, expected, cancellationToken);
 
-        internal static Task VerifyCSharpDiagnosticAsync(LanguageVersion? languageVersion, string source, string settings, DiagnosticResult[] expected, CancellationToken cancellationToken)
+        internal static Task VerifyCSharpDiagnosticAsync(LanguageVersion? languageVersion, string source, string? settings, DiagnosticResult[] expected, CancellationToken cancellationToken)
             => StyleCopDiagnosticVerifier<TAnalyzer>.VerifyCSharpDiagnosticAsync(languageVersion, source, settings, expected, cancellationToken);
 
-        internal static Task VerifyCSharpFixAsync(string source, DiagnosticResult expected, string fixedSource, CancellationToken cancellationToken)
+        internal static Task VerifyCSharpFixAsync(string source, DiagnosticResult expected, string? fixedSource, CancellationToken cancellationToken)
             => VerifyCSharpFixAsync(source, new[] { expected }, fixedSource, cancellationToken);
 
-        internal static Task VerifyCSharpFixAsync(string source, DiagnosticResult[] expected, string fixedSource, CancellationToken cancellationToken)
+        internal static Task VerifyCSharpFixAsync(string source, DiagnosticResult[] expected, string? fixedSource, CancellationToken cancellationToken)
         {
             var test = new CSharpTest
             {
                 TestCode = source,
-                FixedCode = fixedSource,
+                FixedCode = fixedSource!,
             };
 
             test.ExpectedDiagnostics.AddRange(expected);
             return test.RunAsync(cancellationToken);
         }
 
-        internal static Task VerifyCSharpFixAsync(LanguageVersion? languageVersion, string source, DiagnosticResult expected, string fixedSource, CancellationToken cancellationToken)
+        internal static Task VerifyCSharpFixAsync(LanguageVersion? languageVersion, string source, DiagnosticResult expected, string? fixedSource, CancellationToken cancellationToken)
             => VerifyCSharpFixAsync(languageVersion, source, settings: null, new[] { expected }, fixedSource, cancellationToken);
 
-        internal static Task VerifyCSharpFixAsync(LanguageVersion? languageVersion, string source, DiagnosticResult[] expected, string fixedSource, CancellationToken cancellationToken)
+        internal static Task VerifyCSharpFixAsync(LanguageVersion? languageVersion, string source, DiagnosticResult[] expected, string? fixedSource, CancellationToken cancellationToken)
             => VerifyCSharpFixAsync(languageVersion, source, settings: null, expected, fixedSource, cancellationToken);
 
-        internal static Task VerifyCSharpFixAsync(string source, string settings, DiagnosticResult[] expected, string fixedSource, CancellationToken cancellationToken)
+        internal static Task VerifyCSharpFixAsync(string source, string? settings, DiagnosticResult[] expected, string? fixedSource, CancellationToken cancellationToken)
             => VerifyCSharpFixAsync(languageVersion: null, source, settings, expected, fixedSource, cancellationToken);
 
-        internal static Task VerifyCSharpFixAsync(LanguageVersion? languageVersion, string source, string settings, DiagnosticResult[] expected, string fixedSource, CancellationToken cancellationToken)
+        internal static Task VerifyCSharpFixAsync(LanguageVersion? languageVersion, string source, string? settings, DiagnosticResult[] expected, string? fixedSource, CancellationToken cancellationToken)
         {
             var test = new CSharpTest(languageVersion)
             {
                 TestCode = source,
                 Settings = settings,
-                FixedCode = fixedSource,
+                FixedCode = fixedSource!,
             };
 
             test.ExpectedDiagnostics.AddRange(expected);
@@ -298,7 +296,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.Verifiers
             /// <value>
             /// The content of the settings file to use.
             /// </value>
-            public string Settings { get; set; } = null;
+            public string? Settings { get; set; } = null;
 
             /// <summary>
             /// Gets or sets the name of the settings file to use.

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
     using System.Diagnostics;
@@ -1106,14 +1104,14 @@ public class B
     }}
 }}";
 
-            string arguments = typeKind == "struct" && modifiers != "static" ? "int argument" : null;
+            string? arguments = typeKind == "struct" && modifiers != "static" ? "int argument" : null;
             await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKind, modifiers, arguments), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
         }
 
         private static Task TestConstructorCorrectDocumentationAsync(string typeKind, string modifiers, string part1, string part2, string part3, bool generic)
             => TestConstructorCorrectDocumentationAsync(settings: null, typeKind, modifiers, part1, part2, part3, generic);
 
-        private static async Task TestConstructorCorrectDocumentationAsync(string settings, string typeKind, string modifiers, string part1, string part2, string part3, bool generic)
+        private static async Task TestConstructorCorrectDocumentationAsync(string? settings, string typeKind, string modifiers, string part1, string part2, string part3, bool generic)
         {
             // First test it all on one line
             var testCode = @"namespace FooNamespace
@@ -1130,7 +1128,7 @@ public class B
     }}
 }}";
 
-            string arguments = typeKind == "struct" && modifiers != "static" ? "int argument" : null;
+            string? arguments = typeKind == "struct" && modifiers != "static" ? "int argument" : null;
             await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKind, generic ? "<T1, T2>" : string.Empty, generic ? "{T1, T2}" : string.Empty, part1, part2, part3, modifiers, arguments), settings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
 
             // Then test splitting after the <see> element
@@ -1173,7 +1171,7 @@ public class B
         private static Task TestConstructorCorrectDocumentationSimpleAsync(string typeKind, string modifiers, string part1, string part2, bool generic)
             => TestConstructorCorrectDocumentationSimpleAsync(settings: null, typeKind, modifiers, part1, part2, generic);
 
-        private static async Task TestConstructorCorrectDocumentationSimpleAsync(string settings, string typeKind, string modifiers, string part1, string part2, bool generic)
+        private static async Task TestConstructorCorrectDocumentationSimpleAsync(string? settings, string typeKind, string modifiers, string part1, string part2, bool generic)
         {
             await TestConstructorCorrectDocumentationAsync(settings, typeKind, modifiers, part1, part2, ".", generic).ConfigureAwait(false);
         }
@@ -1186,7 +1184,7 @@ public class B
         private static async Task TestConstructorMissingDocumentationAsync(string typeKind, string modifiers, string part1, string part2, bool generic)
         {
             string typeParameters = generic ? "<T1, T2>" : string.Empty;
-            string arguments = IsStruct(typeKind) && modifiers != "static" ? "int argument" : null;
+            string? arguments = IsStruct(typeKind) && modifiers != "static" ? "int argument" : null;
             var testCode = $@"namespace FooNamespace
 {{
     public {typeKind} Foo{typeParameters}
@@ -1240,7 +1238,7 @@ public class B
         }}
     }}
 }}";
-            string arguments = typeKind == "struct" && modifiers != "static" ? "int argument" : null;
+            string? arguments = typeKind == "struct" && modifiers != "static" ? "int argument" : null;
             testCode = string.Format(testCode, typeKind, generic ? "<T1, T2>" : string.Empty, generic ? "{T1, T2}" : string.Empty, part1, part2, part3, modifiers, arguments);
 
             DiagnosticResult expected = Diagnostic().WithLocation(5, 13);
@@ -1281,7 +1279,7 @@ public class B
         }}
     }}
 }}";
-            string arguments = typeKind == "struct" && modifiers != "static" ? "int argument" : null;
+            string? arguments = typeKind == "struct" && modifiers != "static" ? "int argument" : null;
             testCode = string.Format(testCode, typeKind, generic ? "<T1, T2>" : string.Empty, generic ? "{T1, T2}" : string.Empty, part1, part2, part3, modifiers, arguments);
 
             DiagnosticResult expected = Diagnostic().WithLocation(5, 13);
@@ -1307,7 +1305,7 @@ public class B
         private static Task VerifyCSharpDiagnosticAsync(string source, DiagnosticResult[] expected, CancellationToken cancellationToken)
             => VerifyCSharpDiagnosticAsync(source, testSettings: null, expected, cancellationToken);
 
-        private static Task VerifyCSharpDiagnosticAsync(string source, string testSettings, DiagnosticResult[] expected, CancellationToken cancellationToken)
+        private static Task VerifyCSharpDiagnosticAsync(string source, string? testSettings, DiagnosticResult[] expected, CancellationToken cancellationToken)
         {
             var test = CreateTest(testSettings, expected);
             test.TestCode = source;
@@ -1327,7 +1325,7 @@ public class B
             return test.RunAsync(cancellationToken);
         }
 
-        private static StyleCopCodeFixVerifier<SA1642ConstructorSummaryDocumentationMustBeginWithStandardText, SA1642SA1643CodeFixProvider>.CSharpTest CreateTest(string testSettings, DiagnosticResult[] expected)
+        private static StyleCopCodeFixVerifier<SA1642ConstructorSummaryDocumentationMustBeginWithStandardText, SA1642SA1643CodeFixProvider>.CSharpTest CreateTest(string? testSettings, DiagnosticResult[] expected)
         {
             string contentValidSummary = @"<?xml version=""1.0"" encoding=""utf-8"" ?>
 <TestClass>

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
 {
     using System.Threading;
@@ -26,7 +24,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
         protected static Task VerifyCSharpDiagnosticAsync(string source, string testSettings, DiagnosticResult expected, CancellationToken cancellationToken)
             => VerifyCSharpDiagnosticAsync(source, testSettings, new[] { expected }, cancellationToken);
 
-        protected static Task VerifyCSharpDiagnosticAsync(string source, string testSettings, DiagnosticResult[] expected, CancellationToken cancellationToken)
+        protected static Task VerifyCSharpDiagnosticAsync(string source, string? testSettings, DiagnosticResult[] expected, CancellationToken cancellationToken)
         {
             var test = new StyleCopCodeFixVerifier<SA1402FileMayOnlyContainASingleType, SA1402CodeFixProvider>.CSharpTest
             {
@@ -38,10 +36,10 @@ namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
             return test.RunAsync(cancellationToken);
         }
 
-        protected static Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
+        protected static Task VerifyCSharpFixAsync(string source, string? testSettings, DiagnosticResult expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
             => VerifyCSharpFixAsync(source, testSettings, new[] { expected }, fixedSources, cancellationToken);
 
-        protected static Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult[] expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
+        protected static Task VerifyCSharpFixAsync(string source, string? testSettings, DiagnosticResult[] expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
         {
             var test = new StyleCopCodeFixVerifier<SA1402FileMayOnlyContainASingleType, SA1402CodeFixProvider>.CSharpTest
             {
@@ -58,7 +56,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
             return test.RunAsync(cancellationToken);
         }
 
-        private protected virtual string GetSettings(FileNamingConvention namingConvention = FileNamingConvention.StyleCop)
+        private protected virtual string? GetSettings(FileNamingConvention namingConvention = FileNamingConvention.StyleCop)
         {
             var settings = this.SettingsConfiguration.GetSettings(this.Keyword);
             if (settings is null && namingConvention == FileNamingConvention.StyleCop)

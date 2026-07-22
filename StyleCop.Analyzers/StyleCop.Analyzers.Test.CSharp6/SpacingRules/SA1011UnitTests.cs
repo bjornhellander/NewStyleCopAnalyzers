@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
 {
     using System.Threading;
@@ -366,7 +364,7 @@ class ClassName
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
-        private async Task TestWhitespaceInStatementOrDeclAsync(string originalStatement, string fixedStatement, params DiagnosticResult[] expected)
+        private async Task TestWhitespaceInStatementOrDeclAsync(string originalStatement, string? fixedStatement, params DiagnosticResult[] expected)
         {
             string template = @"namespace Foo
 {{

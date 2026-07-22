@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
     using System.Threading;
@@ -16,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     /// </summary>
     public class SA1634UnitTests : FileHeaderTestBase
     {
-        private string multiLineSettings;
+        private string? multiLineSettings;
 
         /// <summary>
         /// Verifies that a file header without a copyright element will produce the expected diagnostic (none for the default case).

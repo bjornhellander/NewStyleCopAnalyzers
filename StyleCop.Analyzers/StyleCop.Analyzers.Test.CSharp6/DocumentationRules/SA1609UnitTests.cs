@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
     using System.Threading;
@@ -376,7 +374,7 @@ public class ClassName
         private static Task VerifyCSharpFixAsync(string source, DiagnosticResult expected, string fixedSource, CancellationToken cancellationToken)
             => VerifyCSharpFixAsync(source, new[] { expected }, fixedSource, cancellationToken);
 
-        private static Task VerifyCSharpFixAsync(string source, DiagnosticResult[] expected, string fixedSource, CancellationToken cancellationToken)
+        private static Task VerifyCSharpFixAsync(string source, DiagnosticResult[] expected, string? fixedSource, CancellationToken cancellationToken)
         {
             string contentWithValue = @"<?xml version=""1.0"" encoding=""utf-8"" ?>
 <ClassName>
@@ -406,7 +404,7 @@ public class ClassName
             var test = new StyleCopCodeFixVerifier<SA1609PropertyDocumentationMustHaveValue, SA1609SA1610CodeFixProvider>.CSharpTest
             {
                 TestCode = source,
-                FixedCode = fixedSource,
+                FixedCode = fixedSource!,
                 XmlReferences =
                 {
                     { "PropertyWithValue.xml", contentWithValue },

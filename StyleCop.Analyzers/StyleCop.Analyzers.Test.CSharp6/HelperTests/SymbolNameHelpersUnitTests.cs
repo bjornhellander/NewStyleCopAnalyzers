@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.HelperTests
 {
     using System.Linq;
@@ -24,7 +22,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.HelperTests
         private const string TestProjectName = "TestProject";
         private const string TestFilename = "Test.cs";
 
-        private Solution testSolution;
+        private Solution testSolution = null!; // Will be assigned later, before first use
 
         public async ValueTask InitializeAsync()
         {

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6
 {
     using System.Collections.Generic;
@@ -65,11 +63,7 @@ class TypeName
             public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
                 ImmutableArray.Create(Descriptor);
 
-            public AnalyzerExtensionsTests AnalyzerExtensionsTests
-            {
-                get;
-                set;
-            }
+            public AnalyzerExtensionsTests AnalyzerExtensionsTests { get; set; } = null!; // Will be assigned later before first use
 
             public override void Initialize(AnalysisContext context)
             {
