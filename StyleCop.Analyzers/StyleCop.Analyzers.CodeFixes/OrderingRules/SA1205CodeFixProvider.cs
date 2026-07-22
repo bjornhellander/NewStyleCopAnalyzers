@@ -113,6 +113,7 @@ namespace StyleCop.Analyzers.OrderingRules
             case SyntaxKind.InterfaceDeclaration:
                 return ((InterfaceDeclarationSyntax)node).WithModifiers(modifiers);
             case SyntaxKind.StructDeclaration:
+            case SyntaxKindEx.UnionDeclaration when node is StructDeclarationSyntax: // TODO: Update when representation of union has been changed
                 return ((StructDeclarationSyntax)node).WithModifiers(modifiers);
             case SyntaxKindEx.RecordDeclaration:
             case SyntaxKindEx.RecordStructDeclaration:
@@ -133,6 +134,7 @@ namespace StyleCop.Analyzers.OrderingRules
             case SyntaxKind.InterfaceDeclaration:
                 return ((InterfaceDeclarationSyntax)node).WithKeyword(keyword);
             case SyntaxKind.StructDeclaration:
+            case SyntaxKindEx.UnionDeclaration when node is StructDeclarationSyntax: // TODO: Update when representation of union has been changed
                 return ((StructDeclarationSyntax)node).WithKeyword(keyword);
             case SyntaxKindEx.RecordDeclaration:
             case SyntaxKindEx.RecordStructDeclaration:

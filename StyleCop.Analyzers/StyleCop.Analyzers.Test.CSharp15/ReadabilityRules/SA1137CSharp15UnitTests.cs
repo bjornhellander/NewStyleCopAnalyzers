@@ -62,5 +62,27 @@ class TestClass
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestUnionMembersWithInconsistentIndentationAsync()
+        {
+            string testCode = @"
+public union TestUnion(string, int)
+{
+    public string DisplayName => """";
+[|      |]public int Count => 0;
+}
+";
+
+            string fixedCode = @"
+public union TestUnion(string, int)
+{
+    public string DisplayName => """";
+    public int Count => 0;
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

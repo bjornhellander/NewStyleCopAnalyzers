@@ -62,6 +62,11 @@ namespace StyleCop.Analyzers.OrderingRules
                 context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
                 context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
                 context.RegisterSyntaxNodeAction(TypeDeclarationAction, TypeDeclarationKinds);
+
+                // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
+                // SyntaxKindEx.UnionDeclaration, which is currently not included in TypeDeclarationKinds.
+                // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
+                context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
             });
         }
 

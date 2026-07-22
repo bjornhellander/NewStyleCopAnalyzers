@@ -82,6 +82,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 break;
 
             case SyntaxKind.StructDeclaration:
+            case SyntaxKindEx.UnionDeclaration when declarationNode is StructDeclarationSyntax: // TODO: Update when representation of union has been changed
                 updatedDeclarationNode = HandleStructDeclaration((StructDeclarationSyntax)declarationNode);
                 break;
 
@@ -382,6 +383,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 case SyntaxKind.StructDeclaration:
                 case SyntaxKindEx.RecordDeclaration:
                 case SyntaxKindEx.RecordStructDeclaration:
+                case SyntaxKindEx.UnionDeclaration:
                 case SyntaxKind.DelegateDeclaration:
                 case SyntaxKind.EventDeclaration:
                 case SyntaxKind.EventFieldDeclaration:

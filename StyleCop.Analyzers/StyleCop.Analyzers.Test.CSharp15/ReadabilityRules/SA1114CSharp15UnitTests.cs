@@ -25,13 +25,11 @@ public class Foo
     {
         List<string> names = [with(
 
-            {|#0:capacity: 10|}), ""a""];
+            [|capacity: 10|]), ""a""];
     }
 }";
 
-            var expected = Diagnostic().WithLocation(0);
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -48,6 +46,41 @@ public class Foo
             capacity: 10), ""a""];
     }
 }";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestUnionMethodParameterList2LinesAfterOpeningParenthesisAsync()
+        {
+            var testCode = @"
+public union TestUnion(string, int)
+{
+    public static void TestMethod(
+
+{|#0:string s|})
+    {
+    }
+}
+";
+
+            // TODO: Report bug - The compiler calls the registered method declaration action three times
+            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
+
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestUnionMethodParameterListOnDeclarationLineAsync()
+        {
+            var testCode = @"
+public union TestUnion(string, int)
+{
+    public static void TestMethod(string s)
+    {
+    }
+}
+";
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }

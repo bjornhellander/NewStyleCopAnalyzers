@@ -245,9 +245,17 @@ namespace StyleCop.Analyzers.ReadabilityRules
             {
                 switch (node.Kind())
                 {
+                // TODO: Investigate whether these type-declaration-kind cases are actually load-bearing. The walk
+                // only ever reaches one of these when the identifier is not nested inside any of the member-kind
+                // cases below (e.g. it's in an attribute or base list), and in every such case the loop would
+                // otherwise just keep walking up (default: continue) until node becomes null, hitting the same
+                // trailing "return false;" at the end of this method. If that reasoning holds for all of these
+                // kinds, this case block could be removed as dead/redundant rather than kept in sync with every
+                // new type-declaration kind (as was just done here for UnionDeclaration).
                 case SyntaxKind.ClassDeclaration:
                 case SyntaxKind.InterfaceDeclaration:
                 case SyntaxKind.StructDeclaration:
+                case SyntaxKindEx.UnionDeclaration:
                 case SyntaxKind.DelegateDeclaration:
                 case SyntaxKind.EnumDeclaration:
                 case SyntaxKind.NamespaceDeclaration:

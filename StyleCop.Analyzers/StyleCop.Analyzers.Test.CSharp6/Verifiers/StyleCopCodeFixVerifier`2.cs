@@ -148,6 +148,18 @@ namespace StyleCop.Analyzers.Test.CSharp6.Verifiers
                         .AddMetadataReference(projectId, system.WithAliases(new[] { "global", "system" }));
                 });
 
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    // The reference assemblies do not yet include the UnionAttribute and IUnion types (System.Runtime.CompilerServices).
+                    // Compile them into a small in-memory assembly (built against the same reference assemblies as the test project and
+                    // add it as a metadata reference, so union type declarations compile.
+                    this.SolutionTransforms.Add((solution, projectId) =>
+                    {
+                        var project = solution.GetProject(projectId);
+                        return project.AddMetadataReference(CreateUnionTypesReference(project)).Solution;
+                    });
+                }
+
                 return;
 
                 // Local function
@@ -335,6 +347,41 @@ namespace StyleCop.Analyzers.Test.CSharp6.Verifiers
                 var codeFixProvider = new TCodeFix();
                 Assert.NotSame(WellKnownFixAllProviders.BatchFixer, codeFixProvider.GetFixAllProvider());
                 return new[] { codeFixProvider };
+            }
+
+            private static MetadataReference CreateUnionTypesReference(Project project)
+            {
+                var source = @"
+namespace System.Runtime.CompilerServices
+{
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, AllowMultiple = false)]
+    public sealed class UnionAttribute : Attribute
+    {
+    }
+
+    public interface IUnion
+    {
+        object? Value { get; }
+    }
+}
+";
+
+                var compilation = CSharpCompilation.Create(
+                        "StyleCop.Analyzers.Test.UnionTypes",
+                        new[] { CSharpSyntaxTree.ParseText(source) },
+                        project.MetadataReferences,
+                        new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+
+                using var stream = new MemoryStream();
+                var emitResult = compilation.Emit(stream);
+                if (!emitResult.Success)
+                {
+                    throw new InvalidOperationException(
+                        "Failed to compile the synthetic union types assembly: "
+                        + string.Join(Environment.NewLine, emitResult.Diagnostics));
+                }
+
+                return MetadataReference.CreateFromImage(stream.ToArray());
             }
 
             private void UpdateGlobalAnalyzerConfig()

@@ -6,7 +6,6 @@
 namespace StyleCop.Analyzers.Test.CSharp8.Lightup
 {
     using StyleCop.Analyzers.Lightup;
-    using StyleCop.Analyzers.Test.CSharp6.Lightup;
     using StyleCop.Analyzers.Test.CSharp7.Lightup;
 
     /// <summary>

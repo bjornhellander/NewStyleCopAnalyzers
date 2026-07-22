@@ -161,6 +161,7 @@ namespace StyleCop.Analyzers.OrderingRules
             [SyntaxKind.ClassDeclaration] = "class",
             [SyntaxKindEx.RecordDeclaration] = "record",
             [SyntaxKindEx.RecordStructDeclaration] = "record struct",
+            [SyntaxKindEx.UnionDeclaration] = "union",
             [SyntaxKindEx.ExtensionBlockDeclaration] = "extension",
             [SyntaxKind.FieldDeclaration] = "field",
             [SyntaxKind.ConstructorDeclaration] = "constructor",
@@ -193,6 +194,12 @@ namespace StyleCop.Analyzers.OrderingRules
                 context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
                 context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
                 context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
+
+                // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
+                // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
+                // Register it separately (with a duplicate-node guard, see the helper for why it is needed) so
+                // ordering is also checked among the members declared within a union's own body.
+                context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
             });
         }
 
@@ -319,6 +326,7 @@ namespace StyleCop.Analyzers.OrderingRules
                 SyntaxKind.EventFieldDeclaration => SyntaxKind.EventDeclaration,
                 SyntaxKindEx.RecordDeclaration => SyntaxKind.ClassDeclaration,
                 SyntaxKindEx.RecordStructDeclaration => SyntaxKind.StructDeclaration,
+                SyntaxKindEx.UnionDeclaration => SyntaxKind.StructDeclaration,
                 _ => syntaxKind,
             };
         }

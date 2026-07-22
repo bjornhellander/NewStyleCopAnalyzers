@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp15.ReadabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp14.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -24,7 +25,7 @@ public class Foo
 {
     public void Bar()
     {
-        HashSet<string> set = [with({|#0:10|},
+        HashSet<string> set = [with([|10|],
             StringComparer.Ordinal)];
     }
 }";
@@ -43,7 +44,45 @@ public class Foo
     }
 }";
 
-            var expected = Diagnostic().WithLocation(0);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestUnionMethodSplitArgumentsNotStartingOnNextLineAsync()
+        {
+            var testCode = @"
+public union TestUnion(string, int)
+{
+    public static void TestMethod()
+    {
+        Fun({|#0:10|},
+            20);
+    }
+
+    private static void Fun(int a, int b)
+    {
+    }
+}
+";
+
+            var fixedCode = @"
+public union TestUnion(string, int)
+{
+    public static void TestMethod()
+    {
+        Fun(
+            10,
+            20);
+    }
+
+    private static void Fun(int a, int b)
+    {
+    }
+}
+";
+
+            // TODO: Report bug - The compiler calls the registered argument list action three times
+            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
