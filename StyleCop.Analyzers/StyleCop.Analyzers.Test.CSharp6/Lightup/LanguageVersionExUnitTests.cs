@@ -35,14 +35,17 @@ namespace StyleCop.Analyzers.Test.CSharp6.Lightup
             }
         }
 
-        public static IEnumerable<object[]> LanguageVersions
+        public static TheoryData<string, LanguageVersion> LanguageVersions
         {
             get
             {
+                var data = new TheoryData<string, LanguageVersion>();
                 foreach (var field in typeof(LanguageVersionEx).GetTypeInfo().DeclaredFields)
                 {
-                    yield return new object[] { field.Name, (LanguageVersion)field.GetRawConstantValue() };
+                    data.Add(field.Name, (LanguageVersion)field.GetRawConstantValue());
                 }
+
+                return data;
             }
         }
 

@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
 {
-    using System.Collections.Generic;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -17,18 +16,15 @@ namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
 
     public class SA1412UnitTests
     {
-        public static IEnumerable<object[]> NonUtf8Encodings
+        public static TheoryData<int> NonUtf8Encodings { get; } = new TheoryData<int>()
         {
-            get
-            {
-                yield return new object[] { Encoding.ASCII.CodePage };
-                yield return new object[] { Encoding.BigEndianUnicode.CodePage };
-                yield return new object[] { Encoding.Default.CodePage };
-                yield return new object[] { Encoding.Unicode.CodePage };
-                yield return new object[] { Encoding.UTF32.CodePage };
-                yield return new object[] { Encoding.UTF7.CodePage };
-            }
-        }
+            Encoding.ASCII.CodePage,
+            Encoding.BigEndianUnicode.CodePage,
+            Encoding.Default.CodePage,
+            Encoding.Unicode.CodePage,
+            Encoding.UTF32.CodePage,
+            Encoding.UTF7.CodePage,
+        };
 
         [Theory]
         [MemberData(nameof(NonUtf8Encodings))]

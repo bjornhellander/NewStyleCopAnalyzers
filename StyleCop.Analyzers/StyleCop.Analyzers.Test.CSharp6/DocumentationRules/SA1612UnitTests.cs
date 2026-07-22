@@ -19,30 +19,35 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     /// </summary>
     public class SA1612UnitTests
     {
-        public static IEnumerable<object[]> Declarations
+        public static TheoryData<string> Declarations
         {
             get
             {
-                yield return new[] { "    public ClassName {|#0:Method|}(string foo, string bar, string @new) { return null; }" };
-                yield return new[] { "    public delegate ClassName {|#0:Method|}(string foo, string bar, string @new);" };
-                yield return new[] { "    public ClassName {|#0:this|}[string foo, string bar, string @new] { get { return null; } set { } }" };
+                var data = new TheoryData<string>
+                {
+                    "    public ClassName {|#0:Method|}(string foo, string bar, string @new) { return null; }",
+                    "    public delegate ClassName {|#0:Method|}(string foo, string bar, string @new);",
+                    "    public ClassName {|#0:this|}[string foo, string bar, string @new] { get { return null; } set { } }",
+                };
 
                 if (LightupHelpers.SupportsCSharp9)
                 {
-                    yield return new[] { "    public record {|#0:TestType|}(string foo, string bar, string @new) {}" };
+                    data.Add("    public record {|#0:TestType|}(string foo, string bar, string @new) {}");
                 }
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new[] { "    public record struct {|#0:TestType|}(string foo, string bar, string @new) {}" };
-                    yield return new[] { "    public record class {|#0:TestType|}(string foo, string bar, string @new) {}" };
+                    data.Add("    public record struct {|#0:TestType|}(string foo, string bar, string @new) {}");
+                    data.Add("    public record class {|#0:TestType|}(string foo, string bar, string @new) {}");
                 }
 
                 if (LightupHelpers.SupportsCSharp12)
                 {
-                    yield return new[] { "    public struct {|#0:TestType|}(string foo, string bar, string @new) {}" };
-                    yield return new[] { "    public class {|#0:TestType|}(string foo, string bar, string @new) {}" };
+                    data.Add("    public struct {|#0:TestType|}(string foo, string bar, string @new) {}");
+                    data.Add("    public class {|#0:TestType|}(string foo, string bar, string @new) {}");
                 }
+
+                return data;
             }
         }
 

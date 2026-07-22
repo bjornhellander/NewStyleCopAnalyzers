@@ -17,17 +17,20 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
 
     public class SA1201UnitTests
     {
-        public static IEnumerable<object[]> ValueTypesAndReferenceTypes
+        public static TheoryData<string, string> ValueTypesAndReferenceTypes
         {
             get
             {
+                var data = new TheoryData<string, string>();
                 foreach (var valueTypeKeyword in CommonMemberData.ValueTypeDeclarationKeywords)
                 {
                     foreach (var referenceTypeKeyword in CommonMemberData.ReferenceTypeDeclarationKeywords)
                     {
-                        yield return new object[] { valueTypeKeyword.Single(), referenceTypeKeyword.Single() };
+                        data.Add(valueTypeKeyword.Data, referenceTypeKeyword.Data);
                     }
                 }
+
+                return data;
             }
         }
 

@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -14,30 +13,30 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 
     public class SA1127UnitTests
     {
-        public static IEnumerable<object[]> GetNullTests()
+        public static TheoryData<string> NullTests { get; } = new TheoryData<string>()
         {
-            yield return new object[] { $"class Foo\r\n{{\r\n}}" };
-            yield return new object[] { $"struct Foo\r\n{{\r\n}}" };
-            yield return new object[] { $"interface Foo\r\n{{\r\n}}" };
-            yield return new object[] { $"class Foo\r\n{{\r\n    private void Method() {{}}\r\n}}" };
-        }
+            $"class Foo\r\n{{\r\n}}",
+            $"struct Foo\r\n{{\r\n}}",
+            $"interface Foo\r\n{{\r\n}}",
+            $"class Foo\r\n{{\r\n    private void Method() {{}}\r\n}}",
+        };
 
-        public static IEnumerable<object[]> GetTypeDeclarationTests()
+        public static TheoryData<string, string, int> TypeDeclarationTests { get; } = new TheoryData<string, string, int>()
         {
-            yield return new object[] { $"class Foo<T> where T : class {{}}", $"class Foo<T>\r\n    where T : class\r\n{{}}", 14 };
-            yield return new object[] { $"interface Foo<T> where T : class {{}}", $"interface Foo<T>\r\n    where T : class\r\n{{}}", 18 };
-            yield return new object[] { $"struct Foo<T> where T : class {{}}", $"struct Foo<T>\r\n    where T : class\r\n{{}}", 15 };
-        }
+            { $"class Foo<T> where T : class {{}}", $"class Foo<T>\r\n    where T : class\r\n{{}}", 14 },
+            { $"interface Foo<T> where T : class {{}}", $"interface Foo<T>\r\n    where T : class\r\n{{}}", 18 },
+            { $"struct Foo<T> where T : class {{}}", $"struct Foo<T>\r\n    where T : class\r\n{{}}", 15 },
+        };
 
         [Theory]
-        [MemberData(nameof(GetNullTests))]
+        [MemberData(nameof(NullTests))]
         public async Task TestNullScenariosAsync(string declaration)
         {
             await VerifyCSharpDiagnosticAsync(declaration, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
-        [MemberData(nameof(GetTypeDeclarationTests))]
+        [MemberData(nameof(TypeDeclarationTests))]
         public async Task TestViolationWithTypeDeclarationAsync(string declaration, string fixedDeclaration, int column)
         {
             var testCode = $"{declaration}";

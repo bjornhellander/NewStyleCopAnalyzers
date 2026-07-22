@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -12,114 +11,129 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 
     public class SA1117UnitTests
     {
-        public static IEnumerable<object[]> GetTestDeclarations(string delimiter)
+        public static TheoryData<string> GetTestDeclarations(string delimiter)
         {
-            yield return new object[] { $"public Foo(int a, int b,{delimiter} {{|#0:string s|}}) {{ }}" };
-            yield return new object[] { $"public object Bar(int a, int b,{delimiter} {{|#0:string s|}}) => null;" };
-            yield return new object[] { $"public object this[int a, int b,{delimiter} {{|#0:string s|}}] => null;" };
-            yield return new object[] { $"public delegate void Bar(int a, int b,{delimiter} {{|#0:string s|}});" };
-        }
-
-        public static IEnumerable<object[]> GetMultilineTestDeclarations(string delimiter)
-        {
-            yield return new object[] { $"public Foo(int a,{delimiter} string\r\ns) {{ }}" };
-            yield return new object[] { $"public object Bar(int a,{delimiter} string\r\ns) => null;" };
-            yield return new object[] { $"public object this[int a,{delimiter} string\r\ns] => null;" };
-            yield return new object[] { $"public delegate void Bar(int a,{delimiter} string\r\ns);" };
-        }
-
-        public static IEnumerable<object[]> GetTestConstructorInitializers(string delimiter)
-        {
-            yield return new object[] { $"this(42, 43, {delimiter} {{|#0:\"hello\"|}})" };
-            yield return new object[] { $"base(42, 43, {delimiter} {{|#0:\"hello\"|}})" };
-        }
-
-        public static IEnumerable<object[]> GetMultilineTestConstructorInitializers(string delimiter)
-        {
-            yield return new object[] { $"this(42\r\n+ 1, {delimiter} {{|#0:43|}}, {delimiter} \"hello\")" };
-            yield return new object[] { $"base(42\r\n+ 1, {delimiter} {{|#0:43|}}, {delimiter} \"hello\")" };
-        }
-
-        public static IEnumerable<object[]> GetTestExpressions(string delimiter)
-        {
-            yield return new object[] { $"Bar(1, 2, {delimiter} {{|#0:2|}})" };
-            yield return new object[] { $"System.Action<int, int, int> func = (int x, int y, {delimiter} {{|#0:int z|}}) => Bar(x, y, z)" };
-            yield return new object[] { $"System.Action<int, int, int> func = delegate(int x, int y, {delimiter} {{|#0:int z|}}) {{ Bar(x, y, z); }}" };
-            yield return new object[] { $"new System.DateTime(2015, 9, {delimiter} {{|#0:14|}})" };
-            yield return new object[] { $"var arr = new string[2, 2, {delimiter} {{|#0:2|}}];" };
-            yield return new object[] { $"char cc = (new char[3, 3, 3])[2, 2,{delimiter} {{|#0:2|}}];" };
-            yield return new object[] { $"char? c = (new char[3, 3, 3])?[2, 2,{delimiter} {{|#0:2|}}];" };
-            yield return new object[] { $"long ll = this[2, 2,{delimiter} {{|#0:2|}}];" };
-        }
-
-        public static IEnumerable<object[]> GetTrailingMultilineTestExpressions(string delimiter)
-        {
-            yield return new object[] { $"System.Action<int, int, int> func = (int x, {delimiter} int y, {delimiter} int\r\nz) => Bar(x, y, z)" };
-            yield return new object[] { $"System.Action<int, int, int> func = delegate(int x, {delimiter} int y, {delimiter} int\r\nz) {{ Bar(x, y, z); }}" };
-            yield return new object[] { $"var arr = new string[2, {delimiter} 2\r\n+ 2];" };
-            yield return new object[] { $"char cc = (new char[3, 3])[2, {delimiter} 2\r\n+ 2];" };
-            yield return new object[] { $"char? c = (new char[3, 3])?[2, {delimiter} 2\r\n+ 2];" };
-            yield return new object[] { $"long ll = this[2,{delimiter} 2,{delimiter} 2\r\n+ 1];" };
-            yield return new object[] { $"var str = string.Join(\r\n\"def\",{delimiter}\"abc\"\r\n + \"cba\");" };
-        }
-
-        public static IEnumerable<object[]> GetLeadingMultilineTestExpressions(string delimiter)
-        {
-            yield return new object[] { $"var str = string.Join(\r\n\"abc\"\r\n + \"cba\",{delimiter}{{|#0:\"def\"|}});" };
-            yield return new object[] { $"Bar(\r\n1\r\n + 2,{delimiter}{{|#0:3|}},\r\n 4);" };
-        }
-
-        public static IEnumerable<object[]> GetTestAttributes(string delimiter)
-        {
-            yield return new object[] { $"[MyAttribute(1, {delimiter}2, {{|#0:3|}})]" };
-        }
-
-        public static IEnumerable<object[]> GetMultilineTestAttributes(string delimiter)
-        {
-            yield return new object[] { $"[MyAttribute(1, {delimiter}2, {delimiter}3\r\n+ 5)]" };
-        }
-
-        public static IEnumerable<object[]> ValidTestExpressions()
-        {
-            yield return new object[] { $"System.Action func = () => Bar(0, 2, 3)" };
-            yield return new object[] { $"System.Action<int> func = x => Bar(x, 2, 3)" };
-            yield return new object[] { $"System.Action func = delegate {{ Bar(0, 0, 0); }}" };
-            yield return new object[] { "var weird = new int[10][,,,];" };
-        }
-
-        public static IEnumerable<object[]> ValidTestDeclarations()
-        {
-            yield return new object[]
+            return new TheoryData<string>()
             {
-                $@"public Foo(
-    int a, int b, string s) {{ }}",
+                $"public Foo(int a, int b,{delimiter} {{|#0:string s|}}) {{ }}",
+                $"public object Bar(int a, int b,{delimiter} {{|#0:string s|}}) => null;",
+                $"public object this[int a, int b,{delimiter} {{|#0:string s|}}] => null;",
+                $"public delegate void Bar(int a, int b,{delimiter} {{|#0:string s|}});",
             };
-            yield return new object[]
+        }
+
+        public static TheoryData<string> GetMultilineTestDeclarations(string delimiter)
+        {
+            return new TheoryData<string>()
             {
-                $@"public Foo(
+                $"public Foo(int a,{delimiter} string\r\ns) {{ }}",
+                $"public object Bar(int a,{delimiter} string\r\ns) => null;",
+                $"public object this[int a,{delimiter} string\r\ns] => null;",
+                $"public delegate void Bar(int a,{delimiter} string\r\ns);",
+            };
+        }
+
+        public static TheoryData<string> GetTestConstructorInitializers(string delimiter)
+        {
+            return new TheoryData<string>()
+            {
+                $"this(42, 43, {delimiter} {{|#0:\"hello\"|}})",
+                $"base(42, 43, {delimiter} {{|#0:\"hello\"|}})",
+            };
+        }
+
+        public static TheoryData<string> GetMultilineTestConstructorInitializers(string delimiter)
+        {
+            return new TheoryData<string>()
+            {
+                $"this(42\r\n+ 1, {delimiter} {{|#0:43|}}, {delimiter} \"hello\")",
+                $"base(42\r\n+ 1, {delimiter} {{|#0:43|}}, {delimiter} \"hello\")",
+            };
+        }
+
+        public static TheoryData<string> GetTestExpressions(string delimiter)
+        {
+            return new TheoryData<string>()
+            {
+                $"Bar(1, 2, {delimiter} {{|#0:2|}})",
+                $"System.Action<int, int, int> func = (int x, int y, {delimiter} {{|#0:int z|}}) => Bar(x, y, z)",
+                $"System.Action<int, int, int> func = delegate(int x, int y, {delimiter} {{|#0:int z|}}) {{ Bar(x, y, z); }}",
+                $"new System.DateTime(2015, 9, {delimiter} {{|#0:14|}})",
+                $"var arr = new string[2, 2, {delimiter} {{|#0:2|}}];",
+                $"char cc = (new char[3, 3, 3])[2, 2,{delimiter} {{|#0:2|}}];",
+                $"char? c = (new char[3, 3, 3])?[2, 2,{delimiter} {{|#0:2|}}];",
+                $"long ll = this[2, 2,{delimiter} {{|#0:2|}}];",
+            };
+        }
+
+        public static TheoryData<string> GetTrailingMultilineTestExpressions(string delimiter)
+        {
+            return new TheoryData<string>()
+            {
+                $"System.Action<int, int, int> func = (int x, {delimiter} int y, {delimiter} int\r\nz) => Bar(x, y, z)",
+                $"System.Action<int, int, int> func = delegate(int x, {delimiter} int y, {delimiter} int\r\nz) {{ Bar(x, y, z); }}",
+                $"var arr = new string[2, {delimiter} 2\r\n+ 2];",
+                $"char cc = (new char[3, 3])[2, {delimiter} 2\r\n+ 2];",
+                $"char? c = (new char[3, 3])?[2, {delimiter} 2\r\n+ 2];",
+                $"long ll = this[2,{delimiter} 2,{delimiter} 2\r\n+ 1];",
+                $"var str = string.Join(\r\n\"def\",{delimiter}\"abc\"\r\n + \"cba\");",
+            };
+        }
+
+        public static TheoryData<string> GetLeadingMultilineTestExpressions(string delimiter)
+        {
+            return new TheoryData<string>()
+            {
+                $"var str = string.Join(\r\n\"abc\"\r\n + \"cba\",{delimiter}{{|#0:\"def\"|}});",
+                $"Bar(\r\n1\r\n + 2,{delimiter}{{|#0:3|}},\r\n 4);",
+            };
+        }
+
+        public static TheoryData<string> GetTestAttributes(string delimiter)
+        {
+            return new TheoryData<string>()
+            {
+                $"[MyAttribute(1, {delimiter}2, {{|#0:3|}})]",
+            };
+        }
+
+        public static TheoryData<string> GetMultilineTestAttributes(string delimiter)
+        {
+            return new TheoryData<string>()
+            {
+                $"[MyAttribute(1, {delimiter}2, {delimiter}3\r\n+ 5)]",
+            };
+        }
+
+        public static TheoryData<string> ValidTestExpressions() => new TheoryData<string>()
+        {
+            $"System.Action func = () => Bar(0, 2, 3)",
+            $"System.Action<int> func = x => Bar(x, 2, 3)",
+            $"System.Action func = delegate {{ Bar(0, 0, 0); }}",
+            "var weird = new int[10][,,,];",
+        };
+
+        public static TheoryData<string> ValidTestDeclarations() => new TheoryData<string>()
+        {
+            $@"public Foo(
+    int a, int b, string s) {{ }}",
+            $@"public Foo(
     int a,
     int b,
     string s) {{ }}",
-            };
-        }
+        };
 
-        public static IEnumerable<object[]> ValidTestAttribute()
+        // This is a regression test for https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1211
+        public static TheoryData<string> ValidTestAttribute() => new TheoryData<string>()
         {
-            // This is a regression test for https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1211
-            yield return new object[] { @"[System.Obsolete]" };
-            yield return new object[]
-            {
-                @"[MyAttribute(
+            @"[System.Obsolete]",
+            @"[MyAttribute(
     1, 2, 3)]",
-            };
-            yield return new object[]
-            {
-                @"[MyAttribute(
+            @"[MyAttribute(
     1,
     2,
     3)]",
-            };
-        }
+        };
 
         [Theory]
         [MemberData(nameof(GetTestDeclarations), "")]

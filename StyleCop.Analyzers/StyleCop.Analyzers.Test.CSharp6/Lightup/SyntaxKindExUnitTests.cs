@@ -35,14 +35,17 @@ namespace StyleCop.Analyzers.Test.CSharp6.Lightup
             }
         }
 
-        public static IEnumerable<object[]> SyntaxKinds
+        public static TheoryData<string, SyntaxKind> SyntaxKinds
         {
             get
             {
+                var data = new TheoryData<string, SyntaxKind>();
                 foreach (var field in typeof(SyntaxKindEx).GetTypeInfo().DeclaredFields)
                 {
-                    yield return new object[] { field.Name, (SyntaxKind)field.GetRawConstantValue() };
+                    data.Add(field.Name, (SyntaxKind)field.GetRawConstantValue());
                 }
+
+                return data;
             }
         }
 

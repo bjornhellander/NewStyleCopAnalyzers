@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -18,21 +17,18 @@ namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
     /// </summary>
     public partial class SA1500UnitTests
     {
-        public static IEnumerable<object[]> StatementBlocksTokenList
+        public static TheoryData<string> StatementBlocksTokenList { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new[] { "checked" };
-                yield return new[] { "fixed (int* p = new[] { 1, 2, 3 })" };
-                yield return new[] { "for (var y = 0; y < 2; y++)" };
-                yield return new[] { "foreach (var y in new[] { 1, 2, 3 })" };
-                yield return new[] { "lock (this)" };
-                yield return new[] { "unchecked" };
-                yield return new[] { "unsafe" };
-                yield return new[] { "using (var x = new System.Threading.ManualResetEvent(true))" };
-                yield return new[] { "while (this.X < 2)" };
-            }
-        }
+            "checked",
+            "fixed (int* p = new[] { 1, 2, 3 })",
+            "for (var y = 0; y < 2; y++)",
+            "foreach (var y in new[] { 1, 2, 3 })",
+            "lock (this)",
+            "unchecked",
+            "unsafe",
+            "using (var x = new System.Threading.ManualResetEvent(true))",
+            "while (this.X < 2)",
+        };
 
         /// <summary>
         /// Verifies that no diagnostics are reported for the valid statements defined in this test.

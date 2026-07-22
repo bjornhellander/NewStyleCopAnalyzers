@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -25,19 +24,16 @@ namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
         /// <value>
         /// The statements that will be used in the theory test cases.
         /// </value>
-        public static IEnumerable<object[]> TestStatements
+        public static TheoryData<string> TestStatements { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new[] { "if (i == 0)" };
-                yield return new[] { "while (i == 0)" };
-                yield return new[] { "for (var j = 0; j < i; j++)" };
-                yield return new[] { "foreach (var j in new[] { 1, 2, 3 })" };
-                yield return new[] { "lock (this)" };
-                yield return new[] { "using (this)" };
-                yield return new[] { "fixed (byte* ptr = new byte[10])" };
-            }
-        }
+            "if (i == 0)",
+            "while (i == 0)",
+            "for (var j = 0; j < i; j++)",
+            "foreach (var j in new[] { 1, 2, 3 })",
+            "lock (this)",
+            "using (this)",
+            "fixed (byte* ptr = new byte[10])",
+        };
 
         /// <summary>
         /// Verifies that a statement followed by a block without braces will produce a warning.

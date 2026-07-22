@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
@@ -20,17 +19,22 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
     /// </summary>
     public class SA1004UnitTests
     {
-        public static IEnumerable<object[]> ParameterModifiers
+        public static TheoryData<string> ParameterModifiers
         {
             get
             {
-                yield return new[] { "out" };
-                yield return new[] { "ref" };
+                var data = new TheoryData<string>()
+                {
+                    "out",
+                    "ref",
+                };
 
                 if (LightupHelpers.SupportsCSharp72)
                 {
-                    yield return new[] { "in" };
+                    data.Add("in");
                 }
+
+                return data;
             }
         }
 

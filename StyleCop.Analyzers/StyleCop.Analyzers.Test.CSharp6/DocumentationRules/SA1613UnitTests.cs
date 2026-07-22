@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -17,15 +16,12 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     /// </summary>
     public class SA1613UnitTests
     {
-        public static IEnumerable<object[]> Declarations
+        public static TheoryData<string> Declarations { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new[] { "    public ClassName Method(string foo, string bar) { return null; }" };
-                yield return new[] { "    public delegate ClassName Method(string foo, string bar);" };
-                yield return new[] { "    public ClassName this[string foo, string bar] { get { return null; } set { } }" };
-            }
-        }
+            "    public ClassName Method(string foo, string bar) { return null; }",
+            "    public delegate ClassName Method(string foo, string bar);",
+            "    public ClassName this[string foo, string bar] { get { return null; } set { } }",
+        };
 
         [Fact]
         public async Task TestMemberWithoutDocumentationAsync()

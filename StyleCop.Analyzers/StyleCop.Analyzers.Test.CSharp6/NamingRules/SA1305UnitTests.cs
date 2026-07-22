@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.NamingRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -12,26 +11,23 @@ namespace StyleCop.Analyzers.Test.CSharp6.NamingRules
 
     public class SA1305UnitTests
     {
-        public static IEnumerable<object[]> CommonPrefixes
+        public static TheoryData<string> CommonPrefixes { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new object[] { "as" };
-                yield return new object[] { "at" };
-                yield return new object[] { "by" };
-                yield return new object[] { "do" };
-                yield return new object[] { "go" };
-                yield return new object[] { "if" };
-                yield return new object[] { "in" };
-                yield return new object[] { "is" };
-                yield return new object[] { "it" };
-                yield return new object[] { "no" };
-                yield return new object[] { "of" };
-                yield return new object[] { "on" };
-                yield return new object[] { "or" };
-                yield return new object[] { "to" };
-            }
-        }
+            "as",
+            "at",
+            "by",
+            "do",
+            "go",
+            "if",
+            "in",
+            "is",
+            "it",
+            "no",
+            "of",
+            "on",
+            "or",
+            "to",
+        };
 
         [Fact]
         public async Task TestValidFieldNamesAreNotReportedAsync()

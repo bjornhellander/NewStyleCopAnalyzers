@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
@@ -30,127 +29,142 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
 }
 ";
 
-        public static IEnumerable<object[]> ValidDeclarations
+        public static TheoryData<string> ValidDeclarations
         {
             get
             {
-                yield return new object[] { "public partial class" };
-                yield return new object[] { "internal partial class" };
-                yield return new object[] { "public static partial class" };
-                yield return new object[] { "internal static partial class" };
-                yield return new object[] { "public sealed partial class" };
-                yield return new object[] { "internal sealed partial class" };
-                yield return new object[] { "public partial struct" };
-                yield return new object[] { "internal partial struct" };
-                yield return new object[] { "public partial interface" };
-                yield return new object[] { "internal partial interface" };
-                yield return new object[] { "class" };
-                yield return new object[] { "struct" };
-                yield return new object[] { "interface" };
+                var data = new TheoryData<string>()
+                {
+                    "public partial class",
+                    "internal partial class",
+                    "public static partial class",
+                    "internal static partial class",
+                    "public sealed partial class",
+                    "internal sealed partial class",
+                    "public partial struct",
+                    "internal partial struct",
+                    "public partial interface",
+                    "internal partial interface",
+                    "class",
+                    "struct",
+                    "interface",
+                };
+
                 if (LightupHelpers.SupportsCSharp9)
                 {
-                    yield return new object[] { "public partial record" };
-                    yield return new object[] { "internal partial record" };
-                    yield return new object[] { "public sealed partial record" };
-                    yield return new object[] { "internal sealed partial record" };
-                    yield return new object[] { "record" };
+                    data.Add("public partial record");
+                    data.Add("internal partial record");
+                    data.Add("public sealed partial record");
+                    data.Add("internal sealed partial record");
+                    data.Add("record");
                 }
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new object[] { "public partial record class" };
-                    yield return new object[] { "internal partial record class" };
-                    yield return new object[] { "public sealed partial record class" };
-                    yield return new object[] { "internal sealed partial record class" };
-                    yield return new object[] { "record class" };
+                    data.Add("public partial record class");
+                    data.Add("internal partial record class");
+                    data.Add("public sealed partial record class");
+                    data.Add("internal sealed partial record class");
+                    data.Add("record class");
 
-                    yield return new object[] { "public partial record struct" };
-                    yield return new object[] { "internal partial record struct" };
-                    yield return new object[] { "record struct" };
+                    data.Add("public partial record struct");
+                    data.Add("internal partial record struct");
+                    data.Add("record struct");
                 }
+
+                return data;
             }
         }
 
-        public static IEnumerable<object[]> InvalidDeclarations
+        public static TheoryData<string> InvalidDeclarations
         {
             get
             {
-                yield return new object[] { "partial class" };
-                yield return new object[] { "sealed partial class" };
-                yield return new object[] { "static partial class" };
-                yield return new object[] { "partial struct" };
-                yield return new object[] { "partial interface" };
+                var data = new TheoryData<string>()
+                {
+                    "partial class",
+                    "sealed partial class",
+                    "static partial class",
+                    "partial struct",
+                    "partial interface",
+                };
+
                 if (LightupHelpers.SupportsCSharp9)
                 {
-                    yield return new object[] { "partial record" };
-                    yield return new object[] { "sealed partial record" };
+                    data.Add("partial record");
+                    data.Add("sealed partial record");
                 }
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new object[] { "partial record class" };
-                    yield return new object[] { "sealed partial record class" };
+                    data.Add("partial record class");
+                    data.Add("sealed partial record class");
 
-                    yield return new object[] { "partial record struct" };
+                    data.Add("partial record struct");
                 }
+
+                return data;
             }
         }
 
-        public static IEnumerable<object[]> ValidNestedDeclarations
+        public static TheoryData<string, string> ValidNestedDeclarations
         {
             get
             {
-                yield return new object[] { "public", "class" };
-                yield return new object[] { "protected", "class" };
-                yield return new object[] { "internal", "class" };
-                yield return new object[] { "protected internal", "class" };
-                yield return new object[] { "private", "class" };
-
-                yield return new object[] { "public", "struct" };
-                yield return new object[] { "protected", "struct" };
-                yield return new object[] { "internal", "struct" };
-                yield return new object[] { "protected internal", "struct" };
-                yield return new object[] { "private", "struct" };
-
-                yield return new object[] { "public", "interface" };
-                yield return new object[] { "protected", "interface" };
-                yield return new object[] { "internal", "interface" };
-                yield return new object[] { "protected internal", "interface" };
-                yield return new object[] { "private", "interface" };
+                var data = new TheoryData<string, string>()
+                {
+                    { "public", "class" },
+                    { "protected", "class" },
+                    { "internal", "class" },
+                    { "protected internal", "class" },
+                    { "private", "class" },
+                    { "public", "struct" },
+                    { "protected", "struct" },
+                    { "internal", "struct" },
+                    { "protected internal", "struct" },
+                    { "private", "struct" },
+                    { "public", "interface" },
+                    { "protected", "interface" },
+                    { "internal", "interface" },
+                    { "protected internal", "interface" },
+                    { "private", "interface" },
+                };
 
                 if (LightupHelpers.SupportsCSharp72)
                 {
-                    yield return new object[] { "private protected", "class" };
-                    yield return new object[] { "private protected", "struct" };
-                    yield return new object[] { "private protected", "interface" };
+                    data.Add("private protected", "class");
+                    data.Add("private protected", "struct");
+                    data.Add("private protected", "interface");
                 }
 
                 if (LightupHelpers.SupportsCSharp9)
                 {
-                    yield return new object[] { "public", "record" };
-                    yield return new object[] { "protected", "record" };
-                    yield return new object[] { "internal", "record" };
-                    yield return new object[] { "protected internal", "record" };
-                    yield return new object[] { "private", "record" };
-                    yield return new object[] { "private protected", "record" };
+                    data.Add("public", "record");
+                    data.Add("protected", "record");
+                    data.Add("internal", "record");
+                    data.Add("protected internal", "record");
+                    data.Add("private", "record");
+                    data.Add("private protected", "record");
                 }
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new object[] { "public", "record class" };
-                    yield return new object[] { "protected", "record class" };
-                    yield return new object[] { "internal", "record class" };
-                    yield return new object[] { "protected internal", "record class" };
-                    yield return new object[] { "private", "record class" };
-                    yield return new object[] { "private protected", "record class" };
+                    data.Add("public", "record class");
+                    data.Add("protected", "record class");
+                    data.Add("internal", "record class");
+                    data.Add("protected internal", "record class");
+                    data.Add("private", "record class");
+                    data.Add("private protected", "record class");
 
-                    yield return new object[] { "public", "record struct" };
-                    yield return new object[] { "protected", "record struct" };
-                    yield return new object[] { "internal", "record struct" };
-                    yield return new object[] { "protected internal", "record struct" };
-                    yield return new object[] { "private", "record struct" };
-                    yield return new object[] { "private protected", "record struct" };
+                    data.Add("public", "record struct");
+                    data.Add("protected", "record struct");
+                    data.Add("internal", "record struct");
+                    data.Add("protected internal", "record struct");
+                    data.Add("private", "record struct");
+                    data.Add("private protected", "record struct");
                 }
+
+                return data;
             }
         }
 

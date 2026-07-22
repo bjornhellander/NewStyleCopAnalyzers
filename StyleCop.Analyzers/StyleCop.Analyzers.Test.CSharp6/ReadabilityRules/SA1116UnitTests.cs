@@ -1,13 +1,8 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-// Several test methods in this file use the same member data, but in some cases the test does not use all of the
-// supported parameters. See https://github.com/xunit/xunit/issues/1556.
-#pragma warning disable xUnit1026 // Theory methods should use all of their parameters
-
 namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -18,38 +13,50 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 
     public class SA1116UnitTests
     {
-        public static IEnumerable<object[]> GetTestDeclarations(string delimiter, string fixDelimiter)
+        public static TheoryData<string, string, int> GetTestDeclarations(string delimiter, string fixDelimiter)
         {
-            yield return new object[] { $"public Foo(int a,{delimiter} string s) {{ }}", $"public Foo({fixDelimiter}int a,{delimiter} string s) {{ }}", 16 };
-            yield return new object[] { $"public object Bar(int a,{delimiter} string s) => null;", $"public object Bar({fixDelimiter}int a,{delimiter} string s) => null;", 23 };
-            yield return new object[] { $"public static Foo operator + (Foo a,{delimiter} Foo b) => null;", $"public static Foo operator + ({fixDelimiter}Foo a,{delimiter} Foo b) => null;", 35 };
-            yield return new object[] { $"public object this[int a,{delimiter} string s] => null;", $"public object this[{fixDelimiter}int a,{delimiter} string s] => null;", 24 };
-            yield return new object[] { $"public delegate void Bar(int a,{delimiter} string s);", $"public delegate void Bar({fixDelimiter}int a,{delimiter} string s);", 30 };
+            return new TheoryData<string, string, int>()
+            {
+                { $"public Foo(int a,{delimiter} string s) {{ }}", $"public Foo({fixDelimiter}int a,{delimiter} string s) {{ }}", 16 },
+                { $"public object Bar(int a,{delimiter} string s) => null;", $"public object Bar({fixDelimiter}int a,{delimiter} string s) => null;", 23 },
+                { $"public static Foo operator + (Foo a,{delimiter} Foo b) => null;", $"public static Foo operator + ({fixDelimiter}Foo a,{delimiter} Foo b) => null;", 35 },
+                { $"public object this[int a,{delimiter} string s] => null;", $"public object this[{fixDelimiter}int a,{delimiter} string s] => null;", 24 },
+                { $"public delegate void Bar(int a,{delimiter} string s);", $"public delegate void Bar({fixDelimiter}int a,{delimiter} string s);", 30 },
+            };
         }
 
-        public static IEnumerable<object[]> GetTestConstructorInitializers(string delimiter, string fixDelimiter)
+        public static TheoryData<string, string> GetTestConstructorInitializers(string delimiter, string fixDelimiter)
         {
-            yield return new object[] { $"this(42,{delimiter} \"hello\")", $"this({fixDelimiter}42,{delimiter} \"hello\")" };
-            yield return new object[] { $"base(42,{delimiter} \"hello\")", $"base({fixDelimiter}42,{delimiter} \"hello\")" };
+            return new TheoryData<string, string>()
+            {
+                { $"this(42,{delimiter} \"hello\")", $"this({fixDelimiter}42,{delimiter} \"hello\")" },
+                { $"base(42,{delimiter} \"hello\")", $"base({fixDelimiter}42,{delimiter} \"hello\")" },
+            };
         }
 
-        public static IEnumerable<object[]> GetTestExpressions(string delimiter, string fixDelimiter)
+        public static TheoryData<string, string, int> GetTestExpressions(string delimiter, string fixDelimiter)
         {
-            yield return new object[] { $"Bar(1,{delimiter} 2)", $"Bar({fixDelimiter}1,{delimiter} 2)", 13 };
-            yield return new object[] { $"System.Action<int, int> func = (int x,{delimiter} int y) => Bar(x, y)", $"System.Action<int, int> func = ({fixDelimiter}int x,{delimiter} int y) => Bar(x, y)", 41 };
-            yield return new object[] { $"System.Action<int, int> func = delegate(int x,{delimiter} int y) {{ Bar(x, y); }}", $"System.Action<int, int> func = delegate({fixDelimiter}int x,{delimiter} int y) {{ Bar(x, y); }}", 49 };
-            yield return new object[] { $"new string('a',{delimiter} 2)", $"new string({fixDelimiter}'a',{delimiter} 2)", 20 };
-            yield return new object[] { $"var arr = new string[2,{delimiter} 2];", $"var arr = new string[{fixDelimiter}2,{delimiter} 2];", 30 };
-            yield return new object[] { $"char cc = (new char[3, 3])[2,{delimiter} 2];", $"char cc = (new char[3, 3])[{fixDelimiter}2,{delimiter} 2];", 36 };
-            yield return new object[] { $"char? c = (new char[3, 3])?[2,{delimiter} 2];", $"char? c = (new char[3, 3])?[{fixDelimiter}2,{delimiter} 2];", 37 };
-            yield return new object[] { $"long ll = this[2,{delimiter} 2];", $"long ll = this[{fixDelimiter}2,{delimiter} 2];", 24 };
+            return new TheoryData<string, string, int>()
+            {
+                { $"Bar(1,{delimiter} 2)", $"Bar({fixDelimiter}1,{delimiter} 2)", 13 },
+                { $"System.Action<int, int> func = (int x,{delimiter} int y) => Bar(x, y)", $"System.Action<int, int> func = ({fixDelimiter}int x,{delimiter} int y) => Bar(x, y)", 41 },
+                { $"System.Action<int, int> func = delegate(int x,{delimiter} int y) {{ Bar(x, y); }}", $"System.Action<int, int> func = delegate({fixDelimiter}int x,{delimiter} int y) {{ Bar(x, y); }}", 49 },
+                { $"new string('a',{delimiter} 2)", $"new string({fixDelimiter}'a',{delimiter} 2)", 20 },
+                { $"var arr = new string[2,{delimiter} 2];", $"var arr = new string[{fixDelimiter}2,{delimiter} 2];", 30 },
+                { $"char cc = (new char[3, 3])[2,{delimiter} 2];", $"char cc = (new char[3, 3])[{fixDelimiter}2,{delimiter} 2];", 36 },
+                { $"char? c = (new char[3, 3])?[2,{delimiter} 2];", $"char? c = (new char[3, 3])?[{fixDelimiter}2,{delimiter} 2];", 37 },
+                { $"long ll = this[2,{delimiter} 2];", $"long ll = this[{fixDelimiter}2,{delimiter} 2];", 24 },
+            };
         }
 
-        public static IEnumerable<object?[]> ValidTestExpressions()
+        public static TheoryData<string, string?, int> ValidTestExpressions()
         {
-            yield return new object?[] { $"System.Action func = () => Bar(0, 3)", null, 0 };
-            yield return new object?[] { $"System.Action<int> func = x => Bar(x, 3)", null, 0 };
-            yield return new object?[] { $"System.Action func = delegate {{ Bar(0, 0); }}", null, 0 };
+            return new TheoryData<string, string?, int>()
+            {
+                { $"System.Action func = () => Bar(0, 3)", null, 0 },
+                { $"System.Action<int> func = x => Bar(x, 3)", null, 0 },
+                { $"System.Action func = delegate {{ Bar(0, 0); }}", null, 0 },
+            };
         }
 
         [Theory]
@@ -169,7 +176,7 @@ class Derived : Base
         [Theory]
         [MemberData(nameof(GetTestExpressions), "", "")]
         [MemberData(nameof(ValidTestExpressions))]
-        public async Task TestValidExpressionAsync(string expression, string fixedExpression, int column)
+        public async Task TestValidExpressionAsync(string expression, string? fixedExpression, int column)
         {
             // Not needed for this test
             _ = fixedExpression;

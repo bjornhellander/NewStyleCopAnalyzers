@@ -18,32 +18,38 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     /// </summary>
     public class SA1619UnitTests
     {
-        public static IEnumerable<object[]> Types
+        public static TheoryData<string> Types
         {
             get
             {
-                yield return new object[] { "class Foo<{|#0:Ta|}, {|#1:Tb|}> { }" };
-                yield return new object[] { "struct Foo<{|#0:Ta|}, {|#1:Tb|}> { }" };
-                yield return new object[] { "interface Foo<{|#0:Ta|}, {|#1:Tb|}> { }" };
-                yield return new object[] { "class Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }" };
-                yield return new object[] { "struct Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }" };
-                yield return new object[] { "interface Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }" };
+                var data = new TheoryData<string>
+                {
+                    "class Foo<{|#0:Ta|}, {|#1:Tb|}> { }",
+                    "struct Foo<{|#0:Ta|}, {|#1:Tb|}> { }",
+                    "interface Foo<{|#0:Ta|}, {|#1:Tb|}> { }",
+                    "class Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }",
+                    "struct Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }",
+                    "interface Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }",
+                };
+
                 if (LightupHelpers.SupportsCSharp9)
                 {
-                    yield return new object[] { "record Foo<{|#0:Ta|}, {|#1:Tb|}> { }" };
-                    yield return new object[] { "record Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }" };
+                    data.Add("record Foo<{|#0:Ta|}, {|#1:Tb|}> { }");
+                    data.Add("record Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }");
                 }
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new object[] { "record class Foo<{|#0:Ta|}, {|#1:Tb|}> { }" };
-                    yield return new object[] { "record struct Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }" };
+                    data.Add("record class Foo<{|#0:Ta|}, {|#1:Tb|}> { }");
+                    data.Add("record struct Foo<{|#0:Ta|}, {|#1:T\\u0062|}> { }");
                 }
 
                 if (LightupHelpers.SupportsCSharp15)
                 {
-                    yield return new object[] { "union Foo<{|#0:Ta|}, {|#1:Tb|}>(string, int) { }" };
+                    data.Add("union Foo<{|#0:Ta|}, {|#1:Tb|}>(string, int) { }");
                 }
+
+                return data;
             }
         }
 

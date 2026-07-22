@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -17,30 +16,24 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     /// </summary>
     public class SA1622UnitTests
     {
-        public static IEnumerable<object[]> Members
+        // These method names are chosen so that the position of the parameters are always the same. This makes testing easier
+        public static TheoryData<string> Members { get; } = new TheoryData<string>()
         {
-            get
-            {
-                // These method names are chosen so that the position of the parameters are always the same. This makes testing easier
-                yield return new object[] { "void          Foo<Ta, Tb>() { }" };
-                yield return new object[] { "delegate void Foo<Ta, Tb>();" };
-                yield return new object[] { "void          Foo<Ta, T\\u0062>() { }" };
-                yield return new object[] { "delegate void Foo<Ta, T\\u0062>();" };
-            }
-        }
+            "void          Foo<Ta, Tb>() { }",
+            "delegate void Foo<Ta, Tb>();",
+            "void          Foo<Ta, T\\u0062>() { }",
+            "delegate void Foo<Ta, T\\u0062>();",
+        };
 
-        public static IEnumerable<object[]> Types
+        public static TheoryData<string> Types { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new object[] { "class     Foo<Ta, Tb> { }" };
-                yield return new object[] { "struct    Foo<Ta, Tb> { }" };
-                yield return new object[] { "interface Foo<Ta, Tb> { }" };
-                yield return new object[] { "class     Foo<Ta, T\\u0062> { }" };
-                yield return new object[] { "struct    Foo<Ta, T\\u0062> { }" };
-                yield return new object[] { "interface Foo<Ta, T\\u0062> { }" };
-            }
-        }
+            "class     Foo<Ta, Tb> { }",
+            "struct    Foo<Ta, Tb> { }",
+            "interface Foo<Ta, Tb> { }",
+            "class     Foo<Ta, T\\u0062> { }",
+            "struct    Foo<Ta, T\\u0062> { }",
+            "interface Foo<Ta, T\\u0062> { }",
+        };
 
         [Theory]
         [MemberData(nameof(Members))]

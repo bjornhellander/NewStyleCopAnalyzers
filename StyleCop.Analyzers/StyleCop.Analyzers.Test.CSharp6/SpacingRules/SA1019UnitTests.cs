@@ -4,7 +4,6 @@
 namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -25,14 +24,11 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         /// Gets the members access operators to test.
         /// </summary>
         /// <value>The members access operators to test.</value>
-        public static IEnumerable<object[]> Operators
+        public static TheoryData<string> Operators { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new object[] { "." };
-                yield return new object[] { "?." };
-            }
-        }
+            ".",
+            "?.",
+        };
 
         /// <summary>
         /// Asserts that a space before a member access operator reports correctly.

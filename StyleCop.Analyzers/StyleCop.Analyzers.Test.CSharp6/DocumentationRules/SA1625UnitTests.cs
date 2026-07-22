@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -18,27 +17,33 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     /// </summary>
     public class SA1625UnitTests
     {
-        public static IEnumerable<object[]> Members
+        public static TheoryData<string> Members
         {
             get
             {
-                yield return new[] { "public void Test() { }" };
-                yield return new[] { "public string Test { get; set; }" };
-                yield return new[] { "public string Test;" };
-                yield return new[] { "public class Test { }" };
-                yield return new[] { "public struct Test { }" };
-                yield return new[] { "public enum Test { }" };
-                yield return new[] { "public delegate void Test();" };
+                var data = new TheoryData<string>
+                {
+                    "public void Test() { }",
+                    "public string Test { get; set; }",
+                    "public string Test;",
+                    "public class Test { }",
+                    "public struct Test { }",
+                    "public enum Test { }",
+                    "public delegate void Test();",
+                };
+
                 if (LightupHelpers.SupportsCSharp9)
                 {
-                    yield return new[] { "public record Test { }" };
+                    data.Add("public record Test { }");
                 }
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new[] { "public record class Test { }" };
-                    yield return new[] { "public record struct Test { }" };
+                    data.Add("public record class Test { }");
+                    data.Add("public record struct Test { }");
                 }
+
+                return data;
             }
         }
 

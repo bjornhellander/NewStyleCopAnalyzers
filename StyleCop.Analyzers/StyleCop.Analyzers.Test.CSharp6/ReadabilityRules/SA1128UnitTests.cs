@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -14,15 +13,15 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 
     public class SA1128UnitTests
     {
-        public static IEnumerable<object[]> GetNullTests()
+        public static TheoryData<string> NullTests { get; } = new TheoryData<string>()
         {
-            yield return new object[] { $"class Foo\r\n{{\r\n}}" };
-            yield return new object[] { $"class Foo\r\n{{\r\n    public Foo() {{}}\r\n}}" };
-            yield return new object[] { $"class Foo\r\n{{\r\n    public Foo(int bar) {{}}\r\n}}" };
-        }
+            $"class Foo\r\n{{\r\n}}",
+            $"class Foo\r\n{{\r\n    public Foo() {{}}\r\n}}",
+            $"class Foo\r\n{{\r\n    public Foo(int bar) {{}}\r\n}}",
+        };
 
         [Theory]
-        [MemberData(nameof(GetNullTests))]
+        [MemberData(nameof(NullTests))]
         public async Task TestNullScenariosAsync(string declaration)
         {
             await VerifyCSharpDiagnosticAsync(declaration, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);

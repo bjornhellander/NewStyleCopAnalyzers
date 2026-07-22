@@ -17,17 +17,20 @@ namespace StyleCop.Analyzers.Test.CSharp6
 
     public class AnalyzerConfigurationUnitTests
     {
-        public static IEnumerable<object[]> AllAnalyzers
+        public static TheoryData<Type> AllAnalyzers
         {
             get
             {
+                var types = new List<Type>();
                 foreach (var type in typeof(AnalyzerCategory).Assembly.DefinedTypes)
                 {
                     if (type.GetCustomAttributes(typeof(DiagnosticAnalyzerAttribute), true).Any())
                     {
-                        yield return new object[] { type };
+                        types.Add(type);
                     }
                 }
+
+                return new(types);
             }
         }
 
