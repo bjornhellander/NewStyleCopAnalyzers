@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
 {
     using System.Collections.Generic;
@@ -309,10 +307,10 @@ namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
         protected DiagnosticResult Diagnostic()
             => new DiagnosticResult(this.Analyzer.SupportedDiagnostics.Single());
 
-        protected Task VerifyCSharpDiagnosticAsync(string source, string testSettings, DiagnosticResult expected, CancellationToken cancellationToken)
+        protected Task VerifyCSharpDiagnosticAsync(string source, string? testSettings, DiagnosticResult expected, CancellationToken cancellationToken)
             => this.VerifyCSharpDiagnosticAsync(source, testSettings, new[] { expected }, cancellationToken);
 
-        protected Task VerifyCSharpDiagnosticAsync(string source, string testSettings, DiagnosticResult[] expected, CancellationToken cancellationToken)
+        protected Task VerifyCSharpDiagnosticAsync(string source, string? testSettings, DiagnosticResult[] expected, CancellationToken cancellationToken)
         {
             var test = new CSharpTest(this)
             {
@@ -324,10 +322,10 @@ namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
             return test.RunAsync(cancellationToken);
         }
 
-        protected Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
+        protected Task VerifyCSharpFixAsync(string source, string? testSettings, DiagnosticResult expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
             => this.VerifyCSharpFixAsync(source, testSettings, new[] { expected }, fixedSources, cancellationToken);
 
-        protected Task VerifyCSharpFixAsync(string source, string testSettings, DiagnosticResult[] expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
+        protected Task VerifyCSharpFixAsync(string source, string? testSettings, DiagnosticResult[] expected, (string FileName, string Content)[] fixedSources, CancellationToken cancellationToken)
         {
             var test = new CSharpTest(this)
             {
@@ -344,7 +342,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
             return test.RunAsync(cancellationToken);
         }
 
-        protected virtual string GetSettings() => null;
+        protected virtual string? GetSettings() => null;
 
         private class CSharpTest : StyleCopCodeFixVerifier<EmptyDiagnosticAnalyzer, EmptyCodeFixProvider>.CSharpTest
         {

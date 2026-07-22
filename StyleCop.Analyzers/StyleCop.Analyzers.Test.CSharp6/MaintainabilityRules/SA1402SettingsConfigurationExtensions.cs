@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
 {
     using System.Collections.Generic;
@@ -10,7 +8,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
 
     public static class SA1402SettingsConfigurationExtensions
     {
-        public static string GetSettings(this SA1402SettingsConfiguration configuration, string keyword)
+        public static string? GetSettings(this SA1402SettingsConfiguration configuration, string keyword)
         {
             if (configuration == SA1402SettingsConfiguration.KeepDefaultConfiguration)
             {

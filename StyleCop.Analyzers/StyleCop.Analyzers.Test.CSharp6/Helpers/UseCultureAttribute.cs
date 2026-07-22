@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.Helpers
 {
     using System;
@@ -31,13 +29,13 @@ namespace StyleCop.Analyzers.Test.CSharp6.Helpers
         private readonly Lazy<CultureInfo> uiCulture;
 #pragma warning restore SA1305 // Field names should not use Hungarian notation
 
-        private CultureInfo originalCulture;
+        private CultureInfo? originalCulture;
 
-        private CultureInfo originalUiCulture;
+        private CultureInfo? originalUiCulture;
 
-        private CultureInfo originalDefaultCulture;
+        private CultureInfo? originalDefaultCulture;
 
-        private CultureInfo originalDefaultUiCulture;
+        private CultureInfo? originalDefaultUiCulture;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UseCultureAttribute"/>
