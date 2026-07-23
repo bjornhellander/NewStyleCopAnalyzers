@@ -7,6 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.DocumentationRules;
+    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using Xunit;
@@ -17,6 +18,39 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     /// </summary>
     public class SA1648UnitTests
     {
+        public static TheoryData<string> TypeDeclarationsWithEmptyBaseList
+        {
+            get
+            {
+                var data = new TheoryData<string>()
+                {
+                    "interface Test { }",
+                    "class Test { }",
+                    "struct Test { }",
+                    "enum Test { }",
+                    "delegate void Test ();",
+                };
+
+                if (LightupHelpers.SupportsCSharp9)
+                {
+                    data.Add("record Test { }");
+                }
+
+                if (LightupHelpers.SupportsCSharp10)
+                {
+                    data.Add("record class Test { }");
+                    data.Add("record struct Test { }");
+                }
+
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    data.Add("union Test(string, int) { }");
+                }
+
+                return data;
+            }
+        }
+
         [Theory]
         [MemberData(nameof(CommonMemberData.ReferenceTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
         public async Task TestConstructorWithNoParametersInheritsFromParentAsync(string keyword)
@@ -184,11 +218,7 @@ interface ITest : IBase { }";
         }
 
         [Theory]
-        [InlineData("interface Test { }")]
-        [InlineData("class Test { }")]
-        [InlineData("struct Test { }")]
-        [InlineData("enum Test { }")]
-        [InlineData("delegate void Test ();")]
+        [MemberData(nameof(TypeDeclarationsWithEmptyBaseList))]
         public async Task TestTypeWithEmptyBaseListAsync(string declaration)
         {
             var testCode = @"/// <inheritdoc/>
@@ -199,12 +229,8 @@ interface ITest : IBase { }";
             await VerifyCSharpDiagnosticAsync(testCode + declaration, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
-        [Theory(DisplayName = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1948")]
-        [InlineData("interface Test { }")]
-        [InlineData("class Test { }")]
-        [InlineData("struct Test { }")]
-        [InlineData("enum Test { }")]
-        [InlineData("delegate void Test ();")]
+        [Theory]
+        [MemberData(nameof(TypeDeclarationsWithEmptyBaseList))]
         public async Task TestTypeWithEmptyBaseListAndCrefAttributeAsync(string declaration)
         {
             var testCode = @"/// <inheritdoc cref=""object""/>

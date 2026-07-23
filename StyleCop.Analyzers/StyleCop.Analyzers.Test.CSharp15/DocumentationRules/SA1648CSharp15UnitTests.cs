@@ -12,19 +12,6 @@ namespace StyleCop.Analyzers.Test.CSharp15.DocumentationRules
     public partial class SA1648CSharp15UnitTests : SA1648CSharp14UnitTests
     {
         [Fact]
-        public async Task TestUnionWithInheritdocAndNoBaseListAsync()
-        {
-            var testCode = @"
-/// [|<inheritdoc/>|]
-public union TestUnion(string, int)
-{
-}
-";
-
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
-        }
-
-        [Fact]
         public async Task TestUnionWithInheritdocAndBaseListAsync()
         {
             var testCode = @"
