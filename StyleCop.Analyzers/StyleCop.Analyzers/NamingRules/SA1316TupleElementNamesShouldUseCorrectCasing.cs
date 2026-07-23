@@ -18,7 +18,7 @@ namespace StyleCop.Analyzers.NamingRules
     /// Field names within a tuple declaration should have the correct casing.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1316TupleElementNamesShouldUseCorrectCasing : DiagnosticAnalyzer
+    internal class SA1316TupleElementNamesShouldUseCorrectCasing : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1316TupleElementNamesShouldUseCorrectCasing"/> analyzer.
@@ -46,16 +46,10 @@ namespace StyleCop.Analyzers.NamingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxNodeAction(TupleTypeAction, SyntaxKindEx.TupleType);
-                context.RegisterSyntaxNodeAction(TupleExpressionAction, SyntaxKindEx.TupleExpression);
-            });
+            context.RegisterSyntaxNodeAction(TupleTypeAction, SyntaxKindEx.TupleType);
+            context.RegisterSyntaxNodeAction(TupleExpressionAction, SyntaxKindEx.TupleExpression);
         }
 
         private static void HandleTupleTypeAction(SyntaxNodeAnalysisContext context, StyleCopSettings settings)

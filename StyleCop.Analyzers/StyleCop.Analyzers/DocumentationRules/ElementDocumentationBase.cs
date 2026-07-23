@@ -20,7 +20,7 @@ namespace StyleCop.Analyzers.DocumentationRules
     /// <summary>
     /// This is the base class for analyzers which examine the <c>&lt;param&gt;</c> text of a documentation comment on an element declaration.
     /// </summary>
-    internal abstract class ElementDocumentationBase : DiagnosticAnalyzer
+    internal abstract class ElementDocumentationBase : DiagnosticAnalyzerBase
     {
         private readonly string matchElementName;
         private readonly bool inheritDocSuppressesWarnings;
@@ -54,30 +54,24 @@ namespace StyleCop.Analyzers.DocumentationRules
         }
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
+            context.RegisterSyntaxNodeAction(this.methodDeclarationAction, SyntaxKind.MethodDeclaration);
+            context.RegisterSyntaxNodeAction(this.constructorDeclarationAction, SyntaxKind.ConstructorDeclaration);
+            context.RegisterSyntaxNodeAction(this.delegateDeclarationAction, SyntaxKind.DelegateDeclaration);
+            context.RegisterSyntaxNodeAction(this.indexerDeclarationAction, SyntaxKind.IndexerDeclaration);
+            context.RegisterSyntaxNodeAction(this.operatorDeclarationAction, SyntaxKind.OperatorDeclaration);
+            context.RegisterSyntaxNodeAction(this.conversionOperatorDeclarationAction, SyntaxKind.ConversionOperatorDeclaration);
+            context.RegisterSyntaxNodeAction(this.baseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
 
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxNodeAction(this.methodDeclarationAction, SyntaxKind.MethodDeclaration);
-                context.RegisterSyntaxNodeAction(this.constructorDeclarationAction, SyntaxKind.ConstructorDeclaration);
-                context.RegisterSyntaxNodeAction(this.delegateDeclarationAction, SyntaxKind.DelegateDeclaration);
-                context.RegisterSyntaxNodeAction(this.indexerDeclarationAction, SyntaxKind.IndexerDeclaration);
-                context.RegisterSyntaxNodeAction(this.operatorDeclarationAction, SyntaxKind.OperatorDeclaration);
-                context.RegisterSyntaxNodeAction(this.conversionOperatorDeclarationAction, SyntaxKind.ConversionOperatorDeclaration);
-                context.RegisterSyntaxNodeAction(this.baseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
+            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
+            // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.BaseTypeDeclaration.
+            // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
+            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(this.baseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
 
-                // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-                // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.BaseTypeDeclaration.
-                // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
-                context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(this.baseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
-
-                context.RegisterSyntaxNodeAction(this.fieldDeclarationAction, SyntaxKind.FieldDeclaration);
-                context.RegisterSyntaxNodeAction(this.propertyDeclarationAction, SyntaxKind.PropertyDeclaration);
-                context.RegisterSyntaxNodeAction(this.enumMemberDeclarationAction, SyntaxKind.EnumMemberDeclaration);
-            });
+            context.RegisterSyntaxNodeAction(this.fieldDeclarationAction, SyntaxKind.FieldDeclaration);
+            context.RegisterSyntaxNodeAction(this.propertyDeclarationAction, SyntaxKind.PropertyDeclaration);
+            context.RegisterSyntaxNodeAction(this.enumMemberDeclarationAction, SyntaxKind.EnumMemberDeclaration);
         }
 
         /// <summary>

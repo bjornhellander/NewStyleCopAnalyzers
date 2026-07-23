@@ -68,7 +68,7 @@ namespace StyleCop.Analyzers.DocumentationRules
     /// SDK documentation tools.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1601PartialElementsMustBeDocumented : DiagnosticAnalyzer
+    internal class SA1601PartialElementsMustBeDocumented : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1601PartialElementsMustBeDocumented"/> analyzer.
@@ -90,23 +90,17 @@ namespace StyleCop.Analyzers.DocumentationRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
+            // TODO: The action name relates to BaseTypeDeclaration, but the registered syntax kinds are TypeDeclaration
+            context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.TypeDeclaration);
 
-            context.RegisterCompilationStartAction(context =>
-            {
-                // TODO: The action name relates to BaseTypeDeclaration, but the registered syntax kinds are TypeDeclaration
-                context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.TypeDeclaration);
+            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
+            // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
+            // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
+            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(BaseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
 
-                // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-                // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
-                // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
-                context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(BaseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
-
-                context.RegisterSyntaxNodeAction(MethodDeclarationAction, SyntaxKind.MethodDeclaration);
-            });
+            context.RegisterSyntaxNodeAction(MethodDeclarationAction, SyntaxKind.MethodDeclaration);
         }
 
         private static class Analyzer

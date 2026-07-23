@@ -22,7 +22,7 @@ namespace StyleCop.Analyzers.DocumentationRules
     /// depending on the fileNamingConvention setting.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1649FileNameMustMatchTypeName : DiagnosticAnalyzer
+    internal class SA1649FileNameMustMatchTypeName : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1649FileNameMustMatchTypeName"/>
@@ -50,15 +50,9 @@ namespace StyleCop.Analyzers.DocumentationRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxTreeAction(SyntaxTreeAction);
-            });
+            context.RegisterSyntaxTreeAction(SyntaxTreeAction);
         }
 
         private static class Analyzer

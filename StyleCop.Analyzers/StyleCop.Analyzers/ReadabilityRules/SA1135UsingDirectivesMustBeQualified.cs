@@ -23,7 +23,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// </para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1135UsingDirectivesMustBeQualified : DiagnosticAnalyzer
+    internal class SA1135UsingDirectivesMustBeQualified : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1135UsingDirectivesMustBeQualified"/> analyzer.
@@ -46,15 +46,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(DescriptorNamespace);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
-        {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(HandleCompilationStart);
-        }
-
-        private static void HandleCompilationStart(CompilationStartAnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             context.RegisterSyntaxNodeAction(HandleUsingDeclaration, SyntaxKind.UsingDirective);
         }

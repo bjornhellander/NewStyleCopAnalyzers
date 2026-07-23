@@ -20,7 +20,7 @@ namespace StyleCop.Analyzers.DocumentationRules
     /// </summary>
     /// <seealso href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1648.md">SA1648</seealso>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1648InheritDocMustBeUsedWithInheritingClass : DiagnosticAnalyzer
+    internal class SA1648InheritDocMustBeUsedWithInheritingClass : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1648InheritDocMustBeUsedWithInheritingClass"/> analyzer.
@@ -65,11 +65,8 @@ namespace StyleCop.Analyzers.DocumentationRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(BaseTypeLikeDeclarationAction, HandledTypeLikeDeclarationKinds);
 
             // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==

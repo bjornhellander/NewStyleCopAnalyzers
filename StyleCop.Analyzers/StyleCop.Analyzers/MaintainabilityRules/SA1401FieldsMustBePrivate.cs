@@ -23,7 +23,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     [NoCodeFix("The \"Encapsulate Field\" fix is provided by Visual Studio.")]
-    internal class SA1401FieldsMustBePrivate : DiagnosticAnalyzer
+    internal class SA1401FieldsMustBePrivate : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1401FieldsMustBePrivate"/> analyzer.
@@ -44,11 +44,8 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSymbolAction(AnalyzeFieldAction, SymbolKind.Field);
         }
 

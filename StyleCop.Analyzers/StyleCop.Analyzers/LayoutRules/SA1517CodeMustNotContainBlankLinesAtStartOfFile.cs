@@ -21,7 +21,7 @@ namespace StyleCop.Analyzers.LayoutRules
     /// <para>A violation of this rule occurs when one or more blank lines are at the start of the file.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1517CodeMustNotContainBlankLinesAtStartOfFile : DiagnosticAnalyzer
+    internal class SA1517CodeMustNotContainBlankLinesAtStartOfFile : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1517CodeMustNotContainBlankLinesAtStartOfFile"/>
@@ -43,11 +43,8 @@ namespace StyleCop.Analyzers.LayoutRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxTreeAction(SyntaxTreeAction);
         }
 

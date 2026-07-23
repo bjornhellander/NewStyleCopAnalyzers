@@ -22,7 +22,7 @@ namespace StyleCop.Analyzers.OrderingRules
     /// <para>A violation of this rule occurs when the partial elements does not have an access modifier defined.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1205PartialElementsMustDeclareAccess : DiagnosticAnalyzer
+    internal class SA1205PartialElementsMustDeclareAccess : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1205PartialElementsMustDeclareAccess"/> analyzer.
@@ -43,11 +43,8 @@ namespace StyleCop.Analyzers.OrderingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
 
             // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==

@@ -18,7 +18,7 @@ namespace StyleCop.Analyzers.DocumentationRules
     /// <summary>
     /// A base class for diagnostics <see cref="SA1642ConstructorSummaryDocumentationMustBeginWithStandardText"/> and <see cref="SA1643DestructorSummaryDocumentationMustBeginWithStandardText"/> to share common code.
     /// </summary>
-    internal abstract class StandardTextDiagnosticBase : DiagnosticAnalyzer
+    internal abstract class StandardTextDiagnosticBase : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The key used for signalling that no codefix should be offered.

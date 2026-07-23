@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     [NoCodeFix("Cannot generate appropriate names.")]
-    internal class SA1414TupleTypesInSignaturesShouldHaveElementNames : DiagnosticAnalyzer
+    internal class SA1414TupleTypesInSignaturesShouldHaveElementNames : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1414TupleTypesInSignaturesShouldHaveElementNames"/> analyzer.
@@ -42,11 +42,8 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(MethodDeclarationAction, SyntaxKind.MethodDeclaration);
             context.RegisterSyntaxNodeAction(ConstructorDeclarationAction, SyntaxKind.ConstructorDeclaration);
             context.RegisterSyntaxNodeAction(PropertyDeclarationAction, SyntaxKind.PropertyDeclaration);

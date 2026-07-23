@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// A value type was constructed using the syntax <c>new T()</c>.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1129DoNotUseDefaultValueTypeConstructor : DiagnosticAnalyzer
+    internal class SA1129DoNotUseDefaultValueTypeConstructor : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1129DoNotUseDefaultValueTypeConstructor"/> analyzer.
@@ -40,11 +40,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             if (LightupHelpers.SupportsIOperation)
             {
                 context.RegisterOperationAction(ObjectCreationOperationAction, OperationKindEx.ObjectCreation);

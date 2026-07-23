@@ -38,7 +38,7 @@ namespace StyleCop.Analyzers.LayoutRules
     /// brace is not followed by a blank line.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1513ClosingBraceMustBeFollowedByBlankLine : DiagnosticAnalyzer
+    internal class SA1513ClosingBraceMustBeFollowedByBlankLine : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1513ClosingBraceMustBeFollowedByBlankLine"/>
@@ -60,11 +60,8 @@ namespace StyleCop.Analyzers.LayoutRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxTreeAction(SyntaxTreeAction);
         }
 

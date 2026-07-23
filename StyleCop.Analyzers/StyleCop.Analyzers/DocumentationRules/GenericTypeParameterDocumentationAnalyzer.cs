@@ -20,7 +20,7 @@ namespace StyleCop.Analyzers.DocumentationRules
     /// Analyzer that covers generic typeparam documentation checks. This currently includes SA1620, SA1621, and SA1622.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class GenericTypeParameterDocumentationAnalyzer : DiagnosticAnalyzer
+    internal class GenericTypeParameterDocumentationAnalyzer : DiagnosticAnalyzerBase
     {
         private static readonly string SA1620DiagnosticId = "SA1620";
         private static readonly LocalizableString SA1620Title = new LocalizableResourceString(nameof(DocumentationResources.SA1620Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
@@ -78,11 +78,8 @@ namespace StyleCop.Analyzers.DocumentationRules
             ImmutableArray.Create(SA1620MissingTypeParameterDescriptor, SA1621Descriptor, SA1622Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
 
             // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==

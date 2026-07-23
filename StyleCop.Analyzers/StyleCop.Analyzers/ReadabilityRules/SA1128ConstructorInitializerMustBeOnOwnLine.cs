@@ -18,7 +18,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// A constructor initializer is on the same line as the constructor declaration, within a C# code file.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1128ConstructorInitializerMustBeOnOwnLine : DiagnosticAnalyzer
+    internal class SA1128ConstructorInitializerMustBeOnOwnLine : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1128ConstructorInitializerMustBeOnOwnLine"/>.
@@ -39,11 +39,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(ConstructorDeclarationAction, SyntaxKind.ConstructorDeclaration);
         }
 

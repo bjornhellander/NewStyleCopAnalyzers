@@ -22,7 +22,7 @@ namespace StyleCop.Analyzers.SpacingRules
     /// a semicolon should never be preceded by any whitespace, unless it is the first character on the line.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1002SemicolonsMustBeSpacedCorrectly : DiagnosticAnalyzer
+    internal class SA1002SemicolonsMustBeSpacedCorrectly : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1002SemicolonsMustBeSpacedCorrectly"/> analyzer.
@@ -43,11 +43,8 @@ namespace StyleCop.Analyzers.SpacingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxTreeAction(SyntaxTreeAction);
         }
 

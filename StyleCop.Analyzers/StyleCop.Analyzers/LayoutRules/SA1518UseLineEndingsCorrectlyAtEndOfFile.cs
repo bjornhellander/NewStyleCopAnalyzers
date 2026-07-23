@@ -24,7 +24,7 @@ namespace StyleCop.Analyzers.LayoutRules
     /// <para>A violation of this rule occurs when one or more blank lines are at the end of the file.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1518UseLineEndingsCorrectlyAtEndOfFile : DiagnosticAnalyzer
+    internal class SA1518UseLineEndingsCorrectlyAtEndOfFile : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1518UseLineEndingsCorrectlyAtEndOfFile"/> analyzer.
@@ -59,15 +59,9 @@ namespace StyleCop.Analyzers.LayoutRules
             ImmutableArray.Create(DescriptorAllow);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxTreeAction(SyntaxTreeAction);
-            });
+            context.RegisterSyntaxTreeAction(SyntaxTreeAction);
         }
 
         private static void HandleSyntaxTree(SyntaxTreeAnalysisContext context, StyleCopSettings settings)

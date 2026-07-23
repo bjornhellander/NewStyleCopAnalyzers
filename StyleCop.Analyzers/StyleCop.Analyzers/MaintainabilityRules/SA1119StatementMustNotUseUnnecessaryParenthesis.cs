@@ -44,7 +44,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     /// </code>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1119StatementMustNotUseUnnecessaryParenthesis : DiagnosticAnalyzer
+    internal class SA1119StatementMustNotUseUnnecessaryParenthesis : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1119StatementMustNotUseUnnecessaryParenthesis"/>
@@ -70,7 +70,6 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             new DiagnosticDescriptor(ParenthesesDiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, DiagnosticSeverity.Hidden, AnalyzerConstants.EnabledByDefault, Description, HelpLink, customTags: new[] { WellKnownDiagnosticTags.Unnecessary, WellKnownDiagnosticTags.NotConfigurable });
 #pragma warning restore RS2000 // Add analyzer diagnostic IDs to analyzer release.
 
-        private static readonly Action<CompilationStartAnalysisContext> CompilationStartAction = HandleCompilationStart;
         private static readonly Action<SyntaxNodeAnalysisContext> ParenthesizedExpressionAction = HandleParenthesizedExpression;
 
         /// <inheritdoc/>
@@ -80,15 +79,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 ParenthesisDescriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
-        {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(CompilationStartAction);
-        }
-
-        private static void HandleCompilationStart(CompilationStartAnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             // Only register the syntax node action if the diagnostic is enabled. This is important because
             // otherwise the diagnostic for fading out the parenthesis is still active, even if the main diagnostic
