@@ -6,6 +6,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -17,6 +18,73 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
     /// </summary>
     public class SA1204UnitTests
     {
+        public static TheoryData<string> TypeDeclarationHeaders
+        {
+            get
+            {
+                var data = new TheoryData<string>()
+                {
+                    "public class TestType",
+                    "public struct TestType",
+                };
+
+                if (LightupHelpers.SupportsCSharp8)
+                {
+                    data.Add("public interface TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp9)
+                {
+                    data.Add("public record TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp10)
+                {
+                    data.Add("public record class TestType");
+                    data.Add("public record struct TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    data.Add("public union TestType(string, int)");
+                }
+
+                return data;
+            }
+        }
+
+        /// <summary>
+        /// Verifies that a static member placed after an instance member produces a diagnostic, and that the
+        /// code fix moves the static member before the instance member, for every type declaration kind that
+        /// can contain both static and instance members.
+        /// </summary>
+        /// <param name="typeDeclarationHeader">The header of the type declaration to test.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Theory]
+        [MemberData(nameof(TypeDeclarationHeaders))]
+        public async Task TestStaticMemberAfterInstanceMemberAsync(string typeDeclarationHeader)
+        {
+            var testCode = $@"
+{typeDeclarationHeader}
+{{
+    private string InstanceProperty => string.Empty;
+
+    private static string [|StaticProperty|] => string.Empty;
+}}
+";
+
+            var fixedTestCode = $@"
+{typeDeclarationHeader}
+{{
+    private static string StaticProperty => string.Empty;
+
+    private string InstanceProperty => string.Empty;
+}}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         /// <summary>
         /// Verifies that the analyzer will properly handle valid ordering.
         /// </summary>
