@@ -79,11 +79,11 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         }
 
         /// <summary>
-        /// Verifies that the analyzer will produce the proper diagnostics with multiple whitespace characters in using statements.
+        /// Verifies that the analyzer will produce the proper diagnostics with multiple whitespace characters in using directives.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestMultipleWhitespaceInUsingStatementsAsync()
+        public async Task TestMultipleWhitespaceInUsingDirectivesAsync()
         {
             var testCode = @"namespace TestNamespace
 {

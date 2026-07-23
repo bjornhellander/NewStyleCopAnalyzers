@@ -52,11 +52,11 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
         }
 
         /// <summary>
-        /// Verifies that valid using statements in a namespace does not produce any diagnostics.
+        /// Verifies that valid using directives in a namespace does not produce any diagnostics.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestValidUsingStatementsInNamespaceAsync()
+        public async Task TestValidUsingDirectivesInNamespaceAsync()
         {
             var testCode = @"namespace TestNamespace
 {
@@ -69,13 +69,13 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
         }
 
         /// <summary>
-        /// Verifies that having using statements in the compilation unit will not produce any diagnostics when there are type definition present.
+        /// Verifies that having using directives in the compilation unit will not produce any diagnostics when there are type definition present.
         /// </summary>
         /// <param name="typeDefinition">The type definition to test.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Theory]
         [MemberData(nameof(TypeDefinitions))]
-        public async Task TestValidUsingStatementsInCompilationUnitWithTypeDefinitionAsync(string typeDefinition)
+        public async Task TestValidUsingDirectivesInCompilationUnitWithTypeDefinitionAsync(string typeDefinition)
         {
             var testCode = $@"using System;
 
@@ -86,11 +86,11 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
         }
 
         /// <summary>
-        /// Verifies that having using statements in the compilation unit will not produce any diagnostics when there are attributes present.
+        /// Verifies that having using directives in the compilation unit will not produce any diagnostics when there are attributes present.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestValidUsingStatementsInCompilationUnitWithAttributesAsync()
+        public async Task TestValidUsingDirectivesInCompilationUnitWithAttributesAsync()
         {
             var testCode = @"using System.Reflection;
 
@@ -107,11 +107,11 @@ namespace TestNamespace
         }
 
         /// <summary>
-        /// Verifies that having using statements in the compilation unit will produce the expected diagnostics.
+        /// Verifies that having using directives in the compilation unit will produce the expected diagnostics.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestInvalidUsingStatementsInCompilationUnitAsync()
+        public async Task TestInvalidUsingDirectivesInCompilationUnitAsync()
         {
             var testCode = @"using System;
 using System.Threading;
@@ -138,7 +138,7 @@ namespace TestNamespace
         }
 
         [Fact]
-        public async Task TestInvalidUsingStatementsInCompilationUnitWithPragmaAsync()
+        public async Task TestInvalidUsingDirectivesInCompilationUnitWithPragmaAsync()
         {
             var testCode = @"#pragma warning disable 1573 // Comment
 using System;
@@ -167,7 +167,7 @@ namespace TestNamespace
         }
 
         [Fact]
-        public async Task TestInvalidUsingStatementsInCompilationUnitWithRegionBeforeAsync()
+        public async Task TestInvalidUsingDirectivesInCompilationUnitWithRegionBeforeAsync()
         {
             var testCode = @"#region Comment
 #endregion Comment
@@ -199,7 +199,7 @@ namespace TestNamespace
 
         [Fact]
         [WorkItem(2363, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2363")]
-        public async Task TestInvalidUsingStatementsWithFileHeaderTriviaAsync()
+        public async Task TestInvalidUsingDirectivesWithFileHeaderTriviaAsync()
         {
             var testCode = @"// Some comment
 using System;
@@ -229,7 +229,7 @@ namespace TestNamespace
 
         [Fact]
         [WorkItem(2363, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2363")]
-        public async Task TestInvalidUsingStatementsWithSeparatedFileHeaderTriviaAsync()
+        public async Task TestInvalidUsingDirectivesWithSeparatedFileHeaderTriviaAsync()
         {
             var testCode = @"// Some comment
 
@@ -261,7 +261,7 @@ namespace TestNamespace
 
         [Fact]
         [WorkItem(2363, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2363")]
-        public async Task TestInvalidUsingStatementsWithSeparatedFileHeaderAndTriviaAsync()
+        public async Task TestInvalidUsingDirectivesWithSeparatedFileHeaderAndTriviaAsync()
         {
             var testCode = @"// File Header
 
@@ -297,7 +297,7 @@ namespace TestNamespace
 
         [Fact]
         [WorkItem(2363, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2363")]
-        public async Task TestInvalidUsingStatementsWithTriviaAsync()
+        public async Task TestInvalidUsingDirectivesWithTriviaAsync()
         {
             var testCode = @"
 // Some comment
@@ -329,7 +329,7 @@ namespace TestNamespace
 
         [Fact]
         [WorkItem(2363, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2363")]
-        public async Task TestInvalidUsingStatementsWithHeaderAndTriviaAsync()
+        public async Task TestInvalidUsingDirectivesWithHeaderAndTriviaAsync()
         {
             var testCode = @"// Copyright notice here
 

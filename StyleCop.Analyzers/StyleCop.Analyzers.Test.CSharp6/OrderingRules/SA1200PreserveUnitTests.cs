@@ -47,11 +47,11 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
         private const string DelegateDefinition = @"public delegate void TestDelegate();";
 
         /// <summary>
-        /// Verifies that valid using statements in a namespace does not produce any diagnostics.
+        /// Verifies that valid using directives in a namespace does not produce any diagnostics.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestValidUsingStatementsInNamespaceAsync()
+        public async Task TestValidUsingDirectivesInNamespaceAsync()
         {
             var testCode = @"namespace TestNamespace
 {
@@ -64,7 +64,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
         }
 
         /// <summary>
-        /// Verifies that having using statements in the compilation unit will not produce any diagnostics when there are type definition present.
+        /// Verifies that having using directives in the compilation unit will not produce any diagnostics when there are type definition present.
         /// </summary>
         /// <param name="typeDefinition">The type definition to test.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
@@ -74,7 +74,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
         [InlineData(InterfaceDefinition)]
         [InlineData(EnumDefinition)]
         [InlineData(DelegateDefinition)]
-        public async Task TestValidUsingStatementsInCompilationUnitWithTypeDefinitionAsync(string typeDefinition)
+        public async Task TestValidUsingDirectivesInCompilationUnitWithTypeDefinitionAsync(string typeDefinition)
         {
             var testCode = $@"using System;
 
@@ -85,11 +85,11 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
         }
 
         /// <summary>
-        /// Verifies that having using statements in the compilation unit will not produce any diagnostics when there are attributes present.
+        /// Verifies that having using directives in the compilation unit will not produce any diagnostics when there are attributes present.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestValidUsingStatementsInCompilationUnitWithAttributesAsync()
+        public async Task TestValidUsingDirectivesInCompilationUnitWithAttributesAsync()
         {
             var testCode = @"using System.Reflection;
 
@@ -106,12 +106,12 @@ namespace TestNamespace
         }
 
         /// <summary>
-        /// Verifies that having using statements in the compilation unit will not diagnostics, even if they could be
+        /// Verifies that having using directives in the compilation unit will not diagnostics, even if they could be
         /// moved inside a namespace.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestIgnoredUsingStatementsInCompilationUnitAsync()
+        public async Task TestIgnoredUsingDirectivesInCompilationUnitAsync()
         {
             var testCode = @"using System;
 using System.Threading;

@@ -378,7 +378,7 @@ namespace Newtonsoft.Json
         }
 
         /// <summary>
-        /// Verifies that the first using statement will preserve its leading comment.
+        /// Verifies that the first using directive will preserve its leading comment.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
