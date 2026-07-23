@@ -51,11 +51,11 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
         private const string DelegateDefinition = @"public delegate void TestDelegate();";
 
         /// <summary>
-        /// Verifies that using statements in a namespace produces the expected diagnostics.
+        /// Verifies that using directives in a namespace produces the expected diagnostics.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestInvalidUsingStatementsInNamespaceAsync()
+        public async Task TestInvalidUsingDirectivesInNamespaceAsync()
         {
             var testCode = @"namespace TestNamespace
 {
@@ -81,11 +81,11 @@ namespace TestNamespace
         }
 
         /// <summary>
-        /// Verifies that simplified using statements in a namespace are expanded during the code fix operation.
+        /// Verifies that simplified using directives in a namespace are expanded during the code fix operation.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestInvalidSimplifiedUsingStatementsInNamespaceAsync()
+        public async Task TestInvalidSimplifiedUsingDirectivesInNamespaceAsync()
         {
             var testCode = @"namespace System
 {
@@ -114,11 +114,11 @@ namespace System
         }
 
         /// <summary>
-        /// Verifies that simplified using statements in a namespace are expanded during the code fix operation.
+        /// Verifies that simplified using directives in a namespace are expanded during the code fix operation.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestInvalidSimplifiedUsingStatementsInExtensionNamespaceAsync()
+        public async Task TestInvalidSimplifiedUsingDirectivesInExtensionNamespaceAsync()
         {
             var testCode = @"namespace System.MyExtension
 {
@@ -150,7 +150,7 @@ namespace System.MyExtension
         }
 
         /// <summary>
-        /// Verifies that having using statements in the compilation unit will not produce any diagnostics when there are type definition present.
+        /// Verifies that having using directives in the compilation unit will not produce any diagnostics when there are type definition present.
         /// </summary>
         /// <param name="typeDefinition">The type definition to test.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
@@ -160,7 +160,7 @@ namespace System.MyExtension
         [InlineData(InterfaceDefinition)]
         [InlineData(EnumDefinition)]
         [InlineData(DelegateDefinition)]
-        public async Task TestValidUsingStatementsInCompilationUnitWithTypeDefinitionAsync(string typeDefinition)
+        public async Task TestValidUsingDirectivesInCompilationUnitWithTypeDefinitionAsync(string typeDefinition)
         {
             var testCode = $@"using System;
 
@@ -171,11 +171,11 @@ namespace System.MyExtension
         }
 
         /// <summary>
-        /// Verifies that having using statements in the compilation unit will not produce any diagnostics when there are attributes present.
+        /// Verifies that having using directives in the compilation unit will not produce any diagnostics when there are attributes present.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestValidUsingStatementsInCompilationUnitWithAttributesAsync()
+        public async Task TestValidUsingDirectivesInCompilationUnitWithAttributesAsync()
         {
             var testCode = @"using System.Reflection;
 
@@ -208,11 +208,11 @@ namespace TestNamespace
         }
 
         /// <summary>
-        /// Verifies that having using statements in the compilation unit will not produce diagnostics.
+        /// Verifies that having using directives in the compilation unit will not produce diagnostics.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestValidUsingStatementsInCompilationUnitAsync()
+        public async Task TestValidUsingDirectivesInCompilationUnitAsync()
         {
             var testCode = @"using System;
 using System.Threading;
@@ -226,12 +226,12 @@ namespace TestNamespace
         }
 
         /// <summary>
-        /// Verifies that the file header of a file is properly preserved when moving using statements out of a namespace.
+        /// Verifies that the file header of a file is properly preserved when moving using directives out of a namespace.
         /// This is a regression test for #1941.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestFileHeaderIsProperlyPreservedWhenMovingUsingStatementsAsync()
+        public async Task TestFileHeaderIsProperlyPreservedWhenMovingUsingDirectivesAsync()
         {
             var testCode = @"// Copyright (c) Tunnel Vision Laboratories, LLC. All Rights Reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
@@ -260,7 +260,7 @@ namespace TestNamespace
         }
 
         [Fact]
-        public async Task TestFileHeaderIsProperlyPreservedWhenMovingUsingStatementsWithCommentsAsync()
+        public async Task TestFileHeaderIsProperlyPreservedWhenMovingUsingDirectivesWithCommentsAsync()
         {
             var testCode = @"// Copyright (c) Tunnel Vision Laboratories, LLC. All Rights Reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.

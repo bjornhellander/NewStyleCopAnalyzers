@@ -16,13 +16,13 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
     public partial class SA1200OutsideNamespaceCSharp9UnitTests : SA1200OutsideNamespaceCSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that having using statements in the compilation unit will not produce diagnostics for top-level
+        /// Verifies that having using directives in the compilation unit will not produce diagnostics for top-level
         /// programs.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
         [WorkItem(3243, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3243")]
-        public async Task TestValidUsingStatementsInTopLevelProgramAsync()
+        public async Task TestValidUsingDirectivesInTopLevelProgramAsync()
         {
             var testCode = @"using System;
 using System.Threading;

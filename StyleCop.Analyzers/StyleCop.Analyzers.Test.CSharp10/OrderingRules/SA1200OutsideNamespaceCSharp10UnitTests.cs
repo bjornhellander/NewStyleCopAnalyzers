@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
     public partial class SA1200OutsideNamespaceCSharp10UnitTests : SA1200OutsideNamespaceCSharp9UnitTests
     {
         [Fact]
-        public async Task TestInvalidUsingStatementsInFileScopedNamespaceAsync()
+        public async Task TestInvalidUsingDirectivesInFileScopedNamespaceAsync()
         {
             var testCode = @"namespace TestNamespace;
 
@@ -41,7 +41,7 @@ namespace TestNamespace;
         [InlineData("\n")]
         [InlineData("// A comment.\n")]
         [WorkItem(3875, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3875")]
-        public async Task TestOnlyGlobalUsingStatementInFileAsync(string leadingTrivia)
+        public async Task TestOnlyGlobalUsingDirectiveInFileAsync(string leadingTrivia)
         {
             var testCode = $@"{leadingTrivia}global using System;";
 
