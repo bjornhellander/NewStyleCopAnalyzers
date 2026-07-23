@@ -6,6 +6,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -17,31 +18,63 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
     /// </summary>
     public class SA1206CodeFixProviderUnitTests
     {
-        /// <summary>
-        /// Verifies that the code fix will properly reorder keywords on a class declaration.
-        /// </summary>
-        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
-        [Fact]
-        public async Task VerifyKeywordReorderingInClassDeclarationAsync()
+        public static TheoryData<string> TypeDeclarationHeaders
         {
-            var testCode = @"abstract public class FooBar {}";
-            var fixedTestCode = @"public abstract class FooBar {}";
+            get
+            {
+                var data = new TheoryData<string>()
+                {
+                    "class TestType",
+                    "struct TestType",
+                };
 
-            var expected = Diagnostic().WithLocation(1, 10).WithArguments("public", "abstract");
-            await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
+                if (LightupHelpers.SupportsCSharp8)
+                {
+                    data.Add("interface TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp9)
+                {
+                    data.Add("record TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp10)
+                {
+                    data.Add("record class TestType");
+                    data.Add("record struct TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    data.Add("union TestType(string, int)");
+                }
+
+                return data;
+            }
         }
 
         /// <summary>
-        /// Verifies that the code fix will properly reorder keywords on a struct declaration.
+        /// Verifies that the code fix will properly reorder keywords on a type declaration's own modifiers, for
+        /// every type declaration kind whose modifiers can be reordered by the code fix.
         /// </summary>
+        /// <param name="typeDeclarationHeader">The keyword(s), name, and optional parameter list of the type
+        /// declaration to test.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
-        [Fact]
-        public async Task VerifyKeywordReorderingInStructDeclarationAsync()
+        [Theory]
+        [MemberData(nameof(TypeDeclarationHeaders))]
+        public async Task VerifyKeywordReorderingInOuterTypeDeclarationAsync(string typeDeclarationHeader)
         {
-            var testCode = @"unsafe public struct FooBar {}";
-            var fixedTestCode = @"public unsafe struct FooBar {}";
+            var testCode = $@"unsafe {{|#0:public|}} {typeDeclarationHeader}
+{{
+}}
+";
 
-            var expected = Diagnostic().WithLocation(1, 8).WithArguments("public", "unsafe");
+            var fixedTestCode = $@"public unsafe {typeDeclarationHeader}
+{{
+}}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("public", "unsafe");
             await VerifyCSharpFixAsync(testCode, expected, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
@@ -54,7 +87,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
         [InlineData("struct")]
         [InlineData("interface")]
         [InlineData("enum")]
-        public async Task VerifyKeywordReorderingInTypeDeclarationAsync(string type)
+        public async Task VerifyKeywordReorderingInInnerTypeDeclarationAsync(string type)
         {
             var testCode = @"public class TestClass
 {

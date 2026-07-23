@@ -10,6 +10,7 @@ namespace StyleCop.Analyzers.Helpers
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
+    using StyleCop.Analyzers.Lightup;
 
     internal static class DeclarationModifiersHelper
     {
@@ -156,6 +157,7 @@ namespace StyleCop.Analyzers.Helpers
                 return ((ClassDeclarationSyntax)node).WithModifiers(modifiers);
 
             case SyntaxKind.StructDeclaration:
+            case SyntaxKindEx.UnionDeclaration when node is StructDeclarationSyntax: // TODO: Update when representation of union has been changed
                 return ((StructDeclarationSyntax)node).WithModifiers(modifiers);
 
             case SyntaxKind.InterfaceDeclaration:
@@ -163,6 +165,10 @@ namespace StyleCop.Analyzers.Helpers
 
             case SyntaxKind.EnumDeclaration:
                 return ((EnumDeclarationSyntax)node).WithModifiers(modifiers);
+
+            case SyntaxKindEx.RecordDeclaration:
+            case SyntaxKindEx.RecordStructDeclaration:
+                return ((RecordDeclarationSyntaxWrapper)node).WithModifiers(modifiers);
 
             case SyntaxKind.DelegateDeclaration:
                 return ((DelegateDeclarationSyntax)node).WithModifiers(modifiers);
