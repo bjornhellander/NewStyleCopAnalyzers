@@ -43,7 +43,9 @@ namespace StyleCop.Analyzers.OrderingRules
         private static readonly ImmutableArray<SyntaxKind> HandledSyntaxKinds =
             ImmutableArray.Create(
                 SyntaxKind.ClassDeclaration,
+                SyntaxKind.ConstructorDeclaration,
                 SyntaxKind.DelegateDeclaration,
+                SyntaxKind.EnumDeclaration,
                 SyntaxKind.EventDeclaration,
                 SyntaxKind.EventFieldDeclaration,
                 SyntaxKind.FieldDeclaration,
@@ -51,7 +53,9 @@ namespace StyleCop.Analyzers.OrderingRules
                 SyntaxKind.InterfaceDeclaration,
                 SyntaxKind.MethodDeclaration,
                 SyntaxKind.PropertyDeclaration,
-                SyntaxKind.StructDeclaration);
+                SyntaxKind.StructDeclaration,
+                SyntaxKindEx.RecordDeclaration,
+                SyntaxKindEx.RecordStructDeclaration);
 
         private static readonly Action<SyntaxNodeAnalysisContext> DeclarationAction = HandleDeclaration;
 

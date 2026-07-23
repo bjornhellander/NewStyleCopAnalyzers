@@ -8,6 +8,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.DocumentationRules;
+    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.CustomDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.GenericTypeParameterDocumentationAnalyzer>;
@@ -26,15 +27,43 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
             "delegate void Foo<Ta, T\\u0062>();",
         };
 
-        public static TheoryData<string> Types { get; } = new TheoryData<string>()
+        public static TheoryData<string> Types
         {
-            "class     Foo<Ta, Tb> { }",
-            "struct    Foo<Ta, Tb> { }",
-            "interface Foo<Ta, Tb> { }",
-            "class     Foo<Ta, T\\u0062> { }",
-            "struct    Foo<Ta, T\\u0062> { }",
-            "interface Foo<Ta, T\\u0062> { }",
-        };
+            get
+            {
+                var data = new TheoryData<string>()
+                {
+                    "class     Foo<Ta, Tb> { }",
+                    "struct    Foo<Ta, Tb> { }",
+                    "interface Foo<Ta, Tb> { }",
+                    "class     Foo<Ta, T\\u0062> { }",
+                    "struct    Foo<Ta, T\\u0062> { }",
+                    "interface Foo<Ta, T\\u0062> { }",
+                };
+
+                if (LightupHelpers.SupportsCSharp9)
+                {
+                    data.Add("record Foo<Ta, Tb> { }");
+                    data.Add("record Foo<Ta, T\\u0062> { }");
+                }
+
+                if (LightupHelpers.SupportsCSharp10)
+                {
+                    data.Add("record class Foo<Ta, Tb> { }");
+                    data.Add("record class Foo<Ta, T\\u0062> { }");
+                    data.Add("record struct Foo<Ta, Tb> { }");
+                    data.Add("record struct Foo<Ta, T\\u0062> { }");
+                }
+
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    data.Add("union Foo<Ta, Tb>(string, int) { }");
+                    data.Add("union Foo<Ta, T\\u0062>(string, int) { }");
+                }
+
+                return data;
+            }
+        }
 
         [Fact]
         public async Task TestMembersWithoutTypeParametersAsync()

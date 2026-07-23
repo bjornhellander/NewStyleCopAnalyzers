@@ -20,14 +20,14 @@ namespace StyleCop.Analyzers.Test.CSharp15.SpacingRules
             var testCode = @"
 public union TestUnion(string, int)
 {
-    public static TestUnion [|operator|]/*comment*/+(TestUnion a, TestUnion b) => a;
+    public static TestUnion [|operator|]+(TestUnion a, TestUnion b) => a;
 }
 ";
 
             var fixedCode = @"
 public union TestUnion(string, int)
 {
-    public static TestUnion operator /*comment*/+(TestUnion a, TestUnion b) => a;
+    public static TestUnion operator +(TestUnion a, TestUnion b) => a;
 }
 ";
 

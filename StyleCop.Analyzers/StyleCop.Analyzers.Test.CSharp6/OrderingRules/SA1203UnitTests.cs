@@ -6,6 +6,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Lightup;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1203ConstantsMustAppearBeforeFields,
@@ -13,6 +14,41 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
 
     public class SA1203UnitTests
     {
+        public static TheoryData<string> TypeDeclarationHeaders
+        {
+            get
+            {
+                var data = new TheoryData<string>()
+                {
+                    "public class TestType",
+                    "public struct TestType",
+                };
+
+                if (LightupHelpers.SupportsCSharp8)
+                {
+                    data.Add("public interface TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp9)
+                {
+                    data.Add("public record TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp10)
+                {
+                    data.Add("public record class TestType");
+                    data.Add("public record struct TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    data.Add("public union TestType(string, int)");
+                }
+
+                return data;
+            }
+        }
+
         [Fact]
         public async Task TestNoDiagnosticAsync()
         {
@@ -89,44 +125,34 @@ public class TestClass2
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
-        [Fact]
-        public async Task TestClassViolationAsync()
+        /// <summary>
+        /// Verifies that a constant field placed after a non-constant field produces a diagnostic, and that the
+        /// code fix moves the constant field before the non-constant field, for every type declaration kind
+        /// that can contain both constant and non-constant fields.
+        /// </summary>
+        /// <param name="typeDeclarationHeader">The header of the type declaration to test.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Theory]
+        [MemberData(nameof(TypeDeclarationHeaders))]
+        public async Task TestConstantAfterFieldAsync(string typeDeclarationHeader)
         {
-            var testCode = @"
-public class Foo
-{
-    private int Baz = 1;
-    private const int Bar = 2;
-}";
-            var firstDiagnostic = Diagnostic().WithLocation(5, 23);
+            var testCode = $@"
+{typeDeclarationHeader}
+{{
+    private static int nonConstant;
+    private const int [|constant|] = 0;
+}}
+";
 
-            var fixedTestCode = @"
-public class Foo
-{
-    private const int Bar = 2;
-    private int Baz = 1;
-}";
-            await VerifyCSharpFixAsync(testCode, firstDiagnostic, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
-        }
+            var fixedTestCode = $@"
+{typeDeclarationHeader}
+{{
+    private const int constant = 0;
+    private static int nonConstant;
+}}
+";
 
-        [Fact]
-        public async Task TestStructViolationAsync()
-        {
-            var testCode = @"
-public struct Foo
-{
-    private int baz;
-    private const int Bar = 2;
-}";
-            var firstDiagnostic = Diagnostic().WithLocation(5, 23);
-
-            var fixedTestCode = @"
-public struct Foo
-{
-    private const int Bar = 2;
-    private int baz;
-}";
-            await VerifyCSharpFixAsync(testCode, firstDiagnostic, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]

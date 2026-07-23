@@ -7,6 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.LayoutRules;
+    using StyleCop.Analyzers.Lightup;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1506ElementDocumentationHeadersMustNotBeFollowedByBlankLine,
@@ -17,33 +18,58 @@ namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
     /// </summary>
     public class SA1506UnitTests
     {
-        public static TheoryData<string> TypeTestData { get; } = new TheoryData<string>()
+        public static TheoryData<string, string> TypeTestData
         {
-            "class",
-            "struct",
-            "interface",
-            "enum",
-        };
+            get
+            {
+                var data = new TheoryData<string, string>()
+                {
+                    { "class", string.Empty },
+                    { "struct", string.Empty },
+                    { "interface", string.Empty },
+                    { "enum", string.Empty },
+                };
+
+                if (LightupHelpers.SupportsCSharp9)
+                {
+                    data.Add("record", string.Empty);
+                }
+
+                if (LightupHelpers.SupportsCSharp10)
+                {
+                    data.Add("record class", string.Empty);
+                    data.Add("record struct", string.Empty);
+                }
+
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    data.Add("union", "(string, int)");
+                }
+
+                return data;
+            }
+        }
 
         /// <summary>
         /// Verifies that type declarations with valid (or no) documentation will not produce diagnostics.
         /// </summary>
         /// <param name="typeKeyword">The type keyword to test.</param>
+        /// <param name="parameterList">The parameter list to append after the type name, if any.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Theory]
         [MemberData(nameof(TypeTestData))]
-        public async Task TestValidTypeDeclarationAsync(string typeKeyword)
+        public async Task TestValidTypeDeclarationAsync(string typeKeyword, string parameterList)
         {
             var testCode = $@"namespace TestNamespace
 {{
-    public {typeKeyword} TestType1
+    public {typeKeyword} TestType1{parameterList}
     {{
     }}
 
     /// <summary>
     /// This is a test type.
     /// </summary>
-    public {typeKeyword} TestType2
+    public {typeKeyword} TestType2{parameterList}
     {{
     }}
 }}
@@ -56,10 +82,11 @@ namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
         /// Verifies that type declarations with invalid documentation will produce the expected diagnostics.
         /// </summary>
         /// <param name="typeKeyword">The type keyword to test.</param>
+        /// <param name="parameterList">The parameter list to append after the type name, if any.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Theory]
         [MemberData(nameof(TypeTestData))]
-        public async Task TestInvalidTypeDeclarationAsync(string typeKeyword)
+        public async Task TestInvalidTypeDeclarationAsync(string typeKeyword, string parameterList)
         {
             var testCode = $@"namespace TestNamespace
 {{
@@ -67,7 +94,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
     /// This is a test type.
     /// </summary>
 
-    public {typeKeyword} TestType
+    public {typeKeyword} TestType{parameterList}
     {{
     }}
 }}
@@ -78,7 +105,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
     /// <summary>
     /// This is a test type.
     /// </summary>
-    public {typeKeyword} TestType
+    public {typeKeyword} TestType{parameterList}
     {{
     }}
 }}

@@ -9,6 +9,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -93,6 +94,24 @@ public class Foo
                 yield return "void Bar() {}";
                 yield return "int Bar { get; set; }";
                 yield return "struct Bar {}";
+                yield return "enum Bar { Baz }";
+                yield return "Foo() {}";
+
+                if (LightupHelpers.SupportsCSharp9)
+                {
+                    yield return "record Bar {}";
+                }
+
+                if (LightupHelpers.SupportsCSharp10)
+                {
+                    yield return "record class Bar {}";
+                    yield return "record struct Bar {}";
+                }
+
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    yield return "union Bar(string, int) {}";
+                }
             }
         }
 
