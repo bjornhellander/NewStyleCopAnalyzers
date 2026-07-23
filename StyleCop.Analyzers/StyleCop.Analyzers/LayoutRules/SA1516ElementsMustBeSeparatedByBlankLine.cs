@@ -58,7 +58,7 @@ namespace StyleCop.Analyzers.LayoutRules
     /// is multi-line.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1516ElementsMustBeSeparatedByBlankLine : DiagnosticAnalyzer
+    internal class SA1516ElementsMustBeSeparatedByBlankLine : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1516ElementsMustBeSeparatedByBlankLine"/> analyzer.
@@ -119,26 +119,20 @@ namespace StyleCop.Analyzers.LayoutRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
+            context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
+            context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKindEx.ExtensionBlockDeclaration);
 
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
-                context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKindEx.ExtensionBlockDeclaration);
+            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
+            // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
+            // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
+            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
 
-                // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-                // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
-                // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
-                context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
-
-                context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
-                context.RegisterSyntaxNodeAction(NamespaceDeclarationAction, SyntaxKind.NamespaceDeclaration);
-                context.RegisterSyntaxNodeAction(FileScopedNamespaceDeclarationAction, SyntaxKindEx.FileScopedNamespaceDeclaration);
-                context.RegisterSyntaxNodeAction(BasePropertyDeclarationAction, SyntaxKinds.BasePropertyDeclaration);
-            });
+            context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
+            context.RegisterSyntaxNodeAction(NamespaceDeclarationAction, SyntaxKind.NamespaceDeclaration);
+            context.RegisterSyntaxNodeAction(FileScopedNamespaceDeclarationAction, SyntaxKindEx.FileScopedNamespaceDeclaration);
+            context.RegisterSyntaxNodeAction(BasePropertyDeclarationAction, SyntaxKinds.BasePropertyDeclaration);
         }
 
         private static void HandleBasePropertyDeclaration(SyntaxNodeAnalysisContext context)

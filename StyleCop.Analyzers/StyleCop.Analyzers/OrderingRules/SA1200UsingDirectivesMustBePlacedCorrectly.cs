@@ -153,7 +153,7 @@ namespace StyleCop.Analyzers.OrderingRules
     /// are placed outside of the namespace.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1200UsingDirectivesMustBePlacedCorrectly : DiagnosticAnalyzer
+    internal class SA1200UsingDirectivesMustBePlacedCorrectly : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1200UsingDirectivesMustBePlacedCorrectly"/>
@@ -187,16 +187,10 @@ namespace StyleCop.Analyzers.OrderingRules
             ImmutableArray.Create(DescriptorInside);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
-                context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
-            });
+            context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
+            context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
         }
 
         /// <summary>

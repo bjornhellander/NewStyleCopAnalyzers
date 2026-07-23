@@ -18,7 +18,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// right-hand-side of the expression.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1131UseReadableConditions : DiagnosticAnalyzer
+    internal class SA1131UseReadableConditions : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1131UseReadableConditions"/> analyzer.
@@ -48,11 +48,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(BinaryExpressionAction, HandledBinaryExpressionKinds);
         }
 

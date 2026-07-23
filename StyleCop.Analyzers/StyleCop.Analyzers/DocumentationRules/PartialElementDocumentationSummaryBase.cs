@@ -21,7 +21,7 @@ namespace StyleCop.Analyzers.DocumentationRules
     /// This is the base class for analyzers which examine the <c>&lt;summary&gt;</c> or <c>&lt;content&gt;</c> text of
     /// the documentation comment associated with a <c>partial</c> element.
     /// </summary>
-    internal abstract class PartialElementDocumentationSummaryBase : DiagnosticAnalyzer
+    internal abstract class PartialElementDocumentationSummaryBase : DiagnosticAnalyzerBase
     {
         private readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> typeDeclarationAction;
         private readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> methodDeclarationAction;
@@ -33,22 +33,16 @@ namespace StyleCop.Analyzers.DocumentationRules
         }
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
+            context.RegisterSyntaxNodeAction(this.typeDeclarationAction, SyntaxKinds.TypeDeclaration);
 
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxNodeAction(this.typeDeclarationAction, SyntaxKinds.TypeDeclaration);
+            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
+            // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
+            // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
+            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(this.typeDeclarationAction, SyntaxKindEx.UnionDeclaration);
 
-                // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-                // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
-                // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
-                context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(this.typeDeclarationAction, SyntaxKindEx.UnionDeclaration);
-
-                context.RegisterSyntaxNodeAction(this.methodDeclarationAction, SyntaxKind.MethodDeclaration);
-            });
+            context.RegisterSyntaxNodeAction(this.methodDeclarationAction, SyntaxKind.MethodDeclaration);
         }
 
         /// <summary>

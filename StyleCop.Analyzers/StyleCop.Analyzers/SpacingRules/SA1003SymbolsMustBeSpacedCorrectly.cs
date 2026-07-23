@@ -43,7 +43,7 @@ namespace StyleCop.Analyzers.SpacingRules
     /// </code>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1003SymbolsMustBeSpacedCorrectly : DiagnosticAnalyzer
+    internal class SA1003SymbolsMustBeSpacedCorrectly : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1003SymbolsMustBeSpacedCorrectly"/> analyzer.
@@ -196,11 +196,8 @@ namespace StyleCop.Analyzers.SpacingRules
             ImmutableArray.Create(DescriptorPrecededByWhitespace);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(ConstructorDeclarationAction, SyntaxKind.ConstructorDeclaration);
             context.RegisterSyntaxNodeAction(ConditionalExpressionAction, SyntaxKind.ConditionalExpression);
             context.RegisterSyntaxNodeAction(TypeParameterConstraintClauseAction, SyntaxKind.TypeParameterConstraintClause);

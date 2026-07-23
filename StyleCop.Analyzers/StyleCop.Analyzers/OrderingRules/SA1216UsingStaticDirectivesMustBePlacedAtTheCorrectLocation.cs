@@ -25,7 +25,7 @@ namespace StyleCop.Analyzers.OrderingRules
     /// </para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1216UsingStaticDirectivesMustBePlacedAtTheCorrectLocation : DiagnosticAnalyzer
+    internal class SA1216UsingStaticDirectivesMustBePlacedAtTheCorrectLocation : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1216UsingStaticDirectivesMustBePlacedAtTheCorrectLocation"/> analyzer.
@@ -47,11 +47,8 @@ namespace StyleCop.Analyzers.OrderingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
             context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
         }

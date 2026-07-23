@@ -50,7 +50,7 @@ namespace StyleCop.Analyzers.NamingRules
     /// <c>NativeMethods</c> class.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1305FieldNamesMustNotUseHungarianNotation : DiagnosticAnalyzer
+    internal class SA1305FieldNamesMustNotUseHungarianNotation : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1305FieldNamesMustNotUseHungarianNotation"/> analyzer.
@@ -85,24 +85,18 @@ namespace StyleCop.Analyzers.NamingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxNodeAction(VariableDeclarationAction, SyntaxKind.VariableDeclaration);
-                context.RegisterSyntaxNodeAction(ParameterDeclarationAction, SyntaxKind.Parameter);
-                context.RegisterSyntaxNodeAction(CatchDeclarationAction, SyntaxKind.CatchDeclaration);
-                context.RegisterSyntaxNodeAction(QueryContinuationAction, SyntaxKind.QueryContinuation);
-                context.RegisterSyntaxNodeAction(FromClauseAction, SyntaxKind.FromClause);
-                context.RegisterSyntaxNodeAction(LetClauseAction, SyntaxKind.LetClause);
-                context.RegisterSyntaxNodeAction(JoinClauseAction, SyntaxKind.JoinClause);
-                context.RegisterSyntaxNodeAction(JoinIntoClauseAction, SyntaxKind.JoinIntoClause);
-                context.RegisterSyntaxNodeAction(ForEachStatementAction, SyntaxKind.ForEachStatement);
-                context.RegisterSyntaxNodeAction(SingleVariableDesignationAction, SyntaxKindEx.SingleVariableDesignation);
-            });
+            context.RegisterSyntaxNodeAction(VariableDeclarationAction, SyntaxKind.VariableDeclaration);
+            context.RegisterSyntaxNodeAction(ParameterDeclarationAction, SyntaxKind.Parameter);
+            context.RegisterSyntaxNodeAction(CatchDeclarationAction, SyntaxKind.CatchDeclaration);
+            context.RegisterSyntaxNodeAction(QueryContinuationAction, SyntaxKind.QueryContinuation);
+            context.RegisterSyntaxNodeAction(FromClauseAction, SyntaxKind.FromClause);
+            context.RegisterSyntaxNodeAction(LetClauseAction, SyntaxKind.LetClause);
+            context.RegisterSyntaxNodeAction(JoinClauseAction, SyntaxKind.JoinClause);
+            context.RegisterSyntaxNodeAction(JoinIntoClauseAction, SyntaxKind.JoinIntoClause);
+            context.RegisterSyntaxNodeAction(ForEachStatementAction, SyntaxKind.ForEachStatement);
+            context.RegisterSyntaxNodeAction(SingleVariableDesignationAction, SyntaxKindEx.SingleVariableDesignation);
         }
 
         private static class Analyzer

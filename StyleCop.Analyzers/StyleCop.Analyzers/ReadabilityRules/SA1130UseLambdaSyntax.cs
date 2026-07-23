@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// provide equivalent behavior with the syntax <c>(parameters) => { }</c>.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1130UseLambdaSyntax : DiagnosticAnalyzer
+    internal class SA1130UseLambdaSyntax : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1130UseLambdaSyntax"/> analyzer.
@@ -39,11 +39,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(AnonymousMethodExpressionAction, SyntaxKind.AnonymousMethodExpression);
         }
 
@@ -53,6 +50,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// <param name="symbol">The symbol containing information about the method invocation.</param>
         /// <param name="argumentIndex">The index of the argument containing the delegate.</param>
         /// <returns>A parameter list for the delegate parameters.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1202:Elements should be ordered by access", Justification = "Ok")]
         internal static ParameterListSyntax GetDelegateParameterList(ISymbol symbol, int argumentIndex)
         {
             ImmutableArray<IParameterSymbol> parameterList;

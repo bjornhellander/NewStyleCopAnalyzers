@@ -26,7 +26,7 @@ namespace StyleCop.Analyzers.OrderingRules
     /// </para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1217UsingStaticDirectivesMustBeOrderedAlphabetically : DiagnosticAnalyzer
+    internal class SA1217UsingStaticDirectivesMustBeOrderedAlphabetically : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1217UsingStaticDirectivesMustBeOrderedAlphabetically"/> analyzer.
@@ -48,16 +48,10 @@ namespace StyleCop.Analyzers.OrderingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
-                context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
-            });
+            context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
+            context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
         }
 
         private static void HandleCompilationUnit(SyntaxNodeAnalysisContext context, StyleCopSettings settings)

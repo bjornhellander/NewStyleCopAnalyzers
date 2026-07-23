@@ -35,7 +35,7 @@ namespace StyleCop.Analyzers.OrderingRules
     /// level than needed.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1206DeclarationKeywordsMustFollowOrder : DiagnosticAnalyzer
+    internal class SA1206DeclarationKeywordsMustFollowOrder : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1206DeclarationKeywordsMustFollowOrder"/> analyzer.
@@ -75,11 +75,8 @@ namespace StyleCop.Analyzers.OrderingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(DeclarationAction, HandledSyntaxKinds);
 
             // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==

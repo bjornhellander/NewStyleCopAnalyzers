@@ -26,7 +26,7 @@ namespace StyleCop.Analyzers.NamingRules
     /// within a <c>NativeMethods</c> class.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1303ConstFieldNamesMustBeginWithUpperCaseLetter : DiagnosticAnalyzer
+    internal class SA1303ConstFieldNamesMustBeginWithUpperCaseLetter : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1303ConstFieldNamesMustBeginWithUpperCaseLetter"/>
@@ -48,11 +48,8 @@ namespace StyleCop.Analyzers.NamingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSymbolAction(FieldDeclarationAction, SymbolKind.Field);
         }
 

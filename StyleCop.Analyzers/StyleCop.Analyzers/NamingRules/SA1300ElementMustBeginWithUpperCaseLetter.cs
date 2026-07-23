@@ -37,7 +37,7 @@ namespace StyleCop.Analyzers.NamingRules
     /// term to the <c>allowedNamespaceComponents</c> list.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1300ElementMustBeginWithUpperCaseLetter : DiagnosticAnalyzer
+    internal class SA1300ElementMustBeginWithUpperCaseLetter : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1300ElementMustBeginWithUpperCaseLetter"/> analyzer.
@@ -70,36 +70,30 @@ namespace StyleCop.Analyzers.NamingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
+            // Note: Interfaces are handled by SA1302
+            // Note: Fields are handled by SA1303 through SA1311
+            context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
+            context.RegisterSyntaxNodeAction(ClassDeclarationAction, SyntaxKind.ClassDeclaration);
+            context.RegisterSyntaxNodeAction(RecordDeclarationAction, SyntaxKindEx.RecordDeclaration);
+            context.RegisterSyntaxNodeAction(RecordDeclarationAction, SyntaxKindEx.RecordStructDeclaration);
+            context.RegisterSyntaxNodeAction(EnumDeclarationAction, SyntaxKind.EnumDeclaration);
+            context.RegisterSyntaxNodeAction(EnumMemberDeclarationAction, SyntaxKind.EnumMemberDeclaration);
+            context.RegisterSyntaxNodeAction(StructDeclarationAction, SyntaxKind.StructDeclaration);
 
-            context.RegisterCompilationStartAction(context =>
-            {
-                // Note: Interfaces are handled by SA1302
-                // Note: Fields are handled by SA1303 through SA1311
-                context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
-                context.RegisterSyntaxNodeAction(ClassDeclarationAction, SyntaxKind.ClassDeclaration);
-                context.RegisterSyntaxNodeAction(RecordDeclarationAction, SyntaxKindEx.RecordDeclaration);
-                context.RegisterSyntaxNodeAction(RecordDeclarationAction, SyntaxKindEx.RecordStructDeclaration);
-                context.RegisterSyntaxNodeAction(EnumDeclarationAction, SyntaxKind.EnumDeclaration);
-                context.RegisterSyntaxNodeAction(EnumMemberDeclarationAction, SyntaxKind.EnumMemberDeclaration);
-                context.RegisterSyntaxNodeAction(StructDeclarationAction, SyntaxKind.StructDeclaration);
+            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
+            // SyntaxKindEx.UnionDeclaration. Register it separately (with a duplicate-node guard, see the
+            // helper for why it is needed), reusing the same handler since it operates on StructDeclarationSyntax.
+            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(StructDeclarationAction, SyntaxKindEx.UnionDeclaration);
 
-                // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-                // SyntaxKindEx.UnionDeclaration. Register it separately (with a duplicate-node guard, see the
-                // helper for why it is needed), reusing the same handler since it operates on StructDeclarationSyntax.
-                context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(StructDeclarationAction, SyntaxKindEx.UnionDeclaration);
-
-                context.RegisterSyntaxNodeAction(DelegateDeclarationAction, SyntaxKind.DelegateDeclaration);
-                context.RegisterSyntaxNodeAction(EventDeclarationAction, SyntaxKind.EventDeclaration);
-                context.RegisterSyntaxNodeAction(EventFieldDeclarationAction, SyntaxKind.EventFieldDeclaration);
-                context.RegisterSyntaxNodeAction(MethodDeclarationAction, SyntaxKind.MethodDeclaration);
-                context.RegisterSyntaxNodeAction(LocalFunctionStatementAction, SyntaxKindEx.LocalFunctionStatement);
-                context.RegisterSyntaxNodeAction(PropertyDeclarationAction, SyntaxKind.PropertyDeclaration);
-                context.RegisterSyntaxNodeAction(ParameterAction, SyntaxKind.Parameter);
-            });
+            context.RegisterSyntaxNodeAction(DelegateDeclarationAction, SyntaxKind.DelegateDeclaration);
+            context.RegisterSyntaxNodeAction(EventDeclarationAction, SyntaxKind.EventDeclaration);
+            context.RegisterSyntaxNodeAction(EventFieldDeclarationAction, SyntaxKind.EventFieldDeclaration);
+            context.RegisterSyntaxNodeAction(MethodDeclarationAction, SyntaxKind.MethodDeclaration);
+            context.RegisterSyntaxNodeAction(LocalFunctionStatementAction, SyntaxKindEx.LocalFunctionStatement);
+            context.RegisterSyntaxNodeAction(PropertyDeclarationAction, SyntaxKind.PropertyDeclaration);
+            context.RegisterSyntaxNodeAction(ParameterAction, SyntaxKind.Parameter);
         }
 
         private static void HandleBaseNamespaceDeclaration(SyntaxNodeAnalysisContext context, StyleCopSettings settings)

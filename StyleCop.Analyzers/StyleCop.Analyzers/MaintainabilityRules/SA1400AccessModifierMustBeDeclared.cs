@@ -26,7 +26,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     /// for the reader to make assumptions about the code, improving the readability of the code.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1400AccessModifierMustBeDeclared : DiagnosticAnalyzer
+    internal class SA1400AccessModifierMustBeDeclared : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1400AccessModifierMustBeDeclared"/> analyzer.
@@ -54,11 +54,8 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
 
             // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==

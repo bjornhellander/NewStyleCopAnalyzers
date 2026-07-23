@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using StyleCop.Analyzers.Lightup;
 
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1141UseTupleSyntax : DiagnosticAnalyzer
+    internal class SA1141UseTupleSyntax : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1141UseTupleSyntax"/> analyzer.
@@ -27,7 +27,6 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SA1141MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1141Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
 
-        private static readonly Action<CompilationStartAnalysisContext> CompilationStartAction = HandleCompilationStart;
         private static readonly Action<SyntaxNodeAnalysisContext> MethodDeclarationAction = HandleMethodDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> ConversionOperatorAction = HandleConversionOperator;
         private static readonly Action<SyntaxNodeAnalysisContext> PropertyDeclarationAction = HandleBasePropertyDeclaration;
@@ -44,32 +43,20 @@ namespace StyleCop.Analyzers.ReadabilityRules
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(CompilationStartAction);
-
             context.RegisterSyntaxNodeAction(MethodDeclarationAction, SyntaxKind.MethodDeclaration);
             context.RegisterSyntaxNodeAction(ConversionOperatorAction, SyntaxKind.ConversionOperatorDeclaration);
             context.RegisterSyntaxNodeAction(PropertyDeclarationAction, SyntaxKind.PropertyDeclaration);
             context.RegisterSyntaxNodeAction(IndexerDeclarationAction, SyntaxKind.IndexerDeclaration);
             context.RegisterSyntaxNodeAction(FieldDeclarationAction, SyntaxKind.FieldDeclaration);
-
             context.RegisterSyntaxNodeAction(DelegateDeclarationAction, SyntaxKind.DelegateDeclaration);
             context.RegisterSyntaxNodeAction(LambdaExpressionAction, SyntaxKinds.LambdaExpression);
-        }
 
-        private static void HandleCompilationStart(CompilationStartAnalysisContext context)
-        {
             var expressionType = context.Compilation.GetTypeByMetadataName("System.Linq.Expressions.Expression`1");
-
             context.RegisterSyntaxNodeAction(context => HandleObjectCreationExpression(context, expressionType), SyntaxKind.ObjectCreationExpression);
             context.RegisterSyntaxNodeAction(context => HandleInvocationExpression(context, expressionType), SyntaxKind.InvocationExpression);
-
             context.RegisterSyntaxNodeAction(context => HandleDefaultExpression(context, expressionType), SyntaxKind.DefaultExpression);
-
             context.RegisterSyntaxNodeAction(context => HandleCastExpression(context, expressionType), SyntaxKind.CastExpression);
         }
 

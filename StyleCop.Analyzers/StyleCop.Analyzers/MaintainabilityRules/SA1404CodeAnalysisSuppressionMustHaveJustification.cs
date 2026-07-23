@@ -32,7 +32,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     /// </code>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1404CodeAnalysisSuppressionMustHaveJustification : DiagnosticAnalyzer
+    internal class SA1404CodeAnalysisSuppressionMustHaveJustification : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The placeholder to insert as part of the code fix.
@@ -52,22 +52,12 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         private static readonly DiagnosticDescriptor Descriptor =
             new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
 
-        private static readonly Action<CompilationStartAnalysisContext> CompilationStartAction = HandleCompilationStart;
-
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
-        {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(CompilationStartAction);
-        }
-
-        private static void HandleCompilationStart(CompilationStartAnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             AnalyzerInstance instance = new AnalyzerInstance(context.Compilation.GetOrCreateUsingAliasCache());
             context.RegisterSyntaxNodeAction(instance.HandleAttributeNode, SyntaxKind.Attribute);

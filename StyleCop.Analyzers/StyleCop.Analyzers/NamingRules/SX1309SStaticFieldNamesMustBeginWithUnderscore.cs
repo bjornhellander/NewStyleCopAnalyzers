@@ -29,7 +29,7 @@ namespace StyleCop.Analyzers.NamingRules
     /// within a <c>NativeMethods</c> class.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SX1309SStaticFieldNamesMustBeginWithUnderscore : DiagnosticAnalyzer
+    internal class SX1309SStaticFieldNamesMustBeginWithUnderscore : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SX1309SStaticFieldNamesMustBeginWithUnderscore"/>
@@ -51,11 +51,8 @@ namespace StyleCop.Analyzers.NamingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(FieldDeclarationAction, SyntaxKind.FieldDeclaration);
         }
 

@@ -21,7 +21,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// statement should begin on a new line.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1107CodeMustNotContainMultipleStatementsOnOneLine : DiagnosticAnalyzer
+    internal class SA1107CodeMustNotContainMultipleStatementsOnOneLine : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1107CodeMustNotContainMultipleStatementsOnOneLine"/>
@@ -43,11 +43,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(BlockAction, SyntaxKind.Block);
         }
 

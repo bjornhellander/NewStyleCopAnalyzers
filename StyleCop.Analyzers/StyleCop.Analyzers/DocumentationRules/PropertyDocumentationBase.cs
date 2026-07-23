@@ -18,7 +18,7 @@ namespace StyleCop.Analyzers.DocumentationRules
     /// <summary>
     /// This is the base class for analyzers which examine the <c>&lt;value&gt;</c> text of a documentation comment on a property declaration.
     /// </summary>
-    internal abstract class PropertyDocumentationBase : DiagnosticAnalyzer
+    internal abstract class PropertyDocumentationBase : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The key used for signalling that no codefix should be offered.
@@ -39,15 +39,9 @@ namespace StyleCop.Analyzers.DocumentationRules
         protected abstract string XmlTagToHandle { get; }
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxNodeAction(this.propertyDeclarationAction, SyntaxKind.PropertyDeclaration);
-            });
+            context.RegisterSyntaxNodeAction(this.propertyDeclarationAction, SyntaxKind.PropertyDeclaration);
         }
 
         /// <summary>

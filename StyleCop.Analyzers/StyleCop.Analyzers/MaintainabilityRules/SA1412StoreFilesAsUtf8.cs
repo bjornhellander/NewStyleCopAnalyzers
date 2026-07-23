@@ -24,7 +24,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     /// </para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1412StoreFilesAsUtf8 : DiagnosticAnalyzer
+    internal class SA1412StoreFilesAsUtf8 : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the
@@ -56,11 +56,8 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxTreeAction(SyntaxTreeAction);
         }
 

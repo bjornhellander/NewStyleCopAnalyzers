@@ -23,7 +23,7 @@ namespace StyleCop.Analyzers.SpacingRules
     /// character on the line.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1016OpeningAttributeBracketsMustBeSpacedCorrectly : DiagnosticAnalyzer
+    internal class SA1016OpeningAttributeBracketsMustBeSpacedCorrectly : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1016OpeningAttributeBracketsMustBeSpacedCorrectly"/>
@@ -45,11 +45,8 @@ namespace StyleCop.Analyzers.SpacingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxTreeAction(SyntaxTreeAction);
         }
 

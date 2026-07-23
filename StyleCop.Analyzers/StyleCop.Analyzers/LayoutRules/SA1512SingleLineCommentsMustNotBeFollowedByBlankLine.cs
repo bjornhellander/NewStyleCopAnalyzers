@@ -73,7 +73,7 @@ namespace StyleCop.Analyzers.LayoutRules
     /// </code>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1512SingleLineCommentsMustNotBeFollowedByBlankLine : DiagnosticAnalyzer
+    internal class SA1512SingleLineCommentsMustNotBeFollowedByBlankLine : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1512SingleLineCommentsMustNotBeFollowedByBlankLine"/>
@@ -88,22 +88,12 @@ namespace StyleCop.Analyzers.LayoutRules
         private static readonly DiagnosticDescriptor Descriptor =
             new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.LayoutRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
 
-        private static readonly Action<CompilationStartAnalysisContext> CompilationStartAction = HandleCompilationStart;
-
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
-        {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(CompilationStartAction);
-        }
-
-        private static void HandleCompilationStart(CompilationStartAnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             context.RegisterSyntaxTreeAction(c => HandleSyntaxTreeAnalysis(c, context.Compilation));
         }

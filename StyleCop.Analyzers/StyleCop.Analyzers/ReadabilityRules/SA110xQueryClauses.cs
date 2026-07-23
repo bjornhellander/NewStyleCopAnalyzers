@@ -23,7 +23,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// <seealso href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1104.md">SA1104 Query clause should begin on new line when previous clause spans multiple lines</seealso>
     /// <seealso href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1105.md">SA1105 Query clauses spanning multiple lines should begin on own line</seealso>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA110xQueryClauses : DiagnosticAnalyzer
+    internal class SA110xQueryClauses : DiagnosticAnalyzerBase
     {
         private const string SA1102Identifier = "SA1102";
         private const string SA1103Identifier = "SA1103";
@@ -89,11 +89,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 SA1105Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(QueryExpressionAction, SyntaxKind.QueryExpression);
         }
 

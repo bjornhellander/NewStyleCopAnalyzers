@@ -122,7 +122,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// </list>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1121UseBuiltInTypeAlias : DiagnosticAnalyzer
+    internal class SA1121UseBuiltInTypeAlias : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1121UseBuiltInTypeAlias"/> analyzer.
@@ -136,22 +136,12 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly DiagnosticDescriptor Descriptor =
             new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink, WellKnownDiagnosticTags.Unnecessary);
 
-        private static readonly Action<CompilationStartAnalysisContext> CompilationStartAction = HandleCompilationStart;
-
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
-        {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(CompilationStartAction);
-        }
-
-        private static void HandleCompilationStart(CompilationStartAnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             Analyzer analyzer = new Analyzer(context.Compilation.GetOrCreateUsingAliasCache());
             context.RegisterSyntaxNodeAction(analyzer.HandleIdentifierNameSyntax, SyntaxKind.IdentifierName);

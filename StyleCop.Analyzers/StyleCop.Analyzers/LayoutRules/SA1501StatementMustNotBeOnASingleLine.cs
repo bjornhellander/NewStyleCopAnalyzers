@@ -44,7 +44,7 @@ namespace StyleCop.Analyzers.LayoutRules
     /// </code>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1501StatementMustNotBeOnASingleLine : DiagnosticAnalyzer
+    internal class SA1501StatementMustNotBeOnASingleLine : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1501StatementMustNotBeOnASingleLine"/> analyzer.
@@ -65,24 +65,15 @@ namespace StyleCop.Analyzers.LayoutRules
         private static readonly ImmutableDictionary<string, string> SuppressCodeFixProperties =
             ImmutableDictionary<string, string>.Empty.Add(SuppressCodeFixKey, SuppressCodeFixValue);
 
-        private static readonly Action<CompilationStartAnalysisContext> CompilationStartAction = HandleCompilationStart;
-
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(HandleBlock, SyntaxKind.Block);
-            context.RegisterCompilationStartAction(CompilationStartAction);
-        }
 
-        private static void HandleCompilationStart(CompilationStartAnalysisContext context)
-        {
             // If SA1503 is suppressed, we need to handle compound blocks as well.
             if (context.IsAnalyzerSuppressed(SA1503BracesMustNotBeOmitted.Descriptor))
             {

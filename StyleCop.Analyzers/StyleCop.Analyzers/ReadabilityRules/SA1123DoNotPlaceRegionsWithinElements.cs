@@ -23,7 +23,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// decisions as the code is maintained over time.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1123DoNotPlaceRegionsWithinElements : DiagnosticAnalyzer
+    internal class SA1123DoNotPlaceRegionsWithinElements : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1123DoNotPlaceRegionsWithinElements"/> analyzer.
@@ -44,11 +44,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(RegionDirectiveTriviaAction, SyntaxKind.RegionDirectiveTrivia);
         }
 
@@ -62,6 +59,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// <exception cref="ArgumentNullException">
         /// If <paramref name="regionSyntax"/> is <see langword="null"/>.
         /// </exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1202:Elements should be ordered by access", Justification = "Ok")]
         internal static bool IsCompletelyContainedInBody(RegionDirectiveTriviaSyntax regionSyntax)
         {
             if (regionSyntax == null)

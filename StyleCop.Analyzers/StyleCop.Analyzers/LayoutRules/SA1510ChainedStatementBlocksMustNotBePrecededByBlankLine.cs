@@ -39,7 +39,7 @@ namespace StyleCop.Analyzers.LayoutRules
     /// </code>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1510ChainedStatementBlocksMustNotBePrecededByBlankLine : DiagnosticAnalyzer
+    internal class SA1510ChainedStatementBlocksMustNotBePrecededByBlankLine : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the
@@ -63,11 +63,8 @@ namespace StyleCop.Analyzers.LayoutRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(ElseStatementAction, SyntaxKind.ElseClause);
             context.RegisterSyntaxNodeAction(CatchClauseAction, SyntaxKind.CatchClause);
             context.RegisterSyntaxNodeAction(FinallyClauseAction, SyntaxKind.FinallyClause);

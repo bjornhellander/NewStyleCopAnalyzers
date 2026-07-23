@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.SpecialRules
     /// </summary>
     [NoCodeFix("The necessary actions for this code fix are not supported by the analysis infrastructure.")]
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA0001XmlCommentAnalysisDisabled : DiagnosticAnalyzer
+    internal class SA0001XmlCommentAnalysisDisabled : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA0001XmlCommentAnalysisDisabled"/> analyzer.
@@ -31,22 +31,12 @@ namespace StyleCop.Analyzers.SpecialRules
         private static readonly DiagnosticDescriptor Descriptor =
             new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.SpecialRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink, customTags: new string[] { "CompilationEnd" });
 
-        private static readonly Action<CompilationStartAnalysisContext> CompilationStartAction = HandleCompilationStart;
-
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
-        {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(CompilationStartAction);
-        }
-
-        private static void HandleCompilationStart(CompilationStartAnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             Analyzer analyzer = new Analyzer();
             context.RegisterSyntaxTreeAction(analyzer.HandleSyntaxTree);

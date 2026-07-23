@@ -40,7 +40,7 @@ namespace StyleCop.Analyzers.OrderingRules
     /// </code>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1213EventAccessorsMustFollowOrder : DiagnosticAnalyzer
+    internal class SA1213EventAccessorsMustFollowOrder : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1213EventAccessorsMustFollowOrder"/> analyzer.
@@ -61,11 +61,8 @@ namespace StyleCop.Analyzers.OrderingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(EventDeclarationAction, SyntaxKind.EventDeclaration);
         }
 

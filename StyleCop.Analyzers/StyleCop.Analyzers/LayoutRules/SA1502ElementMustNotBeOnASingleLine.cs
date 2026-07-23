@@ -38,7 +38,7 @@ namespace StyleCop.Analyzers.LayoutRules
     /// all on a single line, as long as the accessor is short.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1502ElementMustNotBeOnASingleLine : DiagnosticAnalyzer
+    internal class SA1502ElementMustNotBeOnASingleLine : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1502ElementMustNotBeOnASingleLine"/> analyzer.
@@ -63,11 +63,8 @@ namespace StyleCop.Analyzers.LayoutRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
             context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.ExtensionBlockDeclaration);
 

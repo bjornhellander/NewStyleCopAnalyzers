@@ -35,7 +35,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// call.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1101PrefixLocalCallsWithThis : DiagnosticAnalyzer
+    internal class SA1101PrefixLocalCallsWithThis : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1101PrefixLocalCallsWithThis"/> analyzer.
@@ -57,11 +57,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(MemberAccessExpressionAction, SyntaxKind.SimpleMemberAccessExpression);
             context.RegisterSyntaxNodeAction(SimpleNameAction, SyntaxKinds.SimpleName);
         }

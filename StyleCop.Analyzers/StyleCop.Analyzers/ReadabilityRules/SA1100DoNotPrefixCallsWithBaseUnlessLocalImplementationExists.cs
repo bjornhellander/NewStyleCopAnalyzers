@@ -53,7 +53,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// <c>base.</c>.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1100DoNotPrefixCallsWithBaseUnlessLocalImplementationExists : DiagnosticAnalyzer
+    internal class SA1100DoNotPrefixCallsWithBaseUnlessLocalImplementationExists : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the
@@ -75,11 +75,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(BaseExpressionAction, SyntaxKind.BaseExpression);
         }
 

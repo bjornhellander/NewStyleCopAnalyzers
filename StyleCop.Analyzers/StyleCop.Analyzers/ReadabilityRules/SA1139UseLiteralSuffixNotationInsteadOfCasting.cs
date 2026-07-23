@@ -19,7 +19,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// floating point number, and "M" for a decimal number.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1139UseLiteralSuffixNotationInsteadOfCasting : DiagnosticAnalyzer
+    internal class SA1139UseLiteralSuffixNotationInsteadOfCasting : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1139UseLiteralSuffixNotationInsteadOfCasting"/> analyzer.
@@ -32,7 +32,6 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1139Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
 
         private static readonly DiagnosticDescriptor Descriptor = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
-        private static readonly Action<CompilationStartAnalysisContext> CompilationStartAction = HandleCompilationStart;
         private static readonly Action<SyntaxNodeAnalysisContext> CastExpressionAction = HandleCastExpression;
 
         /// <inheritdoc/>
@@ -40,14 +39,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
-        {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-            context.RegisterCompilationStartAction(CompilationStartAction);
-        }
-
-        private static void HandleCompilationStart(CompilationStartAnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             context.RegisterSyntaxNodeAction(CastExpressionAction, SyntaxKind.CastExpression);
         }

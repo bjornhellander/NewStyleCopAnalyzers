@@ -26,7 +26,7 @@ namespace StyleCop.Analyzers.SpacingRules
     /// <para>For these reasons, trailing whitespace should be avoided.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1028CodeMustNotContainTrailingWhitespace : DiagnosticAnalyzer
+    internal class SA1028CodeMustNotContainTrailingWhitespace : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1028CodeMustNotContainTrailingWhitespace"/> analyzer.
@@ -46,12 +46,9 @@ namespace StyleCop.Analyzers.SpacingRules
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
             ImmutableArray.Create(Descriptor);
 
-        /// <inheritdoc />
-        public override void Initialize(AnalysisContext context)
+        /// <inheritdoc/>
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxTreeAction(SyntaxTreeAction);
         }
 

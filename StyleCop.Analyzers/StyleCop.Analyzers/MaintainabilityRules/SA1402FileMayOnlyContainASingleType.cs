@@ -11,6 +11,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
+    using StyleCop.Analyzers;
     using StyleCop.Analyzers.Helpers;
     using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Settings.ObjectModel;
@@ -29,7 +30,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     /// <para>It is also possible to place multiple parts of the same partial type within the same file.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1402FileMayOnlyContainASingleType : DiagnosticAnalyzer
+    internal class SA1402FileMayOnlyContainASingleType : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1402FileMayOnlyContainASingleType"/> analyzer.
@@ -50,15 +51,9 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxTreeAction(SyntaxTreeAction);
-            });
+            context.RegisterSyntaxTreeAction(SyntaxTreeAction);
         }
 
         private static void HandleSyntaxTree(SyntaxTreeAnalysisContext context, StyleCopSettings settings)

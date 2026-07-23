@@ -32,7 +32,7 @@ namespace StyleCop.Analyzers.LayoutRules
     /// lines, to increase the readability and maintainability of the code.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1519BracesMustNotBeOmittedFromMultiLineChildStatement : DiagnosticAnalyzer
+    internal class SA1519BracesMustNotBeOmittedFromMultiLineChildStatement : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1519BracesMustNotBeOmittedFromMultiLineChildStatement"/> analyzer.
@@ -63,22 +63,16 @@ namespace StyleCop.Analyzers.LayoutRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxNodeAction(IfStatementAction, SyntaxKind.IfStatement);
-                context.RegisterSyntaxNodeAction(DoStatementAction, SyntaxKind.DoStatement);
-                context.RegisterSyntaxNodeAction(WhileStatementAction, SyntaxKind.WhileStatement);
-                context.RegisterSyntaxNodeAction(ForStatementAction, SyntaxKind.ForStatement);
-                context.RegisterSyntaxNodeAction(ForEachStatementAction, SyntaxKind.ForEachStatement);
-                context.RegisterSyntaxNodeAction(LockStatementAction, SyntaxKind.LockStatement);
-                context.RegisterSyntaxNodeAction(FixedStatementAction, SyntaxKind.FixedStatement);
-                context.RegisterSyntaxNodeAction(UsingStatementAction, SyntaxKind.UsingStatement);
-            });
+            context.RegisterSyntaxNodeAction(IfStatementAction, SyntaxKind.IfStatement);
+            context.RegisterSyntaxNodeAction(DoStatementAction, SyntaxKind.DoStatement);
+            context.RegisterSyntaxNodeAction(WhileStatementAction, SyntaxKind.WhileStatement);
+            context.RegisterSyntaxNodeAction(ForStatementAction, SyntaxKind.ForStatement);
+            context.RegisterSyntaxNodeAction(ForEachStatementAction, SyntaxKind.ForEachStatement);
+            context.RegisterSyntaxNodeAction(LockStatementAction, SyntaxKind.LockStatement);
+            context.RegisterSyntaxNodeAction(FixedStatementAction, SyntaxKind.FixedStatement);
+            context.RegisterSyntaxNodeAction(UsingStatementAction, SyntaxKind.UsingStatement);
         }
 
         private static void HandleIfStatement(SyntaxNodeAnalysisContext context)

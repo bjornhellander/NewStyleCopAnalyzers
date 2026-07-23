@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using StyleCop.Analyzers.Lightup;
 
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1137ElementsShouldHaveTheSameIndentation : DiagnosticAnalyzer
+    internal class SA1137ElementsShouldHaveTheSameIndentation : DiagnosticAnalyzerBase
     {
         public const string ExpectedIndentationKey = "ExpectedIndentation";
 
@@ -58,11 +58,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
             context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);

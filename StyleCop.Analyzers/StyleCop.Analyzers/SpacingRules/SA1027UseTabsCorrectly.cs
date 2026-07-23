@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.SpacingRules
     /// The code contains a tab or space character which is not consistent with the current project settings.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1027UseTabsCorrectly : DiagnosticAnalyzer
+    internal class SA1027UseTabsCorrectly : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1027UseTabsCorrectly"/> analyzer.
@@ -49,15 +49,9 @@ namespace StyleCop.Analyzers.SpacingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxTreeAction(SyntaxTreeAction);
-            });
+            context.RegisterSyntaxTreeAction(SyntaxTreeAction);
         }
 
         private static void HandleSyntaxTree(SyntaxTreeAnalysisContext context, StyleCopSettings settings)

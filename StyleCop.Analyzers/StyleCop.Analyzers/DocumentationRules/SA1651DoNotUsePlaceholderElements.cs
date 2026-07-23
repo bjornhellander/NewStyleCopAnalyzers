@@ -35,7 +35,7 @@ namespace StyleCop.Analyzers.DocumentationRules
     /// <para>Placeholder elements should be reviewed and removed from documentation.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1651DoNotUsePlaceholderElements : DiagnosticAnalyzer
+    internal class SA1651DoNotUsePlaceholderElements : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1651DoNotUsePlaceholderElements"/>
@@ -66,11 +66,8 @@ namespace StyleCop.Analyzers.DocumentationRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(XmlElementAction, SyntaxKind.XmlElement);
             context.RegisterSyntaxNodeAction(XmlEmptyElementAction, SyntaxKind.XmlEmptyElement);
         }

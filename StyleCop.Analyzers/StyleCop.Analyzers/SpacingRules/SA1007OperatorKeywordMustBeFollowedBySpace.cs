@@ -26,7 +26,7 @@ namespace StyleCop.Analyzers.SpacingRules
     /// </code>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1007OperatorKeywordMustBeFollowedBySpace : DiagnosticAnalyzer
+    internal class SA1007OperatorKeywordMustBeFollowedBySpace : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1007OperatorKeywordMustBeFollowedBySpace"/> analyzer.
@@ -47,11 +47,8 @@ namespace StyleCop.Analyzers.SpacingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxTreeAction(SyntaxTreeAction);
         }
 

@@ -34,7 +34,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     /// </code>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1410RemoveDelegateParenthesisWhenPossible : DiagnosticAnalyzer
+    internal class SA1410RemoveDelegateParenthesisWhenPossible : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1410RemoveDelegateParenthesisWhenPossible"/> analyzer.
@@ -55,11 +55,8 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(AnonymousMethodExpressionAction, SyntaxKind.AnonymousMethodExpression);
         }
 

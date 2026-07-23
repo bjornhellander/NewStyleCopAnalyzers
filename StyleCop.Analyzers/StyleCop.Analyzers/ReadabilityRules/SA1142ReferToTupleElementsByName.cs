@@ -16,7 +16,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using StyleCop.Analyzers.Lightup;
 
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1142ReferToTupleElementsByName : DiagnosticAnalyzer
+    internal class SA1142ReferToTupleElementsByName : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1142ReferToTupleElementsByName"/> analyzer.
@@ -37,11 +37,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             if (LightupHelpers.SupportsIOperation)
             {
                 context.RegisterOperationAction(FieldReferenceOperationAction, OperationKindEx.FieldReference);

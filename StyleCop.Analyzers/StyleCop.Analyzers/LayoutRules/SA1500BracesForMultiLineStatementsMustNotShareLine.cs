@@ -55,7 +55,7 @@ namespace StyleCop.Analyzers.LayoutRules
     /// </code>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1500BracesForMultiLineStatementsMustNotShareLine : DiagnosticAnalyzer
+    internal class SA1500BracesForMultiLineStatementsMustNotShareLine : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the
@@ -83,28 +83,22 @@ namespace StyleCop.Analyzers.LayoutRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
+            context.RegisterSyntaxNodeAction(NamespaceDeclarationAction, SyntaxKind.NamespaceDeclaration);
+            context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
+            context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.ExtensionBlockDeclaration);
 
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxNodeAction(NamespaceDeclarationAction, SyntaxKind.NamespaceDeclaration);
-                context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
-                context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.ExtensionBlockDeclaration);
+            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
+            // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.BaseTypeDeclaration.
+            // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
+            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(BaseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
 
-                // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-                // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.BaseTypeDeclaration.
-                // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
-                context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(BaseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
-
-                context.RegisterSyntaxNodeAction(AccessorListAction, SyntaxKind.AccessorList);
-                context.RegisterSyntaxNodeAction(BlockAction, SyntaxKind.Block);
-                context.RegisterSyntaxNodeAction(SwitchStatementAction, SyntaxKind.SwitchStatement);
-                context.RegisterSyntaxNodeAction(InitializerExpressionAction, SyntaxKinds.InitializerExpression);
-                context.RegisterSyntaxNodeAction(AnonymousObjectCreationExpressionAction, SyntaxKind.AnonymousObjectCreationExpression);
-            });
+            context.RegisterSyntaxNodeAction(AccessorListAction, SyntaxKind.AccessorList);
+            context.RegisterSyntaxNodeAction(BlockAction, SyntaxKind.Block);
+            context.RegisterSyntaxNodeAction(SwitchStatementAction, SyntaxKind.SwitchStatement);
+            context.RegisterSyntaxNodeAction(InitializerExpressionAction, SyntaxKinds.InitializerExpression);
+            context.RegisterSyntaxNodeAction(AnonymousObjectCreationExpressionAction, SyntaxKind.AnonymousObjectCreationExpression);
         }
 
         private static void HandleNamespaceDeclaration(SyntaxNodeAnalysisContext context, StyleCopSettings settings)

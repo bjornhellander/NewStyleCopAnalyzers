@@ -18,7 +18,7 @@ namespace StyleCop.Analyzers.NamingRules
     /// letter T. Type parameter names should always begin with T. For example, <c>T</c> or <c>TKey</c>.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1314TypeParameterNamesMustBeginWithT : DiagnosticAnalyzer
+    internal class SA1314TypeParameterNamesMustBeginWithT : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1314TypeParameterNamesMustBeginWithT"/> analyzer.
@@ -39,11 +39,8 @@ namespace StyleCop.Analyzers.NamingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(TypeParameterAction, SyntaxKind.TypeParameter);
         }
 

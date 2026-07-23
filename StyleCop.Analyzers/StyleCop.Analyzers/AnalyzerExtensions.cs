@@ -145,30 +145,6 @@ namespace StyleCop.Analyzers
                 syntaxKind);
         }
 
-        /// <summary>
-        /// Register an action to be executed at completion of semantic analysis of a <see cref="SyntaxNode"/> with
-        /// the given <paramref name="syntaxKind"/>, guarding against the analyzer driver invoking the action more
-        /// than once for the same node. See
-        /// <see cref="RegisterSyntaxNodeActionWithDuplicateNodeGuard{TLanguageKindEnum}(CompilationStartAnalysisContext, Action{SyntaxNodeAnalysisContext}, TLanguageKindEnum)"/>
-        /// for details on why this guard is needed. This overload is for analyzers that register their actions
-        /// directly against <see cref="AnalysisContext"/> rather than through a compilation start action; the guard
-        /// dictionary is still scoped to a single compilation.
-        /// </summary>
-        /// <param name="context">The analysis context.</param>
-        /// <param name="action">Action to be executed at completion of semantic analysis of a
-        /// <see cref="SyntaxNode"/>.</param>
-        /// <param name="syntaxKind">The (experimental) kind of syntax that should be analyzed.</param>
-        /// <typeparam name="TLanguageKindEnum">Enum type giving the syntax node kinds of the source language for which
-        /// the action applies.</typeparam>
-        public static void RegisterSyntaxNodeActionWithDuplicateNodeGuard<TLanguageKindEnum>(this AnalysisContext context, Action<SyntaxNodeAnalysisContext> action, TLanguageKindEnum syntaxKind)
-            where TLanguageKindEnum : struct
-        {
-            context.RegisterCompilationStartAction(startContext =>
-            {
-                startContext.RegisterSyntaxNodeActionWithDuplicateNodeGuard(action, syntaxKind);
-            });
-        }
-
         private static class LanguageKindArrays<TLanguageKindEnum>
             where TLanguageKindEnum : struct
         {

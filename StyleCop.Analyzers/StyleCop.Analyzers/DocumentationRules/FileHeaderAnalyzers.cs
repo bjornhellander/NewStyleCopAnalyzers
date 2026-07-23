@@ -27,7 +27,7 @@ namespace StyleCop.Analyzers.DocumentationRules
     /// <seealso href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1640.md">SA1640 File header should have valid company text</seealso>
     /// <seealso href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1641.md">SA1641 File header company name text should match</seealso>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class FileHeaderAnalyzers : DiagnosticAnalyzer
+    internal class FileHeaderAnalyzers : DiagnosticAnalyzerBase
     {
         private const string SA1633Identifier = "SA1633";
         private const string SA1634Identifier = "SA1634";
@@ -84,8 +84,6 @@ namespace StyleCop.Analyzers.DocumentationRules
         private static readonly LocalizableString SA1641MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1641MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1641Description = new LocalizableResourceString(nameof(DocumentationResources.SA1641Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly string SA1641HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1641.md";
-
-        private static readonly Action<CompilationStartAnalysisContext> CompilationStartAction = HandleCompilationStart;
 
         /// <summary>
         /// Gets the diagnostic descriptor for SA1633 with a missing header.
@@ -171,15 +169,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                 SA1641Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
-        {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationStartAction(CompilationStartAction);
-        }
-
-        private static void HandleCompilationStart(CompilationStartAnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             var compilation = context.Compilation;
 

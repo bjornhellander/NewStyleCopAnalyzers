@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// Enum values should be placed on their own lines for maximum readability.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1136EnumValuesShouldBeOnSeparateLines : DiagnosticAnalyzer
+    internal class SA1136EnumValuesShouldBeOnSeparateLines : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1136EnumValuesShouldBeOnSeparateLines"/> analyzer.
@@ -38,11 +38,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(HandleEnumDeclarationAction, SyntaxKind.EnumDeclaration);
         }
 

@@ -17,7 +17,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// An attribute is placed on the same line of code as another attribute or element.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1134AttributesMustNotShareLine : DiagnosticAnalyzer
+    internal class SA1134AttributesMustNotShareLine : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// Properties key used to indicate that a code fix should be inserted before the attribute.
@@ -48,11 +48,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             context.RegisterSyntaxNodeAction(HandleAttributeListAction, SyntaxKind.AttributeList);
         }
 

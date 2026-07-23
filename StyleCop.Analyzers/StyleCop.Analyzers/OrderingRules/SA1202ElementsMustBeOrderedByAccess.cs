@@ -37,7 +37,7 @@ namespace StyleCop.Analyzers.OrderingRules
     /// class.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA1202ElementsMustBeOrderedByAccess : DiagnosticAnalyzer
+    internal class SA1202ElementsMustBeOrderedByAccess : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1202ElementsMustBeOrderedByAccess"/> analyzer.
@@ -78,23 +78,17 @@ namespace StyleCop.Analyzers.OrderingRules
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
+            context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
+            context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
+            context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
 
-            context.RegisterCompilationStartAction(context =>
-            {
-                context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
-                context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
-                context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
-
-                // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-                // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
-                // Register it separately (with a duplicate-node guard, see the helper for why it is needed) so
-                // ordering is also checked among the members declared within a union's own body.
-                context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
-            });
+            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
+            // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
+            // Register it separately (with a duplicate-node guard, see the helper for why it is needed) so
+            // ordering is also checked among the members declared within a union's own body.
+            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
         }
 
         private static void HandleCompilationUnit(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
