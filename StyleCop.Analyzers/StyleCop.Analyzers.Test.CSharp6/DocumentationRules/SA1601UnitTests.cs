@@ -7,6 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.DocumentationRules;
+    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.Test.CSharp6.Verifiers;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.CustomDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.SA1601PartialElementsMustBeDocumented>;
@@ -26,37 +27,64 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 }
 ";
 
+        public static TheoryData<string, string> TypeTestData
+        {
+            get
+            {
+                var data = new TheoryData<string, string>()
+                {
+                    { "class", string.Empty },
+                    { "struct", string.Empty },
+                    { "interface", string.Empty },
+                };
+
+                if (LightupHelpers.SupportsCSharp9)
+                {
+                    data.Add("record", string.Empty);
+                }
+
+                if (LightupHelpers.SupportsCSharp10)
+                {
+                    data.Add("record class", string.Empty);
+                    data.Add("record struct", string.Empty);
+                }
+
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    data.Add("union", "(string, int)");
+                }
+
+                return data;
+            }
+        }
+
         [Theory]
-        [InlineData("class")]
-        [InlineData("struct")]
-        [InlineData("interface")]
-        public async Task TestPartialTypeWithDocumentationAsync(string typeKeyword)
+        [MemberData(nameof(TypeTestData))]
+        public async Task TestPartialTypeWithDocumentationAsync(string typeKeyword, string parameterList)
         {
             var testCode = @"
 /// <summary>
 /// Some Documentation
 /// </summary>
-public partial {0} TypeName
+public partial {0} TypeName{1}
 {{
 }}";
-            await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKeyword), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKeyword, parameterList), DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
-        [InlineData("class")]
-        [InlineData("struct")]
-        [InlineData("interface")]
-        public async Task TestPartialTypeWithoutDocumentationAsync(string typeKeyword)
+        [MemberData(nameof(TypeTestData))]
+        public async Task TestPartialTypeWithoutDocumentationAsync(string typeKeyword, string parameterList)
         {
             var testCode = @"
 public partial {0}
-TypeName
+TypeName{1}
 {{
 }}";
 
             DiagnosticResult expected = Diagnostic().WithLocation(3, 1);
 
-            await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKeyword), expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKeyword, parameterList), expected, CancellationToken.None).ConfigureAwait(true);
 
             // The same situation is allowed if 'documentExposedElements' and 'documentInterfaces' is false
             string interfaceSettingName = typeKeyword == "interface" ? "documentInterfaces" : "ignoredProperty";
@@ -70,27 +98,25 @@ TypeName
   }}
 }}
 ";
-            await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKeyword), currentTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKeyword, parameterList), currentTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]
-        [InlineData("class")]
-        [InlineData("struct")]
-        [InlineData("interface")]
-        public async Task TestPartialClassWithEmptyDocumentationAsync(string typeKeyword)
+        [MemberData(nameof(TypeTestData))]
+        public async Task TestPartialClassWithEmptyDocumentationAsync(string typeKeyword, string parameterList)
         {
             var testCode = @"
 /// <summary>
-/// 
+///
 /// </summary>
-public partial {0} 
-TypeName
+public partial {0}
+TypeName{1}
 {{
 }}";
 
             DiagnosticResult expected = Diagnostic().WithLocation(6, 1);
 
-            await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKeyword), expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKeyword, parameterList), expected, CancellationToken.None).ConfigureAwait(true);
 
             // The same situation is allowed if 'documentExposedElements' and 'documentInterfaces' is false
             string interfaceSettingName = typeKeyword == "interface" ? "documentInterfaces" : "ignoredProperty";
@@ -104,7 +130,7 @@ TypeName
   }}
 }}
 ";
-            await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKeyword), currentTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(string.Format(testCode, typeKeyword, parameterList), currentTestSettings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
