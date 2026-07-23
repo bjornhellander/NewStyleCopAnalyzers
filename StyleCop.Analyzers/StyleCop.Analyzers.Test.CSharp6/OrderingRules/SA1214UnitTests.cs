@@ -6,6 +6,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Lightup;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1214ReadonlyElementsMustAppearBeforeNonReadonlyElements,
@@ -13,6 +14,64 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
 
     public class SA1214UnitTests
     {
+        public static TheoryData<string> TypeDeclarationHeaders
+        {
+            get
+            {
+                var data = new TheoryData<string>()
+                {
+                    "public class TestType",
+                    "public struct TestType",
+                };
+
+                if (LightupHelpers.SupportsCSharp8)
+                {
+                    data.Add("public interface TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp9)
+                {
+                    data.Add("public record TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp10)
+                {
+                    data.Add("public record class TestType");
+                    data.Add("public record struct TestType");
+                }
+
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    data.Add("public union TestType(string, int)");
+                }
+
+                return data;
+            }
+        }
+
+        [Theory]
+        [MemberData(nameof(TypeDeclarationHeaders))]
+        public async Task TestReadonlyFieldAfterNonReadonlyFieldAsync(string typeDeclarationHeader)
+        {
+            var testCode = $@"
+{typeDeclarationHeader}
+{{
+    private static int nonReadonlyField;
+    private static readonly int [|readonlyField|];
+}}
+";
+
+            var fixedTestCode = $@"
+{typeDeclarationHeader}
+{{
+    private static readonly int readonlyField;
+    private static int nonReadonlyField;
+}}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedTestCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         [Fact]
         public async Task TestValidOrderingAsync()
         {
@@ -83,30 +142,6 @@ public class TestClass2
         }
 
         [Fact]
-        public async Task TestTwoFieldsInClassStaticReadonlyFieldPlacedAfterStaticNonReadonlyAsync()
-        {
-            var testCode = @"
-public class Foo
-{
-    private static int i = 0;
-    private static readonly int j = 0;
-}";
-
-            var expected = new[]
-            {
-                Diagnostic().WithLocation(5, 33),
-            };
-
-            var fixTestCode = @"
-public class Foo
-{
-    private static readonly int j = 0;
-    private static int i = 0;
-}";
-            await VerifyCSharpFixAsync(testCode, expected, fixTestCode, CancellationToken.None).ConfigureAwait(true);
-        }
-
-        [Fact]
         public async Task TestTwoFieldsAllStaticReadonlyAsync()
         {
             var testCode = @"
@@ -173,30 +208,6 @@ public class Foo
             var expected = Diagnostic().WithLocation(5, 26);
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
-        }
-
-        [Fact]
-        public async Task TestTwoFieldsInStructStaticReadonlyFieldPlacedAfterStaticNonReadonlyAsync()
-        {
-            var testCode = @"
-public struct Foo
-{
-    private static int i = 0;
-    private static readonly int j = 0;
-}";
-
-            var expected = new[]
-            {
-                Diagnostic().WithLocation(5, 33),
-            };
-
-            var fixTestCode = @"
-public struct Foo
-{
-    private static readonly int j = 0;
-    private static int i = 0;
-}";
-            await VerifyCSharpFixAsync(testCode, expected, fixTestCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
