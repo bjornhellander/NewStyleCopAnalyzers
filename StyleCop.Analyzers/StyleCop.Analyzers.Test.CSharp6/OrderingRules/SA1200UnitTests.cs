@@ -6,6 +6,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Lightup;
     using StyleCop.Analyzers.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -17,24 +18,38 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
     /// </summary>
     public class SA1200UnitTests
     {
-        private const string ClassDefinition = @"public class TestClass
-{
-}";
+        public static TheoryData<string> TypeDefinitions
+        {
+            get
+            {
+                var data = new TheoryData<string>()
+                {
+                    @"public class TestClass {}",
+                    @"public struct TestStruct {}",
+                    @"public interface TestInterface {}",
+                    @"public enum TestEnum { TestValue }",
+                    @"public delegate void TestDelegate();",
+                };
 
-        private const string StructDefinition = @"public struct TestStruct
-{
-}";
+                if (LightupHelpers.SupportsCSharp9)
+                {
+                    data.Add(@"public record TestRecord {}");
+                }
 
-        private const string InterfaceDefinition = @"public interface TestInterface
-{
-}";
+                if (LightupHelpers.SupportsCSharp10)
+                {
+                    data.Add(@"public record struct TestRecordStruct {}");
+                    data.Add(@"public record class TestRecordClass {}");
+                }
 
-        private const string EnumDefinition = @"public enum TestEnum
-{
-    TestValue
-}";
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    data.Add(@"public union TestUnion(string, int) {}");
+                }
 
-        private const string DelegateDefinition = @"public delegate void TestDelegate();";
+                return data;
+            }
+        }
 
         /// <summary>
         /// Verifies that valid using statements in a namespace does not produce any diagnostics.
@@ -59,11 +74,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
         /// <param name="typeDefinition">The type definition to test.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Theory]
-        [InlineData(ClassDefinition)]
-        [InlineData(StructDefinition)]
-        [InlineData(InterfaceDefinition)]
-        [InlineData(EnumDefinition)]
-        [InlineData(DelegateDefinition)]
+        [MemberData(nameof(TypeDefinitions))]
         public async Task TestValidUsingStatementsInCompilationUnitWithTypeDefinitionAsync(string typeDefinition)
         {
             var testCode = $@"using System;
