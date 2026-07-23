@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp7.NamingRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
@@ -95,12 +94,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.NamingRules
 }
 ";
 
-        public static IEnumerable<object[]> TypesWithOneLowerCaseTupleElement { get; } = new[]
+        public static TheoryData<string> TypesWithOneLowerCaseTupleElement { get; } = new TheoryData<string>()
         {
-            new[] { "(int I, string foo)" },
-            new[] { "(int I, (bool foo, string S))" },
-            new[] { "(int foo, string S)[]" },
-            new[] { "List<(string S, bool foo)>" },
+            "(int I, string foo)",
+            "(int I, (bool foo, string S))",
+            "(int foo, string S)[]",
+            "List<(string S, bool foo)>",
         };
 
         /// <summary>

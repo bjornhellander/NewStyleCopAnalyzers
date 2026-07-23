@@ -6,7 +6,6 @@
 namespace StyleCop.Analyzers.Test.CSharp6.Lightup
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Microsoft.CodeAnalysis.CSharp;
@@ -16,17 +15,14 @@ namespace StyleCop.Analyzers.Test.CSharp6.Lightup
 
     public class SyntaxWrapperHelperUnitTests
     {
-        public static IEnumerable<object[]> SyntaxWrapperClasses
+        public static TheoryData<Type> SyntaxWrapperClasses
         {
             get
             {
                 var wrapperTypes = typeof(ISyntaxWrapper<>).Assembly.GetTypes()
                     .Where(t => t.GetTypeInfo().ImplementedInterfaces.Any(i => i.IsGenericType && (i.GetGenericTypeDefinition() == typeof(ISyntaxWrapper<>))));
 
-                foreach (var wrapperType in wrapperTypes)
-                {
-                    yield return new object[] { wrapperType };
-                }
+                return new(wrapperTypes);
             }
         }
 

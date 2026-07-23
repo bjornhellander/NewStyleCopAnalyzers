@@ -17,23 +17,20 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     /// </summary>
     public class SA1611UnitTests
     {
-        public static IEnumerable<object[]> Data
+        public static TheoryData<string> Data { get; } = new TheoryData<string>()
         {
-            get
-            {
-                // These method names are chosen so that the position of the parameters are always the same. This makes testing easier
-                yield return new object[] { "         ClassName(string param1, string param2, string param3) { }" };
-                yield return new object[] { "void Foooooooooooo(string param1, string param2, string param3) { }" };
-                yield return new object[] { "delegate void Fooo(string param1, string param2, string param3);" };
-                yield return new object[] { "System.String this[string param1, string param2, string param3] { get { return param1; } }" };
-                yield return new object[] { "void Foooooooooooo(string param1, string param2, string @param3) { }" };
-                yield return new object[] { "delegate void Fooo(string param1, string param2, string @param3);" };
-                yield return new object[] { "System.String this[string param1, string param2, string @param3] { get { return param1; } }" };
-                yield return new object[] { "void Foooooooooooo(string param1, string param2, string p\\u0061ram3) { }" };
-                yield return new object[] { "delegate void Fooo(string param1, string param2, string p\\u0061ram3);" };
-                yield return new object[] { "System.String this[string param1, string param2, string p\\u0061ram3] { get { return param1; } }" };
-            }
-        }
+            // These method names are chosen so that the position of the parameters are always the same. This makes testing easier
+            "         ClassName(string param1, string param2, string param3) { }",
+            "void Foooooooooooo(string param1, string param2, string param3) { }",
+            "delegate void Fooo(string param1, string param2, string param3);",
+            "System.String this[string param1, string param2, string param3] { get { return param1; } }",
+            "void Foooooooooooo(string param1, string param2, string @param3) { }",
+            "delegate void Fooo(string param1, string param2, string @param3);",
+            "System.String this[string param1, string param2, string @param3] { get { return param1; } }",
+            "void Foooooooooooo(string param1, string param2, string p\\u0061ram3) { }",
+            "delegate void Fooo(string param1, string param2, string p\\u0061ram3);",
+            "System.String this[string param1, string param2, string p\\u0061ram3] { get { return param1; } }",
+        };
 
         [Theory]
         [MemberData(nameof(Data))]

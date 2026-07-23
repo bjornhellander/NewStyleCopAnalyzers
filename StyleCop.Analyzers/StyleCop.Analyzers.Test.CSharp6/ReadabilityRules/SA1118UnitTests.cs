@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -12,24 +11,18 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 
     public class SA1118UnitTests
     {
-        public static IEnumerable<object[]> ArrayCreationExpressions { get; } = new List<object[]>
+        public static TheoryData<string> ArrayCreationExpressions { get; } = new TheoryData<string>()
         {
-            new object[]
-            {
-                @"new[]
+            @"new[]
                 {
                     0,
                     1
                 }",
-            },
-            new object[]
-            {
-                @"new int[]
+            @"new int[]
                 {
                     0,
                     1
                 }",
-            },
         };
 
         [Fact]

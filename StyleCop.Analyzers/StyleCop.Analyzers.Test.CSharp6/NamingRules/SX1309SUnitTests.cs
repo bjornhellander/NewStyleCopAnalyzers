@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.NamingRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -14,49 +13,43 @@ namespace StyleCop.Analyzers.Test.CSharp6.NamingRules
 
     public class SX1309SUnitTests
     {
-        public static IEnumerable<object[]> CheckedModifiersData
+        public static TheoryData<string> CheckedModifiersData { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new[] { "static" };
-                yield return new[] { "private static" };
-            }
-        }
+            "static",
+            "private static",
+        };
 
-        public static IEnumerable<object[]> UncheckedModifiersData
+        public static TheoryData<string> UncheckedModifiersData { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new[] { "public static" };
-                yield return new[] { "protected static" };
-                yield return new[] { "internal static" };
-                yield return new[] { "protected internal static" };
-                yield return new[] { "static readonly" };
-                yield return new[] { "public static readonly" };
-                yield return new[] { "protected static readonly" };
-                yield return new[] { "internal static readonly" };
-                yield return new[] { "protected internal static readonly" };
-                yield return new[] { "private static readonly" };
-                yield return new[] { "const" };
-                yield return new[] { "public const" };
-                yield return new[] { "protected const" };
-                yield return new[] { "internal const" };
-                yield return new[] { "protected internal const" };
-                yield return new[] { "private const" };
-                yield return new[] { string.Empty };
-                yield return new[] { "public" };
-                yield return new[] { "protected" };
-                yield return new[] { "internal" };
-                yield return new[] { "protected internal" };
-                yield return new[] { "private" };
-                yield return new[] { "readonly" };
-                yield return new[] { "public readonly" };
-                yield return new[] { "protected readonly" };
-                yield return new[] { "internal readonly" };
-                yield return new[] { "protected internal readonly" };
-                yield return new[] { "private readonly" };
-            }
-        }
+            "public static",
+            "protected static",
+            "internal static",
+            "protected internal static",
+            "static readonly",
+            "public static readonly",
+            "protected static readonly",
+            "internal static readonly",
+            "protected internal static readonly",
+            "private static readonly",
+            "const",
+            "public const",
+            "protected const",
+            "internal const",
+            "protected internal const",
+            "private const",
+            string.Empty,
+            "public",
+            "protected",
+            "internal",
+            "protected internal",
+            "private",
+            "readonly",
+            "public readonly",
+            "protected readonly",
+            "internal readonly",
+            "protected internal readonly",
+            "private readonly",
+        };
 
         [Theory]
         [MemberData(nameof(CheckedModifiersData))]

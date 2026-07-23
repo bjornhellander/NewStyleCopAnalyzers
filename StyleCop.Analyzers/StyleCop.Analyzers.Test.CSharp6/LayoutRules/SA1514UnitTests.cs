@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -18,16 +17,13 @@ namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
     /// </summary>
     public class SA1514UnitTests
     {
-        public static IEnumerable<object[]> TypeTestData
+        public static TheoryData<string> TypeTestData { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new object[] { "class" };
-                yield return new object[] { "struct" };
-                yield return new object[] { "interface" };
-                yield return new object[] { "enum" };
-            }
-        }
+            "class",
+            "struct",
+            "interface",
+            "enum",
+        };
 
         /// <summary>
         /// Verifies that type declarations with valid (or no) documentation will not produce diagnostics.

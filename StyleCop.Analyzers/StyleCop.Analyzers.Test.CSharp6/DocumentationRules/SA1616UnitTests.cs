@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -17,46 +16,37 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     /// </summary>
     public class SA1616UnitTests
     {
-        public static IEnumerable<object[]> Declarations
+        public static TheoryData<string> Declarations { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new[] { "    public          ClassName Method(string foo, string bar) { return null; }" };
-                yield return new[] { "    public delegate ClassName Method(string foo, string bar);" };
-            }
-        }
+            "    public          ClassName Method(string foo, string bar) { return null; }",
+            "    public delegate ClassName Method(string foo, string bar);",
+        };
 
-        public static IEnumerable<object[]> AsynchronousDeclarations
+        public static TheoryData<string> AsynchronousDeclarations { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new[] { "    public          Task      MethodAsync(string foo, string bar) { return null; }" };
-                yield return new[] { "    public          Task<int> MethodAsync(string foo, string bar) { return null; }" };
-                yield return new[] { "    public          TASK      MethodAsync(string foo, string bar) { return null; }" };
-                yield return new[] { "    public delegate Task      MethodAsync(string foo, string bar);" };
-                yield return new[] { "    public delegate Task<int> MethodAsync(string foo, string bar);" };
-                yield return new[] { "    public delegate TASK      MethodAsync(string foo, string bar);" };
-            }
-        }
+            "    public          Task      MethodAsync(string foo, string bar) { return null; }",
+            "    public          Task<int> MethodAsync(string foo, string bar) { return null; }",
+            "    public          TASK      MethodAsync(string foo, string bar) { return null; }",
+            "    public delegate Task      MethodAsync(string foo, string bar);",
+            "    public delegate Task<int> MethodAsync(string foo, string bar);",
+            "    public delegate TASK      MethodAsync(string foo, string bar);",
+        };
 
-        public static IEnumerable<object[]> AsynchronousUnitTestDeclarations
+        public static TheoryData<string, string> AsynchronousUnitTestDeclarations { get; } = new TheoryData<string, string>()
         {
-            get
-            {
-                yield return new[] { "    public          Task      MethodAsync(string foo, string bar) { return null; }", "TestMethod" };
-                yield return new[] { "    public          Task      MethodAsync(string foo, string bar) { return null; }", "Fact" };
-                yield return new[] { "    public          Task      MethodAsync(string foo, string bar) { return null; }", "Theory" };
-                yield return new[] { "    public          Task      MethodAsync(string foo, string bar) { return null; }", "Test" };
-                yield return new[] { "    public          Task<int> MethodAsync(string foo, string bar) { return null; }", "TestMethod" };
-                yield return new[] { "    public          Task<int> MethodAsync(string foo, string bar) { return null; }", "Fact" };
-                yield return new[] { "    public          Task<int> MethodAsync(string foo, string bar) { return null; }", "Theory" };
-                yield return new[] { "    public          Task<int> MethodAsync(string foo, string bar) { return null; }", "Test" };
-                yield return new[] { "    public          TASK      MethodAsync(string foo, string bar) { return null; }", "TestMethod" };
-                yield return new[] { "    public          TASK      MethodAsync(string foo, string bar) { return null; }", "Fact" };
-                yield return new[] { "    public          TASK      MethodAsync(string foo, string bar) { return null; }", "Theory" };
-                yield return new[] { "    public          TASK      MethodAsync(string foo, string bar) { return null; }", "Test" };
-            }
-        }
+            { "    public          Task      MethodAsync(string foo, string bar) { return null; }", "TestMethod" },
+            { "    public          Task      MethodAsync(string foo, string bar) { return null; }", "Fact" },
+            { "    public          Task      MethodAsync(string foo, string bar) { return null; }", "Theory" },
+            { "    public          Task      MethodAsync(string foo, string bar) { return null; }", "Test" },
+            { "    public          Task<int> MethodAsync(string foo, string bar) { return null; }", "TestMethod" },
+            { "    public          Task<int> MethodAsync(string foo, string bar) { return null; }", "Fact" },
+            { "    public          Task<int> MethodAsync(string foo, string bar) { return null; }", "Theory" },
+            { "    public          Task<int> MethodAsync(string foo, string bar) { return null; }", "Test" },
+            { "    public          TASK      MethodAsync(string foo, string bar) { return null; }", "TestMethod" },
+            { "    public          TASK      MethodAsync(string foo, string bar) { return null; }", "Fact" },
+            { "    public          TASK      MethodAsync(string foo, string bar) { return null; }", "Theory" },
+            { "    public          TASK      MethodAsync(string foo, string bar) { return null; }", "Test" },
+        };
 
         [Theory]
         [MemberData(nameof(Declarations))]

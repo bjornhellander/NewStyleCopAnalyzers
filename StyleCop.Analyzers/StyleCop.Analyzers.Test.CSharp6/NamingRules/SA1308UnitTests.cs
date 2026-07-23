@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.NamingRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -18,21 +17,21 @@ namespace StyleCop.Analyzers.Test.CSharp6.NamingRules
 
         private readonly string[] modifiers = new[] { "public", "private", "protected", "public readonly", "internal readonly", "public static", "private static" };
 
-        public static IEnumerable<object[]> PrefixesData()
+        public static TheoryData<string> Prefixes { get; } = new TheoryData<string>()
         {
-            yield return new object[] { "m_" };
-            yield return new object[] { "s_" };
-            yield return new object[] { "t_" };
-            yield return new object[] { $"m{UnderscoreEscapeSequence}" };
-            yield return new object[] { $"s{UnderscoreEscapeSequence}" };
-            yield return new object[] { $"t{UnderscoreEscapeSequence}" };
-        }
+            "m_",
+            "s_",
+            "t_",
+            $"m{UnderscoreEscapeSequence}",
+            $"s{UnderscoreEscapeSequence}",
+            $"t{UnderscoreEscapeSequence}",
+        };
 
-        public static IEnumerable<object[]> MultipleDistinctPrefixesData()
+        public static TheoryData<string, string> MultipleDistinctPrefixes { get; } = new TheoryData<string, string>()
         {
-            yield return new object[] { "m_t_s_", "m_" };
-            yield return new object[] { $"s{UnderscoreEscapeSequence}m{UnderscoreEscapeSequence}t{UnderscoreEscapeSequence}", "s_" };
-        }
+            { "m_t_s_", "m_" },
+            { $"s{UnderscoreEscapeSequence}m{UnderscoreEscapeSequence}t{UnderscoreEscapeSequence}", "s_" },
+        };
 
         [Fact]
         public async Task TestFieldStartingWithPrefixesToTriggerDiagnosticAsync()
@@ -93,7 +92,7 @@ string m_bar = ""baz"";
         /// <seealso href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/627">#627: Code Fixes For Naming
         /// Rules SA1308 and SA1309 Do Not Always Fix The Name Entirely</seealso>
         [Theory]
-        [MemberData(nameof(PrefixesData))]
+        [MemberData(nameof(Prefixes))]
         public async Task TestFixingMultipleIdenticalPrefixesAsync(string prefix)
         {
             var testCode = $@"public class Foo
@@ -112,7 +111,7 @@ string m_bar = ""baz"";
         }
 
         [Theory]
-        [MemberData(nameof(PrefixesData))]
+        [MemberData(nameof(Prefixes))]
         public async Task TestMultipleIdenticalPrefixesOnlyAsync(string prefix)
         {
             var testCode = $@"public class Foo
@@ -139,7 +138,7 @@ string m_bar = ""baz"";
         /// <seealso href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/627">#627: Code Fixes For Naming
         /// Rules SA1308 and SA1309 Do Not Always Fix The Name Entirely</seealso>
         [Theory]
-        [MemberData(nameof(MultipleDistinctPrefixesData))]
+        [MemberData(nameof(MultipleDistinctPrefixes))]
         public async Task TestFixingMultipleDistinctPrefixesAsync(string prefixes, string diagnosticPrefix)
         {
             var testCode = $@"public class Foo
@@ -158,7 +157,7 @@ string m_bar = ""baz"";
         }
 
         [Theory]
-        [MemberData(nameof(MultipleDistinctPrefixesData))]
+        [MemberData(nameof(MultipleDistinctPrefixes))]
         public async Task TestMultipleDistinctPrefixesOnlyAsync(string prefixes, string diagnosticPrefix)
         {
             var testCode = $@"public class Foo

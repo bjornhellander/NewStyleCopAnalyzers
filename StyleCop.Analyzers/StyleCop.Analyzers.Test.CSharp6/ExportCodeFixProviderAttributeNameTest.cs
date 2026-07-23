@@ -4,7 +4,6 @@
 namespace StyleCop.Analyzers.Test.CSharp6
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Microsoft.CodeAnalysis;
@@ -14,7 +13,7 @@ namespace StyleCop.Analyzers.Test.CSharp6
 
     public class ExportCodeFixProviderAttributeNameTest
     {
-        public static IEnumerable<object[]> CodeFixProviderTypeData
+        public static TheoryData<Type> CodeFixProviderTypeData
         {
             get
             {
@@ -23,7 +22,7 @@ namespace StyleCop.Analyzers.Test.CSharp6
                     .GetTypes()
                     .Where(t => typeof(CodeFixProvider).IsAssignableFrom(t));
 
-                return codeFixProviders.Select(x => new[] { x });
+                return new(codeFixProviders);
             }
         }
 

@@ -27,43 +27,38 @@ public class Foo
 }
 ";
 
-        public static IEnumerable<object[]> GeneratedValidDeclarations
+        public static TheoryData<string> GeneratedValidDeclarations
         {
             get
             {
-                return
+                return new(
                     from accessModifier in ValidAccessModifiers
                     from declaration in DeclarationsWithoutAccessModifier
-                    select new object[] { accessModifier + " " + declaration };
+                    select accessModifier + " " + declaration);
             }
         }
 
-        public static IEnumerable<object[]> GeneratedInvalidDeclarations
+        public static TheoryData<string, int, string> GeneratedInvalidDeclarations
         {
             get
             {
-                return
+                return new(
                     from invalidAndFixedAccessModifier in InvalidAndFixedAccessModifiers
                     from declarationWithoutAccessModifier in DeclarationsWithoutAccessModifier
-                    select new object[]
-                    {
+                    select (
                         invalidAndFixedAccessModifier.Item1 + " " + declarationWithoutAccessModifier,
                         invalidAndFixedAccessModifier.Item2,
-                        invalidAndFixedAccessModifier.Item3 + " " + declarationWithoutAccessModifier,
-                    };
+                        invalidAndFixedAccessModifier.Item3 + " " + declarationWithoutAccessModifier));
             }
         }
 
-        public static IEnumerable<object[]> ManualInvalidDeclarations
+        public static TheoryData<string, int, string> ManualInvalidDeclarations { get; } = new TheoryData<string, int, string>()
         {
-            get
-            {
-                yield return new object[] { "internal static protected int Bar;", 17, "protected static internal int Bar;" };
-                yield return new object[] { "abstract class Qux { internal protected abstract void Bar(); }", 31, "abstract class Qux { protected internal abstract void Bar(); }" };
-                yield return new object[] { "/*comment*/internal /* 2 */ protected /*3*/ int Bar;", 29, "/*comment*/protected /* 2 */ internal /*3*/ int Bar;" };
-                yield return new object[] { "internal protected class Bar { protected internal int Qux; }", 10, "protected internal class Bar { protected internal int Qux; }" };
-            }
-        }
+            { "internal static protected int Bar;", 17, "protected static internal int Bar;" },
+            { "abstract class Qux { internal protected abstract void Bar(); }", 31, "abstract class Qux { protected internal abstract void Bar(); }" },
+            { "/*comment*/internal /* 2 */ protected /*3*/ int Bar;", 29, "/*comment*/protected /* 2 */ internal /*3*/ int Bar;" },
+            { "internal protected class Bar { protected internal int Qux; }", 10, "protected internal class Bar { protected internal int Qux; }" },
+        };
 
         private static IEnumerable<string> ValidAccessModifiers
         {

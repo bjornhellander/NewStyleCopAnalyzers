@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -18,28 +17,33 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
 
     public partial class SA1119CSharp7UnitTests : SA1119UnitTests
     {
-        public static IEnumerable<object[]> Assignments
+        public static TheoryData<string> Assignments
         {
             get
             {
-                yield return new object[] { "= 1" };
-                yield return new object[] { "+= 1" };
-                yield return new object[] { "-= 1" };
-                yield return new object[] { "*= 1" };
-                yield return new object[] { "/= 1" };
-                yield return new object[] { "%= 1" };
-                yield return new object[] { "&= 1" };
-                yield return new object[] { "|= 1" };
-                yield return new object[] { "^= 1" };
-                yield return new object[] { "<<= 1" };
-                yield return new object[] { ">>= 1" };
-                yield return new object[] { "++" };
-                yield return new object[] { "--" };
+                var data = new TheoryData<string>()
+                {
+                    "= 1",
+                    "+= 1",
+                    "-= 1",
+                    "*= 1",
+                    "/= 1",
+                    "%= 1",
+                    "&= 1",
+                    "|= 1",
+                    "^= 1",
+                    "<<= 1",
+                    ">>= 1",
+                    "++",
+                    "--",
+                };
 
                 if (LightupHelpers.SupportsCSharp11)
                 {
-                    yield return new object[] { ">>>= 1" };
+                    data.Add(">>>= 1");
                 }
+
+                return data;
             }
         }
 

@@ -57,14 +57,17 @@ namespace StyleCop.Analyzers.Test.CSharp7.Lightup
             }
         }
 
-        public static IEnumerable<object[]> OperationKinds
+        public static TheoryData<string, OperationKind> OperationKinds
         {
             get
             {
+                var data = new TheoryData<string, OperationKind>();
                 foreach (var field in typeof(OperationKindEx).GetTypeInfo().DeclaredFields)
                 {
-                    yield return new object[] { field.Name, (OperationKind)field.GetRawConstantValue() };
+                    data.Add(field.Name, (OperationKind)field.GetRawConstantValue());
                 }
+
+                return data;
             }
         }
 

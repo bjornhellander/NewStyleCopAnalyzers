@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -17,16 +16,13 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     /// </summary>
     public class SA1627UnitTests
     {
-        public static IEnumerable<object[]> Elements
+        public static TheoryData<string> Elements { get; } = new TheoryData<string>()
         {
-            get
-            {
-                yield return new[] { "remarks" };
-                yield return new[] { "example" };
-                yield return new[] { "permission" };
-                yield return new[] { "exception" };
-            }
-        }
+            "remarks",
+            "example",
+            "permission",
+            "exception",
+        };
 
         /// <summary>
         /// Checks an element with a blank value gives an error.

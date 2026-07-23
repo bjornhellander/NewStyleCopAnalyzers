@@ -3,155 +3,177 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.Helpers
 {
-    using System.Collections.Generic;
     using System.Linq;
     using StyleCop.Analyzers.Lightup;
+    using Xunit;
 
     public static class CommonMemberData
     {
-        public static IEnumerable<object[]> DataTypeDeclarationKeywords
+        public static TheoryData<string> DataTypeDeclarationKeywords
         {
             get
             {
-                yield return new[] { "class" };
-                yield return new[] { "struct" };
+                var data = new TheoryData<string>()
+                {
+                    "class",
+                    "struct",
+                };
 
                 if (LightupHelpers.SupportsCSharp9)
                 {
-                    yield return new[] { "record" };
+                    data.Add("record");
                 }
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new[] { "record class" };
-                    yield return new[] { "record struct" };
+                    data.Add("record class");
+                    data.Add("record struct");
                 }
+
+                return data;
             }
         }
 
-        public static IEnumerable<object[]> ReferenceTypeDeclarationKeywords
+        public static TheoryData<string> ReferenceTypeDeclarationKeywords
         {
             get
             {
-                yield return new[] { "class" };
+                var data = new TheoryData<string>()
+                {
+                    "class",
+                };
 
                 if (LightupHelpers.SupportsCSharp9)
                 {
-                    yield return new[] { "record" };
+                    data.Add("record");
                 }
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new[] { "record class" };
+                    data.Add("record class");
                 }
+
+                return data;
             }
         }
 
-        public static IEnumerable<object[]> ValueTypeDeclarationKeywords
+        public static TheoryData<string> ValueTypeDeclarationKeywords
         {
             get
             {
-                yield return new[] { "struct" };
+                var data = new TheoryData<string>()
+                {
+                    "struct",
+                };
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new[] { "record struct" };
+                    data.Add("record struct");
                 }
+
+                return data;
             }
         }
 
-        public static IEnumerable<object[]> RecordTypeDeclarationKeywords
+        public static TheoryData<string> RecordTypeDeclarationKeywords
         {
             get
             {
+                var data = new TheoryData<string>();
+
                 if (LightupHelpers.SupportsCSharp9)
                 {
-                    yield return new[] { "record" };
+                    data.Add("record");
                 }
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new[] { "record class" };
-                    yield return new[] { "record struct" };
+                    data.Add("record class");
+                    data.Add("record struct");
                 }
+
+                return data;
             }
         }
 
-        public static IEnumerable<object[]> TypeDeclarationKeywords
+        public static TheoryData<string> TypeDeclarationKeywords
         {
             get
             {
-                return DataTypeDeclarationKeywords
-                    .Concat(new[] { new[] { "interface" } });
+                return new(DataTypeDeclarationKeywords
+                    .Concat(new TheoryData<string> { "interface" }));
             }
         }
 
-        public static IEnumerable<object[]> BaseTypeDeclarationKeywords
+        public static TheoryData<string> BaseTypeDeclarationKeywords
         {
             get
             {
-                return TypeDeclarationKeywords
-                    .Concat(new[] { new[] { "enum" } });
+                return new(TypeDeclarationKeywords
+                    .Concat(new TheoryData<string> { "enum" }));
             }
         }
 
-        public static IEnumerable<object[]> AllTypeDeclarationKeywords
+        public static TheoryData<string> AllTypeDeclarationKeywords
         {
             get
             {
-                return BaseTypeDeclarationKeywords
-                    .Concat(new[] { new[] { "delegate" } });
+                return new(BaseTypeDeclarationKeywords
+                    .Concat(new TheoryData<string> { "delegate" }));
             }
         }
 
-        public static IEnumerable<object[]> GenericTypeDeclarationKeywords
+        public static TheoryData<string> GenericTypeDeclarationKeywords
         {
             get
             {
-                return TypeDeclarationKeywords
-                    .Concat(new[] { new[] { "delegate" } });
+                return new(TypeDeclarationKeywords
+                    .Concat(new TheoryData<string> { "delegate" }));
             }
         }
 
-        public static IEnumerable<object[]> ReferenceTypeKeywordsWhichSupportPrimaryConstructors
+        public static TheoryData<string> ReferenceTypeKeywordsWhichSupportPrimaryConstructors
         {
             get
             {
+                var data = new TheoryData<string>();
+
                 if (LightupHelpers.SupportsCSharp9)
                 {
-                    yield return new[] { "record" };
+                    data.Add("record");
                 }
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new[] { "record class" };
+                    data.Add("record class");
                 }
 
                 if (LightupHelpers.SupportsCSharp12)
                 {
-                    yield return new[] { "class" };
+                    data.Add("class");
                 }
+
+                return data;
             }
         }
 
-        public static IEnumerable<object[]> TypeKeywordsWhichSupportPrimaryConstructors
+        public static TheoryData<string> TypeKeywordsWhichSupportPrimaryConstructors
         {
             get
             {
-                foreach (var keyword in ReferenceTypeKeywordsWhichSupportPrimaryConstructors)
-                {
-                    yield return keyword;
-                }
+                var data = new TheoryData<string>(ReferenceTypeKeywordsWhichSupportPrimaryConstructors);
 
                 if (LightupHelpers.SupportsCSharp10)
                 {
-                    yield return new[] { "record struct" };
+                    data.Add("record struct");
                 }
 
                 if (LightupHelpers.SupportsCSharp12)
                 {
-                    yield return new[] { "struct" };
+                    data.Add("struct");
                 }
+
+                return data;
             }
         }
     }

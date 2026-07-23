@@ -40,14 +40,17 @@ namespace StyleCop.Analyzers.Test.CSharp6.Lightup
             }
         }
 
-        public static IEnumerable<object[]> MethodKinds
+        public static TheoryData<string, MethodKind> MethodKinds
         {
             get
             {
+                var data = new TheoryData<string, MethodKind>();
                 foreach (var field in typeof(MethodKindEx).GetTypeInfo().DeclaredFields)
                 {
-                    yield return new object[] { field.Name, (MethodKind)field.GetRawConstantValue() };
+                    data.Add(field.Name, (MethodKind)field.GetRawConstantValue());
                 }
+
+                return data;
             }
         }
 

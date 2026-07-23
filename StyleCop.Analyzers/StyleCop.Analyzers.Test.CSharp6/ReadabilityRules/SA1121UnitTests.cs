@@ -1,14 +1,9 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-// Several test methods in this file use the same member data, but in some cases the test does not use all of the
-// supported parameters. See https://github.com/xunit/xunit/issues/1556.
-#pragma warning disable xUnit1026 // Theory methods should use all of their parameters
-
 namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -71,68 +66,80 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 
         private static readonly Tuple<string, string>[] AllTypesData = ReferenceTypesData.Concat(ValueTypesData).ToArray();
 
-        public static IEnumerable<object[]> ReferenceTypes
+        public static TheoryData<string, string> ReferenceTypes
         {
             get
             {
+                var data = new TheoryData<string, string>();
                 foreach (var pair in ReferenceTypesData)
                 {
-                    yield return new[] { pair.Item1, pair.Item2 };
-                    yield return new[] { pair.Item1, "System." + pair.Item2 };
-                    yield return new[] { pair.Item1, "global::System." + pair.Item2 };
+                    data.Add(pair.Item1, pair.Item2);
+                    data.Add(pair.Item1, "System." + pair.Item2);
+                    data.Add(pair.Item1, "global::System." + pair.Item2);
                 }
+
+                return data;
             }
         }
 
-        public static IEnumerable<object[]> ValueTypes
+        public static TheoryData<string, string> ValueTypes
         {
             get
             {
+                var data = new TheoryData<string, string>();
                 foreach (var pair in ValueTypesData)
                 {
-                    yield return new[] { pair.Item1, pair.Item2 };
-                    yield return new[] { pair.Item1, "System." + pair.Item2 };
-                    yield return new[] { pair.Item1, "global::System." + pair.Item2 };
+                    data.Add(pair.Item1, pair.Item2);
+                    data.Add(pair.Item1, "System." + pair.Item2);
+                    data.Add(pair.Item1, "global::System." + pair.Item2);
                 }
+
+                return data;
             }
         }
 
-        public static IEnumerable<object[]> EnumBaseTypes
+        public static TheoryData<string, string> EnumBaseTypes
         {
             get
             {
+                var data = new TheoryData<string, string>();
                 foreach (var pair in EnumBaseTypesData)
                 {
-                    yield return new[] { pair.Item1, pair.Item2 };
-                    yield return new[] { pair.Item1, "System." + pair.Item2 };
-                    yield return new[] { pair.Item1, "global::System." + pair.Item2 };
+                    data.Add(pair.Item1, pair.Item2);
+                    data.Add(pair.Item1, "System." + pair.Item2);
+                    data.Add(pair.Item1, "global::System." + pair.Item2);
                 }
+
+                return data;
             }
         }
 
-        public static IEnumerable<object[]> AllTypes
+        public static TheoryData<string, string> AllTypes
         {
             get
             {
-                return ReferenceTypes.Concat(ValueTypes);
+                return new(ReferenceTypes.Concat(ValueTypes));
             }
         }
 
-        public static IEnumerable<object[]> AllFullQualifiedTypes
+        public static TheoryData<string, string> AllFullQualifiedTypes
         {
             get
             {
+                var data = new TheoryData<string, string>();
                 foreach (var pair in ReferenceTypesData)
                 {
-                    yield return new[] { pair.Item1, "System." + pair.Item2 };
-                    yield return new[] { pair.Item1, "global::System." + pair.Item2 };
+                    data.Add(pair.Item1, "System." + pair.Item2);
+                    data.Add(pair.Item1, "global::System." + pair.Item2);
                 }
 
                 foreach (var pair in ValueTypesData)
                 {
-                    yield return new[] { pair.Item1, "System." + pair.Item2 };
-                    yield return new[] { pair.Item1, "global::System." + pair.Item2 };
+                    data.Add(pair.Item1, "System." + pair.Item2);
+                    data.Add(pair.Item1, "global::System." + pair.Item2);
                 }
+
+                return data;
             }
         }
 

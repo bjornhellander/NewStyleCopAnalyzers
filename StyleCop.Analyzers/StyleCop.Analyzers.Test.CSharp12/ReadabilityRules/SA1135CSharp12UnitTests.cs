@@ -17,13 +17,13 @@ namespace StyleCop.Analyzers.Test.CSharp12.ReadabilityRules
 
     public partial class SA1135CSharp12UnitTests : SA1135CSharp11UnitTests
     {
-        public static IEnumerable<object[]> CorrectAliasableTypes => new[]
+        public static TheoryData<string> CorrectAliasableTypes { get; } = new TheoryData<string>()
         {
-            new[] { "string" },
-            new[] { "(string, int)" },
-            new[] { "(System.String, System.Int32)" },
-            new[] { "bool[]" },
-            new[] { "System.Boolean[]" },
+            "string",
+            "(string, int)",
+            "(System.String, System.Int32)",
+            "bool[]",
+            "System.Boolean[]",
         };
 
         [Theory]

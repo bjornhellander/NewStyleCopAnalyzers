@@ -3,8 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
@@ -20,21 +18,24 @@ namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
     /// </summary>
     public class SA1508UnitTests
     {
-        public static IEnumerable<object[]> TypeTestData
+        public static TheoryData<string, string> TypeTestData
         {
             get
             {
-                foreach (var data in CommonMemberData.TypeDeclarationKeywords)
+                var data = new TheoryData<string, string>();
+                foreach (var row in CommonMemberData.TypeDeclarationKeywords)
                 {
-                    var keyword = (string)data.Single();
+                    var keyword = row.Data;
                     var accessModifier = keyword switch
                     {
                         "interface" => string.Empty,
                         _ => "public ",
                     };
 
-                    yield return new[] { keyword, accessModifier };
+                    data.Add(keyword, accessModifier);
                 }
+
+                return data;
             }
         }
 

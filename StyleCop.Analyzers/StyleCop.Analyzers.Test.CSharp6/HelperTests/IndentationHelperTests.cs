@@ -3,7 +3,6 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.HelperTests
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
@@ -20,79 +19,79 @@ namespace StyleCop.Analyzers.Test.CSharp6.HelperTests
     /// </summary>
     public class IndentationHelperTests
     {
-        public static readonly IEnumerable<object[]> IndentationTestData = new[]
+        public static readonly TheoryData<string, int, int, int> IndentationTestData = new TheoryData<string, int, int, int>()
         {
             // no indentation
-            new object[] { string.Empty, 0, 4, 4 },
+            { string.Empty, 0, 4, 4 },
 
             // 1 space
-            new object[] { " ", 0, 4, 4 },
+            { " ", 0, 4, 4 },
 
             // 2 spaces
-            new object[] { "  ", 1, 4, 4 },
+            { "  ", 1, 4, 4 },
 
             // 3 spaces
-            new object[] { "   ", 1, 4, 4 },
+            { "   ", 1, 4, 4 },
 
             // 3 spaces, indentation size = 2
-            new object[] { "   ", 2, 2, 4 },
+            { "   ", 2, 2, 4 },
 
             // 4 spaces
-            new object[] { "    ", 1, 4, 4 },
+            { "    ", 1, 4, 4 },
 
             // 5 spaces
-            new object[] { "     ", 1, 4, 4 },
+            { "     ", 1, 4, 4 },
 
             // 6 spaces
-            new object[] { "      ", 2, 4, 4 },
+            { "      ", 2, 4, 4 },
 
             // 7 spaces
-            new object[] { "       ", 2, 4, 4 },
+            { "       ", 2, 4, 4 },
 
             // 8 spaces
-            new object[] { "        ", 2, 4, 4 },
+            { "        ", 2, 4, 4 },
 
             // 8 spaces indentation, indentation size = 2
-            new object[] { "        ", 4, 2, 4 },
+            { "        ", 4, 2, 4 },
 
             // 9 spaces indentation, indentation size = 3
-            new object[] { "         ", 3, 3, 4 },
+            { "         ", 3, 3, 4 },
 
             // single tab
-            new object[] { "\t", 1, 4, 4 },
+            { "\t", 1, 4, 4 },
 
             // multiple tabs
-            new object[] { "\t\t\t", 3, 4, 4 },
+            { "\t\t\t", 3, 4, 4 },
 
             // multiple tabs (difference between indentation size and tab size)
-            new object[] { "\t\t\t", 6, 3, 6 },
+            { "\t\t\t", 6, 3, 6 },
 
             // spaces + tabs mix (regression for #1036)
-            new object[] { " \t \t \t \t", 4, 4, 4 },
+            { " \t \t \t \t", 4, 4, 4 },
 
             // 1 space followed by a tab
-            new object[] { " \t", 1, 4, 4 },
+            { " \t", 1, 4, 4 },
 
             // 2 spaces followed by a tab
-            new object[] { "  \t", 1, 4, 4 },
+            { "  \t", 1, 4, 4 },
 
             // 3 spaces followed by a tab
-            new object[] { "   \t", 1, 4, 4 },
+            { "   \t", 1, 4, 4 },
 
             // 4 spaces followed by a tab
-            new object[] { "    \t", 2, 4, 4 },
+            { "    \t", 2, 4, 4 },
 
             // tab followed by 1 space
-            new object[] { "\t ", 1, 4, 4 },
+            { "\t ", 1, 4, 4 },
 
             // tab followed by 2 space
-            new object[] { "\t  ", 2, 4, 4 },
+            { "\t  ", 2, 4, 4 },
 
             // tab followed by 3 spaces
-            new object[] { "\t   ", 2, 4, 4 },
+            { "\t   ", 2, 4, 4 },
 
             // tab followed by 4 spaces
-            new object[] { "\t    ", 2, 4, 4 },
+            { "\t    ", 2, 4, 4 },
         };
 
         private const string TestProjectName = "TestProject";
