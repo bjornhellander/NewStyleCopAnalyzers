@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.MaintainabilityRules
 {
     using System;
@@ -54,6 +52,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
         private static void HandleMethodDeclaration(SyntaxNodeAnalysisContext context)
         {
+            // TODO: Check this before registering syntax node actions?
             if (!context.SupportsTuples())
             {
                 return;

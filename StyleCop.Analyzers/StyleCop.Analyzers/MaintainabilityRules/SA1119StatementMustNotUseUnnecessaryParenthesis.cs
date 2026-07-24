@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.MaintainabilityRules
 {
     using System;
@@ -205,7 +203,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 else if (currentNode is AssignmentExpressionSyntax)
                 {
                     // We have to use parenthesis if the conditional access is in an interpolation inside an assignment.
-                    var assignment = currentNode as AssignmentExpressionSyntax;
+                    var assignment = (AssignmentExpressionSyntax)currentNode;
                     expressionToCheck.Enqueue(assignment.Left);
                     expressionToCheck.Enqueue(assignment.Right);
                 }
