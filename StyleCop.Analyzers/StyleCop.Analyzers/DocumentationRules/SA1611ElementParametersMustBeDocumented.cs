@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System.Collections.Generic;
@@ -76,6 +74,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             var xmlParameterNames = syntaxList
                 .Select(XmlCommentHelper.GetFirstAttributeOrDefault<XmlNameAttributeSyntax>)
                 .Where(x => x != null)
+                .Select(x => x!)
                 .Select(x => x.Identifier.Identifier.ValueText);
 
             ReportMissingParameters(context, parameterList, xmlParameterNames);
@@ -115,7 +114,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             ReportMissingParameters(context, parameterList, xmlParameterNames);
         }
 
-        private static IEnumerable<ParameterSyntax> GetParameters(SyntaxNode node)
+        private static IEnumerable<ParameterSyntax>? GetParameters(SyntaxNode node)
         {
             return (node as BaseMethodDeclarationSyntax)?.ParameterList?.Parameters
                 ?? (node as IndexerDeclarationSyntax)?.ParameterList?.Parameters

@@ -121,7 +121,7 @@ namespace StyleCop.Analyzers.NamingRules
                 return;
             }
 
-            // TODO: any other cases?
+            // TODO: Any other cases?
         }
 
         private static void HandleClassDeclaration(SyntaxNodeAnalysisContext context)

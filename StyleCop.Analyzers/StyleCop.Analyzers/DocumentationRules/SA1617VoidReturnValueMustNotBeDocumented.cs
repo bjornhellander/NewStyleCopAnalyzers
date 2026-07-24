@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System;
@@ -72,7 +70,7 @@ namespace StyleCop.Analyzers.DocumentationRules
         private static void HandleDelegateDeclaration(SyntaxNodeAnalysisContext context)
         {
             var delegateDeclaration = (DelegateDeclarationSyntax)context.Node;
-            HandleMember(context, delegateDeclaration?.ReturnType);
+            HandleMember(context, delegateDeclaration.ReturnType);
         }
 
         private static void HandleMember(SyntaxNodeAnalysisContext context, TypeSyntax returnValue)

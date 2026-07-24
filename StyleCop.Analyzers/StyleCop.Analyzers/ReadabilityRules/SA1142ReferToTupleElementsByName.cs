@@ -49,7 +49,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleFieldReferenceOperation(OperationAnalysisContext context)
         {
-            // TODO: Check earlier?
+            // TODO: Check this earlier?
             if (!context.SupportsTuples())
             {
                 return;

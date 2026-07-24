@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System;
@@ -62,7 +60,7 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// <param name="secondTextPart">The second part of the standard text.</param>
         /// <param name="diagnosticDescriptor">The diagnostic to report for violations, or <see langword="null"/> to not report violations.</param>
         /// <returns>A <see cref="MatchResult"/> describing the result of the analysis.</returns>
-        protected static MatchResult HandleDeclaration(SyntaxNodeAnalysisContext context, string firstTextPart, string secondTextPart, DiagnosticDescriptor diagnosticDescriptor)
+        protected static MatchResult HandleDeclaration(SyntaxNodeAnalysisContext context, string firstTextPart, string secondTextPart, DiagnosticDescriptor? diagnosticDescriptor)
         {
             var declarationSyntax = (BaseMethodDeclarationSyntax)context.Node;
             var documentationStructure = declarationSyntax.GetDocumentationCommentTriviaSyntax();
@@ -169,14 +167,14 @@ namespace StyleCop.Analyzers.DocumentationRules
                 context.ReportDiagnostic(Diagnostic.Create(diagnosticDescriptor, diagnosticLocation, diagnosticProperties));
             }
 
-            // TODO: be more specific about the type of error when possible
+            // TODO: Be more specific about the type of error when possible
             return MatchResult.None;
         }
 
         private static bool SeeTagIsCorrect(SyntaxNodeAnalysisContext context, XmlEmptyElementSyntax classReferencePart, BaseMethodDeclarationSyntax constructorDeclarationSyntax)
         {
-            XmlCrefAttributeSyntax crefAttribute = XmlCommentHelper.GetFirstAttributeOrDefault<XmlCrefAttributeSyntax>(classReferencePart);
-            CrefSyntax crefSyntax = crefAttribute?.Cref;
+            XmlCrefAttributeSyntax? crefAttribute = XmlCommentHelper.GetFirstAttributeOrDefault<XmlCrefAttributeSyntax>(classReferencePart);
+            CrefSyntax? crefSyntax = crefAttribute?.Cref;
             if (crefAttribute == null)
             {
                 return false;
@@ -188,7 +186,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                 return false;
             }
 
-            INamedTypeSymbol expectedSymbol = semanticModel.GetDeclaredSymbol(constructorDeclarationSyntax.Parent, context.CancellationToken) as INamedTypeSymbol;
+            INamedTypeSymbol expectedSymbol = (INamedTypeSymbol)semanticModel.GetDeclaredSymbol(constructorDeclarationSyntax.Parent, context.CancellationToken);
             return Equals(actualSymbol.OriginalDefinition, expectedSymbol);
         }
 
@@ -214,19 +212,19 @@ namespace StyleCop.Analyzers.DocumentationRules
                 return false;
             }
 
-            INamedTypeSymbol expectedSymbol = semanticModel.GetDeclaredSymbol(constructorDeclarationSyntax.Parent, context.CancellationToken) as INamedTypeSymbol;
+            INamedTypeSymbol expectedSymbol = (INamedTypeSymbol)semanticModel.GetDeclaredSymbol(constructorDeclarationSyntax.Parent, context.CancellationToken);
             return Equals(actualSymbol.OriginalDefinition, expectedSymbol);
         }
 
         private static bool TextPartsMatch(string firstText, string secondText, XmlTextSyntax firstTextPart, XmlTextSyntax secondTextPart)
         {
-            string firstTextPartText = XmlCommentHelper.GetText(firstTextPart, normalizeWhitespace: true);
+            string firstTextPartText = XmlCommentHelper.GetText(firstTextPart, normalizeWhitespace: true)!; // TODO: Try to get rid of !
             if (firstText != firstTextPartText.TrimStart())
             {
                 return false;
             }
 
-            string secondTextPartText = XmlCommentHelper.GetText(secondTextPart, normalizeWhitespace: true);
+            string secondTextPartText = XmlCommentHelper.GetText(secondTextPart, normalizeWhitespace: true)!; // TODO: Try to get rid of !
             return secondTextPartText.StartsWith(secondText, StringComparison.Ordinal);
         }
 

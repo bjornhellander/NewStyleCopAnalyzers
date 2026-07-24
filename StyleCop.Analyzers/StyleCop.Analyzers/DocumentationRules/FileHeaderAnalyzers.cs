@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System;
@@ -228,7 +226,8 @@ namespace StyleCop.Analyzers.DocumentationRules
 
                     if (!compilation.IsAnalyzerSuppressed(SA1635Descriptor))
                     {
-                        if (string.IsNullOrWhiteSpace(fileHeader.CopyrightText))
+                        var copyrightText = fileHeader.CopyrightText;
+                        if (string.IsNullOrWhiteSpace(copyrightText))
                         {
                             context.ReportDiagnostic(Diagnostic.Create(SA1635Descriptor, fileHeader.GetLocation(context.Tree)));
                             return;
@@ -239,7 +238,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                             return;
                         }
 
-                        if (!CompareCopyrightText(context, settings.DocumentationRules, fileHeader.CopyrightText))
+                        if (!CompareCopyrightText(context, settings.DocumentationRules, copyrightText!))
                         {
                             context.ReportDiagnostic(Diagnostic.Create(SA1636Descriptor, fileHeader.GetLocation(context.Tree)));
                             return;

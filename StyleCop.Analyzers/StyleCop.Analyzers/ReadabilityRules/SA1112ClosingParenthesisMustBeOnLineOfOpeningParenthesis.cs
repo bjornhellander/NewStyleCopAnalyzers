@@ -74,7 +74,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 return;
             }
 
-            // TODO: Simplify tese methods
+            // TODO: Simplify these methods
             if (!objectCreation.ArgumentList.OpenParenToken.IsMissing &&
                     !objectCreation.ArgumentList.CloseParenToken.IsMissing)
             {

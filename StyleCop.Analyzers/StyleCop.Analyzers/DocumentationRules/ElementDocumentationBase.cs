@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System;
@@ -22,7 +20,7 @@ namespace StyleCop.Analyzers.DocumentationRules
     /// </summary>
     internal abstract class ElementDocumentationBase : DiagnosticAnalyzerBase
     {
-        private readonly string matchElementName;
+        private readonly string? matchElementName;
         private readonly bool inheritDocSuppressesWarnings;
 
         private readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> methodDeclarationAction;
@@ -36,7 +34,7 @@ namespace StyleCop.Analyzers.DocumentationRules
         private readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> propertyDeclarationAction;
         private readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> enumMemberDeclarationAction;
 
-        protected ElementDocumentationBase(bool inheritDocSuppressesWarnings, string matchElementName = null)
+        protected ElementDocumentationBase(bool inheritDocSuppressesWarnings, string? matchElementName = null)
         {
             this.matchElementName = matchElementName;
             this.inheritDocSuppressesWarnings = inheritDocSuppressesWarnings;

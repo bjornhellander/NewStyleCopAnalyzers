@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System;
@@ -84,7 +82,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             CheckTag(context, syntax.Name?.ToString());
         }
 
-        private static void CheckTag(SyntaxNodeAnalysisContext context, string tagName)
+        private static void CheckTag(SyntaxNodeAnalysisContext context, string? tagName)
         {
             if (string.Equals(XmlCommentHelper.IncludeXmlTag, tagName, StringComparison.Ordinal))
             {
