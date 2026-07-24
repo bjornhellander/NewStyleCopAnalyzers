@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.OrderingRules
 {
     using System;
@@ -87,7 +85,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
         private static void HandleDeclaration(SyntaxNodeAnalysisContext context)
         {
-            var modifiers = DeclarationModifiersHelper.GetModifiers(context.Node as MemberDeclarationSyntax);
+            var modifiers = DeclarationModifiersHelper.GetModifiers((MemberDeclarationSyntax)context.Node);
             CheckModifiersOrderAndReportDiagnostics(context, modifiers);
         }
 
