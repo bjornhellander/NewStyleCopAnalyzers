@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Settings.ObjectModel
 {
     using System.Collections.Immutable;
@@ -34,8 +32,8 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
         protected internal NamingSettings(JsonObject namingSettingsObject, AnalyzerConfigOptionsWrapper analyzerConfigOptions)
         {
             bool? allowCommonHungarianPrefixes = null;
-            ImmutableArray<string>.Builder allowedHungarianPrefixes = null;
-            ImmutableArray<string>.Builder allowedNamespaceComponents = null;
+            ImmutableArray<string>.Builder? allowedHungarianPrefixes = null;
+            ImmutableArray<string>.Builder? allowedNamespaceComponents = null;
             bool? includeInferredTupleElementNames = null;
             TupleElementNameCase? tupleElementNameCasing = null;
 

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers
 {
     using System;
@@ -90,8 +88,7 @@ namespace StyleCop.Analyzers
                 throw new InvalidSettingsException($"{jsonValue.Key} must contain an enum (string) value");
             }
 
-            TEnum result;
-            if (!EnumHelper<TEnum>.TryParse(jsonValue.Value.AsString, out result))
+            if (!EnumHelper<TEnum>.TryParse(jsonValue.Value.AsString, out var result))
             {
                 throw new InvalidSettingsException($"{jsonValue.Key} cannot contain enum value '{jsonValue.Value.AsString}'");
             }
@@ -114,8 +111,7 @@ namespace StyleCop.Analyzers
                 throw new InvalidSettingsException($"{elementName} must contain an enum (string) value");
             }
 
-            TEnum result;
-            if (!EnumHelper<TEnum>.TryParse(jsonValue.AsString, out result))
+            if (!EnumHelper<TEnum>.TryParse(jsonValue.AsString, out var result))
             {
                 throw new InvalidSettingsException($"{elementName} cannot contain enum value '{jsonValue.AsString}'");
             }
