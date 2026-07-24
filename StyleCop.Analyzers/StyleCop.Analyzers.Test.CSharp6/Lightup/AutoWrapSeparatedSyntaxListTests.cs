@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.Lightup
 {
+    using System.Diagnostics.CodeAnalysis;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using StyleCop.Analyzers.Lightup;
@@ -16,7 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.Lightup
             return new SeparatedSyntaxListWrapper<SyntaxNode>.AutoWrapSeparatedSyntaxList<SyntaxNode>(default);
         }
 
-        internal override bool TryCreateNonEmptyList(out SeparatedSyntaxListWrapper<SyntaxNode> list)
+        internal override bool TryCreateNonEmptyList([NotNullWhen(true)] out SeparatedSyntaxListWrapper<SyntaxNode>? list)
         {
             list = new SeparatedSyntaxListWrapper<SyntaxNode>.AutoWrapSeparatedSyntaxList<SyntaxNode>(
                 SyntaxFactory.SingletonSeparatedList<SyntaxNode>(SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression)));
