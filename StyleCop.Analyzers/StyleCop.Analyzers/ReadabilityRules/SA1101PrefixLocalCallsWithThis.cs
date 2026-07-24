@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
@@ -71,10 +69,11 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static void HandleMemberAccessExpression(SyntaxNodeAnalysisContext context)
         {
             MemberAccessExpressionSyntax syntax = (MemberAccessExpressionSyntax)context.Node;
-            IdentifierNameSyntax nameExpression = syntax.Expression as IdentifierNameSyntax;
+            IdentifierNameSyntax? nameExpression = syntax.Expression as IdentifierNameSyntax;
             HandleIdentifierNameImpl(context, nameExpression);
         }
 
+        // TODO: Clean this up
         private static void HandleSimpleName(SyntaxNodeAnalysisContext context)
         {
             switch (context.Node?.Parent?.Kind() ?? SyntaxKind.None)
@@ -95,7 +94,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 return;
 
             case SyntaxKind.SimpleAssignmentExpression:
-                if (((AssignmentExpressionSyntax)context.Node.Parent).Left == context.Node)
+                if (((AssignmentExpressionSyntax)context.Node!.Parent).Left == context.Node) // TODO: Get rid of !
                 {
                     if (context.Node.Parent.Parent.IsKind(SyntaxKind.ObjectInitializerExpression))
                     {
@@ -117,7 +116,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 break;
 
             case SyntaxKind.NameEquals:
-                if (((NameEqualsSyntax)context.Node.Parent).Name != context.Node)
+                if (((NameEqualsSyntax)context.Node!.Parent).Name != context.Node) // TODO: Get rid of !
                 {
                     break;
                 }
@@ -134,7 +133,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
                 break;
 
-            case SyntaxKind.Argument when IsPartOfConstructorInitializer((SimpleNameSyntax)context.Node):
+            case SyntaxKind.Argument when IsPartOfConstructorInitializer((SimpleNameSyntax?)context.Node):
                 // constructor invocations cannot contain this.
                 return;
 
@@ -142,10 +141,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 break;
             }
 
-            HandleIdentifierNameImpl(context, (SimpleNameSyntax)context.Node);
+            HandleIdentifierNameImpl(context, (SimpleNameSyntax?)context.Node);
         }
 
-        private static void HandleIdentifierNameImpl(SyntaxNodeAnalysisContext context, SimpleNameSyntax nameExpression)
+        private static void HandleIdentifierNameImpl(SyntaxNodeAnalysisContext context, SimpleNameSyntax? nameExpression)
         {
             if (nameExpression == null)
             {
@@ -236,7 +235,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.ReportDiagnostic(Diagnostic.Create(Descriptor, nameExpression.GetLocation()));
         }
 
-        private static bool HasThis(SyntaxNode node)
+        private static bool HasThis(SyntaxNode? node)
         {
             for (; node != null; node = node.Parent)
             {
@@ -300,7 +299,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             return false;
         }
 
-        private static bool IsPartOfConstructorInitializer(SyntaxNode node)
+        private static bool IsPartOfConstructorInitializer(SyntaxNode? node)
         {
             for (; node != null; node = node.Parent)
             {

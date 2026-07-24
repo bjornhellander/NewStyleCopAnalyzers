@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
@@ -76,6 +74,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 return;
             }
 
+            // TODO: Simplify tese methods
             if (!objectCreation.ArgumentList.OpenParenToken.IsMissing &&
                     !objectCreation.ArgumentList.CloseParenToken.IsMissing)
             {
