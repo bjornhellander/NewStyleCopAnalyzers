@@ -86,14 +86,14 @@ namespace StyleCop.Analyzers.LayoutRules
             protected override string CodeActionTitle =>
                 LayoutResources.SA1517CodeFix;
 
-            protected override Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {
                     return null;
                 }
 
-                return GetTransformedSyntaxRootAsync(document, fixAllContext.CancellationToken);
+                return await GetTransformedSyntaxRootAsync(document, fixAllContext.CancellationToken).ConfigureAwait(false);
             }
         }
     }
