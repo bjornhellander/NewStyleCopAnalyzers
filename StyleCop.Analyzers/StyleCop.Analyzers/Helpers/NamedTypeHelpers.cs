@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using System;
@@ -15,7 +13,7 @@ namespace StyleCop.Analyzers.Helpers
 
     internal static class NamedTypeHelpers
     {
-        internal static bool IsNativeMethodsClass(INamedTypeSymbol type)
+        internal static bool IsNativeMethodsClass(INamedTypeSymbol? type)
         {
             if (type == null || type.TypeKind != TypeKind.Class)
             {
@@ -30,9 +28,9 @@ namespace StyleCop.Analyzers.Helpers
             return false;
         }
 
-        internal static bool IsNativeMethodsClass(ClassDeclarationSyntax syntax)
+        internal static bool IsNativeMethodsClass(ClassDeclarationSyntax? syntax)
         {
-            string name = syntax?.Identifier.ValueText;
+            string? name = syntax?.Identifier.ValueText;
             if (name == null)
             {
                 return false;
@@ -41,7 +39,7 @@ namespace StyleCop.Analyzers.Helpers
             return name.EndsWith("NativeMethods", StringComparison.Ordinal);
         }
 
-        internal static bool IsContainedInNativeMethodsClass(INamedTypeSymbol type)
+        internal static bool IsContainedInNativeMethodsClass(INamedTypeSymbol? type)
         {
             if (type == null)
             {
@@ -65,7 +63,7 @@ namespace StyleCop.Analyzers.Helpers
             return false;
         }
 
-        internal static bool IsContainedInNativeMethodsClass(SyntaxNode syntax)
+        internal static bool IsContainedInNativeMethodsClass(SyntaxNode? syntax)
         {
             while (syntax != null)
             {
@@ -106,7 +104,7 @@ namespace StyleCop.Analyzers.Helpers
 
         internal static Location GetNameOrIdentifierLocation(SyntaxNode member)
         {
-            Location location = null;
+            Location? location = null;
 
             // TODO: Re-write this?
             if (member.IsKind(SyntaxKindEx.ExtensionBlockDeclaration))
@@ -152,7 +150,7 @@ namespace StyleCop.Analyzers.Helpers
         /// </remarks>
         /// <param name="memberSymbol">The member symbol that should be analyzed.</param>
         /// <returns>true if the member is implementing an interface member, otherwise false.</returns>
-        internal static bool IsImplementingAnInterfaceMember(ISymbol memberSymbol)
+        internal static bool IsImplementingAnInterfaceMember(ISymbol? memberSymbol)
         {
             bool isImplementingExplicitly;
 

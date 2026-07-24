@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers
 {
     using System;
@@ -39,9 +37,6 @@ namespace StyleCop.Analyzers
         /// <value>
         /// The reason why the <see cref="DiagnosticAnalyzer"/> does not have an implementation.
         /// </value>
-        public string Reason
-        {
-            get;
-        }
+        public string Reason { get; }
     }
 }

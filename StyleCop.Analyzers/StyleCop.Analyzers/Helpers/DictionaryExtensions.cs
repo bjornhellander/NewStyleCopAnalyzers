@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using System.Collections.Generic;
@@ -10,7 +8,7 @@ namespace StyleCop.Analyzers.Helpers
     internal static class DictionaryExtensions
     {
         public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
-          where TKey : notnull
+            where TKey : notnull
         {
             if (!dictionary.TryGetValue(key, out var value))
             {
