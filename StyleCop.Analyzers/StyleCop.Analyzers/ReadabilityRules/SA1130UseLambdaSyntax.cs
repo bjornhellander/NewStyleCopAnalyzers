@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
@@ -51,7 +49,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// <param name="argumentIndex">The index of the argument containing the delegate.</param>
         /// <returns>A parameter list for the delegate parameters.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1202:Elements should be ordered by access", Justification = "Ok")]
-        internal static ParameterListSyntax GetDelegateParameterList(ISymbol symbol, int argumentIndex)
+        internal static ParameterListSyntax? GetDelegateParameterList(ISymbol symbol, int argumentIndex)
         {
             ImmutableArray<IParameterSymbol> parameterList;
             int realIndex;
@@ -81,6 +79,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 }
                 else
                 {
+                    // TODO: Investigate!
                     // Just to make sure that we do not crash if in future versions of the compiler other types are allowed for params.
                     // This if statement should be extended if e.g. Span params are introduced into the language.
                     return null;

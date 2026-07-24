@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using System;
@@ -21,7 +19,7 @@ namespace StyleCop.Analyzers.Helpers
         /// <exception cref="ArgumentNullException">
         /// If <paramref name="argument"/> is <see langword="null"/>.
         /// </exception>
-        public static void NotNull<T>(T argument, string parameterName)
+        public static void NotNull<T>(T? argument, string parameterName)
             where T : class
         {
             if (argument == null)

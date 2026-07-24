@@ -16,13 +16,13 @@ namespace StyleCop.Analyzers.Test.CSharp6.LinqHelpers
         [Fact]
         public void TestAnyWithNullArgument()
         {
-            Assert.Throws<ArgumentNullException>(() => SyntaxTriviaListEnumerable.Any(SyntaxFactory.TriviaList(), null));
+            Assert.Throws<ArgumentNullException>(() => SyntaxTriviaListEnumerable.Any(SyntaxFactory.TriviaList(), null!));
         }
 
         [Fact]
         public void TestAllWithNullArgument()
         {
-            Assert.Throws<ArgumentNullException>(() => SyntaxTriviaListEnumerable.All(SyntaxFactory.TriviaList(), null));
+            Assert.Throws<ArgumentNullException>(() => SyntaxTriviaListEnumerable.All(SyntaxFactory.TriviaList(), null!));
         }
     }
 }

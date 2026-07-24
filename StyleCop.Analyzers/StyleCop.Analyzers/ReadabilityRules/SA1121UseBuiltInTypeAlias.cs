@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
@@ -237,7 +235,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 // 2. The alias to a built-in type is a different name. In this case, if allowBuiltInTypeAliases is true
                 //    then the above code would have already returned due to the renamed symbol not being in the set of
                 //    strings checked by the analyzer above.
-                INamedTypeSymbol symbol = semanticModel.GetSymbolInfo(identifierNameSyntax, context.CancellationToken).Symbol as INamedTypeSymbol;
+                INamedTypeSymbol? symbol = semanticModel.GetSymbolInfo(identifierNameSyntax, context.CancellationToken).Symbol as INamedTypeSymbol;
 
                 switch (symbol?.SpecialType)
                 {

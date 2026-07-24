@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
@@ -421,7 +419,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
 
             bool first = true;
-            string expectedIndentation = null;
+            string? expectedIndentation = null;
             foreach (BlockSyntax element in elements)
             {
                 SyntaxTrivia openBraceIndentationTrivia = element.OpenBraceToken.LeadingTrivia.LastOrDefault();
@@ -439,12 +437,12 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
                 if (!string.Equals(expectedIndentation, openBraceIndentation, StringComparison.Ordinal))
                 {
-                    ReportDiagnostic(context, element.OpenBraceToken, openBraceIndentationTrivia, openBraceIndentation, expectedIndentation);
+                    ReportDiagnostic(context, element.OpenBraceToken, openBraceIndentationTrivia, openBraceIndentation, expectedIndentation!); // Get rif of !
                 }
 
                 if (!string.Equals(expectedIndentation, closeBraceIndentation, StringComparison.Ordinal))
                 {
-                    ReportDiagnostic(context, element.CloseBraceToken, closeBraceIndentationTrivia, closeBraceIndentation, expectedIndentation);
+                    ReportDiagnostic(context, element.CloseBraceToken, closeBraceIndentationTrivia, closeBraceIndentation, expectedIndentation!); // Get rif of !
                 }
             }
         }
@@ -474,7 +472,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
 
             bool first = true;
-            string expectedIndentation = null;
+            string? expectedIndentation = null;
             foreach (T element in elements)
             {
                 SyntaxToken firstToken = GetFirstTokenForAnalysis(element);
@@ -490,7 +488,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
                 if (!string.Equals(expectedIndentation, indentation, StringComparison.Ordinal))
                 {
-                    ReportDiagnostic(context, firstToken, indentationTrivia, indentation, expectedIndentation);
+                    ReportDiagnostic(context, firstToken, indentationTrivia, indentation, expectedIndentation!); // Get rif of !
                 }
             }
         }

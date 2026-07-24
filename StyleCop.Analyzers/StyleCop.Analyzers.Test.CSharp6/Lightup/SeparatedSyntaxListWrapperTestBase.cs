@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Test.CSharp6.Lightup
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using Microsoft.CodeAnalysis;
     using StyleCop.Analyzers.Lightup;
     using Xunit;
@@ -54,6 +53,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.Lightup
 
         internal abstract SeparatedSyntaxListWrapper<SyntaxNode> CreateList();
 
-        internal abstract bool TryCreateNonEmptyList(out SeparatedSyntaxListWrapper<SyntaxNode> list);
+        internal abstract bool TryCreateNonEmptyList([NotNullWhen(true)] out SeparatedSyntaxListWrapper<SyntaxNode>? list);
     }
 }

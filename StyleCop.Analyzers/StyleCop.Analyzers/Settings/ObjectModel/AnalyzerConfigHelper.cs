@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Settings.ObjectModel
 {
     using System.Collections.Generic;
@@ -36,7 +34,7 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
             return null;
         }
 
-        internal static string TryGetStringValue(AnalyzerConfigOptionsWrapper analyzerConfigOptions, string key, bool allowExplicitUnset = true)
+        internal static string? TryGetStringValue(AnalyzerConfigOptionsWrapper analyzerConfigOptions, string key, bool allowExplicitUnset = true)
         {
             if (analyzerConfigOptions.TryGetValue(key, out var value))
             {
@@ -51,7 +49,7 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
             return null;
         }
 
-        internal static string TryGetMultiLineStringValue(AnalyzerConfigOptionsWrapper analyzerConfigOptions, string key, bool allowExplicitUnset = true)
+        internal static string? TryGetMultiLineStringValue(AnalyzerConfigOptionsWrapper analyzerConfigOptions, string key, bool allowExplicitUnset = true)
         {
             var orgValue = TryGetStringValue(analyzerConfigOptions, key, allowExplicitUnset);
             return orgValue?.Replace("\\r", "\r").Replace("\\n", "\n");
