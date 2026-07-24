@@ -1,11 +1,8 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.SpecialRules
 {
-    using System;
     using System.Collections.Immutable;
     using System.Threading;
     using Microsoft.CodeAnalysis;
@@ -49,6 +46,7 @@ namespace StyleCop.Analyzers.SpecialRules
 
             public void HandleCompilation(CompilationAnalysisContext context)
             {
+                // TODO: Simplify?
                 if (Volatile.Read(ref this.documentationAnalysisDisabled))
                 {
                     context.ReportDiagnostic(Diagnostic.Create(Descriptor, Location.None));

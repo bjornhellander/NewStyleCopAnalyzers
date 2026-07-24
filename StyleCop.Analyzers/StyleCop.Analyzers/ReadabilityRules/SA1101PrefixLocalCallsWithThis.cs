@@ -94,7 +94,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 return;
 
             case SyntaxKind.SimpleAssignmentExpression:
-                if (((AssignmentExpressionSyntax)context.Node!.Parent).Left == context.Node) // TODO: Get rid of !
+                if (((AssignmentExpressionSyntax)context.Node!.Parent).Left == context.Node) //// TODO: Get rid of !
                 {
                     if (context.Node.Parent.Parent.IsKind(SyntaxKind.ObjectInitializerExpression))
                     {
@@ -116,7 +116,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 break;
 
             case SyntaxKind.NameEquals:
-                if (((NameEqualsSyntax)context.Node!.Parent).Name != context.Node) // TODO: Get rid of !
+                if (((NameEqualsSyntax)context.Node!.Parent).Name != context.Node) //// TODO: Get rid of !
                 {
                     break;
                 }
