@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers.ObjectPools
 {
     // This code was copied from the Roslyn code base (and slightly modified)
@@ -40,7 +38,7 @@ namespace StyleCop.Analyzers.Helpers.ObjectPools
 
         // Storage for the pool objects. The first item is stored in a dedicated field because we
         // expect to be able to satisfy most requests from it.
-        private T firstItem;
+        private T? firstItem;
 
         internal ObjectPool(Func<T> factory)
 #pragma warning disable RS1035 // Do not use APIs banned for analyzers (false positive: https://github.com/dotnet/roslyn-analyzers/issues/6571)
@@ -71,7 +69,7 @@ namespace StyleCop.Analyzers.Helpers.ObjectPools
             // Note that the initial read is optimistically not synchronized. That is intentional.
             // We will interlock only when we have a candidate. in a worst case we may miss some
             // recently returned objects. Not a big deal.
-            T inst = this.firstItem;
+            T? inst = this.firstItem;
             if (inst == null || inst != Interlocked.CompareExchange(ref this.firstItem, null, inst))
             {
                 inst = this.AllocateSlow();
@@ -119,7 +117,7 @@ namespace StyleCop.Analyzers.Helpers.ObjectPools
                 // Note that the initial read is optimistically not synchronized. That is intentional.
                 // We will interlock only when we have a candidate. in a worst case we may miss some
                 // recently returned objects. Not a big deal.
-                T inst = items[i].Value;
+                T? inst = items[i].Value;
                 if (inst != null)
                 {
                     if (inst == Interlocked.CompareExchange(ref items[i].Value, null, inst))
@@ -151,7 +149,7 @@ namespace StyleCop.Analyzers.Helpers.ObjectPools
         [DebuggerDisplay("{Value,nq}")]
         private struct Element
         {
-            internal T Value;
+            internal T? Value;
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers.ObjectPools
 {
     // This code was copied from the Roslyn code base (and slightly modified)
@@ -72,7 +70,7 @@ namespace StyleCop.Analyzers.Helpers.ObjectPools
             if (this.pooledObject != null)
             {
                 this.releaser(this.pool, this.pooledObject);
-                this.pooledObject = null;
+                this.pooledObject = null!;
             }
         }
 
