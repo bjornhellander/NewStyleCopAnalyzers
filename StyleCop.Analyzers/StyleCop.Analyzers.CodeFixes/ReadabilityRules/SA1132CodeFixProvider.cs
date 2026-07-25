@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
@@ -59,7 +57,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         {
             var syntaxRoot = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
             var baseFieldDeclaration = (BaseFieldDeclarationSyntax)syntaxRoot.FindNode(diagnostic.Location.SourceSpan);
-            List<BaseFieldDeclarationSyntax> newFieldDeclarations = SplitDeclaration(document, baseFieldDeclaration);
+            List<BaseFieldDeclarationSyntax>? newFieldDeclarations = SplitDeclaration(document, baseFieldDeclaration);
 
             if (newFieldDeclarations != null)
             {
@@ -72,7 +70,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             return document;
         }
 
-        private static List<BaseFieldDeclarationSyntax> SplitDeclaration(Document document, BaseFieldDeclarationSyntax baseFieldDeclaration)
+        private static List<BaseFieldDeclarationSyntax>? SplitDeclaration(Document document, BaseFieldDeclarationSyntax baseFieldDeclaration)
         {
             if (baseFieldDeclaration is FieldDeclarationSyntax fieldDeclaration)
             {
@@ -103,7 +101,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         {
             SeparatedSyntaxList<VariableDeclaratorSyntax> variables = declaration.Variables;
             VariableDeclaratorSyntax first = variables.First();
-            BaseFieldDeclarationSyntax previous = null;
+            BaseFieldDeclarationSyntax? previous = null;
             var newFieldDeclarations = new List<BaseFieldDeclarationSyntax>(variables.Count);
 
             foreach (SyntaxNodeOrToken nodeOrToken in variables.GetWithSeparators())
@@ -163,7 +161,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 }
             }
 
-            newFieldDeclarations.Add(previous.WithTrailingTrivia(declarationTrailingTrivia));
+            newFieldDeclarations.Add(previous!.WithTrailingTrivia(declarationTrailingTrivia)); // TODO: Try to get rid of the !
             return newFieldDeclarations;
         }
     }

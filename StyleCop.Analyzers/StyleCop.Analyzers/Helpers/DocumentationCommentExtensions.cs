@@ -16,6 +16,7 @@ namespace StyleCop.Analyzers.Helpers
         {
             if (node == null)
             {
+                // TODO: Investigate if this should be removed. Doesn't look like any tests get here.
                 return null;
             }
 

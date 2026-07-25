@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System;
@@ -159,8 +157,9 @@ namespace StyleCop.Analyzers.DocumentationRules
                 return recordDeclaration.TypeParameterList;
             }
 
+            // TODO: Investigate if this is complete. Unions? "base type" also inculdes enums.
             Debug.Assert(false, $"Unhandled type {typeDeclaration.Kind()}");
-            return null;
+            return null!; // TODO: Try to get rid of the !
         }
 
         private static Task<Document> GetTransformedDocumentAsync(Document document, SyntaxNode root, XmlElementSyntax node, CancellationToken cancellationToken)

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System.Collections.Immutable;
@@ -60,7 +58,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             var syntaxRoot = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
 
             var node = syntaxRoot.FindNode(diagnostic.Location.SourceSpan);
-            var documentation = node.GetDocumentationCommentTriviaSyntax();
+            var documentation = node.GetDocumentationCommentTriviaSyntax()!; // NOTE: There is documentation, otherwise there would be no diagnostic
 
             var summaryElement = (XmlElementSyntax)documentation.Content.GetFirstXmlElement(XmlCommentHelper.SummaryXmlTag);
             var textElement = XmlCommentHelper.TryGetFirstTextElementWithContent(summaryElement);

@@ -152,6 +152,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 }
 ";
 
+            // TODO: Remove!
             DiagnosticResult[] expected =
             {
                 Diagnostic().WithLocation(0),

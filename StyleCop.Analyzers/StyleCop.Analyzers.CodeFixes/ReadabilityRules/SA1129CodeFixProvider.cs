@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
     using System.Collections.Immutable;
     using System.Composition;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -63,6 +62,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             return document.WithSyntaxRoot(newSyntaxRoot);
         }
 
+        // TODO: Try to simplify this
         private static SyntaxNode GetReplacementNode(Project project, SyntaxNode node, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
             var newExpression = (BaseObjectCreationExpressionSyntaxWrapper)node;
@@ -107,7 +107,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     replacement = ConstructMemberAccessSyntax(type, fieldName);
                 }
             }
-            else if (IsEnumWithDefaultMember(namedTypeSymbol, out string memberName))
+            else if (IsEnumWithDefaultMember(namedTypeSymbol, out string? memberName))
             {
                 replacement = ConstructMemberAccessSyntax(type, memberName);
             }
@@ -121,7 +121,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 .WithTrailingTrivia(newExpression.SyntaxNode.GetTrailingTrivia());
         }
 
-        private static TypeSyntax GetOrCreateTypeSyntax(Project project, BaseObjectCreationExpressionSyntaxWrapper baseObjectCreationExpression, INamedTypeSymbol constructedType)
+        private static TypeSyntax GetOrCreateTypeSyntax(Project project, BaseObjectCreationExpressionSyntaxWrapper baseObjectCreationExpression, INamedTypeSymbol? constructedType)
         {
             if (baseObjectCreationExpression.SyntaxNode is ObjectCreationExpressionSyntax objectCreationExpressionSyntax)
             {
@@ -140,7 +140,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// <typeparam name="T">The type to match.</typeparam>
         /// <param name="namedTypeSymbol">The symbol.</param>
         /// <returns><see langword="true"/> if the syntax matches the type; <see langword="false"/> otherwise.</returns>
-        private static bool IsType<T>(INamedTypeSymbol namedTypeSymbol)
+        private static bool IsType<T>([NotNullWhen(true)] INamedTypeSymbol? namedTypeSymbol)
         {
             if (namedTypeSymbol == null)
             {
@@ -181,7 +181,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// <param name="namedTypeSymbol">The symbol.</param>
         /// <param name="foundMemberName">Will be set to the string name of the member, if one is found.</param>
         /// <returns><see langword="true"/> if the syntax is an enumeration with a value of <c>0</c>; <see langword="false"/> otherwise.</returns>
-        private static bool IsEnumWithDefaultMember(INamedTypeSymbol namedTypeSymbol, out string foundMemberName)
+        private static bool IsEnumWithDefaultMember(INamedTypeSymbol? namedTypeSymbol, [NotNullWhen(true)] out string? foundMemberName)
         {
             foundMemberName = null;
 
@@ -233,7 +233,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             protected override string CodeActionTitle =>
                 ReadabilityResources.SA1129CodeFix;
 
-            protected override async Task<SyntaxNode> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
+            protected override async Task<SyntaxNode?> FixAllInDocumentAsync(FixAllContext fixAllContext, Document document, ImmutableArray<Diagnostic> diagnostics)
             {
                 if (diagnostics.IsEmpty)
                 {

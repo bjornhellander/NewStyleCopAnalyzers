@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using System.Collections.Immutable;
@@ -98,7 +96,7 @@ namespace StyleCop.Analyzers.Helpers
 
                 return true;
             }
-            else if (containingSymbol.Kind == SymbolKind.Method)
+            else if (containingSymbol!.Kind == SymbolKind.Method) //// TODO: Try to get rid of the !
             {
                 IMethodSymbol methodSymbol = (IMethodSymbol)containingSymbol;
                 if (methodSymbol.Parameters.Any(i => i.Name == name)
@@ -137,7 +135,7 @@ namespace StyleCop.Analyzers.Helpers
             }
         }
 
-        public static SyntaxNode GetParentDeclaration(SyntaxToken token)
+        public static SyntaxNode? GetParentDeclaration(SyntaxToken token)
         {
             SyntaxNode parent = token.Parent;
 
