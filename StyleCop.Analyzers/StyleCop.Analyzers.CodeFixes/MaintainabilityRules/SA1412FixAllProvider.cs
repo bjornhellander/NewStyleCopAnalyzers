@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.MaintainabilityRules
 {
     using System.Collections.Immutable;
@@ -16,11 +14,11 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
     internal sealed class SA1412FixAllProvider : FixAllProvider
     {
-        public override Task<CodeAction> GetFixAsync(FixAllContext fixAllContext)
+        public override Task<CodeAction?> GetFixAsync(FixAllContext fixAllContext)
         {
             string title = string.Format(MaintainabilityResources.SA1412CodeFix, fixAllContext.CodeActionEquivalenceKey.Substring(fixAllContext.CodeActionEquivalenceKey.IndexOf('.') + 1));
 
-            CodeAction fixAction;
+            CodeAction? fixAction;
             switch (fixAllContext.Scope)
             {
             case FixAllScope.Document:

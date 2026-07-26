@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.NamingRules
 {
     using System;
@@ -138,7 +136,7 @@ namespace StyleCop.Analyzers.NamingRules
                 }
 
                 // Only parameters from method declarations can be exempt from this rule
-                if (parameter?.Parent?.Parent is MemberDeclarationSyntax memberDeclaration)
+                if (parameter.Parent?.Parent is MemberDeclarationSyntax memberDeclaration)
                 {
                     var semanticModel = context.SemanticModel;
                     var symbol = semanticModel.GetDeclaredSymbol(memberDeclaration);

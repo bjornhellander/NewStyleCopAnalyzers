@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using Microsoft.CodeAnalysis;
@@ -65,7 +63,7 @@ namespace StyleCop.Analyzers.Helpers
         /// <value>
         /// The copyright text, as parsed from the header.
         /// </value>
-        internal string CopyrightText { get; }
+        internal string? CopyrightText { get; }
 
         /// <summary>
         /// Gets the location representing the start of the file header.

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System;
@@ -67,7 +65,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                 var summaryElement = syntax as XmlElementSyntax;
                 if (summaryElement?.Content.FirstOrDefault() is XmlTextSyntax textElement)
                 {
-                    string text = XmlCommentHelper.GetText(textElement, true);
+                    string? text = XmlCommentHelper.GetText(textElement, true);
 
                     if (IsDefaultText(text))
                     {
@@ -95,11 +93,11 @@ namespace StyleCop.Analyzers.DocumentationRules
             }
         }
 
-        private static bool IsDefaultText(string text)
+        private static bool IsDefaultText(string? text)
         {
             if (!string.IsNullOrEmpty(text))
             {
-                if (text.TrimStart().StartsWith(DefaultText, StringComparison.Ordinal))
+                if (text!.TrimStart().StartsWith(DefaultText, StringComparison.Ordinal))
                 {
                     return true;
                 }

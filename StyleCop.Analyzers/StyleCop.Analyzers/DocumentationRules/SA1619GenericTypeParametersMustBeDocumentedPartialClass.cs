@@ -196,6 +196,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                 var xmlParameterNames = documentation.Content.GetXmlElements(XmlCommentHelper.TypeParamXmlTag)
                     .Select(XmlCommentHelper.GetFirstAttributeOrDefault<XmlNameAttributeSyntax>)
                     .Where(x => x != null)
+                    .Select(x => x!)
                     .ToImmutableArray();
 
                 foreach (var parameter in typeDeclaration.TypeParameterList.Parameters)

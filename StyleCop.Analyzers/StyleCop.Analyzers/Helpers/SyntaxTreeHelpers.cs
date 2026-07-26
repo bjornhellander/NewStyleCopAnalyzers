@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using System;
@@ -23,17 +21,17 @@ namespace StyleCop.Analyzers.Helpers
         /// <para>This allows many analyzers that run on every token in the file to avoid checking
         /// the same state in the document repeatedly.</para>
         /// </remarks>
-        private static Tuple<WeakReference<Compilation>, ConcurrentDictionary<SyntaxTree, bool>> usingAliasCache
-            = Tuple.Create(new WeakReference<Compilation>(null), default(ConcurrentDictionary<SyntaxTree, bool>));
+        private static Tuple<WeakReference<Compilation?>, ConcurrentDictionary<SyntaxTree, bool>?> usingAliasCache
+            = CreateCache(null);
 
         public static ConcurrentDictionary<SyntaxTree, bool> GetOrCreateUsingAliasCache(this Compilation compilation)
         {
             var cache = usingAliasCache;
 
-            Compilation cachedCompilation;
+            Compilation? cachedCompilation;
             if (!cache.Item1.TryGetTarget(out cachedCompilation) || cachedCompilation != compilation)
             {
-                var replacementCache = Tuple.Create(new WeakReference<Compilation>(compilation), new ConcurrentDictionary<SyntaxTree, bool>());
+                var replacementCache = CreateCache(compilation);
                 while (true)
                 {
                     var prior = Interlocked.CompareExchange(ref usingAliasCache, replacementCache, cache);
@@ -51,7 +49,7 @@ namespace StyleCop.Analyzers.Helpers
                 }
             }
 
-            return cache.Item2;
+            return cache.Item2!;
         }
 
         /// <summary>
@@ -80,7 +78,7 @@ namespace StyleCop.Analyzers.Helpers
             return firstToken.IsKind(SyntaxKind.EndOfFileToken) && firstToken.FullSpan.IsEmpty;
         }
 
-        internal static bool ContainsUsingAlias(this SyntaxTree tree, ConcurrentDictionary<SyntaxTree, bool> cache, SemanticModel semanticModel, CancellationToken cancellationToken)
+        internal static bool ContainsUsingAlias(this SyntaxTree? tree, ConcurrentDictionary<SyntaxTree, bool> cache, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
             if (tree == null)
             {
@@ -110,6 +108,13 @@ namespace StyleCop.Analyzers.Helpers
             // Check for global using aliases
             var scopes = semanticModel.GetImportScopes(0, cancellationToken);
             return scopes.Any(x => x.Aliases.Length > 0);
+        }
+
+        private static Tuple<WeakReference<Compilation?>, ConcurrentDictionary<SyntaxTree, bool>?> CreateCache(Compilation? compilation)
+        {
+            var compilationRef = new WeakReference<Compilation?>(compilation);
+            var dictionary = compilation != null ? new ConcurrentDictionary<SyntaxTree, bool>() : null;
+            return Tuple.Create(compilationRef, dictionary);
         }
     }
 }

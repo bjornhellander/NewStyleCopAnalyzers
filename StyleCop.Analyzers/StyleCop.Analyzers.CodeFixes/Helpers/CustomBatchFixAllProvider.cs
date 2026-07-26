@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using System;
@@ -29,7 +27,7 @@ namespace StyleCop.Analyzers.Helpers
 
         public static FixAllProvider Instance { get; } = new CustomBatchFixAllProvider();
 
-        public override async Task<CodeAction> GetFixAsync(FixAllContext fixAllContext)
+        public override async Task<CodeAction?> GetFixAsync(FixAllContext fixAllContext)
         {
             if (fixAllContext.Document != null)
             {
@@ -43,7 +41,7 @@ namespace StyleCop.Analyzers.Helpers
             }
         }
 
-        public virtual async Task<CodeAction> GetFixAsync(
+        public virtual async Task<CodeAction?> GetFixAsync(
             ImmutableDictionary<Document, ImmutableArray<Diagnostic>> documentsAndDiagnosticsToFixMap,
             FixAllContext fixAllContext)
         {
@@ -132,7 +130,7 @@ namespace StyleCop.Analyzers.Helpers
             }
         }
 
-        public virtual async Task<CodeAction> GetFixAsync(
+        public virtual async Task<CodeAction?> GetFixAsync(
             ImmutableDictionary<Project, ImmutableArray<Diagnostic>> projectsAndDiagnosticsToFixMap,
             FixAllContext fixAllContext)
         {
@@ -170,7 +168,7 @@ namespace StyleCop.Analyzers.Helpers
             throw new NotImplementedException();
         }
 
-        public virtual async Task<CodeAction> TryGetMergedFixAsync(IEnumerable<CodeAction> batchOfFixes, FixAllContext fixAllContext)
+        public virtual async Task<CodeAction?> TryGetMergedFixAsync(IEnumerable<CodeAction> batchOfFixes, FixAllContext fixAllContext)
         {
             if (batchOfFixes == null)
             {
@@ -239,8 +237,8 @@ namespace StyleCop.Analyzers.Helpers
 
         public virtual async Task<Solution> TryMergeFixesAsync(Solution oldSolution, IEnumerable<CodeAction> codeActions, CancellationToken cancellationToken)
         {
-            var changedDocumentsMap = new Dictionary<DocumentId, Document>();
-            Dictionary<DocumentId, List<Document>> documentsToMergeMap = null;
+            var changedDocumentsMap = new Dictionary<DocumentId, Document?>();
+            Dictionary<DocumentId, List<Document>>? documentsToMergeMap = null;
 
             foreach (var codeAction in codeActions)
             {
@@ -248,7 +246,7 @@ namespace StyleCop.Analyzers.Helpers
 
                 // TODO: Parallelize GetChangedSolutionInternalAsync for codeActions
                 ImmutableArray<CodeActionOperation> operations = await codeAction.GetPreviewOperationsAsync(cancellationToken).ConfigureAwait(false);
-                ApplyChangesOperation singleApplyChangesOperation = null;
+                ApplyChangesOperation? singleApplyChangesOperation = null;
                 foreach (var operation in operations)
                 {
                     if (!(operation is ApplyChangesOperation applyChangesOperation))
@@ -285,21 +283,18 @@ namespace StyleCop.Analyzers.Helpers
                     cancellationToken.ThrowIfCancellationRequested();
                     var document = changedSolution.GetDocument(documentId);
 
-                    Document existingDocument;
-                    if (changedDocumentsMap.TryGetValue(documentId, out existingDocument))
+                    if (changedDocumentsMap.TryGetValue(documentId, out var existingDocument))
                     {
                         if (existingDocument != null)
                         {
                             changedDocumentsMap[documentId] = null;
-                            var documentsToMerge = new List<Document>();
-                            documentsToMerge.Add(existingDocument);
-                            documentsToMerge.Add(document);
-                            documentsToMergeMap = documentsToMergeMap ?? new Dictionary<DocumentId, List<Document>>();
+                            var documentsToMerge = new List<Document> { existingDocument, document };
+                            documentsToMergeMap ??= new Dictionary<DocumentId, List<Document>>();
                             documentsToMergeMap[documentId] = documentsToMerge;
                         }
                         else
                         {
-                            documentsToMergeMap[documentId].Add(document);
+                            documentsToMergeMap![documentId].Add(document); // TODO: Try to get rid of the !
                         }
                     }
                     else

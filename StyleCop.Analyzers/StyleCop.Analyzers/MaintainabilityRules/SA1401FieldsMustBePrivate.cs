@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.MaintainabilityRules
 {
     using System;
@@ -72,22 +70,23 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 }
             }
 
-            private static bool IsFieldPrivate(IFieldSymbol fieldDeclarationSyntax)
+            private static bool IsFieldPrivate(IFieldSymbol fieldSymbol)
             {
-                return fieldDeclarationSyntax.DeclaredAccessibility == Accessibility.Private;
+                return fieldSymbol.DeclaredAccessibility == Accessibility.Private;
             }
 
-            private static bool IsStaticReadonly(IFieldSymbol fieldDeclarationSyntax)
+            private static bool IsStaticReadonly(IFieldSymbol fieldSymbol)
             {
-                return fieldDeclarationSyntax.IsStatic && fieldDeclarationSyntax.IsReadOnly;
+                return fieldSymbol.IsStatic && fieldSymbol.IsReadOnly;
             }
 
-            private static bool IsParentAClass(IFieldSymbol fieldDeclarationSyntax)
+            private static bool IsParentAClass(IFieldSymbol fieldSymbol)
             {
-                if (fieldDeclarationSyntax.ContainingSymbol != null &&
-                    fieldDeclarationSyntax.ContainingSymbol.Kind == SymbolKind.NamedType)
+                if (fieldSymbol.ContainingSymbol != null &&
+                    fieldSymbol.ContainingSymbol.Kind == SymbolKind.NamedType)
                 {
-                    return ((ITypeSymbol)fieldDeclarationSyntax.ContainingSymbol).TypeKind == TypeKind.Class;
+                    // TODO: Investigaye if this handles other types correctly, e.g. record classes
+                    return ((ITypeSymbol)fieldSymbol.ContainingSymbol).TypeKind == TypeKind.Class;
                 }
 
                 return false;

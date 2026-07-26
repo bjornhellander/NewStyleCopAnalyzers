@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System;
@@ -58,7 +56,7 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// element, this value will be <see langword="null"/>, even if the XML documentation comment also included an
         /// <c>&lt;include&gt;</c> element.</param>
         /// <param name="diagnosticLocations">The location(s) where diagnostics, if any, should be reported.</param>
-        protected abstract void HandleXmlElement(SyntaxNodeAnalysisContext context, bool needsComment, XmlNodeSyntax syntax, XElement completeDocumentation, params Location[] diagnosticLocations);
+        protected abstract void HandleXmlElement(SyntaxNodeAnalysisContext context, bool needsComment, XmlNodeSyntax? syntax, XElement? completeDocumentation, params Location[] diagnosticLocations);
 
         private static bool IsPartialMethodDefinition(SyntaxNode node)
         {
@@ -130,7 +128,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                 return;
             }
 
-            XElement completeDocumentation = null;
+            XElement? completeDocumentation = null;
             var relevantXmlElement = documentation.Content.GetFirstXmlElement(XmlCommentHelper.SummaryXmlTag);
             if (relevantXmlElement == null)
             {
@@ -142,7 +140,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                 relevantXmlElement = documentation.Content.GetFirstXmlElement(XmlCommentHelper.IncludeXmlTag);
                 if (relevantXmlElement != null)
                 {
-                    string rawDocumentation;
+                    string? rawDocumentation;
                     if (IsPartialMethodDefinition(node))
                     {
                         // Workaround: Roslyn does not support expanding include directives for partial method definitions.

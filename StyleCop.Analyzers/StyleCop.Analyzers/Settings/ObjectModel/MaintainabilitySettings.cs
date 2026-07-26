@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Settings.ObjectModel
 {
     using System.Collections.Immutable;
@@ -38,7 +36,10 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
         /// <strong>stylecop.json</strong> does not provide values.</param>
         protected internal MaintainabilitySettings(JsonObject maintainabilitySettingsObject, AnalyzerConfigOptionsWrapper analyzerConfigOptions)
         {
-            ImmutableArray<TopLevelType>.Builder topLevelTypes = null;
+            // Currently unused
+            _ = analyzerConfigOptions;
+
+            ImmutableArray<TopLevelType>.Builder? topLevelTypes = null;
 
             foreach (var kvp in maintainabilitySettingsObject)
             {

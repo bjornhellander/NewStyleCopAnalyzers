@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
@@ -62,6 +60,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
         private static void HandleMethodDeclaration(SyntaxNodeAnalysisContext context)
         {
+            // TODO: Check this earlier?
             if (!context.SupportsTuples())
             {
                 return;
@@ -208,7 +207,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
         }
 
-        private static void CheckType(SyntaxNodeAnalysisContext context, INamedTypeSymbol expressionType, TypeSyntax typeSyntax, Location reportLocation = null)
+        private static void CheckType(SyntaxNodeAnalysisContext context, INamedTypeSymbol? expressionType, TypeSyntax typeSyntax, Location? reportLocation = null)
         {
             if (typeSyntax is null)
             {
@@ -231,7 +230,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
         }
 
-        private static void CheckTupleType(SyntaxNodeAnalysisContext context, INamedTypeSymbol expressionType, TupleTypeSyntaxWrapper tupleTypeSyntax, Location reportLocation)
+        private static void CheckTupleType(SyntaxNodeAnalysisContext context, INamedTypeSymbol? expressionType, TupleTypeSyntaxWrapper tupleTypeSyntax, Location? reportLocation)
         {
             foreach (var tupleElementSyntax in tupleTypeSyntax.Elements)
             {
@@ -239,7 +238,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
         }
 
-        private static void CheckGenericName(SyntaxNodeAnalysisContext context, INamedTypeSymbol expressionType, GenericNameSyntax genericNameSyntax, Location reportLocation)
+        private static void CheckGenericName(SyntaxNodeAnalysisContext context, INamedTypeSymbol? expressionType, GenericNameSyntax genericNameSyntax, Location? reportLocation)
         {
             if (IsValueTupleWithLanguageRepresentation(context, expressionType, genericNameSyntax))
             {
@@ -256,7 +255,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
         }
 
-        private static bool IsValueTupleWithLanguageRepresentation(SyntaxNodeAnalysisContext context, INamedTypeSymbol expressionType, ExpressionSyntax syntax)
+        private static bool IsValueTupleWithLanguageRepresentation(SyntaxNodeAnalysisContext context, INamedTypeSymbol? expressionType, ExpressionSyntax syntax)
         {
             var symbolInfo = context.SemanticModel.GetSymbolInfo(syntax, context.CancellationToken);
             return symbolInfo.Symbol is INamedTypeSymbol typeSymbol

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System.Collections.Generic;
@@ -167,8 +165,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             }
 
             TypeSyntax typeName;
-
-            var typeSymbol = semanticModel.GetSymbolInfo(methodDeclaration.ReturnType, cancellationToken).Symbol as INamedTypeSymbol;
+            var typeSymbol = (INamedTypeSymbol)semanticModel.GetSymbolInfo(methodDeclaration.ReturnType, cancellationToken).Symbol;
             if (typeSymbol.IsGenericType)
             {
                 typeName = SyntaxFactory.ParseTypeName("global::System.Threading.Tasks.Task<TResult>");

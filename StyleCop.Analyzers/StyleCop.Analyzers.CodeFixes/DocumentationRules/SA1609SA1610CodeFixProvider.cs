@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System;
@@ -97,7 +95,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                 return document;
             }
 
-            DocumentationCommentTriviaSyntax documentationComment = propertyDeclarationSyntax.GetDocumentationCommentTriviaSyntax();
+            DocumentationCommentTriviaSyntax? documentationComment = propertyDeclarationSyntax.GetDocumentationCommentTriviaSyntax();
             if (documentationComment == null)
             {
                 return document;

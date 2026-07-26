@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
@@ -94,7 +92,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
 
             SemanticModel semanticModel = context.SemanticModel;
-            INamedTypeSymbol symbol = semanticModel.GetSymbolInfo(genericNameSyntax, context.CancellationToken).Symbol as INamedTypeSymbol;
+            INamedTypeSymbol? symbol = semanticModel.GetSymbolInfo(genericNameSyntax, context.CancellationToken).Symbol as INamedTypeSymbol;
             if (symbol?.OriginalDefinition?.SpecialType != SpecialType.System_Nullable_T)
             {
                 return;

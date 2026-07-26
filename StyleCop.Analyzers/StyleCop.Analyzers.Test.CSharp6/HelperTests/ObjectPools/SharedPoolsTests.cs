@@ -163,12 +163,12 @@ namespace StyleCop.Analyzers.Test.CSharp6.HelperTests.ObjectPools
         [Fact]
         public void TestClearAndFreeNull()
         {
-            SharedPools.Default<StringBuilder>().ClearAndFree(null);
-            SharedPools.Default<HashSet<int>>().ClearAndFree(null);
-            SharedPools.Default<Stack<int>>().ClearAndFree(null);
-            SharedPools.Default<Queue<int>>().ClearAndFree(null);
-            SharedPools.Default<Dictionary<int, int>>().ClearAndFree(null);
-            SharedPools.Default<List<int>>().ClearAndFree(null);
+            SharedPools.Default<StringBuilder>().ClearAndFree(null!);
+            SharedPools.Default<HashSet<int>>().ClearAndFree(null!);
+            SharedPools.Default<Stack<int>>().ClearAndFree(null!);
+            SharedPools.Default<Queue<int>>().ClearAndFree(null!);
+            SharedPools.Default<Dictionary<int, int>>().ClearAndFree(null!);
+            SharedPools.Default<List<int>>().ClearAndFree(null!);
         }
 
         [Fact]

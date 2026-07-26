@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.ReadabilityRules
 {
     using System;
@@ -28,7 +26,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             ImmutableArray.Create(SA1141UseTupleSyntax.DiagnosticId);
 
         /// <inheritdoc/>
-        public override FixAllProvider GetFixAllProvider()
+        public override FixAllProvider? GetFixAllProvider()
         {
             // Fix All is not yet supported
             return null;

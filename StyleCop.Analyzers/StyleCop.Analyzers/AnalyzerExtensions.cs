@@ -1,14 +1,11 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers
 {
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Immutable;
-    using System.Diagnostics.CodeAnalysis;
     using System.Runtime.CompilerServices;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Diagnostics;
@@ -25,7 +22,6 @@ namespace StyleCop.Analyzers
         /// </summary>
         /// <param name="context">The analysis context.</param>
         /// <param name="action">Action to be executed at completion of parsing of a document.</param>
-        [SuppressMessage("MicrosoftCodeAnalysisPerformance", "RS1012:Start action has no registered actions", Justification = "This is not a start action")]
         public static void RegisterSyntaxTreeAction(this CompilationStartAnalysisContext context, Action<SyntaxTreeAnalysisContext, StyleCopSettings> action)
         {
             var settingsFile = context.GetStyleCopSettingsFile(context.CancellationToken);
@@ -69,7 +65,6 @@ namespace StyleCop.Analyzers
         /// <param name="syntaxKinds">The kinds of syntax that should be analyzed.</param>
         /// <typeparam name="TLanguageKindEnum">Enum type giving the syntax node kinds of the source language for which
         /// the action applies.</typeparam>
-        [SuppressMessage("MicrosoftCodeAnalysisPerformance", "RS1012:Start action has no registered actions", Justification = "This is not a start action")]
         public static void RegisterSyntaxNodeAction<TLanguageKindEnum>(this CompilationStartAnalysisContext context, Action<SyntaxNodeAnalysisContext, StyleCopSettings> action, ImmutableArray<TLanguageKindEnum> syntaxKinds)
             where TLanguageKindEnum : struct
         {

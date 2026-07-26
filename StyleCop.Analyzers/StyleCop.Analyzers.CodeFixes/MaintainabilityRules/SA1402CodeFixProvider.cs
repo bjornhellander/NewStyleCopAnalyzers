@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.MaintainabilityRules
 {
     using System;
@@ -35,7 +33,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             ImmutableArray.Create(SA1402FileMayOnlyContainASingleType.DiagnosticId);
 
         /// <inheritdoc/>
-        public override FixAllProvider GetFixAllProvider()
+        public override FixAllProvider? GetFixAllProvider()
         {
             // The batch fixer can't handle code fixes that create new files
             return null;

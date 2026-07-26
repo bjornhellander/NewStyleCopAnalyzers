@@ -99,12 +99,10 @@ above it is later added or removed, whereas a hardcoded coordinate silently goes
 coordinates only when markup can't cleanly express the location — e.g. the diagnostic isn't a visible span of source
 text (line-ending trivia), or if it would hinder readability (e.g. nesting one marker inside another).
 
-Between the two markup forms, use plain `[|Xyz|]` whenever the test expects exactly one diagnostic, at one
-location, with no `.WithArguments(...)` and no non-default descriptor — pass `DiagnosticResult.EmptyDiagnosticResults`
-as the expected result and the marker alone supplies the expected diagnostic. Use `{|#0:Xyz|}` +
-`Diagnostic().WithLocation(0)` instead once you need more than `[|Xyz|]` can express: attaching arguments, picking a
-specific descriptor (multi-diagnostic analyzers), or referencing more than one location (numbered markers
-`{|#0:...|}`, `{|#1:...|}`, ... — non-overlapping, not nested).
+Between the two markup forms, use plain `[|Xyz|]` whenever the test expects diagnostics with no `.WithArguments(...)`
+and no non-default descriptor — pass `DiagnosticResult.EmptyDiagnosticResults` as the expected result and
+the marker alone supplies the expected diagnostic. Use `{|#0:Xyz|}` + `Diagnostic().WithLocation(0)` instead
+once you need more than `[|Xyz|]` can express: attaching arguments, or picking a specific descriptor.
 
 ### Rule anatomy
 

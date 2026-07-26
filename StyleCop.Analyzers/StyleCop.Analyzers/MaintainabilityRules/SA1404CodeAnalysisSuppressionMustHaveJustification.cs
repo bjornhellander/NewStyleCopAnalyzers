@@ -1,11 +1,8 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.MaintainabilityRules
 {
-    using System;
     using System.Collections.Concurrent;
     using System.Collections.Immutable;
     using System.Diagnostics.CodeAnalysis;
@@ -74,7 +71,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
             /// A lazily-initialized reference to <see cref="SuppressMessageAttribute"/> within the context of a
             /// particular <see cref="Compilation"/>.
             /// </summary>
-            private INamedTypeSymbol suppressMessageAttribute;
+            private INamedTypeSymbol? suppressMessageAttribute;
 
             public AnalyzerInstance(ConcurrentDictionary<SyntaxTree, bool> usingAliasCache)
             {
@@ -96,7 +93,8 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                         }
                         else
                         {
-                            QualifiedNameSyntax qualifiedNameSyntax = attribute.Name as QualifiedNameSyntax;
+                            // TODO: Re-write without cast
+                            QualifiedNameSyntax qualifiedNameSyntax = (QualifiedNameSyntax)attribute.Name;
                             simpleNameSyntax = qualifiedNameSyntax.Right;
                         }
                     }

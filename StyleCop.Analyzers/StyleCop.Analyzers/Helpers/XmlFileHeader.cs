@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using System;
@@ -38,6 +36,7 @@ namespace StyleCop.Analyzers.Helpers
         /// </summary>
         private XmlFileHeader()
         {
+            this.headerXml = null!; // TODO: Try to get rid of !
         }
 
         /// <summary>

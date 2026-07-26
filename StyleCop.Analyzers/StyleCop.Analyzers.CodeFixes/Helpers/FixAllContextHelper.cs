@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using System;
@@ -134,6 +132,7 @@ namespace StyleCop.Analyzers.Helpers
             return await fixAllContext.GetAllDiagnosticsAsync(project).ConfigureAwait(false);
         }
 
+        // TODO: Investigate if this can be re-written
         private static async Task<ImmutableDictionary<Document, ImmutableArray<Diagnostic>>> GetDocumentDiagnosticsToFixAsync(
             ImmutableArray<Diagnostic> diagnostics,
             ImmutableArray<Project> projects,
@@ -182,7 +181,8 @@ namespace StyleCop.Analyzers.Helpers
                 }
             }
 
-            return null;
+            // TODO: Investigate if this is unnecessary. No test gets here.
+            return null!; // TODO: Try to get rid of the !
         }
     }
 }

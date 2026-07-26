@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.OrderingRules
 {
     using System;
@@ -83,7 +81,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
         private static void ProcessUsingsAndReportDiagnostic(SyntaxList<UsingDirectiveSyntax> usings, SyntaxNodeAnalysisContext context)
         {
-            string systemUsingDirectivesShouldBeBeforeThisName = null;
+            string? systemUsingDirectivesShouldBeBeforeThisName = null;
             for (var i = 1; i < usings.Count; i++)
             {
                 var usingDirective = usings[i];

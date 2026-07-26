@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.NamingRules
 {
     using System;
@@ -123,7 +121,7 @@ namespace StyleCop.Analyzers.NamingRules
                 return;
             }
 
-            // TODO: any other cases?
+            // TODO: Any other cases?
         }
 
         private static void HandleClassDeclaration(SyntaxNodeAnalysisContext context)

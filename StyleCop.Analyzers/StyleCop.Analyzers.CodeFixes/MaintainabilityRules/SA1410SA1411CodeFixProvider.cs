@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.MaintainabilityRules
 {
     using System.Collections.Immutable;
@@ -43,14 +41,15 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
             foreach (var diagnostic in context.Diagnostics)
             {
-                SyntaxNode node = root.FindNode(diagnostic.Location.SourceSpan, getInnermostNodeForTie: true);
+                var node = root.FindNode(diagnostic.Location.SourceSpan, getInnermostNodeForTie: true);
                 if (node.IsMissing)
                 {
                     continue;
                 }
 
                 // Check if we are interested in this node
-                node = (SyntaxNode)(node as ParameterListSyntax) ?? node as AttributeArgumentListSyntax;
+                // TODO: Re-write this logic
+                node = (SyntaxNode?)(node as ParameterListSyntax) ?? node as AttributeArgumentListSyntax;
 
                 if (node != null)
                 {

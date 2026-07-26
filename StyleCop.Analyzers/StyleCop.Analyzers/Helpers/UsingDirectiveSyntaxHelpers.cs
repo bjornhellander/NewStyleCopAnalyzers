@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using System;
@@ -100,7 +98,7 @@ namespace StyleCop.Analyzers.Helpers
             return semanticModel.GetAliasInfo(firstPart, cancellationToken) != null;
         }
 
-        private static bool ExcludeGlobalKeyword(IdentifierNameSyntax token) => !token.Identifier.IsKind(SyntaxKind.GlobalKeyword);
+        private static bool ExcludeGlobalKeyword(IdentifierNameSyntax idenntifierName) => !idenntifierName.Identifier.IsKind(SyntaxKind.GlobalKeyword);
 
         private static SyntaxToken? GetFirstIdentifierInUsingDirective(UsingDirectiveSyntax usingDirective)
         {

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Settings.ObjectModel
 {
     using System.Collections.Generic;
@@ -107,7 +105,7 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
         /// <summary>
         /// This is the cache for the <see cref="GetCopyrightText(string)"/> method.
         /// </summary>
-        private string copyrightTextCache;
+        private string? copyrightTextCache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentationSettings"/> class during JSON deserialization.
@@ -147,14 +145,14 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
             bool? documentPrivateElements = null;
             bool? documentInterfaces = null;
             bool? documentPrivateFields = null;
-            string companyName = null;
-            string copyrightText = null;
-            string headerDecoration = null;
-            ImmutableDictionary<string, string>.Builder variables = null;
+            string? companyName = null;
+            string? copyrightText = null;
+            string? headerDecoration = null;
+            ImmutableDictionary<string, string>.Builder? variables = null;
             bool? xmlHeader = null;
             FileNamingConvention? fileNamingConvention = null;
-            string documentationCulture = null;
-            ImmutableArray<string>.Builder excludeFromPunctuationCheck = null;
+            string? documentationCulture = null;
+            ImmutableArray<string>.Builder? excludeFromPunctuationCheck = null;
 
             foreach (var kvp in documentationSettingsObject)
             {
@@ -337,7 +335,7 @@ namespace StyleCop.Analyzers.Settings.ObjectModel
 
         public string GetCopyrightText(string fileName)
         {
-            string copyrightText = this.copyrightTextCache;
+            var copyrightText = this.copyrightTextCache;
             if (copyrightText != null)
             {
                 return copyrightText;

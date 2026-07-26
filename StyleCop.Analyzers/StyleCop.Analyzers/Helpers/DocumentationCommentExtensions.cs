@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.Helpers
 {
     using System;
@@ -14,10 +12,11 @@ namespace StyleCop.Analyzers.Helpers
 
     internal static class DocumentationCommentExtensions
     {
-        public static DocumentationCommentTriviaSyntax GetDocumentationCommentTriviaSyntax(this SyntaxNode node)
+        public static DocumentationCommentTriviaSyntax? GetDocumentationCommentTriviaSyntax(this SyntaxNode? node)
         {
             if (node == null)
             {
+                // TODO: Investigate if this should be removed. Doesn't look like any tests get here.
                 return null;
             }
 
@@ -37,7 +36,7 @@ namespace StyleCop.Analyzers.Helpers
             return content.GetXmlElements(elementName).FirstOrDefault();
         }
 
-        public static IEnumerable<XmlNodeSyntax> GetXmlElements(this SyntaxList<XmlNodeSyntax> content, string elementName)
+        public static IEnumerable<XmlNodeSyntax> GetXmlElements(this SyntaxList<XmlNodeSyntax> content, string? elementName)
         {
             foreach (XmlNodeSyntax syntax in content)
             {
@@ -239,7 +238,7 @@ namespace StyleCop.Analyzers.Helpers
             return node.ReplaceTokens(replacements.Keys, (originalToken, rewrittenToken) => replacements[originalToken]);
         }
 
-        public static XmlNameSyntax GetName(this XmlNodeSyntax element)
+        public static XmlNameSyntax? GetName(this XmlNodeSyntax element)
         {
             return (element as XmlElementSyntax)?.StartTag?.Name
                 ?? (element as XmlEmptyElementSyntax)?.Name;

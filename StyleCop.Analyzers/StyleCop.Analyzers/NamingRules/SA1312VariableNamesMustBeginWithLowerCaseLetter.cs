@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.NamingRules
 {
     using System;
@@ -79,7 +77,7 @@ namespace StyleCop.Analyzers.NamingRules
                 return;
             }
 
-            LocalDeclarationStatementSyntax parentDeclaration = syntax.Parent as LocalDeclarationStatementSyntax;
+            LocalDeclarationStatementSyntax? parentDeclaration = syntax.Parent as LocalDeclarationStatementSyntax;
             if (parentDeclaration?.IsConst ?? false)
             {
                 // this diagnostic does not apply to locals constants

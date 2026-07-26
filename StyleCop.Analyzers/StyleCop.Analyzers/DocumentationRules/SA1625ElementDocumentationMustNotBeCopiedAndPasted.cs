@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-#nullable disable
-
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Xml.Linq;
     using Microsoft.CodeAnalysis;
@@ -154,7 +153,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             objectPool.ClearAndFree(documentationTexts);
         }
 
-        private static bool ShouldSkipElement(string element, string parameterNotUsed)
+        private static bool ShouldSkipElement([NotNullWhen(false)] string? element, string parameterNotUsed)
         {
             return string.IsNullOrWhiteSpace(element) || string.Equals(element, parameterNotUsed, StringComparison.Ordinal);
         }
