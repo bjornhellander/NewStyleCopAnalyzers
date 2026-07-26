@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LibGit2Sharp" Version="0.31.0" />
+    <PackageReference Include="LibGit2Sharp" Version="0.32.0" />
     <PackageReference Include="Microsoft.Build.Locator" Version="1.11.2" />
     <PackageReference Include="Microsoft.CodeAnalysis" Version="5.3.0" />
     <!-- See https://github.com/microsoft/MSBuildLocator/issues/368 for the custom attributes on the next reference -->
