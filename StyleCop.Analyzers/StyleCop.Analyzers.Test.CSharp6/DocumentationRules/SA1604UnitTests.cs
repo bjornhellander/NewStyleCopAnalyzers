@@ -193,7 +193,6 @@ public class ClassName
         }
 
         [Fact]
-        [WorkItem(2443, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2443")]
         public async Task TestPrivateMethodWithoutSummaryAsync()
         {
             var testCode = @"

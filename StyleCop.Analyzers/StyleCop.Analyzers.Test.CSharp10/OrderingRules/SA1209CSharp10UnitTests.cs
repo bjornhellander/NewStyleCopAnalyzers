@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp9.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
     public partial class SA1209CSharp10UnitTests : SA1209CSharp9UnitTests
     {
         [Fact]
-        [WorkItem(3439, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3439")]
         public async Task TestWhenUsingAliasDirectivesAreNotPlacedCorrectlyInFileScopedNamespaceAsync()
         {
             var testCodeNamespace = @"namespace Test;

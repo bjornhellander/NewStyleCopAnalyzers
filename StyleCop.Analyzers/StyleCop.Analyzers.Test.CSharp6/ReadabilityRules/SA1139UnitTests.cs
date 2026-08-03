@@ -271,7 +271,6 @@ class ClassName
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2901, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2901")]
         public async Task TestCodeFixDoesNotAddExtraneousSpacesAsync()
         {
             var testCode = @"

@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp12.SpacingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp11.SpacingRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
 
     using static StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly;
@@ -18,7 +17,6 @@ namespace StyleCop.Analyzers.Test.CSharp12.SpacingRules
     public partial class SA1008CSharp12UnitTests : SA1008CSharp11UnitTests
     {
         [Fact]
-        [WorkItem(3743, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3743")]
         public async Task TestTupleUsingAliasAsync()
         {
             const string testCode = @"
@@ -32,7 +30,6 @@ using TestAlias = (string X, bool Y);";
         }
 
         [Fact]
-        [WorkItem(3931, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3931")]
         public async Task TestParenthesizedLambdaInCollectionExpressionAsync()
         {
             var testCode = @"
@@ -53,7 +50,6 @@ class TestClass
         }
 
         [Fact]
-        [WorkItem(3894, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3894")]
         public async Task TestCollectionExpressionAsync()
         {
             var testCode = @"

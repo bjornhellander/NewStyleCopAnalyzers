@@ -152,7 +152,6 @@ public class ClassName
         }
 
         [Fact]
-        [WorkItem(2444, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2444")]
         public async Task TestPrivateMethodMissingParametersAsync()
         {
             var testCode = @"
@@ -171,7 +170,6 @@ internal class ClassName
         }
 
         [Fact]
-        [WorkItem(2444, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2444")]
         public async Task TestPrivateMethodMissingParametersInIncludedDocumentationAsync()
         {
             var testCode = @"
@@ -314,7 +312,6 @@ public class ClassName
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3150, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3150")]
         public async Task VerifyIncludedMissingDocumentationAsync()
         {
             var testCode = @"

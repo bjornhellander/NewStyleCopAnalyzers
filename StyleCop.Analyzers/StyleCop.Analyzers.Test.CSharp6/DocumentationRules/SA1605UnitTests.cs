@@ -221,7 +221,6 @@ public partial class ClassName
         }
 
         [Fact]
-        [WorkItem(2450, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2450")]
         public async Task TestIncludedNotRequiredDocumentationWithoutSummaryAsync()
         {
             var testCode = @"

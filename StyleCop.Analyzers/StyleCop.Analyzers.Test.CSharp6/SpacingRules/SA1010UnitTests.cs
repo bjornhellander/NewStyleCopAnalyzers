@@ -164,7 +164,6 @@ public class Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1617, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1617")]
         public async Task VerifyIndexInitializerAsync()
         {
             var testCode = @"using System.Collections.Generic;

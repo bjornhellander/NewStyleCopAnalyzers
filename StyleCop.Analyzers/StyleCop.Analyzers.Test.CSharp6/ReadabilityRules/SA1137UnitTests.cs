@@ -1947,7 +1947,6 @@ Z = 0,
         }
 
         [Fact]
-        [WorkItem(2747, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2747")]
         public async Task VerifyInitializerBracesAreCheckedAndFixedAsync()
         {
             var testCode = @"
@@ -2021,7 +2020,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(2774, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2774")]
         public async Task VerifyThatBraceOnSameLineAsOtherCodeAsync()
         {
             var testCode = @"

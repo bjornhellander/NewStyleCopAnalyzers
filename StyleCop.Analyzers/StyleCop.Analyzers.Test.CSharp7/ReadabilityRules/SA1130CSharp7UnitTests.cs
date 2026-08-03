@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     public partial class SA1130CSharp7UnitTests : SA1130UnitTests
     {
         [Fact]
-        [WorkItem(2902, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2902")]
         public async Task VerifyLocalFunctionAsync()
         {
             var testCode = @"using System;

@@ -235,7 +235,6 @@ public class TypeName
 
         [Theory]
         [MemberData(nameof(ParameterModifiers))]
-        [WorkItem(3817, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3817")]
         public async Task TestParameterModifierFirstOnLineAsync(string keyword)
         {
             string testCode = $@"

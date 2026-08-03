@@ -141,7 +141,6 @@ public class ContainerTestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2230, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2230")]
         public async Task VerifyEmptySummaryTagIsIgnoredAsync()
         {
             var testCode = @"
@@ -159,7 +158,6 @@ public class TestClass
         [InlineData("<inheritdoc/>")]
         [InlineData("XYZ <inheritdoc/>")]
         [InlineData("<inheritdoc/> XYZ")]
-        [WorkItem(3465, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3465")]
         public async Task VerifyInheritdocInSummaryTagIsAllowedAsync(string summary)
         {
             var testCode = $@"

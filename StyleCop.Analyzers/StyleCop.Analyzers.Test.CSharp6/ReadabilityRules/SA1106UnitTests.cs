@@ -324,7 +324,6 @@ class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1556, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1556")]
         public async Task VerifyCodeFixWillRemoveUnnecessaryWhitespaceAsync()
         {
             var testCode = @"

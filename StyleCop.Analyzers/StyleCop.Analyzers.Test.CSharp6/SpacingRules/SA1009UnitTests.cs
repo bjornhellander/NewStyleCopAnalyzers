@@ -84,7 +84,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(2985, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2985")]
         public async Task TestDocumentationMethodReferenceInSingleQuotesWithWhitespaceAfterClosingParenthesisAsync()
         {
             const string testCode = @"
@@ -442,7 +441,6 @@ public class Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1064, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1064")]
         public async Task TestVerbatimStringArgumentAsync()
         {
             string testCode = @"using System;
@@ -734,7 +732,6 @@ int a)
         }
 
         [Fact]
-        [WorkItem(684, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/684")]
         public async Task TestEmbeddedCommentAsync()
         {
             var testCode = @"
@@ -897,7 +894,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(2475, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2475")]
         public async Task TestSingleLineIfStatementAsync()
         {
             var testCode = @"public class TestClass
@@ -913,7 +909,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(2473, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2473")]
         public async Task TestCodefixBehaviorWithCommentAndSemiColonAsync()
         {
             var testCode = @"using System.Threading.Tasks;
@@ -948,7 +943,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(2474, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2474")]
         public async Task TestCodefixBehaviorWithMemberAccessAsync()
         {
             var testCode = @"using System.Threading.Tasks;
@@ -988,7 +982,6 @@ public class TestClass
         [InlineData("while (true)")]
         [InlineData("for (var i = 0; i < 10; i++)")]
         [InlineData("foreach (var i in a)")]
-        [WorkItem(3731, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3731")]
         public async Task TestControlStatementWithBodyOnSameLineAsync(string stmt)
         {
             var testCode = $@"

@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -20,7 +19,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3277, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3277")]
         public async Task VerifyValueTypeWithTargetTypeNewAsync()
         {
             var testCode = @"struct S

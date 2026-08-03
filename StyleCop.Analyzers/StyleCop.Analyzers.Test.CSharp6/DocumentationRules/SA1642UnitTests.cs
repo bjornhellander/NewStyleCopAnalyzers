@@ -502,7 +502,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(676, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/676")]
         public async Task TestStructNestedInClassAsync()
         {
             string testCode = @"
@@ -879,7 +878,6 @@ public class TestClass
         [Theory]
         [InlineData("class")]
         [InlineData("struct")]
-        [WorkItem(2236, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2236")]
         public async Task TestDocumentationCultureIsUsedAsync(string typeKind)
         {
             var settings = @"
@@ -966,7 +964,6 @@ public class TestClass
         }
 
         [Theory]
-        [WorkItem(2686, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2686")]
         [InlineData("")]
         [InlineData(" ")]
         public async Task TestConstructorEmptyDocumentationSingleLineAsync(string emptyContent)
@@ -998,7 +995,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(2963, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2963")]
         public async Task TestConstructorNoCRefDocumentationSingleLineAsync()
         {
             var testCode = @"
@@ -1022,7 +1018,6 @@ public class TestClass
         }
 
         [Theory]
-        [WorkItem(2686, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2686")]
         [InlineData("")]
         [InlineData(" ")]
         public async Task TestConstructorEmptyDocumentationAsync(string emptyContent)
@@ -1058,7 +1053,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(3575, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3575")]
         public async Task TestConstructorSummaryWithParaTagsAsync()
         {
             var testCode = @"

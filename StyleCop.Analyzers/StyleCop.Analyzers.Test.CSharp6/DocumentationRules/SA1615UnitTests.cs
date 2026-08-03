@@ -307,7 +307,6 @@ class Class1
         }
 
         [Fact]
-        [WorkItem(2445, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2445")]
         public async Task TestPrivateMethodMissingReturnsAsync()
         {
             var testCode = @"

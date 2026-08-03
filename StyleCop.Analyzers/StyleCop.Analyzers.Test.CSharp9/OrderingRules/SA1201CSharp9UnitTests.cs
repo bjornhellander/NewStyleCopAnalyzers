@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
     public partial class SA1201CSharp9UnitTests : SA1201CSharp8UnitTests
     {
         [Fact]
-        [WorkItem(3236, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3236")]
         public async Task TestOuterOrderWithRecordCorrectOrderAsync()
         {
             string testCode = @"namespace Foo { }
@@ -32,7 +30,6 @@ public record FooClass { }
         }
 
         [Fact]
-        [WorkItem(3236, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3236")]
         public async Task TestOuterOrderWithRecordWrongOrderAsync()
         {
             string testCode = @"

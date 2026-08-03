@@ -343,7 +343,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1191, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1191")]
         public async Task TestIndexersAsync()
         {
             var testCode = @"namespace TestNamespace
@@ -374,7 +373,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         [InlineData("interface")]
         [InlineData("struct")]
         [InlineData("enum")]
-        [WorkItem(685, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/685")]
         public async Task TestEndOfFileWithoutNewLineAsync(string declarationType)
         {
             var testCode = $"{declarationType} TestItem {{ }}";

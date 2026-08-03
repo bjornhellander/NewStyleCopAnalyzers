@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
     public partial class SA1212CSharp9UnitTests : SA1212CSharp8UnitTests
     {
         [Fact]
-        [WorkItem(3652, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3652")]
         public async Task TestAutoPropertyDeclarationInitBeforeGetterAsync()
         {
             var testCode = @"
@@ -35,7 +33,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(3652, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3652")]
         public async Task TestPropertyWithBackingFieldDeclarationInitBeforeGetterAsync()
         {
             var testCode = @"

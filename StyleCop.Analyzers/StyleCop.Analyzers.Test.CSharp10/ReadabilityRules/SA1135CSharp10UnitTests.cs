@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp9.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.ReadabilityRules
     public partial class SA1135CSharp10UnitTests : SA1135CSharp9UnitTests
     {
         [Fact]
-        [WorkItem(3415, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3415")]
         public async Task TestFileScopedNamespaceAsync()
         {
             var testCode = @"

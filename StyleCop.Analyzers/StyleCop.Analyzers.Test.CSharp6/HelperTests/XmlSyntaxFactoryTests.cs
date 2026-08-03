@@ -58,7 +58,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.HelperTests
         }
 
         [Fact]
-        [WorkItem(2672, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2672")]
         public void TestEmptySummaryElement()
         {
             string expected =

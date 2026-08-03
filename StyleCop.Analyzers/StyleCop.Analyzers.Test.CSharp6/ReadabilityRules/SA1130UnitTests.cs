@@ -285,7 +285,6 @@ public class TypeName
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2593, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2593")]
         public async Task VerifyThatDelegateExpansionWillNotGenerateInvalidCodeAsync()
         {
             var testCode = @"
@@ -699,7 +698,6 @@ namespace StyleCopDemo
         }
 
         [Fact]
-        [WorkItem(2902, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2902")]
         public async Task VerifyThatCodeFixDoesNotCrashOnDelegateReturnAsync()
         {
             var testCode = @"using System;
@@ -772,7 +770,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(2902, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2902")]
         public async Task VerifyThatEventInitializersWorkAsExpectedAsync()
         {
             var testCode = @"using System;
@@ -801,7 +798,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(2902, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2902")]
         public async Task VerifyInvalidCodeConstructionsAsync()
         {
             var testCode = @"using System;
@@ -828,7 +824,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(2997, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2997")]
         public async Task VerifyDelegateConstructionAsync()
         {
             var testCode = @"using System;
@@ -866,7 +861,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(3279, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3279")]
         public async Task TestDelegateUsedAsSecondNamedArgumentAsync()
         {
             var testCode = @"
@@ -916,7 +910,6 @@ public class TypeName
         }
 
         [Fact]
-        [WorkItem(3279, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3279")]
         public async Task VerifyThatUnknownNamedParameterWontCauseCrashAsync()
         {
             var testCode = @"
@@ -965,7 +958,6 @@ public class TypeName
         [InlineData(
             "(Func<int, int, int>)[|delegate|](int x, int y) { return 1; }",
             "(Func<int, int, int>)((x, y) => { return 1; })")]
-        [WorkItem(3510, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3510")]
         public async Task TestDelegateUsedInCastAsync(string testExpression, string fixedExpression)
         {
             var testCode = $@"

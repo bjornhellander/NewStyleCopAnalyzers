@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.MaintainabilityRules
     using System.Threading.Tasks;
 
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules;
 
     using Xunit;
@@ -23,7 +22,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.MaintainabilityRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3171, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3171")]
         public async Task TestTypeCastFollowedBySwitchExpressionIsHandledCorrectlyAsync()
         {
             const string testCode = @"
@@ -44,7 +42,6 @@ public class Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3171, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3171")]
         public async Task TestTypeCastFollowedBySwitchExpressionWithUnnecessaryParenthesisIsHandledCorrectlyAsync()
         {
             const string testCode = @"
@@ -82,7 +79,6 @@ public class Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3460, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3460")]
         public async Task TestAwaitFollowedBySwitchExpressionIsHandledCorrectlyAsync()
         {
             const string testCode = @"
@@ -105,7 +101,6 @@ public class Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3460, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3460")]
         public async Task TestAwaitFollowedBySwitchExpressionWithUnnecessaryParenthesisIsHandledCorrectlyAsync()
         {
             const string testCode = @"
@@ -147,7 +142,6 @@ public class Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3171, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3171")]
         public async Task TestSwitchExpressionWithUnnecessaryParenthesisAsync()
         {
             const string testCode = @"
@@ -185,7 +179,6 @@ public class Foo
         [InlineData("?.ToString()")]
         [InlineData("[0]")]
         [InlineData("?[0]")]
-        [WorkItem(3171, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3171")]
         public async Task TestSwitchExpressionFollowedByDereferenceAsync(string operation)
         {
             string testCode = $@"
@@ -202,7 +195,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(3171, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3171")]
         public async Task TestSwitchExpressionFollowedByPointerDereferenceAsync()
         {
             string testCode = @"
@@ -219,7 +211,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(3730, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3730")]
         public async Task TestSwitchExpressionFollowedByInvocationAsync()
         {
             string testCode = @"
@@ -256,7 +247,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(3370, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3370")]
         public async Task TestRangeFollowedByMemberCallAsync()
         {
             const string testCode = @"using System;
@@ -274,7 +264,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(3370, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3370")]
         public async Task TestRangeAsync()
         {
             const string testCode = @"using System;

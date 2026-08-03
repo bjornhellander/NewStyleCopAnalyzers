@@ -298,7 +298,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2928, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2928")]
         public async Task TestMovingValueTupleAliasOutsideAsync()
         {
             var testCode = @"using System;

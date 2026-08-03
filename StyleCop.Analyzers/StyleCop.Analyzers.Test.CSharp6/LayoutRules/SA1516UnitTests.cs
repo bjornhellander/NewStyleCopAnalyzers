@@ -518,7 +518,6 @@ public class Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1595, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1595")]
         public async Task VerifyThatPrivateFieldsAreHandledProperlyAsync()
         {
             string testCode = @"using System;
@@ -538,7 +537,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2269, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2269")]
         public async Task TestSetterWithAccessibilityRestrictionAsync()
         {
             var testCode = @"
@@ -717,7 +715,6 @@ public class TestClass3
         [Theory]
         [InlineData("namespace")]
         [InlineData("public class")]
-        [WorkItem(1923, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1923")]
         public async Task TestBlankLinesAroundAssemblyAttributesAsync(string followingElementKind)
         {
             string testCode = $@"using System.Runtime.CompilerServices;

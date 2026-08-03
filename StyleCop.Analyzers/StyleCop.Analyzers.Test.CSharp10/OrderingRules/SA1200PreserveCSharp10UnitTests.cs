@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp9.OrderingRules;
     using Xunit;
 
@@ -45,7 +44,6 @@ namespace TestNamespace;
         [InlineData("")]
         [InlineData("\n")]
         [InlineData("// A comment.\n")]
-        [WorkItem(3875, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3875")]
         public async Task TestOnlyGlobalUsingDirectiveInFileAsync(string leadingTrivia)
         {
             var testCode = $@"{leadingTrivia}global using System;";

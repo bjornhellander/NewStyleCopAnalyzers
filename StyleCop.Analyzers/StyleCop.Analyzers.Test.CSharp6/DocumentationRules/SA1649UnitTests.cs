@@ -339,7 +339,6 @@ public class MyBasePageModel : PageModel
         }
 
         [Fact]
-        [WorkItem(3234, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3234")]
         public async Task VerifyMultipleEnumTypesIgnoredAsync()
         {
             var testCode = $@"namespace TestNamespace
@@ -359,7 +358,6 @@ public class MyBasePageModel : PageModel
         }
 
         [Fact]
-        [WorkItem(3234, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3234")]
         public async Task VerifyMultipleDelegateTypesIgnoredAsync()
         {
             var testCode = $@"namespace TestNamespace
@@ -504,8 +502,6 @@ public class MyBasePageModel : PageModel
         }
 
         [Fact]
-        [WorkItem(1693, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1693")]
-        [WorkItem(3866, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3866")]
         public async Task VerifyWithLinkedFileAsync()
         {
             var dirName = "0";
@@ -579,8 +575,6 @@ public class MyBasePageModel : PageModel
 
         // The first type in the file is not a page model at all.
         [InlineData("IndexHelper")]
-        [WorkItem(3909, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3909")]
-        [WorkItem(38, "https://github.com/bjornhellander/NewStyleCopAnalyzers/issues/38")]
         public async Task VerifyRazorPageCodeBehindDoesNotTriggerDiagnosticAsync(string declaration)
         {
             var testCode = $@"

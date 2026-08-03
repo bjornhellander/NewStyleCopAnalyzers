@@ -193,7 +193,6 @@ public {this.Keyword} Test0
         }
 
         [Fact]
-        [WorkItem(3109, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3109")]
         public async Task TestCodeFixRemovesUnnecessaryUsingsInBothTypesAsync()
         {
             var testCode = $@"

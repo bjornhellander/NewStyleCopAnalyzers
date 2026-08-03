@@ -213,7 +213,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2176, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2176")]
         public async Task TestCommentBetweenStatementsWithEndOfLineCommentAsync()
         {
             var testCode = @"
@@ -249,7 +248,6 @@ public class TestConstants
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3481, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3481")]
         public async Task TestDocumentationFollowedByCommentWhenThereIsAlsoAnEarlierCommentAsync()
         {
             var testCode = @"
@@ -277,7 +275,6 @@ public class Class1 // Comment 1
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Theory]
         [CombinatorialData]
-        [WorkItem(3630, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3630")]
         public async Task TestFileHeaderAsync(
             bool startWithPragma,
             [CombinatorialValues(1, 2, 3)] int numberOfHeaderLines)
@@ -305,7 +302,6 @@ class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3550, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3550")]
         public async Task TestExpressionBodiedPropertyAsync()
         {
             var testCode = @"
@@ -324,7 +320,6 @@ class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3550, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3550")]
         public async Task TestExpressionBodiedIndexerAsync()
         {
             var testCode = @"
@@ -343,7 +338,6 @@ class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3550, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3550")]
         public async Task TestExpressionBodiedMethodAsync()
         {
             var testCode = @"

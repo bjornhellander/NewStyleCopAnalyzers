@@ -304,7 +304,6 @@ class ClassName
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1281, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1281")]
         public async Task TestEmptyStringInCaseLabelNotReportedAsync()
         {
             string testCode = @"

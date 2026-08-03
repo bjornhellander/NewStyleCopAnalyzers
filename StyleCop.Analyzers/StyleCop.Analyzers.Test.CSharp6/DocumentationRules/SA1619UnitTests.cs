@@ -146,7 +146,6 @@ public partial ##";
 
         [Theory]
         [MemberData(nameof(Types))]
-        [WorkItem(2453, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2453")]
         public async Task TestPartialTypesWithMissingButNotRequiredDocumentationAsync(string p)
         {
             var testCode = @"
@@ -249,7 +248,6 @@ public partial class TestClass<T>
         }
 
         [Fact]
-        [WorkItem(2453, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2453")]
         public async Task TestGenericPartialTypeWithoutTypeparamInIncludedButNotRequiredDocumentationAsync()
         {
             var testCode = @"

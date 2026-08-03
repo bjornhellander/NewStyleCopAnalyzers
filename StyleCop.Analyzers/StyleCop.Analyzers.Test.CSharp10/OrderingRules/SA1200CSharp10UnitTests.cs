@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.OrderingRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp9.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -44,7 +43,6 @@ using System.Threading;
         [InlineData("")]
         [InlineData("\n")]
         [InlineData("// A comment.\n")]
-        [WorkItem(3875, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3875")]
         public async Task TestOnlyGlobalUsingDirectiveInFileAsync(string leadingTrivia)
         {
             var testCode = $@"{leadingTrivia}global using System;";
@@ -53,7 +51,6 @@ using System.Threading;
         }
 
         [Fact]
-        [WorkItem(3875, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3875")]
         public async Task TestGlobalUsingDirectiveInFileWithNamespaceAsync()
         {
             var testCode = @"[|global using System;|]

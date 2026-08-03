@@ -276,7 +276,6 @@ public class Test : ITest
         }
 
         [Fact]
-        [WorkItem(3555, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3555")]
         public async Task TestNoViolationOnExplicitlyImplementedInterfaceParameterNameAsync()
         {
             var testCode = @"
@@ -301,7 +300,6 @@ public class Test : ITest
         }
 
         [Fact]
-        [WorkItem(3555, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3555")]
         public async Task TestViolationOnRenamedExplicitlyImplementedInterfaceParameterNameAsync()
         {
             var testCode = @"
@@ -378,7 +376,6 @@ public class Test : Testbase
         }
 
         [Fact]
-        [WorkItem(1442, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1442")]
         public async Task TestSimpleLambaExpressionAsync()
         {
             var testCode = @"public class TypeName
@@ -395,7 +392,6 @@ public class Test : Testbase
         }
 
         [Fact]
-        [WorkItem(1343, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1343")]
         public async Task TestLambdaParameterNamedUnderscoreAsync()
         {
             var testCode = @"public class TypeName
@@ -416,7 +412,6 @@ public class Test : Testbase
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Fact]
-        [WorkItem(1343, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1343")]
         public async Task TestLambdaParameterNamedUnderscoreUsageAsync()
         {
             var testCode = @"public class TypeName
@@ -433,7 +428,6 @@ public class Test : Testbase
         }
 
         [Fact]
-        [WorkItem(1606, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1606")]
         public async Task TestLambdaParameterNamedDoubleUnderscoreAsync()
         {
             var testCode = @"public class TypeName
@@ -454,7 +448,6 @@ public class Test : Testbase
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [Fact]
-        [WorkItem(1606, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1606")]
         public async Task TestLambdaParameterNamedDoubleUnderscoreUsageAsync()
         {
             var testCode = @"public class TypeName
@@ -471,7 +464,6 @@ public class Test : Testbase
         }
 
         [Fact]
-        [WorkItem(1343, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1343")]
         public async Task TestLambdaParameterWithThreeUnderscoresAsync()
         {
             var testCode = @"public class TypeName
@@ -494,7 +486,6 @@ public class Test : Testbase
         }
 
         [Fact]
-        [WorkItem(1343, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1343")]
         public async Task TestMethodParameterNamedUnderscoreAsync()
         {
             var testCode = @"public class TypeName
@@ -509,7 +500,6 @@ public class Test : Testbase
         }
 
         [Fact]
-        [WorkItem(1606, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1606")]
         public async Task TestMethodParameterNamedDoubleUnderscoreAsync()
         {
             var testCode = @"public class TypeName
@@ -524,7 +514,6 @@ public class Test : Testbase
         }
 
         [Fact]
-        [WorkItem(1529, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1529")]
         public async Task TestInheritedInterfacesWithOverloadedMembersAsync()
         {
             var testCode = @"
@@ -551,7 +540,6 @@ public interface IDerivedTest : ITest, IEmptyInterface
         }
 
         [Fact]
-        [WorkItem(1604, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1604")]
         public async Task TestCodeFixProperlyRemovesUnderscoreAsync()
         {
             var testCode = @"
@@ -591,7 +579,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2189, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2189")]
         public async Task InvalidMethodOverrideShouldNotProduceDiagnosticAsync()
         {
             var testCode = @"

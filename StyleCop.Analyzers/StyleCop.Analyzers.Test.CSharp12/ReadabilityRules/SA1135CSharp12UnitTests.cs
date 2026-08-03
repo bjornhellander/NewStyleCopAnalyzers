@@ -3,12 +3,10 @@
 
 namespace StyleCop.Analyzers.Test.CSharp12.ReadabilityRules
 {
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp11.ReadabilityRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
 
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -28,7 +26,6 @@ namespace StyleCop.Analyzers.Test.CSharp12.ReadabilityRules
 
         [Theory]
         [MemberData(nameof(CorrectAliasableTypes))]
-        [WorkItem(3882, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3882")]
         public async Task TestAliasAnyTypeOutsideNamespaceAsync(string type)
         {
             var testCode = $@"
@@ -43,7 +40,6 @@ namespace TestNamespace
 
         [Theory]
         [MemberData(nameof(CorrectAliasableTypes))]
-        [WorkItem(3882, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3882")]
         public async Task TestAliasAnyTypeInsideNamespaceAsync(string type)
         {
             var testCode = $@"

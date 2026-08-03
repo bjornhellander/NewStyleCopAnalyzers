@@ -172,7 +172,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(2950, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2950")]
         public async Task TestEnumMemberAsync()
         {
             var testCode = @"
@@ -316,7 +315,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(3150, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3150")]
         public async Task TestIncludedMissingFileAsync()
         {
             var testCode = @"
@@ -330,7 +328,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(2680, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2680")]
         public async Task TestReportingAfterEmptyElementAsync()
         {
             var testCode = @"
@@ -369,7 +366,6 @@ public interface ITest
         }
 
         [Fact]
-        [WorkItem(2680, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2680")]
         public async Task TestReportingAfterTwoEmptyElementsAsync()
         {
             var testCode = @"
@@ -408,7 +404,6 @@ public interface ITest
         }
 
         [Fact]
-        [WorkItem(2680, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2680")]
         public async Task TestReportingAfterEmptyElementTwoSentencesAsync()
         {
             var testCode = @"
@@ -447,7 +442,6 @@ public interface ITest
         }
 
         [Fact]
-        [WorkItem(2679, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2679")]
         public async Task TestElementsThatDoNotRequirePeriodsAsync()
         {
             var testCode = @"
@@ -476,7 +470,6 @@ public interface ITest
         }
 
         [Theory]
-        [WorkItem(2744, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2744")]
         [InlineData("Summary. (For example.)")]
         [InlineData("Summary (for example).")]
         public async Task TestSentenceEndingWithParenthesesAsync(string allowedSummary)
@@ -494,7 +487,6 @@ public interface ITest
         }
 
         [Fact]
-        [WorkItem(2744, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2744")]
         public async Task TestSentenceEndingWithParenthesesWithoutPeriodAsync()
         {
             var testCode = @"
@@ -803,7 +795,6 @@ public interface ITest
         }
 
         [Fact]
-        [WorkItem(2712, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2712")]
         public async Task TestExceptionElementsWithStandardFormAsync()
         {
             var testCode = @"
@@ -842,7 +833,6 @@ public interface ITest
         }
 
         [Fact]
-        [WorkItem(2712, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2712")]
         public async Task TestExceptionElementsWithAlternateFormAsync()
         {
             var testCode = @"
@@ -964,7 +954,6 @@ public interface ITest
         [InlineData("&lt;")]
         [InlineData("&amp;")]
         [InlineData("&quot;")]
-        [WorkItem(3802, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3802")]
         public async Task TestSentenceEndingWithXmlEntityAsync(string xmlEntity)
         {
             var testCode = $@"

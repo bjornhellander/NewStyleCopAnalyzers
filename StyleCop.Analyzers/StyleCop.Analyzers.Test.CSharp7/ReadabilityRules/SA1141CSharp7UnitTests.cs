@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.ReadabilityRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -190,7 +189,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3305, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3305")]
         public async Task ValidateValueTupleUsageInExpressionTreeAsync()
         {
             var testCode = @"using System;
@@ -264,7 +262,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(3055, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3055")]
         public async Task ValidateSingleElementValueTupleUsageAsync()
         {
             var testCode = @"using System;

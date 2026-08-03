@@ -178,7 +178,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2471, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2471")]
         public async Task TestUnaryMemberAccessAsync()
         {
             var testCode = @"public class ClassName

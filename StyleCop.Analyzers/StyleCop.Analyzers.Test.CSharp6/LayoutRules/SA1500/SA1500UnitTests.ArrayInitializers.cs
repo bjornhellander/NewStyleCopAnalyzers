@@ -258,7 +258,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2607, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2607")]
         public async Task TestArrayInitializersInvalidAsync()
         {
             var testCode = @"
@@ -347,7 +346,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2632, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2632")]
         public async Task VerifyMultidimensionalArrayInitializationAsync()
         {
             var testCode = @"
@@ -436,7 +434,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2632, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2632")]
         public async Task VerifyJaggedArrayInitializationAsync()
         {
             var testCode = @"

@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.SpacingRules;
     using Xunit;
 
@@ -27,7 +26,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         /// </remarks>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3386, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3386")]
         public async Task TestAfterRangeExpressionAsync()
         {
             var testCode = @"
@@ -73,7 +71,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(3141, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3141")]
         public async Task TestInPropertyPatternsAsync()
         {
             var testCode = @"
@@ -108,7 +105,6 @@ class C
         }
 
         [Fact]
-        [WorkItem(3198, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3198")]
         public async Task TestInPositionalPatternAsync()
         {
             var testCode = @"
@@ -145,7 +141,6 @@ class C
         }
 
         [Fact]
-        [WorkItem(3556, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3556")]
         public async Task TestInPositionalPatternAfterTagAsync()
         {
             var testCode = @"
@@ -190,7 +185,6 @@ internal class TestClass
         }
 
         [Fact]
-        [WorkItem(3894, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3894")]
         public async Task TestLeftOperandInRangeExpressionAsync()
         {
             var testCode = @"

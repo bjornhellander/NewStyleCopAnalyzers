@@ -25,7 +25,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.LayoutRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2566, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2566")]
         public async Task VerifyFixAllAsync()
         {
             var testCode = @"using System;

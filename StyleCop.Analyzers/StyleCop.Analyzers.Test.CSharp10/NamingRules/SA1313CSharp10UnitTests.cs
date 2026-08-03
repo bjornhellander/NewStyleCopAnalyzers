@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.NamingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp9.NamingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.NamingRules
     public partial class SA1313CSharp10UnitTests : SA1313CSharp9UnitTests
     {
         [Theory]
-        [WorkItem(3384, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3384")]
         [InlineData("class")]
         [InlineData("struct")]
         public async Task TestRecordTypeAsync(string typeKind)

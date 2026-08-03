@@ -212,7 +212,6 @@ public class Ear : Attribute
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1878, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1878")]
         public async Task TestRegressionIssue1878Async()
         {
             var testCode = @"namespace Stylecop_rc1_bug_repro
@@ -273,7 +272,6 @@ public class Ear : Attribute
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1882, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1882")]
         public async Task VerifyAttributeListForParametersAsync()
         {
             var testCode = @"using System;
@@ -303,7 +301,6 @@ internal class BarAttribute : Attribute
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1879, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1879")]
         public async Task TestFixAllAsync()
         {
             var testCode = @"
@@ -416,7 +413,6 @@ public enum ImplicitUseKindFlags { Assign }
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1883, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1883")]
         public async Task TestWhitespaceIsHandledCorrectlyAsync()
         {
             var testCode = @"

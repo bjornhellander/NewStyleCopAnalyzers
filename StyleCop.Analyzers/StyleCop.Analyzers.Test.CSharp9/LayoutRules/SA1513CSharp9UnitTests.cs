@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
     public partial class SA1513CSharp9UnitTests : SA1513CSharp8UnitTests
     {
         [Fact]
-        [WorkItem(3410, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3410")]
         public async Task TestThrowSwitchExpressionValueAsync()
         {
             var testCode = @"using System;
@@ -38,7 +36,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(3658, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3658")]
         public async Task TestInitAccessorAsync()
         {
             var testCode = @"using System;

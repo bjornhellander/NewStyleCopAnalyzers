@@ -950,7 +950,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1223, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1223")]
         public async Task TestPragmaPrecedingDocumentationAsync()
         {
             var testCode = @"
@@ -982,7 +981,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1231, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1231")]
         public async Task TestDirectivesPrecedingDocumentationAsync()
         {
             var testCode = @"
@@ -1174,7 +1172,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(3849, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3849")]
         public async Task TestClassInGlobalNamespaceAsync()
         {
             var testCode = @"

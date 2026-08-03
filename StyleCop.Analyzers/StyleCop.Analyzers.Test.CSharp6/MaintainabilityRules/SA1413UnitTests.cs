@@ -473,7 +473,6 @@ class TestClass
         }
 
         [Fact]
-        [WorkItem(2467, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2467")]
         public async Task VerifySingleLineEnumWithoutCommaAsync()
         {
             // SA1413 is not reported whether or not the comma is included for single-line enums
@@ -482,7 +481,6 @@ class TestClass
         }
 
         [Fact]
-        [WorkItem(2467, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2467")]
         public async Task VerifySingleLineEnumWithCommaAsync()
         {
             // SA1413 is not reported whether or not the comma is included for single-line enums

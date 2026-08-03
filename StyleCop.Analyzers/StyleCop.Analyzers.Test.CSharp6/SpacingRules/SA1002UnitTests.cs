@@ -310,7 +310,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(1426, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1426")]
         public async Task TestPrecededByBlockCommentAsync()
         {
             string testCode = @"
@@ -338,7 +337,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(403, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/403")]
         public async Task TestSemicolonAtBeginningOfLineAsync()
         {
             string testCode = @"
@@ -386,7 +384,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(2699, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2699")]
         public async Task TestSemiColonAtEndOfFileAsync()
         {
             string testCode = @"using System;";

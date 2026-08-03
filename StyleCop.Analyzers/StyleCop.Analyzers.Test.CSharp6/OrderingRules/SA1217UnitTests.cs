@@ -254,7 +254,6 @@ using static System.Math;
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2163, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2163")]
         public async Task VerifySystemUsingDirectivesFirstAsync()
         {
             this.useSystemUsingDirectivesFirst = true;
@@ -302,7 +301,6 @@ namespace MyNamespace
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2163, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2163")]
         public async Task VerifyMultipleStaticSystemUsingDirectivesAsync()
         {
             this.useSystemUsingDirectivesFirst = true;

@@ -161,7 +161,6 @@ class TestAttribute : System.Attribute
         }
 
         [Fact]
-        [WorkItem(2594, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2594")]
         public async Task VerifyThatDirectiveTriviaAreHandledCorrectlyAsync()
         {
             var testCode = @"

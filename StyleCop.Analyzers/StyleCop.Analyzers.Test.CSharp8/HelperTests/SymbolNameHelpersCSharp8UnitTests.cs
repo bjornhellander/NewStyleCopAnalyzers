@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.HelperTests
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.HelperTests;
     using Xunit;
 
@@ -45,7 +44,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.HelperTests
         [InlineData("System.Collections.Generic.KeyValuePair<int, (int, object[]?)>")]
         [InlineData("System.Collections.Generic.KeyValuePair<int, (int, object?[]?)>")]
         [InlineData("System.Nullable<(int, object?)>")]
-        [WorkItem(3149, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3149")]
         public Task VerifyToQualifiedStringNullableReferenceTypesAsync(string inputString, bool isNamespace = false)
         {
             return this.PerformTestAsync(inputString, isNamespace);

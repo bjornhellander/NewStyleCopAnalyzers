@@ -408,7 +408,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         [Theory]
         [InlineData("")]
         [InlineData(" ")]
-        [WorkItem(2289, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2289")]
         public async Task TestSpaceBeforeUnaryOperatorInInterpolationAlignmentClauseAsync(string spacing)
         {
             string test = $@"namespace Namespace
@@ -427,7 +426,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2289, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2289")]
         public async Task TestSpaceAfterUnaryOperatorInInterpolationAlignmentClauseAsync()
         {
             string testFormat = @"namespace Namespace
@@ -468,7 +466,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2289, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2289")]
         public async Task TestSpaceBeforeAndAfterUnaryOperatorInInterpolationAlignmentClauseAsync()
         {
             string testFormat = @"namespace Namespace
@@ -509,7 +506,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2300, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2300")]
         public async Task TestPrefixUnaryOperatorInInterpolationBracesAsync()
         {
             string testFormat = @"namespace Namespace

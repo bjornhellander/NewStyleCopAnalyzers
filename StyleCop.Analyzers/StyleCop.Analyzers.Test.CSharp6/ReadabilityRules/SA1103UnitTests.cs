@@ -367,7 +367,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
         }
 
         [Fact]
-        [WorkItem(2888, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2888")]
         public async Task TestQueryExpressionWithMissingSelectAsync()
         {
             var testCode = @"namespace TestNamespace
@@ -392,7 +391,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
         }
 
         [Fact]
-        [WorkItem(2888, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2888")]
         public async Task TestQueryExpressionWithMissingSelect2Async()
         {
             var testCode = @"namespace TestNamespace

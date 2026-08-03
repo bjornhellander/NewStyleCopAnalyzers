@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using StyleCop.Analyzers.Test.CSharp8.ReadabilityRules;
     using Xunit;
@@ -18,7 +17,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     {
         [Theory]
         [MemberData(nameof(CommonMemberData.TypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3784, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3784")]
         public async Task TestPrimaryConstructorWithoutParametersAsync(string typeKeyword)
         {
             var testCode = $@"
@@ -38,7 +36,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 
         [Theory]
         [MemberData(nameof(CommonMemberData.TypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3784, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3784")]
         public async Task TestPrimaryConstructorWithParametersAsync(string typeKeyword)
         {
             var testCode = $@"
@@ -59,7 +56,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 
         [Theory]
         [MemberData(nameof(CommonMemberData.ReferenceTypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3784, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3784")]
         public async Task TestPrimaryConstructorBaseListWithParametersOnSameLineAsync(string typeKeyword)
         {
             var testCode = $@"
@@ -76,7 +72,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 
         [Theory]
         [MemberData(nameof(CommonMemberData.ReferenceTypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3784, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3784")]
         public async Task TestPrimaryConstructorBaseListWithParametersAsync(string typeKeyword)
         {
             var testCode = $@"
@@ -105,7 +100,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 
         [Theory]
         [MemberData(nameof(CommonMemberData.ReferenceTypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3784, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3784")]
         public async Task TestPrimaryConstructorBaseListWithoutParametersAsync(string typeKeyword)
         {
             var testCode = $@"

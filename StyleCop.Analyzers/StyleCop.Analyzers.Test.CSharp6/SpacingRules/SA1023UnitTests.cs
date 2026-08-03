@@ -55,7 +55,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3538, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3538")]
         public async Task TestNotReportedWhenFirstInForeachWithoutBracesAsync()
         {
             var testCode = @"

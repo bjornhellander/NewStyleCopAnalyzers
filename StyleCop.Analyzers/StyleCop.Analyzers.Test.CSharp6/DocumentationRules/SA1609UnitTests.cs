@@ -344,7 +344,6 @@ public class ClassName : ITestInterface
         }
 
         [Fact]
-        [WorkItem(2451, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2451")]
         public async Task TestPropertyWithoutDocumentationRequirementAsync()
         {
             var testCode = @"

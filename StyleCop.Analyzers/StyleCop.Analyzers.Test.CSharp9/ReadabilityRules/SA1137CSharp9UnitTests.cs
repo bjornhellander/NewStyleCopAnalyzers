@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     public partial class SA1137CSharp9UnitTests : SA1137CSharp8UnitTests
     {
         [Fact]
-        [WorkItem(3668, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3668")]
         public async Task TestInitAccessorAttributeListAsync()
         {
             string testCode = @"

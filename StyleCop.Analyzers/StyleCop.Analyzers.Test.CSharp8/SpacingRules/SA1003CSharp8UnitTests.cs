@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.SpacingRules;
     using Xunit;
 
@@ -26,7 +25,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         /// </remarks>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3386, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3386")]
         public async Task TestRangeExpressionAsync()
         {
             var testCode = @"
@@ -62,7 +60,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(3822, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3822")]
         public async Task TestNullCoalescingAssignmentOperatorAsync()
         {
             var testCode = @"
@@ -100,7 +97,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(3822, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3822")]
         public async Task TestNullForgivingOperatorAsync()
         {
             var testCode = @"

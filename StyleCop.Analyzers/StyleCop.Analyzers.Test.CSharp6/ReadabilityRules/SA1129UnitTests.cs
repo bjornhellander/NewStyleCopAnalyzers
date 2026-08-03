@@ -587,7 +587,6 @@ public class TestClass
         [InlineData("System", nameof(IntPtr))]
         [InlineData("System", nameof(UIntPtr))]
         [InlineData("System", nameof(Guid))]
-        [WorkItem(2740, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2740")]
         public async Task VerifySpecialTypeDefaultParameterAsync(string typeNamespace, string typeName)
         {
             var testCode = $@"using {typeNamespace};

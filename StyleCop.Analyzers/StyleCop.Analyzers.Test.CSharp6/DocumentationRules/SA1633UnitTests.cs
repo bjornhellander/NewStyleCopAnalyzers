@@ -369,7 +369,6 @@ namespace Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2649, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2649")]
         public async Task TestIncompleteMultilineCommentAsync()
         {
             this.useNoXmlSettings = true;

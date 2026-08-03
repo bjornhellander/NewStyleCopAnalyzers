@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     using System.Threading.Tasks;
 
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.SpacingRules;
 
     using Xunit;
@@ -24,7 +23,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         /// <seealso cref="SA1024CSharp8UnitTests.TestColonAfterClosingBraceInPatternAsync"/>
         [Fact]
-        [WorkItem(3053, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3053")]
         public async Task TestSpacingAroundClosingBraceInPatternAsync()
         {
             const string testCode = @"using System;
@@ -73,7 +71,6 @@ public class Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3172, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3172")]
         public async Task TestCloseBraceWithNullForgivingOperatorAsync()
         {
             const string testCode = @"#nullable enable

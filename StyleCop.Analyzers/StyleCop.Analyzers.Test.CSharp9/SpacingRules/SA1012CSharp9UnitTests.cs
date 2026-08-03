@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
     public partial class SA1012CSharp9UnitTests : SA1012CSharp8UnitTests
     {
         [Fact]
-        [WorkItem(3812, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3812")]
         public async Task TestInAndPropertyPatternsAsync()
         {
             var testCode = @"
@@ -56,7 +54,6 @@ class C
         }
 
         [Fact]
-        [WorkItem(3812, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3812")]
         public async Task TestInOrPropertyPatternsAsync()
         {
             var testCode = @"
@@ -96,7 +93,6 @@ class C
         }
 
         [Fact]
-        [WorkItem(3812, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3812")]
         public async Task TestInParenthesizedPropertyPatternsAsync()
         {
             var testCode = @"

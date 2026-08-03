@@ -49,7 +49,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.Settings
         }
 
         [Fact]
-        [WorkItem(3402, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3402")]
         public async Task VerifyDefaultCultureIsReadCorrectlyAsync()
         {
             var settings = @"

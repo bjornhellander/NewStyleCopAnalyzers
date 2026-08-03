@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1009ClosingParenthesisMustBeSpacedCorrectly;
@@ -447,7 +446,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(2476, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2476")]
         public async Task TestNullableAndArrayTupleReturnTypeAsync()
         {
             var testCode = @"namespace TestNamespace
@@ -846,7 +844,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2476, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2476")]
         public async Task TestNullableAndArrayTupleTypesAsGenericArgumentsAsync()
         {
             var testCode = @"using System;
@@ -1008,7 +1005,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2475, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2475")]
         public async Task TestSingleLineIfStatementWithTupleExpressionAsync()
         {
             var testCode = @"public class TestClass
@@ -1024,7 +1020,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2494, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2494")]
         public async Task TestNullableVariableDeclarationAsync()
         {
             var testCode = @"public class TestClass

@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1019MemberAccessSymbolsMustBeSpacedCorrectly;
@@ -17,7 +16,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     public partial class SA1019CSharp8UnitTests : SA1019CSharp7UnitTests
     {
         [Fact]
-        [WorkItem(3052, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3052")]
         public async Task TestClosingSquareBracketFollowedByExclamationAsync()
         {
             var testCode = @"namespace TestNamespace

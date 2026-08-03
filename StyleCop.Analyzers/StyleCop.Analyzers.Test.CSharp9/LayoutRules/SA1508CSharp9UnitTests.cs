@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using StyleCop.Analyzers.Test.CSharp8.LayoutRules;
     using Xunit;
@@ -18,7 +17,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
     {
         [Theory]
         [MemberData(nameof(CommonMemberData.RecordTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3272, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3272")]
         public async Task TestSingleLineRecordAsync(string keyword)
         {
             var testCode = $@"namespace TestNamespace
@@ -32,7 +30,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
 
         [Theory]
         [MemberData(nameof(CommonMemberData.RecordTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3272, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3272")]
         public async Task TestSingleLineRecordWithParameterAsync(string keyword)
         {
             var testCode = $@"namespace TestNamespace
@@ -46,7 +43,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
 
         [Theory]
         [MemberData(nameof(CommonMemberData.RecordTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3272, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3272")]
         public async Task TestMultiLineRecordAsync(string keyword)
         {
             var testCode = $@"namespace TestNamespace
@@ -63,7 +59,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
 
         [Theory]
         [MemberData(nameof(CommonMemberData.RecordTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3272, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3272")]
         public async Task TestMultiLineRecordWithParameterAsync(string keyword)
         {
             var testCode = $@"namespace TestNamespace

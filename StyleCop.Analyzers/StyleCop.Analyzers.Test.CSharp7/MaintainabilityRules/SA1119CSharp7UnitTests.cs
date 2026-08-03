@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Lightup;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules;
     using Xunit;
@@ -53,7 +52,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         /// <seealso cref="SA1408CSharp7UnitTests.TestPatternMatchingAsync"/>
         [Fact]
-        [WorkItem(2372, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2398")]
         public async Task TestPatternMatchingAsync()
         {
             var testCode = @"public class Foo
@@ -71,7 +69,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
         }
 
         [Fact]
-        [WorkItem(2372, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2372")]
         public async Task TestNegatedPatternMatchingAsync()
         {
             var testCode = @"public class Foo
@@ -119,7 +116,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
 
         [Theory]
         [MemberData(nameof(Assignments))]
-        [WorkItem(3712, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3712")]
         public async Task TestConditionalRefAssignmentAsync(string assignment)
         {
             var testCode = $@"public class Foo

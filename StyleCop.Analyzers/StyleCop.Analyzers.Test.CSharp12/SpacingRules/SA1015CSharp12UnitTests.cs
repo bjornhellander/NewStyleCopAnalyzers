@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp12.SpacingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp11.SpacingRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1015ClosingGenericBracketsMustBeSpacedCorrectly,
@@ -18,7 +17,6 @@ namespace StyleCop.Analyzers.Test.CSharp12.SpacingRules
         [Theory]
         [InlineData(" M<int> ")]
         [InlineData("M<int>")]
-        [WorkItem(3856, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3856")]
         public async Task TestSpacingAfterGenericMethodGroupInCollectionExpressionAsync(string item)
         {
             var testCode = $@"

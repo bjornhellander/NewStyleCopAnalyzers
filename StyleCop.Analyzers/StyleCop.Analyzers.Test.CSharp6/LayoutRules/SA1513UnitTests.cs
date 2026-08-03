@@ -824,7 +824,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1713, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1713")]
         public async Task VerifyThatInitializerAsLastParameterWillNotProduceDiagnosticAsync()
         {
             var testCode = @"
@@ -881,7 +880,6 @@ public class Program
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2041, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2041")]
         public async Task TestFourSlashCommentsAsync()
         {
             var testCode = @"
@@ -994,7 +992,6 @@ public class TestClass3
         }
 
         [Fact]
-        [WorkItem(3442, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3442")]
         public async Task NestedInterpolatedStringAsync()
         {
             var testCode = @"
@@ -1014,7 +1011,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(3360, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3360")]
         public async Task TestLineFeedEndOfLinesAsync()
         {
             var testCode = @"
