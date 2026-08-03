@@ -140,7 +140,11 @@ namespace StyleCop.Analyzers.Helpers
 
         private static bool AppendNamedType(StringBuilder builder, INamedTypeSymbol namedTypeSymbol, TypeSyntax? type)
         {
-            if (AppendQualifiedSymbolName(builder, namedTypeSymbol.ContainingSymbol, (type as QualifiedNameSyntax)?.Left))
+            // Unwrap a nullable reference type annotation (e.g. 'Outer.Inner?') so the qualification logic below
+            // still sees through to the underlying qualified/generic name syntax instead of losing it.
+            var unwrappedType = type is NullableTypeSyntax nullableType ? nullableType.ElementType : type;
+
+            if (AppendQualifiedSymbolName(builder, namedTypeSymbol.ContainingSymbol, (unwrappedType as QualifiedNameSyntax)?.Left))
             {
                 builder.Append(".");
             }
@@ -150,9 +154,9 @@ namespace StyleCop.Analyzers.Helpers
             {
                 builder.Append(GenericTypeParametersOpen);
                 var arguments = namedTypeSymbol.TypeArguments;
-                var argumentTypes = type is QualifiedNameSyntax qualifiedName
+                var argumentTypes = unwrappedType is QualifiedNameSyntax qualifiedName
                     ? (qualifiedName.Right as GenericNameSyntax)?.TypeArgumentList
-                    : (type as GenericNameSyntax)?.TypeArgumentList;
+                    : (unwrappedType as GenericNameSyntax)?.TypeArgumentList;
 
                 for (int i = 0; i < arguments.Length; i++)
                 {

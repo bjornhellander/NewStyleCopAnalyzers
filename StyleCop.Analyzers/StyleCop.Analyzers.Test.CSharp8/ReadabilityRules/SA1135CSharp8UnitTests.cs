@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -15,15 +14,16 @@ namespace StyleCop.Analyzers.Test.CSharp8.ReadabilityRules
 
     public partial class SA1135CSharp8UnitTests : SA1135CSharp7UnitTests
     {
-        [Fact]
-        [WorkItem(3149, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3149")]
-        public async Task TestAliasTypeGenericNullableReferenceTypeAsync()
+        [Theory]
+        [InlineData("System.Collections.Generic.KeyValuePair<string, object?>")]
+        [InlineData("System.Tuple<string, System.Tuple<string, bool>?>")]
+        public async Task TestAliasTypeGenericNullableReferenceTypeAsync(string type)
         {
-            var testCode = @"
+            var testCode = $@"
 namespace TestNamespace
-{
-    using KeyValue = System.Collections.Generic.KeyValuePair<string, object?>;
-}
+{{
+    using TestAlias = {type};
+}}
 ";
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
