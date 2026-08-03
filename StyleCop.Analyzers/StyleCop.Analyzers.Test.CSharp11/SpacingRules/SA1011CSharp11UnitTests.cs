@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp11.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using StyleCop.Analyzers.Test.CSharp10.SpacingRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1011ClosingSquareBracketsMustBeSpacedCorrectly,
@@ -15,7 +14,6 @@ namespace StyleCop.Analyzers.Test.CSharp11.SpacingRules
     public partial class SA1011CSharp11UnitTests : SA1011CSharp10UnitTests
     {
         [Fact]
-        [WorkItem(3673, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3673")]
         public async Task TestListPatternInSwitchCaseAsync()
         {
             var testCode = @"public class TestClass

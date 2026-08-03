@@ -309,7 +309,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(2564, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2564")]
         public async Task TestArrayElementPointerDeferenceAsync()
         {
             var testCode = @"public class TestClass
@@ -329,7 +328,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(2289, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2289")]
         public async Task TestColonCanFollowSquareBracketWhenPartOfInterpolationFormatClauseAsync()
         {
             string testCode = @"
@@ -347,7 +345,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(2289, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2289")]
         public async Task TestCommaCanFollowSquareBracketWhenPartOfInterpolationFormatClauseAsync()
         {
             string testCode = @"

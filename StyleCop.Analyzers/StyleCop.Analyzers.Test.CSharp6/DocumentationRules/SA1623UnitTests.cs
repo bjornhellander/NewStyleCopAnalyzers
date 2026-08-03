@@ -151,7 +151,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1943, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1943")]
         public async Task EmptySummaryTagShouldNotThrowAnExceptionAsync()
         {
             var testCode = @"public class ClassName
@@ -168,7 +167,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(1934, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1934")]
         public async Task SummaryInParagraphIsAllowedAsync()
         {
             var testCode = @"public class ClassName
@@ -202,7 +200,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(1934, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1934")]
         public async Task SummaryInParagraphCanBeFixedAsync()
         {
             var testCode = @"public class ClassName
@@ -330,7 +327,6 @@ public class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2230, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2230")]
         public async Task VerifyEmptySummaryTagIsIgnoredAsync()
         {
             var testCode = @"
@@ -348,7 +344,6 @@ public class TestClass
         [InlineData("<inheritdoc/>")]
         [InlineData("XYZ <inheritdoc/>")]
         [InlineData("<inheritdoc/> XYZ")]
-        [WorkItem(3465, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3465")]
         public async Task VerifyInheritdocInSummaryTagIsAllowedAsync(string summary)
         {
             var testCode = $@"

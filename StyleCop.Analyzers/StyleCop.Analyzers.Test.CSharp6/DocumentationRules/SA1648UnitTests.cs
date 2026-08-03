@@ -462,7 +462,6 @@ public class TestClass : ITest
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3291, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3291")]
         public async Task TestIncorrectDelegateInheritDocAsync()
         {
             var testCode = @"

@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.ReadabilityRules.SA1118ParameterMustNotSpanMultipleLines>;
@@ -14,7 +13,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     public partial class SA1118CSharp9UnitTests : SA1118CSharp8UnitTests
     {
         [Fact]
-        [WorkItem(3314, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3314")]
         public async Task TestWithExpressionAsync()
         {
             var testCode = @"
@@ -41,7 +39,6 @@ class Foo
         }
 
         [Fact]
-        [WorkItem(3314, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3314")]
         public async Task TestWithExpression2Async()
         {
             var testCode = @"
@@ -69,7 +66,6 @@ class Foo
         }
 
         [Fact]
-        [WorkItem(3339, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3339")]
         public async Task TestNewExpressionAsync()
         {
             var testCode = @"

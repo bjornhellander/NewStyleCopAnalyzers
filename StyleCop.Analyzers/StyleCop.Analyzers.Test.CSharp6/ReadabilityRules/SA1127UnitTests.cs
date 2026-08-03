@@ -66,7 +66,6 @@ class Foo
         }
 
         [Fact]
-        [WorkItem(1476, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1476")]
         public async Task TestViolationWithObsoleteMethodDeclarationAsync()
         {
             var testCode = @"
@@ -88,7 +87,6 @@ class Foo
         }
 
         [Fact]
-        [WorkItem(1476, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1476")]
         public async Task TestViolationWithMethodDeclarationMultiLineParametersAsync()
         {
             var testCode = @"
@@ -112,7 +110,6 @@ class Foo
         }
 
         [Fact]
-        [WorkItem(1652, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1652")]
         public async Task TestViolationWithMethodDeclarationAndXmlCommentsAsync()
         {
             var testCode = $@"
@@ -136,7 +133,6 @@ class Foo
         }
 
         [Fact]
-        [WorkItem(1652, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1652")]
         public async Task TestViolationWithMethodDeclarationRegionDirectiveAsync()
         {
             var testCode = $@"

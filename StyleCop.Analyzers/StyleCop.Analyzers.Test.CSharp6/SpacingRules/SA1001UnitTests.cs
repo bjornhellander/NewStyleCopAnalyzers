@@ -163,7 +163,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2289, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2289")]
         public async Task TestSpaceBeforeCommaWhenPartOfInterpolationAlignmentClauseAsync()
         {
             string statement = @"var x = new[] { 1, 2, 3, 4, 5, 6, 7 };
@@ -177,7 +176,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2289, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2289")]
         public async Task TestSpaceAfterCommaWhenPartOfInterpolationAlignmentClauseAsync()
         {
             string statement = @"var x = new[] { 1, 2, 3, 4, 5, 6, 7 };
@@ -191,7 +189,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2289, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2289")]
         public async Task TestSpaceBeforeAndAfterCommaWhenPartOfInterpolationAlignmentClauseAsync()
         {
             string statement = @"var x = new[] { 1, 2, 3, 4, 5, 6, 7 };
@@ -209,7 +206,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2289, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2289")]
         public async Task TestSpaceAfterCommaWithMinusWhenPartOfInterpolationAlignmentClauseAsync()
         {
             string statement = @"var x = new[] { 1, 2, 3, 4, 5, 6, 7 };
@@ -226,7 +222,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2289, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2289")]
         public async Task TestSpaceAfterCommaWithPlusWhenPartOfInterpolationAlignmentClauseAsync()
         {
             string statement = @"var x = new[] { 1, 2, 3, 4, 5, 6, 7 };
@@ -301,7 +296,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(2468, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2468")]
         public async Task TestCodeFixCommaPlacementAsync()
         {
             var testCode = @"using System;
@@ -348,7 +342,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(3816, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3816")]
         public async Task TestCommaFollowingPreprocessorDirectiveAsync()
         {
             var testCode = @"

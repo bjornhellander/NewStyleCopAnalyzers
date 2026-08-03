@@ -101,7 +101,6 @@ namespace Bar
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1356, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1356")]
         public async Task TestFileHeaderWillIgnoreLeadingAndTrailingWhitespaceAroundCopyrightMessage1Async()
         {
             this.useMultiLineHeaderTestSettings = true;
@@ -125,7 +124,6 @@ namespace Bar
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1356, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1356")]
         public async Task TestFileHeaderWillIgnoreLeadingAndTrailingWhitespaceAroundCopyrightMessage2Async()
         {
             this.useMultiLineHeaderTestSettings = true;
@@ -149,7 +147,6 @@ namespace Bar
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1356, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1356")]
         public async Task TestFileHeaderWillIgnoreLeadingAndTrailingWhitespaceAroundCopyrightMessage3Async()
         {
             this.useMultiLineHeaderTestSettings = true;
@@ -175,7 +172,6 @@ namespace Bar
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1356, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1356")]
         public async Task TestNoXmlFileHeaderWillIgnoreLeadingAndTrailingWhitespaceAroundCopyrightMessage1Async()
         {
             this.useNoXmlMultiLineHeaderTestSettings = true;
@@ -197,7 +193,6 @@ namespace Bar
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1356, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1356")]
         public async Task TestNoXmlFileHeaderWillIgnoreLeadingAndTrailingWhitespaceAroundCopyrightMessage2Async()
         {
             this.useNoXmlMultiLineHeaderTestSettings = true;
@@ -221,7 +216,6 @@ namespace Bar
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1356, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1356")]
         public async Task TestNoXmlFileHeaderWillIgnoreLeadingAndTrailingWhitespaceAroundCopyrightMessage3Async()
         {
             this.useNoXmlMultiLineHeaderTestSettings = true;

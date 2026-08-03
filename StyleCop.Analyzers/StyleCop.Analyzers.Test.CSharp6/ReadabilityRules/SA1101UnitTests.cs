@@ -302,7 +302,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2093, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2093")]
         public async Task TestNameCollisionForStaticMethodAsync()
         {
             var testCode = @"
@@ -337,7 +336,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(2211, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2211")]
         public async Task TestStaticMemberAliasesPropertyAsync()
         {
             var testCode = @"
@@ -355,7 +353,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(2656, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2656")]
         public async Task TestStaticMemberNameOfAsync()
         {
             var testCode = @"
@@ -369,7 +366,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(2845, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2845")]
         public async Task TestExpressionBodiedPropertyAsync()
         {
             var testCode = @"
@@ -399,7 +395,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(2845, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2845")]
         public async Task TestPropertyWithInitializerAsync()
         {
             var testCode = @"
@@ -415,7 +410,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(2845, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2845")]
         public async Task TestIndexerAsync()
         {
             var testCode = @"
@@ -454,7 +448,6 @@ public class Foo<T>
         }
 
         [Fact]
-        [WorkItem(2845, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2845")]
         public async Task TestExpressionBodiedIndexerAsync()
         {
             var testCode = @"
@@ -484,7 +477,6 @@ public class Foo<T>
         }
 
         [Fact]
-        [WorkItem(2845, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2845")]
         public async Task TestEventAsync()
         {
             var testCode = @"
@@ -527,7 +519,6 @@ public class Foo<T>
         }
 
         [Fact]
-        [WorkItem(2845, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2845")]
         public async Task TestExpressionBodiedMethodAsync()
         {
             var testCode = @"
@@ -557,7 +548,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(2799, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2799")]
         public async Task TestNameofInConstructorCallAsync()
         {
             var testCode = @"

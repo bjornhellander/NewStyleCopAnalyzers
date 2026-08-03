@@ -111,7 +111,6 @@ namespace Bar
         }
 
         [Fact]
-        [WorkItem(2336, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2336")]
         public async Task TestUsingDirectivesCaseSensitivityAsync()
         {
             var testCode = @"namespace First

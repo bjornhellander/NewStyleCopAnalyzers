@@ -7,13 +7,11 @@ namespace StyleCop.Analyzers.Test.CSharp11.MaintainabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp10.MaintainabilityRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
 
     public partial class SA1402ForRecordStructCSharp11UnitTests : SA1402ForRecordStructCSharp10UnitTests
     {
         [Fact]
-        [WorkItem(3803, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3803")]
         public async Task TestFileModifierAsync()
         {
             var testCode = $@"

@@ -135,7 +135,6 @@ $$
 
         [Theory]
         [MemberData(nameof(Declarations))]
-        [WorkItem(2452, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2452")]
         public async Task TestMemberWithMissingNotRequiredParamAsync(string declaration)
         {
             var testCode = @"
@@ -166,7 +165,6 @@ $$
 
         [Theory]
         [MemberData(nameof(Declarations))]
-        [WorkItem(2452, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2452")]
         public async Task TestMemberWithMissingNotRequiredReorderedParamAsync(string declaration)
         {
             var testCode = @"
@@ -390,7 +388,6 @@ public class ClassName
         }
 
         [Fact]
-        [WorkItem(3150, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3150")]
         public async Task VerifyIncludedMissingFileIsNotReportedAsync()
         {
             var testCode = @"

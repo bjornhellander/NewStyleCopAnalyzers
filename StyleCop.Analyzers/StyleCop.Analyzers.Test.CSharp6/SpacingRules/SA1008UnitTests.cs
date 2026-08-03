@@ -2038,7 +2038,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(1585, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1585")]
         public async Task TestCrefAttributeAsync()
         {
             var testCode = @"
@@ -2072,7 +2071,6 @@ public class TestClass
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         /// <seealso cref="SA1000UnitTests.TestVarIdentifierInvocationAsync"/>
         [Fact]
-        [WorkItem(2419, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2419")]
         public async Task TestVarIdentifierInvocationAsync()
         {
             var testCode = @"namespace TestNamespace
@@ -2142,7 +2140,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(2475, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2475")]
         public async Task TestSingleLineIfStatementAsync()
         {
             var testCode = @"public class TestClass
@@ -2158,7 +2155,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(2354, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2354")]
         public async Task TestNoPreviousTokenAsync()
         {
             var testCode = "(";

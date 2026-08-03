@@ -28,7 +28,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
         [InlineData("Nullable{T}")]
         [InlineData("System.Nullable{T}")]
         [InlineData("global::System.Nullable{T}")]
-        [WorkItem(385, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/385")]
         public async Task TestSeeAlsoNullableAsync(string form)
         {
             string template = @"
@@ -55,7 +54,6 @@ namespace System
         [InlineData("Nullable{T}")]
         [InlineData("System.Nullable{T}")]
         [InlineData("global::System.Nullable{T}")]
-        [WorkItem(638, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/638")]
         public async Task TestSeeAlsoNullableValueAsync(string form)
         {
             string template = @"
@@ -85,7 +83,6 @@ namespace System
         [InlineData("Nullable{int}", "int?")]
         [InlineData("System.Nullable{int}", "int?")]
         [InlineData("global::System.Nullable{int}", "int?")]
-        [WorkItem(385, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/385")]
         public async Task TestSeeAlsoNullableShorthandAsync(string longForm, string shortForm)
         {
             string template = @"
@@ -129,7 +126,6 @@ namespace System
         [InlineData("Nullable<>", "Nullable<>")]
         [InlineData("System.Nullable<>", "System.Nullable<>")]
         [InlineData("global::System.Nullable<>", "global::System.Nullable<>")]
-        [WorkItem(386, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/386")]
         public async Task TestTypeOfNullableAsync(string longForm, string shortForm)
         {
             string template = @"
@@ -226,7 +222,6 @@ namespace System
         [InlineData("Nullable<int>")]
         [InlineData("System.Nullable<int>")]
         [InlineData("global::System.Nullable<int>")]
-        [WorkItem(637, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/637")]
         public async Task TestNameOfNullableAsync(string form)
         {
             string template = @"
@@ -258,7 +253,6 @@ namespace System
         [InlineData("Nullable<int>")]
         [InlineData("System.Nullable<int>")]
         [InlineData("global::System.Nullable<int>")]
-        [WorkItem(636, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/636")]
         public async Task TestNameOfNullableValueAsync(string form)
         {
             string template = @"
@@ -286,7 +280,6 @@ namespace System
         [InlineData("Nullable<int>")]
         [InlineData("System.Nullable<int>")]
         [InlineData("global::System.Nullable<int>")]
-        [WorkItem(636, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/636")]
         public async Task TestAccessObjectEqualThroughNullableAsync(string form)
         {
             string template = @"

@@ -647,7 +647,6 @@ default :
         }
 
         [Fact]
-        [WorkItem(2419, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2419")]
         public async Task TestVarIdentifierAsync()
         {
             string statementWithoutSpace = @"int[] x = null; x.Select(var => var.ToString());";
@@ -666,7 +665,6 @@ default :
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         /// <seealso cref="SA1008UnitTests.TestVarIdentifierInvocationAsync"/>
         [Fact]
-        [WorkItem(2419, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2419")]
         public async Task TestVarIdentifierInvocationAsync()
         {
             string statementWithoutSpace = @"Func<int>[] x = null; x.Select(var => var());";

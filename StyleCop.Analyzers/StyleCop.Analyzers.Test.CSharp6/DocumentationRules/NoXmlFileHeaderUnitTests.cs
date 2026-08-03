@@ -78,7 +78,6 @@ namespace Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2415, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2415")]
         public virtual async Task TestNoFileHeaderWithUsingDirectiveAsync()
         {
             var testCode = @"using System;
@@ -107,7 +106,6 @@ namespace Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2415, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2415")]
         public virtual async Task TestNoFileHeaderWithBlankLineAndUsingDirectiveAsync()
         {
             var testCode = @"
@@ -137,7 +135,6 @@ namespace Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2415, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2415")]
         public virtual async Task TestNoFileHeaderWithWhitespaceLineAsync()
         {
             var testCode = "    " + @"
@@ -366,7 +363,6 @@ namespace Bar
         }
 
         [Fact]
-        [WorkItem(2657, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2657")]
         public async Task TestHeaderMissingRequiredNewLinesAsync()
         {
             var testCode = @"// Copyright (c) FooCorp. All rights reserved.

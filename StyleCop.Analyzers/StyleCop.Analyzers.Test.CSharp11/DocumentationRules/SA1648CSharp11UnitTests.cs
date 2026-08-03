@@ -7,12 +7,10 @@ namespace StyleCop.Analyzers.Test.CSharp11.DocumentationRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp10.DocumentationRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
 
     public partial class SA1648CSharp11UnitTests : SA1648CSharp10UnitTests
     {
-        [WorkItem(3595, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3595")]
         [Theory]
         [InlineData("abstract void TestMethod();", "public void TestMethod() {}")]
         [InlineData("abstract void TestMethod();", "void TestInterface.TestMethod() {}")]

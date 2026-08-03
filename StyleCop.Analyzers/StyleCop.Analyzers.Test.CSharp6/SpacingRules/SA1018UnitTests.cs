@@ -111,7 +111,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         }
 
         [Fact]
-        [WorkItem(1256, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1256")]
         public async Task TestSyntaxErrorAtEndOfFileAsync()
         {
             string testCode = @"namespace StyleCopAnalyzers_Test

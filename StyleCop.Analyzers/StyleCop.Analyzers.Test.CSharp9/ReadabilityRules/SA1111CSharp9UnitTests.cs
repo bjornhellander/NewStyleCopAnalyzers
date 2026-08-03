@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using StyleCop.Analyzers.Test.CSharp8.ReadabilityRules;
     using Xunit;
@@ -18,7 +17,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     {
         [Theory]
         [MemberData(nameof(CommonMemberData.TypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3785, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3785")]
         public async Task TestPrimaryConstructorWithParameterAsync(string typeKeyword)
         {
             var testCode = $@"
@@ -38,7 +36,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 
         [Theory]
         [MemberData(nameof(CommonMemberData.TypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3785, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3785")]
         public async Task TestPrimaryConstructorWithoutParameterAsync(string typeKeyword)
         {
             var testCode = $@"
@@ -52,7 +49,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 
         [Theory]
         [MemberData(nameof(CommonMemberData.ReferenceTypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3785, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3785")]
         public async Task TestPrimaryConstructorBaseListWithArgumentsAsync(string typeKeyword)
         {
             var testCode = $@"
@@ -80,7 +76,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 
         [Theory]
         [MemberData(nameof(CommonMemberData.ReferenceTypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3785, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3785")]
         public async Task TestPrimaryConstructorBaseListWithoutArgumentsAsync(string typeKeyword)
         {
             var testCode = $@"

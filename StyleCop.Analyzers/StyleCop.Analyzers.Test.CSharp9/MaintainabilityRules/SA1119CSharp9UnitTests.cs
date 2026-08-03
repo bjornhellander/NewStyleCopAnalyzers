@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.MaintainabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.MaintainabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -20,7 +19,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.MaintainabilityRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3239, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3239")]
         public async Task TestTypeCastFollowedByWithExpressionIsHandledCorrectlyAsync()
         {
             const string testCode = @"
@@ -42,7 +40,6 @@ record Foo(int Value)
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3239, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3239")]
         public async Task TestTypeCastFollowedByWithExpressionWithUnnecessaryParenthesesIsHandledCorrectlyAsync()
         {
             const string testCode = @"
@@ -79,7 +76,6 @@ record Foo(int Value)
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3239, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3239")]
         public async Task TestWithExpressionWithUnnecessaryParenthesesAsync()
         {
             const string testCode = @"
@@ -116,7 +112,6 @@ record Foo(int Value)
         [InlineData("?.ToString()")]
         [InlineData("[0]")]
         [InlineData("?[0]")]
-        [WorkItem(3239, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3239")]
         public async Task TestWithExpressionFollowedByDereferenceAsync(string operation)
         {
             string testCode = $@"

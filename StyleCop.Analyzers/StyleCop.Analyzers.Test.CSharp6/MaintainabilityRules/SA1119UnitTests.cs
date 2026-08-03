@@ -1386,7 +1386,6 @@ public class Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2069, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2069")]
         public async Task VerifyThatPreprocessorStatementIsHandledCorrectlyAsync()
         {
             string testCode = @"
@@ -1434,7 +1433,6 @@ public class Program
         }
 
         [Fact]
-        [WorkItem(2992, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2992")]
         public async Task VerifyCodeFixDoesNotInsertUnnecessarySpacesAsync()
         {
             var testCode = @"using System;

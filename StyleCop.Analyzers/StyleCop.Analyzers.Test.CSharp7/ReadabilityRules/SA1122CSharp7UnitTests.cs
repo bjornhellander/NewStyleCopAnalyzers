@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -20,7 +19,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3028, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3028")]
         public async Task TestEmptyStringInCaseLabelWithConditionAsync()
         {
             string testCode = @"
@@ -58,7 +56,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(3028, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3028")]
         public async Task TestEmptyStringInSimplePatternAsync()
         {
             string testCode = @"

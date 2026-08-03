@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.OrderingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using StyleCop.Analyzers.Test.CSharp6.OrderingRules;
     using Xunit;
@@ -24,7 +23,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.OrderingRules
         [InlineData("readonly partial")]
         [InlineData("ref partial")]
         [InlineData("readonly ref partial")]
-        [WorkItem(2578, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2578")]
         public async Task TestReadonlyRefKeywordInStructDeclarationAsync(string keywords)
         {
             var testCode = $@"class OuterClass

@@ -422,7 +422,6 @@ public class Foo
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        [WorkItem(2623, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2623")]
         public async Task TestMultipleUsingStatementsWithDefaultSettingsAsync(bool suppressSA1519)
         {
             var testCode = @"using System;
@@ -455,7 +454,6 @@ public class Foo
         [InlineData(true, false, false)]
         [InlineData(false, true, true)]
         [InlineData(false, false, false)]
-        [WorkItem(2623, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2623")]
         public async Task TestMultipleUsingStatementsWithExplicitSettingAsync(bool allowConsecutiveUsings, bool suppressSA1519, bool expectDiagnostic)
         {
             var consecutiveUsingsSettings = $@"

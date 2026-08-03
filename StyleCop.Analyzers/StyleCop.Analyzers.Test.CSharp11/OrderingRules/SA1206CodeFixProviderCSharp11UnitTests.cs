@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp11.OrderingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp10.OrderingRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1206DeclarationKeywordsMustFollowOrder,
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp11.OrderingRules
     public partial class SA1206CodeFixProviderCSharp11UnitTests : SA1206CodeFixProviderCSharp10UnitTests
     {
         [Fact]
-        [WorkItem(3589, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3589")]
         public async Task VerifyFileKeywordReorderingInClassDeclarationAsync()
         {
             var testCode = $"static unsafe {{|#0:file|}} class TestClass {{}}";
@@ -27,7 +25,6 @@ namespace StyleCop.Analyzers.Test.CSharp11.OrderingRules
         }
 
         [Fact]
-        [WorkItem(3527, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3527")]
         public async Task VerifyRequiredKeywordReorderingInPropertiesAndFieldsAsync()
         {
             var testCode = @"

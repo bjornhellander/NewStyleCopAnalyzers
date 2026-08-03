@@ -4,7 +4,6 @@
 namespace StyleCop.Analyzers.Test.CSharp7.HelperTests
 {
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.HelperTests;
     using Xunit;
 
@@ -29,7 +28,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.HelperTests
         [InlineData("System.Collections.Generic.KeyValuePair<int, (int, object)>")]
         [InlineData("System.Collections.Generic.KeyValuePair<int, (int, object[])>")]
         [InlineData("System.Nullable<(int, object)>")]
-        [WorkItem(3149, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3149")]
         public Task VerifyToQualifiedStringTuplesAsync(string inputString, bool isNamespace = false)
         {
             return this.PerformTestAsync(inputString, isNamespace);

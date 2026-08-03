@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -21,7 +20,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3242, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3242")]
         public async Task TestUsingAndGlobalStatementSpacingInTopLevelProgramAsync()
         {
             var testCode = @"using System;
@@ -53,7 +51,6 @@ return 0;
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3351, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3351")]
         public async Task TestGlobalStatementSpacingInTopLevelProgramAsync()
         {
             var testCode = @"int i = 0;
@@ -101,7 +98,6 @@ record A();
         }
 
         [Fact]
-        [WorkItem(3658, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3658")]
         public async Task TestInitAccessorAsync()
         {
             var testCode = @"using System;

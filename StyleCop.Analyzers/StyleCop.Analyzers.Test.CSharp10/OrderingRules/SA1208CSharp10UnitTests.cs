@@ -5,7 +5,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp9.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -15,7 +14,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
     public partial class SA1208CSharp10UnitTests : SA1208CSharp9UnitTests
     {
         [Fact]
-        [WorkItem(3437, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3437")]
         public async Task TestWhenSystemUsingDirectivesAreNotOnTopInFileScopedNamespaceAsync()
         {
             await new CSharpTest

@@ -951,7 +951,6 @@ public interface IInterface
         }
 
         [Fact]
-        [WorkItem(1935, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1935")]
         public async Task TestUnderscoreExclusionAsync()
         {
             var testCode = @"public enum TestEnum
@@ -984,7 +983,6 @@ public interface IInterface
         [Theory]
         [InlineData("_")]
         [InlineData("__")]
-        [WorkItem(3636, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3636")]
         public async Task TestUnderscoreMethodAsync(string name)
         {
             var testCode = $@"

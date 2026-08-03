@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.NamingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Settings.ObjectModel;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.NamingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -326,7 +325,6 @@ public class TypeName
         }
 
         [Fact]
-        [WorkItem(3031, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3031")]
         public async Task TestTupleDesconstructionCamelCaseAsync()
         {
             var testCode = @"
@@ -351,7 +349,6 @@ public class TypeName
         }
 
         [Fact]
-        [WorkItem(3031, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3031")]
         public async Task TestTupleDesconstructionPascalCaseAsync()
         {
             var testCode = @"

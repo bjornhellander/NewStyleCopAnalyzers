@@ -184,7 +184,6 @@ namespace Namespace
         }
 
         [Fact]
-        [WorkItem(2690, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2690")]
         public async Task TestFullyQualifiedAliasAsync()
         {
             var testCode = @"
@@ -195,7 +194,6 @@ using Example = System.ValueTuple<System.Collections.IList, int>;
         }
 
         [Fact]
-        [WorkItem(2690, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2690")]
         public async Task TestFullyQualifiedAliasWithUnresolvedTypeParameterAsync()
         {
             var testCode = @"
@@ -207,7 +205,6 @@ using Example = System.ValueTuple<System.Collections.List, int>;
         }
 
         [Fact]
-        [WorkItem(2690, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2690")]
         public async Task TestFullyQualifiedAliasInsideNamespaceAsync()
         {
             var testCode = @"
@@ -232,7 +229,6 @@ using Example = System.ValueTuple<
         }
 
         [Fact]
-        [WorkItem(2820, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2820")]
         public async Task TestAliasWithWrappedTypeArgumentsInsideNamespaceAsync()
         {
             var testCode = @"
@@ -310,7 +306,6 @@ namespace MyNamespace {
         }
 
         [Fact]
-        [WorkItem(2879, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2879")]
         public async Task TestOmittedTypeInGenericAsync()
         {
             var testCode = @"
@@ -325,7 +320,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2879, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2879")]
         public async Task TestNullableTypeInGenericAsync()
         {
             var testCode = @"
@@ -339,7 +333,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2879, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2879")]
         public async Task TestGlobalQualifiedTypeInGenericAsync()
         {
             var testCode = @"
@@ -353,7 +346,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2879, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2879")]
         public async Task TestTypeInGlobalNamespaceAsync()
         {
             var testCode = @"
@@ -371,7 +363,6 @@ class MyClass
         }
 
         [Fact]
-        [WorkItem(2879, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2879")]
         public async Task TestAliasTypeNestedInGenericAsync()
         {
             var testCode = @"
@@ -384,7 +375,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2879, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2879")]
         public async Task TestValueTupleInUsingAliasAsync()
         {
             var testCode = @"
@@ -405,7 +395,6 @@ namespace System
         }
 
         [Fact]
-        [WorkItem(3149, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3149")]
         public async Task TestAliasTypeClrTypeAsync()
         {
             var testCode = @"
@@ -418,7 +407,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(3149, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3149")]
         public async Task TestAliasTypeGenericNullableAsync()
         {
             var testCode = @"
@@ -431,7 +419,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(3166, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3166")]
         public async Task TestAliasClrTypeAsync()
         {
             var testCode = @"
@@ -445,7 +432,6 @@ namespace System
         }
 
         [Fact]
-        [WorkItem(2618, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2618")]
         public async Task TestUnqualifiedStaticUsingsAsync()
         {
             const string testCode = @"
@@ -471,7 +457,6 @@ namespace System.Threading
         }
 
         [Fact]
-        [WorkItem(2619, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2619")]
         public async Task TestAliasToGenericTypeWithClrTypeArgsAsync()
         {
             var testCode = @"

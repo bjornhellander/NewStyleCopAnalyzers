@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.SpacingRules;
     using Xunit;
 
@@ -137,7 +136,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2472, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2472")]
         public async Task TestTupleArrayParameterTypeAsync()
         {
             var testCode = @"namespace TestNamespace
@@ -197,8 +195,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2472, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2472")]
-        [WorkItem(2532, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2532")]
         public async Task TestTupleOutParametersAsync()
         {
             var testCode = @"namespace TestNamespace
@@ -395,7 +391,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2472, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2472")]
         public async Task TestNullableTupleReturnTypeAsync()
         {
             var testCode = @"namespace TestNamespace
@@ -949,7 +944,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2475, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2475")]
         public async Task TestSingleLineIfStatementWithTupleExpressionAsync()
         {
             var testCode = @"public class TestClass
@@ -965,7 +959,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2568, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2568")]
         public async Task TestTupleExpressionParamsAsync()
         {
             var testCode = @"public class TestClass
@@ -979,7 +972,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(3117, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3117")]
         public async Task TestTupleParameterAttributesAsync()
         {
             var testCode = @"

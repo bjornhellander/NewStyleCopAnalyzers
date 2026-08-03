@@ -5,7 +5,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1024ColonsMustBeSpacedCorrectly;
@@ -21,7 +20,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         /// <seealso cref="SA1013CSharp8UnitTests.TestSpacingAroundClosingBraceInPatternAsync"/>
         [Fact]
-        [WorkItem(3053, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3053")]
         public async Task TestColonAfterClosingBraceInPatternAsync()
         {
             const string testCode = @"using System;

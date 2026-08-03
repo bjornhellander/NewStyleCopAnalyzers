@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.DocumentationRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using StyleCop.Analyzers.Test.CSharp8.DocumentationRules;
     using Xunit;
@@ -15,7 +14,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.DocumentationRules
     {
         [Theory]
         [MemberData(nameof(CommonMemberData.RecordTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3770, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3770")]
         public async Task TestPrimaryRecordConstructorMissingParametersAsync(string keyword)
         {
             var testCode = $@"
@@ -29,7 +27,6 @@ public {keyword} R(int Param1, string Param2);";
 
         [Theory]
         [MemberData(nameof(CommonMemberData.RecordTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3770, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3770")]
         public async Task TestPrimaryRecordConstructorIncludeMissingParametersAsync(string keyword)
         {
             var testCode = $@"

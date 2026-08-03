@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly;
@@ -18,7 +17,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
     public partial class SA1008CSharp9UnitTests : SA1008CSharp8UnitTests
     {
         [Fact]
-        [WorkItem(3230, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3230")]
         public async Task TestParenthesizedPatternAsync()
         {
             const string testCode = @"
@@ -60,7 +58,6 @@ class C
         }
 
         [Fact]
-        [WorkItem(3476, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3476")]
         public async Task TestLogicalTuplePatternAsync()
         {
             const string testCode = @"
@@ -82,7 +79,6 @@ class C
         [InlineData(" ")]
         [InlineData("\n")]
         [InlineData("\n ")]
-        [WorkItem(2354, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2354")]
         public async Task TestDeconstructionInTopLevelProgramAsync(string prefix)
         {
             var testCode = $@"{prefix}{{|#0:(|}} var a, var b) = (1, 2);";

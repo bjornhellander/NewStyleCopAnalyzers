@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -21,7 +20,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3243, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3243")]
         public async Task TestValidUsingDirectivesInTopLevelProgramAsync()
         {
             var testCode = @"using System;

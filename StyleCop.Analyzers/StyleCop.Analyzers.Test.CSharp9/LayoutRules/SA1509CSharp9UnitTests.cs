@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
     public partial class SA1509CSharp9UnitTests : SA1509CSharp8UnitTests
     {
         [Fact]
-        [WorkItem(3272, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3272")]
         public async Task TestSingleLineRecordAsync()
         {
             var testCode = @"namespace TestNamespace

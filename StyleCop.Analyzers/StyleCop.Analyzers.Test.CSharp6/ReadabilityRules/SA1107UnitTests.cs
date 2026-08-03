@@ -142,7 +142,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(2862, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2862")]
         public async Task TestEmptyStatementAfterBlockAsync()
         {
             string testCode = @"

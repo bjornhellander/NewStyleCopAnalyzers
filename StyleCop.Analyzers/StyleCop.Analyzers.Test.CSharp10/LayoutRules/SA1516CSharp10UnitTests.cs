@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.LayoutRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp9.LayoutRules;
     using Xunit;
     using Verifier = StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -20,7 +19,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.LayoutRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3512, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3512")]
         public async Task TestThatDiagnosticIIsReportedOnUsingsAndExternAliasOutsideFileScopedNamespaceAsync()
         {
             var testCode = @"extern alias corlib;
@@ -47,7 +45,6 @@ namespace Foo;
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3512, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3512")]
         public async Task TestThatDiagnosticIIsReportedOnSpacingWithUsingsInsideFileScopedNamespaceAsync()
         {
             var testCode = @"namespace Foo;
@@ -71,7 +68,6 @@ using a = System.Collections;
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3512, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3512")]
         public async Task TestThatDiagnosticIIsReportedOnMemberDeclarationsInsideFileScopedNamespaceAsync()
         {
             var testCode = @"namespace Foo;
@@ -102,7 +98,6 @@ public enum Foobar
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3512, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3512")]
         public async Task TestThatDiagnosticIIsReportedOnUsingsAndMemberDeclarationsInsideFileScopedNamespaceAsync()
         {
             var testCode = @"namespace Foo;
@@ -140,7 +135,6 @@ public enum Foobar
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3512, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3512")]
         public async Task TestThatDiagnosticIIsReportedOnExternAliasInsideFileScopedNamespaceAsync()
         {
             var testCode = @"namespace Foo;
@@ -160,7 +154,6 @@ extern alias corlib;
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3512, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3512")]
         public async Task TestThatDiagnosticIIsReportedOnExternAliasAndUsingsInsideFileScopedNamespaceAsync()
         {
             var testCode = @"namespace Foo;
@@ -188,7 +181,6 @@ using a = System.Collections;
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3512, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3512")]
         public async Task TestThatDiagnosticIIsReportedOnExternAliasUsingsAndMemberDeclarationsInsideFileScopedNamespaceAsync()
         {
             var testCode = @"namespace Foo;

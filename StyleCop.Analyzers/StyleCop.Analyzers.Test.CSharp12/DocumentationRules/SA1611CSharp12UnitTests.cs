@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp12.DocumentationRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp11.DocumentationRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.CustomDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.SA1611ElementParametersMustBeDocumented>;
 
@@ -17,7 +16,6 @@ namespace StyleCop.Analyzers.Test.CSharp12.DocumentationRules
 
         [Theory]
         [MemberData(nameof(NonRecordDeclarationKeywords))]
-        [WorkItem(3770, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3770")]
         public async Task TestPrimaryConstructorMissingParametersAsync(string keyword)
         {
             var testCode = $@"
@@ -37,7 +35,6 @@ public {keyword} C(int {{|#0:param1|}}, string {{|#1:param2|}}) {{ }}";
 
         [Theory]
         [MemberData(nameof(NonRecordDeclarationKeywords))]
-        [WorkItem(3770, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3770")]
         public async Task TestPrimaryConstructorPartiallyMissingParametersAsync(string keyword)
         {
             var testCode = $@"
@@ -52,7 +49,6 @@ public {keyword} C(int param1, string {{|#0:param2|}}) {{ }}";
 
         [Theory]
         [MemberData(nameof(NonRecordDeclarationKeywords))]
-        [WorkItem(3770, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3770")]
         public async Task TestPrimaryConstructorNoMissingParametersAsync(string keyword)
         {
             var testCode = $@"
@@ -68,7 +64,6 @@ public {keyword} C(int param1, string param2) {{ }}";
 
         [Theory]
         [MemberData(nameof(NonRecordDeclarationKeywords))]
-        [WorkItem(3770, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3770")]
         public async Task TestPrimaryConstructorIncludeMissingParametersAsync(string keyword)
         {
             var testCode = $@"
@@ -87,7 +82,6 @@ public {keyword} C(int {{|#0:param1|}}, string {{|#1:param2|}}, bool {{|#2:param
 
         [Theory]
         [MemberData(nameof(NonRecordDeclarationKeywords))]
-        [WorkItem(3770, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3770")]
         public async Task TestPrimaryConstructorIncludePartiallyMissingParametersAsync(string keyword)
         {
             var testCode = $@"
@@ -99,7 +93,6 @@ public {keyword} C(int {{|#0:param1|}}, string param2, bool param3) {{ }}";
 
         [Theory]
         [MemberData(nameof(NonRecordDeclarationKeywords))]
-        [WorkItem(3770, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3770")]
         public async Task TestPrimaryConstructorIncludeNoMissingParametersAsync(string keyword)
         {
             var testCode = $@"

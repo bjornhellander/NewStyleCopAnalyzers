@@ -186,7 +186,6 @@ public class ClassName
         }
 
         [Fact]
-        [WorkItem(3150, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3150")]
         public async Task TestClassWithIncludedMissingDocumentationAsync()
         {
             var testCode = @"
@@ -223,7 +222,6 @@ public class ClassName
         }
 
         [Fact]
-        [WorkItem(3150, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3150")]
         public async Task TestFieldWithIncludedSummaryDocumentationAsync()
         {
             var testCode = @"
@@ -236,7 +234,6 @@ public class ClassName
         }
 
         [Fact]
-        [WorkItem(3150, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3150")]
         public async Task TestFieldWithIncludedDefaultSummaryDocumentationAsync()
         {
             var testCode = @"

@@ -198,7 +198,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2363, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2363")]
         public async Task TestInvalidUsingDirectivesWithFileHeaderTriviaAsync()
         {
             var testCode = @"// Some comment
@@ -228,7 +227,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2363, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2363")]
         public async Task TestInvalidUsingDirectivesWithSeparatedFileHeaderTriviaAsync()
         {
             var testCode = @"// Some comment
@@ -260,7 +258,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2363, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2363")]
         public async Task TestInvalidUsingDirectivesWithSeparatedFileHeaderAndTriviaAsync()
         {
             var testCode = @"// File Header
@@ -296,7 +293,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2363, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2363")]
         public async Task TestInvalidUsingDirectivesWithTriviaAsync()
         {
             var testCode = @"
@@ -328,7 +324,6 @@ namespace TestNamespace
         }
 
         [Fact]
-        [WorkItem(2363, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2363")]
         public async Task TestInvalidUsingDirectivesWithHeaderAndTriviaAsync()
         {
             var testCode = @"// Copyright notice here

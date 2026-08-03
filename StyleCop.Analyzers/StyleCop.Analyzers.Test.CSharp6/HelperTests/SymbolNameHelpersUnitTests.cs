@@ -57,7 +57,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.HelperTests
         [InlineData("System.Nullable<int>")]
         [InlineData("System", true)]
         [InlineData("System.Collections.Generic", true)]
-        [WorkItem(3149, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3149")]
         public Task VerifyToQualifiedStringAsync(string inputString, bool isNamespace = false)
         {
             return this.PerformTestAsync(inputString, isNamespace);

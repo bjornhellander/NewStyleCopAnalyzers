@@ -5,7 +5,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.DocumentationRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using StyleCop.Analyzers.Test.CSharp9.DocumentationRules;
     using Xunit;
@@ -21,7 +20,6 @@ namespace StyleCop.Analyzers.Test.CSharp10.DocumentationRules
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Theory]
         [MemberData(nameof(CommonMemberData.TypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
-        [WorkItem(3435, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3435")]
         public async Task VerifyFirstTypeIsUsedWithFileScopedNamespacesAsync(string typeKeyword)
         {
             var testCode = $@"namespace TestNamespace;

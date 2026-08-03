@@ -514,7 +514,6 @@ namespace TestNamespace2
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1528, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1528")]
         public async Task VerifyCodefixForElsePartOfDirectiveTriviaAsync()
         {
             var testCode = @"namespace NamespaceName
@@ -547,7 +546,6 @@ namespace TestNamespace2
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1733, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1733")]
         public async Task VerifyCodefixForDirectiveTriviaOutsideOfNamespacesAsync()
         {
             var testCode = @"// <copyright file=""Program.cs"" company=""PlaceholderCompany"" >

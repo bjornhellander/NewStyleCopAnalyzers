@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1015ClosingGenericBracketsMustBeSpacedCorrectly;
@@ -59,7 +58,6 @@ public class Foo
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2735, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2735")]
         public async Task TestPatternMatchingInSwitchStatementWithGenericTypesAsync()
         {
             var testCode = @"using System.Collections.Generic;

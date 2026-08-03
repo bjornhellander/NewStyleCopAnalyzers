@@ -8,7 +8,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.NamingRules
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.NamingRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Helpers.LanguageVersionTestExtensions;
@@ -362,7 +361,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(3031, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3031")]
         public async Task TestTupleDesconstructionCamelCaseAsync()
         {
             var testCode = @"
@@ -379,7 +377,6 @@ public class TypeName
         }
 
         [Fact]
-        [WorkItem(3031, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3031")]
         public async Task TestTupleDesconstructionPascalCaseAsync()
         {
             var testCode = @"
@@ -396,7 +393,6 @@ public class TypeName
         }
 
         [Fact]
-        [WorkItem(3031, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3031")]
         public async Task TestTupleDesconstructionPascalCaseListAsync()
         {
             var testCode = @"
@@ -416,7 +412,6 @@ public class TypeName
         }
 
         [Fact]
-        [WorkItem(3139, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3139")]
         public async Task TestTupleDesconstructionDiscardAsync()
         {
             var testCode = @"
@@ -434,7 +429,6 @@ public class TypeName
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInOverriddenMethodsParameterTypeAsync(string type)
         {
             var testCode = $@"
@@ -460,7 +454,6 @@ public class TestType : BaseType
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInExplicitlyImplementedMethodsParameterTypeAsync(string type)
         {
             var testCode = $@"
@@ -484,7 +477,6 @@ public class TestType : TestInterface
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInInterfaceImplementedMethodsParameterTypeAsync(string type)
         {
             var testCode = $@"
@@ -508,7 +500,6 @@ public class TestType : TestInterface
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInOverriddenMethodsReturnTypeAsync(string type)
         {
             var testCode = $@"
@@ -536,7 +527,6 @@ public class TestType : BaseType
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInExplicitlyImplementedMethodsReturnTypeAsync(string type)
         {
             var testCode = $@"
@@ -561,7 +551,6 @@ public class TestType : TestInterface
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInInterfaceImplementedMethodsReturnTypeAsync(string type)
         {
             var testCode = $@"
@@ -586,7 +575,6 @@ public class TestType : TestInterface
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInOverriddenPropertysTypeAsync(string type)
         {
             var testCode = $@"
@@ -608,7 +596,6 @@ public class TestType : BaseType
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInExplicitlyImplementedPropertysTypeAsync(string type)
         {
             var testCode = $@"
@@ -630,7 +617,6 @@ public class TestType : TestInterface
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInInterfaceImplementedPropertysTypeAsync(string type)
         {
             var testCode = $@"
@@ -652,7 +638,6 @@ public class TestType : TestInterface
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInOverriddenEventsTypeAsync(string type)
         {
             var testCode = $@"
@@ -675,7 +660,6 @@ public class TestType : BaseType
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInExplicitlyImplementedEventsTypeAsync(string type)
         {
             var testCode = $@"
@@ -698,7 +682,6 @@ public class TestType : TestInterface
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInInterfaceImplementedEventsTypeAsync(string type)
         {
             var testCode = $@"
@@ -721,7 +704,6 @@ public class TestType : TestInterface
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInOverriddenIndexersReturnTypeAsync(string type)
         {
             var testCode = $@"
@@ -743,7 +725,6 @@ public class TestType : BaseType
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInExplicitlyImplementedIndexersReturnTypeAsync(string type)
         {
             var testCode = $@"
@@ -765,7 +746,6 @@ public class TestType : TestInterface
 
         [Theory]
         [MemberData(nameof(TypesWithOneLowerCaseTupleElement))]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperTupleElementNameInInterfaceImplementedIndexersReturnTypeAsync(string type)
         {
             var testCode = $@"
@@ -786,7 +766,6 @@ public class TestType : TestInterface
         }
 
         [Fact]
-        [WorkItem(3781, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3781")]
         public async Task TestImproperVariableTupleElementNameInsideOverriddenMethodAsync()
         {
             var testCode = @"
@@ -831,7 +810,6 @@ public class TestType : BaseType
         }
 
         [Fact]
-        [WorkItem(3878, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3878")]
         public async Task DeconstructionAssignmentTargetIgnoredWithPascalCaseInferredTestSettingsAsync()
         {
             var testCode = @"

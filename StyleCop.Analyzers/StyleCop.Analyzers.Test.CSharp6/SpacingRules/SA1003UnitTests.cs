@@ -196,7 +196,6 @@ v1;
         }
 
         [Fact]
-        [WorkItem(2471, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2471")]
         public async Task TestUnaryMemberAccessAsync()
         {
             var testCode = @"public class ClassName
@@ -956,7 +955,6 @@ public class Foo : Exception
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1776, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1776")]
         public async Task TestPointerDereferenceNotReportedAsync()
         {
             var testCode = @"public class TestClass
@@ -1075,7 +1073,6 @@ public class Foo : Exception
         [Theory]
         [InlineData("++")]
         [InlineData("--")]
-        [WorkItem(3073, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3073")]
         public async Task TestInterpolatedStringFormatAsync(string postfixOperator)
         {
             var testCode = $@"public class TestClass

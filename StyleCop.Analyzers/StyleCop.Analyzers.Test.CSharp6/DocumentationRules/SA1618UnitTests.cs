@@ -415,7 +415,6 @@ public class TestClass
         }
 
         [Fact]
-        [WorkItem(2446, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2446")]
         public async Task TestPrivateMethodMissingGenericParametersAsync()
         {
             var testCode = @"

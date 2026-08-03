@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -20,7 +19,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2927, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2927")]
         public async Task VerifyNullableContextWithArraysAsync()
         {
             var testCode = @"namespace TestNamespace
@@ -39,7 +37,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2900, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2900")]
         public async Task VerifyNullableContextWithArrayReturnsAsync()
         {
             var testCode = @"namespace TestNamespace
@@ -58,7 +55,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         }
 
         [Fact]
-        [WorkItem(3052, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3052")]
         public async Task TestClosingSquareBracketFollowedByExclamationAsync()
         {
             var testCode = @"namespace TestNamespace
@@ -107,7 +103,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         }
 
         [Fact]
-        [WorkItem(3708, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3708")]
         public async Task TestClosingSquareBracketFollowedByRangeAsync()
         {
             var testCode = @"namespace TestNamespace

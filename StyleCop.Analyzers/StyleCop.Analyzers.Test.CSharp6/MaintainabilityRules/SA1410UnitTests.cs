@@ -106,7 +106,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2572, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2572")]
         public async Task TestMethodOverloadAmbiguityAsync()
         {
             var testCode = @"public class TestClass
@@ -154,7 +153,6 @@ public static class TestClassExtensions
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2572, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2572")]
         public async Task TestMethodOverloadNonAmbiguityAsync()
         {
             var testCode = @"public class TestClass

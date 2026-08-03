@@ -33,7 +33,6 @@ namespace NamespaceName { }
         }
 
         [Fact]
-        [WorkItem(3453, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3453")]
         public async Task TestNoSourceFilesAsync()
         {
             string emptySettings = @"{ ""settings"": { } }";

@@ -5,7 +5,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -40,7 +39,6 @@ class Foo
         }
 
         [Fact]
-        [WorkItem(1476, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1476")]
         public async Task TestViolationWithLocalFunctionDeclarationMultiLineParametersAsync()
         {
             var testCode = @"
@@ -70,7 +68,6 @@ class Foo
         }
 
         [Fact]
-        [WorkItem(1652, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1652")]
         public async Task TestViolationWithLocalFunctionDeclarationRegionDirectiveAsync()
         {
             var testCode = $@"

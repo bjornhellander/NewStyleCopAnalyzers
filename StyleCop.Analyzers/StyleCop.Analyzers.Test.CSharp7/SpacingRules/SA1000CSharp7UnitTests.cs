@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Helpers.LanguageVersionTestExtensions;
@@ -32,7 +31,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2419, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2419")]
         public async Task TestOutVarDiscardAsync()
         {
             string statementWithSpace = @"int.TryParse(""0"", out var _);";
@@ -41,7 +39,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
         }
 
         [Fact]
-        [WorkItem(2419, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2419")]
         public async Task TestOutDiscardAsync()
         {
             string statementWithSpace = @"int.TryParse(""0"", out _);";

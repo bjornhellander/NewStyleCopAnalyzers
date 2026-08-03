@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
@@ -20,7 +19,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
         [Theory]
         [InlineData("==", "==")]
         [InlineData("!=", "!=")]
-        [WorkItem(2675, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2675")]
         public async Task TestDefaultLiteralStructComparismOutsideIfAsync(string oldOperator, string newOperator)
         {
             var testCode = $@"

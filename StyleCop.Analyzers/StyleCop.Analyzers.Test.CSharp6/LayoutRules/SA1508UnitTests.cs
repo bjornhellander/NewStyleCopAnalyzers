@@ -816,7 +816,6 @@ to determine the spacing with the close brace.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1534, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1534")]
         public async Task TestInvalidSyntaxAsync()
         {
             var testCode = @"namespace TestNamespace

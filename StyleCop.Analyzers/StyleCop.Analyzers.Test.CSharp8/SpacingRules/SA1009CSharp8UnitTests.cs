@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp7.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1009ClosingParenthesisMustBeSpacedCorrectly;
@@ -17,7 +16,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     public partial class SA1009CSharp8UnitTests : SA1009CSharp7UnitTests
     {
         [Fact]
-        [WorkItem(2991, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2991")]
         public async Task TestFollowedBySuppressionOperatorAsync()
         {
             const string testCode = @"
@@ -45,7 +43,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(3143, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3143")]
         public async Task TestFollowedBySuppressionOperator2Async()
         {
             const string testCode = @"
@@ -101,7 +98,6 @@ public class Derived : Base
         }
 
         [Fact]
-        [WorkItem(2968, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2968")]
         public async Task TestExpressionBodyEndsWithSuppressionAsync()
         {
             const string testCode = @"using System;
@@ -125,7 +121,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(2968, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2968")]
         public async Task TestBlockBodyEndsWithSuppressionAsync()
         {
             const string testCode = @"using System;
@@ -163,7 +158,6 @@ public class Foo
         /// </remarks>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3064, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3064")]
         public async Task TestBeforeRangeExpressionAsync()
         {
             var testCode = @"

@@ -181,7 +181,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1373, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1373")]
         public async Task TestTrailingWhitespaceAfterClosingBraceAsync()
         {
             string testCode = new StringBuilder()
@@ -207,7 +206,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(1445, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/1445")]
         public async Task TestWhitespaceBeforeClosingBraceAsync()
         {
             string testCode = new StringBuilder()
@@ -315,7 +313,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpacingRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(821, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/821")]
         public async Task VerifyTrailingWhitespaceInsideMultiLineXmlDocumentationCommentAsync()
         {
             string testCode = new StringBuilder()

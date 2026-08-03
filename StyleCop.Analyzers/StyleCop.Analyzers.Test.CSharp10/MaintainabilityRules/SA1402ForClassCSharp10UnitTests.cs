@@ -5,14 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp10.MaintainabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp9.MaintainabilityRules;
     using Xunit;
 
     public partial class SA1402ForClassCSharp10UnitTests : SA1402ForClassCSharp9UnitTests
     {
         [Fact]
-        [WorkItem(3435, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3435")]
         public async Task VerifyTwoClassesWithFileScopedNamespacesAsync()
         {
             var testCode = $@"namespace TestNamespace;

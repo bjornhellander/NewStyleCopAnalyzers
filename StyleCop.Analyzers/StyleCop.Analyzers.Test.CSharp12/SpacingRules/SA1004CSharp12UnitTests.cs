@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp12.SpacingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp11.SpacingRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1004DocumentationLinesMustBeginWithSingleSpace,
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp12.SpacingRules
     public partial class SA1004CSharp12UnitTests : SA1004CSharp11UnitTests
     {
         [Fact]
-        [WorkItem(3817, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3817")]
         public async Task TestParameterModifierReadOnlyFirstOnLineAsync()
         {
             string testCode = $@"

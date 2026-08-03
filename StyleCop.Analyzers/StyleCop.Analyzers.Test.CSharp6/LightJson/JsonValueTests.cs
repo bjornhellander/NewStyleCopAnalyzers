@@ -111,7 +111,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.LightJson
         }
 
         [Fact]
-        [WorkItem(2440, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2440")]
         [UseCulture("sv-SE")]
         public void TestAsNumbersUsingCultureWithNonStandardNumberFormat()
         {
@@ -132,7 +131,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.LightJson
         }
 
         [Fact]
-        [WorkItem(2440, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2440")]
         [UseCulture("sv-SE")]
         public void TestAsStringUsingCultureWithNonStandardNumberFormat()
         {

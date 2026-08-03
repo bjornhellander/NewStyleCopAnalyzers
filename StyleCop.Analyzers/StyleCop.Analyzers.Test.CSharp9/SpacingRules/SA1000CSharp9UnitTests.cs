@@ -5,7 +5,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
 {
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.SpacingRules;
     using Xunit;
 
@@ -24,7 +23,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
         }
 
         [Fact]
-        [WorkItem(3508, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3508")]
         public async Task TestIsBeforeRelationalPatternAsync()
         {
             var statementWithoutSpace = "_ = 1 {|#0:is|}>1;";
@@ -35,7 +33,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
         }
 
         [Fact]
-        [WorkItem(3508, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3508")]
         public async Task TestNotBeforeRelationalPatternAsync()
         {
             var statementWithoutSpace = "_ = 1 is {|#0:not|}>1;";
@@ -46,7 +43,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
         }
 
         [Fact]
-        [WorkItem(3508, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3508")]
         public async Task TestAndBeforeRelationalPatternAsync()
         {
             var statementWithoutSpace = "_ = 1 is 1 {|#0:and|}>0;";
@@ -57,7 +53,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
         }
 
         [Fact]
-        [WorkItem(3508, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3508")]
         public async Task TestOrBeforeRelationalPatternAsync()
         {
             var statementWithoutSpace = "_ = 1 is 1 {|#0:or|}>1;";

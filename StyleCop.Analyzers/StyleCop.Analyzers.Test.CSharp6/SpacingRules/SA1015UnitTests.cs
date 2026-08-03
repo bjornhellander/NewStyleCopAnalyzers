@@ -380,7 +380,6 @@ class ClassName
         }
 
         [Fact]
-        [WorkItem(3312, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3312")]
         public async Task TestSpacingInIndexAsync()
         {
             var testCode = @"using System;
@@ -431,7 +430,6 @@ public class TestClass
         [Theory]
         [InlineData(" M<int> ")]
         [InlineData("M<int>")]
-        [WorkItem(3856, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3856")]
         public async Task TestSpacingAfterGenericMethodGroupInCollectionInitializerAsync(string item)
         {
             var testCode = $@"
@@ -454,7 +452,6 @@ public class TestClass
         [Theory]
         [InlineData(" 1, M<int> ")]
         [InlineData("1, M<int>")]
-        [WorkItem(3856, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3856")]
         public async Task TestSpacingAfterGenericMethodGroupInDictionaryInitializerItemAsync(string item)
         {
             var testCode = $@"

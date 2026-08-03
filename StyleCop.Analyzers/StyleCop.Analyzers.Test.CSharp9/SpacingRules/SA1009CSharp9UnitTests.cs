@@ -5,7 +5,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp8.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1009ClosingParenthesisMustBeSpacedCorrectly;
@@ -16,7 +15,6 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
     public partial class SA1009CSharp9UnitTests : SA1009CSharp8UnitTests
     {
         [Fact]
-        [WorkItem(3248, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3248")]
         public async Task TestRecordInheritanceAsync()
         {
             const string testCode = @"

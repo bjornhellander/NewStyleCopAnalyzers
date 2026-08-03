@@ -518,7 +518,6 @@ public class TypeName
         [InlineData("Const1", "Method2", false)]
         [InlineData("Method1", "Const1", false)]
         [InlineData("Method2", "Const1", false)]
-        [WorkItem(3677, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3677")]
         public async Task TestSimpleMethodsAsync(string expr1, string expr2, bool shouldTrigger)
         {
             await this.TestMethodAsync(expr1, expr2, shouldTrigger).ConfigureAwait(true);
@@ -537,7 +536,6 @@ public class TypeName
         [InlineData("this.Method2", "Const1", false)]
         [InlineData("Method3<int>", "arg", true)]
         [InlineData("TestClass.Method3<int>", "arg", true)]
-        [WorkItem(3759, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3759")]
         public async Task TestComplexMethodsAsync(string expr1, string expr2, bool shouldTrigger)
         {
             await this.TestMethodAsync(expr1, expr2, shouldTrigger).ConfigureAwait(true);
@@ -550,7 +548,6 @@ public class TypeName
         [InlineData("<=")]
         [InlineData(">")]
         [InlineData("<")]
-        [WorkItem(3759, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3759")]
         public async Task TestComplexLeftHandSideExpressionAsync(string @operator)
         {
             var testCode = $@"

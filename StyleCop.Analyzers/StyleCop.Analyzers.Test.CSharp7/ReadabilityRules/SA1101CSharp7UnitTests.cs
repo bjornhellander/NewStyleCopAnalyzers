@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -20,7 +19,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(2534, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2534")]
         public async Task TestValueTupleAsync()
         {
             var testCode = @"public class Foo
@@ -36,7 +34,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
         }
 
         [Fact]
-        [WorkItem(2845, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2845")]
         public async Task TestPropertyWithExpressionBodiedAccessorAsync()
         {
             var testCode = @"
@@ -75,7 +72,6 @@ public class Foo
         }
 
         [Fact]
-        [WorkItem(2845, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/2845")]
         public async Task TestIndexerWithExpressionBodiedAccessorAsync()
         {
             var testCode = @"
@@ -114,7 +110,6 @@ public class Foo<T>
         }
 
         [Fact]
-        [WorkItem(3018, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3018")]
         public async Task TestGenericLocalFunctionAsync()
         {
             var testCode = @"

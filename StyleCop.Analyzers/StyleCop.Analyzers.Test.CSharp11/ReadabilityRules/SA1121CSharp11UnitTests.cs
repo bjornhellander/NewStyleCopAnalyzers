@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp11.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using StyleCop.Analyzers.Test.CSharp10.ReadabilityRules;
-    using StyleCop.Analyzers.Test.CSharp6;
     using Xunit;
 
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -18,7 +17,6 @@ namespace StyleCop.Analyzers.Test.CSharp11.ReadabilityRules
         // NOTE: This tests a fix for a c# 10 feature, but the Roslyn API used to solve it wasn't available in the version
         // we use in the c# 10 test project, so the test was added here instead.
         [Fact]
-        [WorkItem(3594, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3594")]
         public async Task TestUsingNameChangeInGlobalUsingInAnotherFileAsync()
         {
             var source1 = @"

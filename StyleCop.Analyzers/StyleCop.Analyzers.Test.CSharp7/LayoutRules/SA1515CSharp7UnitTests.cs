@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.LayoutRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6;
     using StyleCop.Analyzers.Test.CSharp6.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -41,7 +40,6 @@ public class ClassName
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3550, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3550")]
         public async Task TestExpressionBodiedPropertyAccessorsAsync()
         {
             var testCode = @"
@@ -67,7 +65,6 @@ class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3550, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3550")]
         public async Task TestExpressionBodiedIndexerAccessorsAsync()
         {
             var testCode = @"
@@ -93,7 +90,6 @@ class TestClass
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        [WorkItem(3550, "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3550")]
         public async Task TestExpressionBodiedEventAccessorsAsync()
         {
             var testCode = @"
