@@ -8,13 +8,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
-    using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1131UseReadableConditions,
         StyleCop.Analyzers.ReadabilityRules.SA1131CodeFixProvider>;
 
-    public partial class SA1131CSharp7UnitTests : SA1131UnitTests
+    public partial class SA1131CSharp7UnitTests
     {
         [Theory]
         [InlineData("==", "==")]

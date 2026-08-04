@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.LayoutRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1516ElementsMustBeSeparatedByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1516CodeFixProvider>;
 
-    public partial class SA1516CSharp15UnitTests : SA1516CSharp14UnitTests
+    public partial class SA1516CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMembersNotSeparatedByBlankLineAsync()

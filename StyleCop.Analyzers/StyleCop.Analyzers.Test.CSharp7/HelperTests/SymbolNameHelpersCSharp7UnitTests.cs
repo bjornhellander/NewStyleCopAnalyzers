@@ -4,13 +4,12 @@
 namespace StyleCop.Analyzers.Test.CSharp7.HelperTests
 {
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp6.HelperTests;
     using Xunit;
 
     /// <summary>
     /// Unit tests for the <see cref="StyleCop.Analyzers.Helpers.SymbolNameHelpers"/> class in the context of C# 7.x.
     /// </summary>
-    public partial class SymbolNameHelpersCSharp7UnitTests : SymbolNameHelpersUnitTests
+    public partial class SymbolNameHelpersCSharp7UnitTests
     {
         /// <summary>
         /// Verify the workings of <see cref="StyleCop.Analyzers.Helpers.SymbolNameHelpers.ToQualifiedString(Microsoft.CodeAnalysis.ISymbol, Microsoft.CodeAnalysis.CSharp.Syntax.NameSyntax)"/>

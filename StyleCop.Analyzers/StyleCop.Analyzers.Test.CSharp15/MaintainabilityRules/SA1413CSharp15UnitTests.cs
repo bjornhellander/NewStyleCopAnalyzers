@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.MaintainabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.MaintainabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1413UseTrailingCommasInMultiLineInitializers,
         StyleCop.Analyzers.MaintainabilityRules.SA1413CodeFixProvider>;
 
-    public partial class SA1413CSharp15UnitTests : SA1413CSharp14UnitTests
+    public partial class SA1413CSharp15UnitTests
     {
         [Theory]
         [InlineData("with(capacity: 10), \"a\", \"b\"")]

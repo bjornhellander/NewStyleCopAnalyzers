@@ -6,10 +6,9 @@ namespace StyleCop.Analyzers.Test.CSharp15.MaintainabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.MaintainabilityRules;
     using Xunit;
 
-    public partial class SA1405CSharp15UnitTests : SA1405CSharp14UnitTests
+    public partial class SA1405CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodDebugAssertWithoutMessageAsync()

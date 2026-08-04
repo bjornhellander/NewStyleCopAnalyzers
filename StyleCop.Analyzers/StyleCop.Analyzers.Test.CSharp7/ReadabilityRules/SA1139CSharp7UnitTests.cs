@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1139UseLiteralSuffixNotationInsteadOfCasting,
         StyleCop.Analyzers.ReadabilityRules.SA1139CodeFixProvider>;
 
-    public partial class SA1139CSharp7UnitTests : SA1139UnitTests
+    public partial class SA1139CSharp7UnitTests
     {
         /// <summary>
         /// Verifies that using literals with digit separators does not produce diagnostic.

@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp14.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1026CodeMustNotContainSpaceAfterNewKeywordInImplicitlyTypedArrayAllocation,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1026CSharp15UnitTests : SA1026CSharp14UnitTests
+    public partial class SA1026CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodSpaceAfterNewKeywordAsync()

@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     using System.Threading.Tasks;
 
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp7.SpacingRules;
 
     using Xunit;
 
@@ -15,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         StyleCop.Analyzers.SpacingRules.SA1013ClosingBracesMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1013CSharp8UnitTests : SA1013CSharp7UnitTests
+    public partial class SA1013CSharp8UnitTests
     {
         /// <summary>
         /// Verifies the behavior of closing braces in case patterns.

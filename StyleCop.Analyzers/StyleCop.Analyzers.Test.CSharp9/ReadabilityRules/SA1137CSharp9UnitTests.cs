@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp8.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1137ElementsShouldHaveTheSameIndentation,
         StyleCop.Analyzers.ReadabilityRules.IndentationCodeFixProvider>;
 
-    public partial class SA1137CSharp9UnitTests : SA1137CSharp8UnitTests
+    public partial class SA1137CSharp9UnitTests
     {
         [Fact]
         public async Task TestInitAccessorAttributeListAsync()

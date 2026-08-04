@@ -7,14 +7,13 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Helpers.LanguageVersionTestExtensions;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1413UseTrailingCommasInMultiLineInitializers,
         StyleCop.Analyzers.MaintainabilityRules.SA1413CodeFixProvider>;
 
-    public partial class SA1413CSharp7UnitTests : SA1413UnitTests
+    public partial class SA1413CSharp7UnitTests
     {
         [Fact]
         public async Task TestStackAllocArrayCreationExpressionAsync()

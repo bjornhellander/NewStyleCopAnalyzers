@@ -7,10 +7,9 @@ namespace StyleCop.Analyzers.Test.CSharp7.Lightup
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.CSharp;
     using StyleCop.Analyzers.Lightup;
-    using StyleCop.Analyzers.Test.CSharp6.Lightup;
     using Xunit;
 
-    public partial class SwitchExpressionArmSyntaxWrapperCSharp7UnitTests : SwitchExpressionArmSyntaxWrapperUnitTests
+    public partial class SwitchExpressionArmSyntaxWrapperCSharp7UnitTests
     {
         [Fact]
         public void TestWithPatternOnNullNode()

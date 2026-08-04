@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.MaintainabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp14.MaintainabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1408ConditionalExpressionsMustDeclarePrecedence,
         StyleCop.Analyzers.MaintainabilityRules.SA1407SA1408CodeFixProvider>;
 
-    public partial class SA1408CSharp15UnitTests : SA1408CSharp14UnitTests
+    public partial class SA1408CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodConditionalExpressionWithoutPrecedenceAsync()

@@ -6,10 +6,9 @@ namespace StyleCop.Analyzers.Test.CSharp14.DocumentationRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp13.DocumentationRules;
     using Xunit;
 
-    public partial class SA1611CSharp14UnitTests : SA1611CSharp13UnitTests
+    public partial class SA1611CSharp14UnitTests
     {
         [Fact]
         public async Task TestExtensionBlockDeclarationAsync()

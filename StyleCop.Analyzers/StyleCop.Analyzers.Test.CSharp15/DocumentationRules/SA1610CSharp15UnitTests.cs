@@ -6,12 +6,11 @@ namespace StyleCop.Analyzers.Test.CSharp15.DocumentationRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.DocumentationRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<
         StyleCop.Analyzers.DocumentationRules.SA1610PropertyDocumentationMustHaveValueText>;
 
-    public partial class SA1610CSharp15UnitTests : SA1610CSharp14UnitTests
+    public partial class SA1610CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionPropertyWithEmptyValueTagAsync()

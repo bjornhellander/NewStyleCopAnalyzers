@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp14.LayoutRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp13.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1500BracesForMultiLineStatementsMustNotShareLine,
         StyleCop.Analyzers.LayoutRules.SA1500CodeFixProvider>;
 
-    public partial class SA1500CSharp14UnitTests : SA1500CSharp13UnitTests
+    public partial class SA1500CSharp14UnitTests
     {
         [Fact]
         public async Task TestExtensionBlockDeclarationAsync()

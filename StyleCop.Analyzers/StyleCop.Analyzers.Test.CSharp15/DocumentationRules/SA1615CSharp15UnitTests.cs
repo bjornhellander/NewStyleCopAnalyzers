@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.DocumentationRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp14.DocumentationRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.DocumentationRules.SA1615ElementReturnValueMustBeDocumented,
         StyleCop.Analyzers.DocumentationRules.SA1615SA1616CodeFixProvider>;
 
-    public partial class SA1615CSharp15UnitTests : SA1615CSharp14UnitTests
+    public partial class SA1615CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodReturnValueNotDocumentedAsync()

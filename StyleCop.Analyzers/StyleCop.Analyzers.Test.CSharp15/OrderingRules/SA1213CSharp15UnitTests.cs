@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.OrderingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp14.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1213EventAccessorsMustFollowOrder,
         StyleCop.Analyzers.OrderingRules.SA1212SA1213CodeFixProvider>;
 
-    public partial class SA1213CSharp15UnitTests : SA1213CSharp14UnitTests
+    public partial class SA1213CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionEventWithWrongOrderAsync()

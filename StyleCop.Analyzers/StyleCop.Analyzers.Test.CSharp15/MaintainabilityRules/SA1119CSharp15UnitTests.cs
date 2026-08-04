@@ -7,13 +7,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.MaintainabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.MaintainabilityRules;
-    using StyleCop.Analyzers.Test.CSharp14.MaintainabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1119StatementMustNotUseUnnecessaryParenthesis,
         StyleCop.Analyzers.MaintainabilityRules.SA1119CodeFixProvider>;
 
-    public partial class SA1119CSharp15UnitTests : SA1119CSharp14UnitTests
+    public partial class SA1119CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodWithUnnecessaryParenthesisAsync()

@@ -5,14 +5,13 @@ namespace StyleCop.Analyzers.Test.CSharp15.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp14.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1008CSharp15UnitTests : SA1008CSharp14UnitTests
+    public partial class SA1008CSharp15UnitTests
     {
         [Fact]
         public async Task TestCollectionExpressionWithElementSpaceBeforeParenthesisAsync()

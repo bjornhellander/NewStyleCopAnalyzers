@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.LayoutRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp14.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1501StatementMustNotBeOnASingleLine,
         StyleCop.Analyzers.LayoutRules.SA1501CodeFixProvider>;
 
-    public partial class SA1501CSharp15UnitTests : SA1501CSharp14UnitTests
+    public partial class SA1501CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodLockStatementOnSingleLineAsync()

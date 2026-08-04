@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp9.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1210UsingDirectivesMustBeOrderedAlphabeticallyByNamespace,
         StyleCop.Analyzers.OrderingRules.UsingCodeFixProvider>;
 
-    public partial class SA1210CombinedSystemDirectivesCSharp10UnitTests : SA1210CombinedSystemDirectivesCSharp9UnitTests
+    public partial class SA1210CombinedSystemDirectivesCSharp10UnitTests
     {
         [Fact]
         public async Task TestUsingDirectivesInFileScopedNamespaceDeclarationAsync()

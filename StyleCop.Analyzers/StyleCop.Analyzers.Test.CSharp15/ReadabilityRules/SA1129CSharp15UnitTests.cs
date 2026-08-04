@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1129DoNotUseDefaultValueTypeConstructor,
         StyleCop.Analyzers.ReadabilityRules.SA1129CodeFixProvider>;
 
-    public partial class SA1129CSharp15UnitTests : SA1129CSharp14UnitTests
+    public partial class SA1129CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodDefaultValueTypeConstructorAsync()

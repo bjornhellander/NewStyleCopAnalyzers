@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.MaintainabilityRules
     using System.Threading.Tasks;
 
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules;
 
     using Xunit;
 
@@ -15,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.MaintainabilityRules
         StyleCop.Analyzers.MaintainabilityRules.SA1119StatementMustNotUseUnnecessaryParenthesis,
         StyleCop.Analyzers.MaintainabilityRules.SA1119CodeFixProvider>;
 
-    public partial class SA1119CSharp8UnitTests : SA1119CSharp7UnitTests
+    public partial class SA1119CSharp8UnitTests
     {
         /// <summary>
         /// Verifies that a type cast followed by a switch expression is handled correctly.

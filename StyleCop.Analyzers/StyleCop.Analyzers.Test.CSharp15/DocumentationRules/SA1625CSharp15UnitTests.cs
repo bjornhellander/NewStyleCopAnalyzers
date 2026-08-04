@@ -6,12 +6,11 @@ namespace StyleCop.Analyzers.Test.CSharp15.DocumentationRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.DocumentationRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<
         StyleCop.Analyzers.DocumentationRules.SA1625ElementDocumentationMustNotBeCopiedAndPasted>;
 
-    public partial class SA1625CSharp15UnitTests : SA1625CSharp14UnitTests
+    public partial class SA1625CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodWithDuplicatedSummaryAsync()

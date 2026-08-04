@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp14.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp13.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1106CodeMustNotContainEmptyStatements,
         StyleCop.Analyzers.ReadabilityRules.SA1106CodeFixProvider>;
 
-    public partial class SA1106CSharp14UnitTests : SA1106CSharp13UnitTests
+    public partial class SA1106CSharp14UnitTests
     {
         [Fact]
         public async Task TestExtensionBlockDeclarationAsync()

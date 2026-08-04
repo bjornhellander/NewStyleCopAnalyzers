@@ -8,10 +8,9 @@ namespace StyleCop.Analyzers.Test.CSharp11.Lightup
     using Microsoft.CodeAnalysis;
     using Moq;
     using StyleCop.Analyzers.Lightup;
-    using StyleCop.Analyzers.Test.CSharp10.Lightup;
     using Xunit;
 
-    public partial class IImportScopeWrapperCSharp11UnitTests : IImportScopeWrapperCSharp10UnitTests
+    public partial class IImportScopeWrapperCSharp11UnitTests
     {
         [Theory]
         [InlineData(0)]

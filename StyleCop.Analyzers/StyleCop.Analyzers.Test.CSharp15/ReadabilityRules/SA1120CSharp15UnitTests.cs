@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1120CommentsMustContainText,
         StyleCop.Analyzers.ReadabilityRules.SA1120CodeFixProvider>;
 
-    public partial class SA1120CSharp15UnitTests : SA1120CSharp14UnitTests
+    public partial class SA1120CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodEmptyCommentAsync()

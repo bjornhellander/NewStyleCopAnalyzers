@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.NamingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp14.NamingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.NamingRules.SX1309SStaticFieldNamesMustBeginWithUnderscore,
         StyleCop.Analyzers.NamingRules.SX1309CodeFixProvider>;
 
-    public partial class SX1309SCSharp15UnitTests : SX1309SCSharp14UnitTests
+    public partial class SX1309SCSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionStaticFieldNotStartingWithUnderscoreAsync()

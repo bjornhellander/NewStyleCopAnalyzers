@@ -5,10 +5,9 @@ namespace StyleCop.Analyzers.Test.CSharp10.MaintainabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp9.MaintainabilityRules;
     using Xunit;
 
-    public partial class SA1402ForClassCSharp10UnitTests : SA1402ForClassCSharp9UnitTests
+    public partial class SA1402ForClassCSharp10UnitTests
     {
         [Fact]
         public async Task VerifyTwoClassesWithFileScopedNamespacesAsync()

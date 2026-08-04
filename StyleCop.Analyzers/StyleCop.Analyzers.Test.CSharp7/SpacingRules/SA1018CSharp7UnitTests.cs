@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp6.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1018NullableTypeSymbolsMustNotBePrecededBySpace,
         StyleCop.Analyzers.SpacingRules.SA1018CodeFixProvider>;
 
-    public partial class SA1018CSharp7UnitTests : SA1018UnitTests
+    public partial class SA1018CSharp7UnitTests
     {
         /// <summary>
         /// Verifies that nullable tuple types with different kinds of spacing will report.

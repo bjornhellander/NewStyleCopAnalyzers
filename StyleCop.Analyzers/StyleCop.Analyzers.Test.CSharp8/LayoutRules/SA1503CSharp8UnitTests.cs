@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp7.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1503BracesMustNotBeOmitted,
         StyleCop.Analyzers.LayoutRules.SA1503CodeFixProvider>;
 
-    public partial class SA1503CSharp8UnitTests : SA1503CSharp7UnitTests
+    public partial class SA1503CSharp8UnitTests
     {
         [Fact]
         public async Task TestNoDiagnosticForUsingDeclarationStatementAsync()

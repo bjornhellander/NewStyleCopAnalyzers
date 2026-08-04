@@ -6,12 +6,11 @@ namespace StyleCop.Analyzers.Test.CSharp15.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1115ParameterMustFollowComma>;
 
-    public partial class SA1115CSharp15UnitTests : SA1115CSharp14UnitTests
+    public partial class SA1115CSharp15UnitTests
     {
         [Fact]
         public async Task TestCollectionExpressionWithElementBlankLineAfterCommaAsync()

@@ -7,13 +7,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.OrderingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
-    using StyleCop.Analyzers.Test.CSharp6.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1207ProtectedMustComeBeforeInternal,
         StyleCop.Analyzers.OrderingRules.SA1207CodeFixProvider>;
 
-    public partial class SA1207CSharp7UnitTests : SA1207UnitTests
+    public partial class SA1207CSharp7UnitTests
     {
         [Fact]
         public async Task TestPrivateProtectedAsync()

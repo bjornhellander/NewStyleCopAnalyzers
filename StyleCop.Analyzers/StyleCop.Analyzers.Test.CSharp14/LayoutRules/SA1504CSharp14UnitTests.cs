@@ -5,9 +5,8 @@ namespace StyleCop.Analyzers.Test.CSharp14.LayoutRules
 {
     using System;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp13.LayoutRules;
 
-    public partial class SA1504CSharp14UnitTests : SA1504CSharp13UnitTests
+    public partial class SA1504CSharp14UnitTests
     {
         protected override DiagnosticResult[] GetExpectedResultAccessorWithoutBody()
         {

@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.MaintainabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.MaintainabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1400AccessModifierMustBeDeclared,
         StyleCop.Analyzers.MaintainabilityRules.SA1400CodeFixProvider>;
 
-    public partial class SA1400CSharp15UnitTests : SA1400CSharp14UnitTests
+    public partial class SA1400CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionWithoutAccessModifierAsync()

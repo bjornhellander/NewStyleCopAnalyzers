@@ -3,9 +3,7 @@
 
 namespace StyleCop.Analyzers.Test.CSharp14.ReadabilityRules
 {
-    using StyleCop.Analyzers.Test.CSharp13.ReadabilityRules;
-
-    public partial class SA1107CSharp14UnitTests : SA1107CSharp13UnitTests
+    public partial class SA1107CSharp14UnitTests
     {
         protected override string GetFixedCodeTestEmptyStatementAfterBlock()
         {

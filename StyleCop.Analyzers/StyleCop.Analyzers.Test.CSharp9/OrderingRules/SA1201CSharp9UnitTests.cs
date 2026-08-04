@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp8.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1201ElementsMustAppearInTheCorrectOrder,
         StyleCop.Analyzers.OrderingRules.ElementOrderCodeFixProvider>;
 
-    public partial class SA1201CSharp9UnitTests : SA1201CSharp8UnitTests
+    public partial class SA1201CSharp9UnitTests
     {
         [Fact]
         public async Task TestOuterOrderWithRecordCorrectOrderAsync()

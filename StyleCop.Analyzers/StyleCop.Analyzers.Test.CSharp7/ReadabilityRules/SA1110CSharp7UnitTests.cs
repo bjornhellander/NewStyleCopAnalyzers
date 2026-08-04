@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1110OpeningParenthesisMustBeOnDeclarationLine,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1110CSharp7UnitTests : SA1110UnitTests
+    public partial class SA1110CSharp7UnitTests
     {
         [Fact]
         public async Task TestLocalFunctionDeclarationOpeningParenthesisInTheNextLineAsync()

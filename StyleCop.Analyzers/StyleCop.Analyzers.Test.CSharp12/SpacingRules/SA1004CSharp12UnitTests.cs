@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp12.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp11.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1004DocumentationLinesMustBeginWithSingleSpace,
         StyleCop.Analyzers.SpacingRules.SA1004CodeFixProvider>;
 
-    public partial class SA1004CSharp12UnitTests : SA1004CSharp11UnitTests
+    public partial class SA1004CSharp12UnitTests
     {
         [Fact]
         public async Task TestParameterModifierReadOnlyFirstOnLineAsync()

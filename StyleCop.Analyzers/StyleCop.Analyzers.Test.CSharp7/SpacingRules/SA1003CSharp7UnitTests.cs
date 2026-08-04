@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.SpacingRules;
     using Xunit;
 
     using static StyleCop.Analyzers.SpacingRules.SA1003SymbolsMustBeSpacedCorrectly;
@@ -14,7 +13,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
         StyleCop.Analyzers.SpacingRules.SA1003SymbolsMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.SA1003CodeFixProvider>;
 
-    public partial class SA1003CSharp7UnitTests : SA1003UnitTests
+    public partial class SA1003CSharp7UnitTests
     {
         /// <summary>
         /// Verifies that the additional expression-bodied members supported in C# 7 trigger diagnostics as expected.

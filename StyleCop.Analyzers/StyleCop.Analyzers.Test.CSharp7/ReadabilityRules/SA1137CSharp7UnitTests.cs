@@ -7,14 +7,13 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Helpers.LanguageVersionTestExtensions;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1137ElementsShouldHaveTheSameIndentation,
         StyleCop.Analyzers.ReadabilityRules.IndentationCodeFixProvider>;
 
-    public partial class SA1137CSharp7UnitTests : SA1137UnitTests
+    public partial class SA1137CSharp7UnitTests
     {
         [Fact]
         public async Task TestTupleTypeAsync()

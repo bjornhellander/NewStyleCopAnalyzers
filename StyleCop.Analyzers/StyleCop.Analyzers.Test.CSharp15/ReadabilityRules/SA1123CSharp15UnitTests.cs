@@ -6,12 +6,11 @@ namespace StyleCop.Analyzers.Test.CSharp15.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1123DoNotPlaceRegionsWithinElements>;
 
-    public partial class SA1123CSharp15UnitTests : SA1123CSharp14UnitTests
+    public partial class SA1123CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodWithRegionAsync()

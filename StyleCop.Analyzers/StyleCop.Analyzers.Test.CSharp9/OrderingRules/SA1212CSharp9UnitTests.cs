@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp8.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1212PropertyAccessorsMustFollowOrder,
         StyleCop.Analyzers.OrderingRules.SA1212SA1213CodeFixProvider>;
 
-    public partial class SA1212CSharp9UnitTests : SA1212CSharp8UnitTests
+    public partial class SA1212CSharp9UnitTests
     {
         [Fact]
         public async Task TestAutoPropertyDeclarationInitBeforeGetterAsync()

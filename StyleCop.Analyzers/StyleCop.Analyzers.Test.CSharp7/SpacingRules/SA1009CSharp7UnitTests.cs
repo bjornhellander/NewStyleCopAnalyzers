@@ -13,7 +13,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
         StyleCop.Analyzers.SpacingRules.SA1009ClosingParenthesisMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1009CSharp7UnitTests : SA1009UnitTests
+    public partial class SA1009CSharp7UnitTests
     {
         /// <summary>
         /// Verifies spacing around a <c>]</c> character in tuple types and expressions.

@@ -6,14 +6,13 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1015ClosingGenericBracketsMustBeSpacedCorrectly;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1015ClosingGenericBracketsMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1015CSharp7UnitTests : SA1015UnitTests
+    public partial class SA1015CSharp7UnitTests
     {
         /// <summary>
         /// Verifies spacing around a <c>&gt;</c> character in tuple types.

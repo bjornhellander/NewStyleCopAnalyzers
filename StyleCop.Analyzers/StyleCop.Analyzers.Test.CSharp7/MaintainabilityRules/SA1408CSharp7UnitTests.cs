@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1408ConditionalExpressionsMustDeclarePrecedence,
         StyleCop.Analyzers.MaintainabilityRules.SA1407SA1408CodeFixProvider>;
 
-    public partial class SA1408CSharp7UnitTests : SA1408UnitTests
+    public partial class SA1408CSharp7UnitTests
     {
         /// <summary>
         /// Verifies that a code fix for SA1119 in a pattern matching expression does not trigger SA1408.

@@ -6,11 +6,10 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.ReadabilityRules.SA1114ParameterListMustFollowDeclaration>;
 
-    public partial class SA1114CSharp7UnitTests : SA1114UnitTests
+    public partial class SA1114CSharp7UnitTests
     {
         [Fact]
         public async Task TestLocalFunctionDeclarationParametersList2LinesAfterOpeningParenthesisAsync()

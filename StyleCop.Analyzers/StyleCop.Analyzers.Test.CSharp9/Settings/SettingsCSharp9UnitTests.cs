@@ -5,9 +5,8 @@ namespace StyleCop.Analyzers.Test.CSharp9.Settings
 {
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Diagnostics;
-    using StyleCop.Analyzers.Test.CSharp8.Settings;
 
-    public partial class SettingsCSharp9UnitTests : SettingsCSharp8UnitTests
+    public partial class SettingsCSharp9UnitTests
     {
         protected override AnalyzerConfigOptionsProvider CreateAnalyzerConfigOptionsProvider(AnalyzerConfigSet analyzerConfigSet)
         {

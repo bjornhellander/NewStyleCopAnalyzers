@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp10.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
-    using StyleCop.Analyzers.Test.CSharp9.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1137ElementsShouldHaveTheSameIndentation,
         StyleCop.Analyzers.ReadabilityRules.IndentationCodeFixProvider>;
 
-    public partial class SA1137CSharp10UnitTests : SA1137CSharp9UnitTests
+    public partial class SA1137CSharp10UnitTests
     {
         [Theory]
         [MemberData(nameof(CommonMemberData.BaseTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]

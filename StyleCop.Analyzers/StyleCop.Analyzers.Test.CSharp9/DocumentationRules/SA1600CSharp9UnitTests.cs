@@ -4,9 +4,8 @@
 namespace StyleCop.Analyzers.Test.CSharp9.DocumentationRules
 {
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp8.DocumentationRules;
 
-    public partial class SA1600CSharp9UnitTests : SA1600CSharp8UnitTests
+    public partial class SA1600CSharp9UnitTests
     {
         protected override DiagnosticResult[] GetExpectedResultTestRegressionMethodGlobalNamespace(string code)
         {

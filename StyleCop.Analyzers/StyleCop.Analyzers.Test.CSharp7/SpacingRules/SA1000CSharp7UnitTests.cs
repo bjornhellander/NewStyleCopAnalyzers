@@ -7,14 +7,13 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Helpers.LanguageVersionTestExtensions;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1000KeywordsMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1000CSharp7UnitTests : SA1000UnitTests
+    public partial class SA1000CSharp7UnitTests
     {
         [Fact]
         public async Task TestOutVariableDeclarationAsync()

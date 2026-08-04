@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp8.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1116SplitParametersMustStartOnLineAfterDeclaration,
         StyleCop.Analyzers.ReadabilityRules.SA1116CodeFixProvider>;
 
-    public partial class SA1116CSharp9UnitTests : SA1116CSharp8UnitTests
+    public partial class SA1116CSharp9UnitTests
     {
         [Fact]
         public async Task TestTargetTypedNewExpressionnAsync()

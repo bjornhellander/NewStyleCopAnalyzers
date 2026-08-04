@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.DocumentationRules
     using System.Threading;
     using System.Threading.Tasks;
     using StyleCop.Analyzers.DocumentationRules;
-    using StyleCop.Analyzers.Test.CSharp6.DocumentationRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.DocumentationRules.PropertySummaryDocumentationAnalyzer,
         StyleCop.Analyzers.DocumentationRules.PropertySummaryDocumentationCodeFixProvider>;
 
-    public partial class SA1624CSharp7UnitTests : SA1624UnitTests
+    public partial class SA1624CSharp7UnitTests
     {
         /// <summary>
         /// Verifies that documentation that starts with the proper text for multiple expression-bodied accessors will
