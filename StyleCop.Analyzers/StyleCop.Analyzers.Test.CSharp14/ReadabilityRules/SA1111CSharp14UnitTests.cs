@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp14.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp13.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1111ClosingParenthesisMustBeOnLineOfLastParameter,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1111CSharp14UnitTests : SA1111CSharp13UnitTests
+    public partial class SA1111CSharp14UnitTests
     {
         [Fact]
         public async Task TestExtensionBlockDeclarationWithParameterNameAsync()

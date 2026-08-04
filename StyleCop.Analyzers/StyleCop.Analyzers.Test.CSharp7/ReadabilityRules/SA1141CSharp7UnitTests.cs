@@ -7,7 +7,6 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.ReadabilityRules;
-    using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1141UseTupleSyntax,
@@ -18,7 +17,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     /// </summary>
     /// <seealso cref="SA1141UseTupleSyntax"/>
     /// <seealso cref="SA1141CodeFixProvider"/>
-    public partial class SA1141CSharp7UnitTests : SA1141UnitTests
+    public partial class SA1141CSharp7UnitTests
     {
         /// <summary>
         /// Verifies that member declarations containing ValueTuple will result in the proper diagnostics and fixes.

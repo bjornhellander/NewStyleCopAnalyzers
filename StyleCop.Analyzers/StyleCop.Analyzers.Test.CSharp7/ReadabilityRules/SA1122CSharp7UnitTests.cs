@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1122UseStringEmptyForEmptyStrings,
         StyleCop.Analyzers.ReadabilityRules.SA1122CodeFixProvider>;
 
-    public partial class SA1122CSharp7UnitTests : SA1122UnitTests
+    public partial class SA1122CSharp7UnitTests
     {
         /// <summary>
         /// Verifies the analyzer will properly handle an empty string in a case label.

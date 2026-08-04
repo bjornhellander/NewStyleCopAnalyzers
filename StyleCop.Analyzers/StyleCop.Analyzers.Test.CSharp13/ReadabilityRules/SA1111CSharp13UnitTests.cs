@@ -4,12 +4,11 @@
 namespace StyleCop.Analyzers.Test.CSharp13.ReadabilityRules
 {
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp12.ReadabilityRules;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1111ClosingParenthesisMustBeOnLineOfLastParameter,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1111CSharp13UnitTests : SA1111CSharp12UnitTests
+    public partial class SA1111CSharp13UnitTests
     {
         protected override DiagnosticResult[] GetExpectedResultTestPrimaryConstructorBaseList()
         {

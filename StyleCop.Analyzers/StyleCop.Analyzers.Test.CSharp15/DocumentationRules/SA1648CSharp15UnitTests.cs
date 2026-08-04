@@ -6,10 +6,9 @@ namespace StyleCop.Analyzers.Test.CSharp15.DocumentationRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.DocumentationRules;
     using Xunit;
 
-    public partial class SA1648CSharp15UnitTests : SA1648CSharp14UnitTests
+    public partial class SA1648CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionWithInheritdocAndBaseListAsync()

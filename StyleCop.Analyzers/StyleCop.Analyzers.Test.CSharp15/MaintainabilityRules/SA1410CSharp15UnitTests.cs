@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.MaintainabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp14.MaintainabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1410RemoveDelegateParenthesisWhenPossible,
         StyleCop.Analyzers.MaintainabilityRules.SA1410SA1411CodeFixProvider>;
 
-    public partial class SA1410CSharp15UnitTests : SA1410CSharp14UnitTests
+    public partial class SA1410CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodDelegateWithUnnecessaryParenthesisAsync()

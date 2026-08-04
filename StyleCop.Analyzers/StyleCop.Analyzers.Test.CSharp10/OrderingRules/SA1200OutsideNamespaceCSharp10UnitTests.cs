@@ -7,10 +7,9 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.OrderingRules;
-    using StyleCop.Analyzers.Test.CSharp9.OrderingRules;
     using Xunit;
 
-    public partial class SA1200OutsideNamespaceCSharp10UnitTests : SA1200OutsideNamespaceCSharp9UnitTests
+    public partial class SA1200OutsideNamespaceCSharp10UnitTests
     {
         [Fact]
         public async Task TestInvalidUsingDirectivesInFileScopedNamespaceAsync()

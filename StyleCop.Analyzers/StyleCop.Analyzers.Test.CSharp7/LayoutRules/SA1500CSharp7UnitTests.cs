@@ -7,14 +7,13 @@ namespace StyleCop.Analyzers.Test.CSharp7.LayoutRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Helpers.LanguageVersionTestExtensions;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1500BracesForMultiLineStatementsMustNotShareLine,
         StyleCop.Analyzers.LayoutRules.SA1500CodeFixProvider>;
 
-    public partial class SA1500CSharp7UnitTests : SA1500UnitTests
+    public partial class SA1500CSharp7UnitTests
     {
         /// <summary>
         /// Verifies that no diagnostics are reported for the valid local functions defined in this test.

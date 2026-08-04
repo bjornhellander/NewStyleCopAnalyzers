@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.ReadabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp14.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1122UseStringEmptyForEmptyStrings,
         StyleCop.Analyzers.ReadabilityRules.SA1122CodeFixProvider>;
 
-    public partial class SA1122CSharp15UnitTests : SA1122CSharp14UnitTests
+    public partial class SA1122CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMethodEmptyStringLiteralAsync()

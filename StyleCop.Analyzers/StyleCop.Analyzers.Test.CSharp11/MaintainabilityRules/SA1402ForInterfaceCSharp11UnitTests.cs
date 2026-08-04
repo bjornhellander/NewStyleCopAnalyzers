@@ -6,10 +6,9 @@ namespace StyleCop.Analyzers.Test.CSharp11.MaintainabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp10.MaintainabilityRules;
     using Xunit;
 
-    public partial class SA1402ForInterfaceCSharp11UnitTests : SA1402ForInterfaceCSharp10UnitTests
+    public partial class SA1402ForInterfaceCSharp11UnitTests
     {
         [Fact]
         public async Task TestFileModifierAsync()

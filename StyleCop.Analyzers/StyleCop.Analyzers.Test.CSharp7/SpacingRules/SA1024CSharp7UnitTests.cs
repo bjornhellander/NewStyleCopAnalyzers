@@ -6,14 +6,13 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1024ColonsMustBeSpacedCorrectly;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1024ColonsMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1024CSharp7UnitTests : SA1024UnitTests
+    public partial class SA1024CSharp7UnitTests
     {
         /// <summary>
         /// Verifies spacing around a <c>:</c> character in tuple expressions.

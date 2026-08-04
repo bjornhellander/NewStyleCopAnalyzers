@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp7.SpacingRules;
     using Xunit;
 
     using static StyleCop.Analyzers.SpacingRules.SA1003SymbolsMustBeSpacedCorrectly;
@@ -14,7 +13,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         StyleCop.Analyzers.SpacingRules.SA1003SymbolsMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.SA1003CodeFixProvider>;
 
-    public partial class SA1003CSharp8UnitTests : SA1003CSharp7UnitTests
+    public partial class SA1003CSharp8UnitTests
     {
         /// <summary>
         /// Verifies that spacing around a range expression double dots isn't required.

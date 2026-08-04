@@ -6,12 +6,11 @@ namespace StyleCop.Analyzers.Test.CSharp10.DocumentationRules
     using System.Threading;
     using System.Threading.Tasks;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
-    using StyleCop.Analyzers.Test.CSharp9.DocumentationRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.CustomDiagnosticVerifier<
         StyleCop.Analyzers.DocumentationRules.SA1649FileNameMustMatchTypeName>;
 
-    public partial class SA1649CSharp10UnitTests : SA1649CSharp9UnitTests
+    public partial class SA1649CSharp10UnitTests
     {
         /// <summary>
         /// Verifies that the file name is based on the first type.

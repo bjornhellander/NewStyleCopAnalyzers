@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1135UsingDirectivesMustBeQualified,
         StyleCop.Analyzers.ReadabilityRules.SA1135CodeFixProvider>;
 
-    public partial class SA1135CSharp7UnitTests : SA1135UnitTests
+    public partial class SA1135CSharp7UnitTests
     {
         [Fact]
         public async Task TestTupleTypeInUsingAliasAsync()

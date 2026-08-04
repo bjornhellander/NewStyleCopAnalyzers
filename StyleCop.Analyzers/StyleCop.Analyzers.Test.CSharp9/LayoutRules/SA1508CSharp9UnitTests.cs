@@ -7,13 +7,12 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
-    using StyleCop.Analyzers.Test.CSharp8.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1508ClosingBracesMustNotBePrecededByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1508CodeFixProvider>;
 
-    public partial class SA1508CSharp9UnitTests : SA1508CSharp8UnitTests
+    public partial class SA1508CSharp9UnitTests
     {
         [Theory]
         [MemberData(nameof(CommonMemberData.RecordTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]

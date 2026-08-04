@@ -7,13 +7,12 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp8.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1516ElementsMustBeSeparatedByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1516CodeFixProvider>;
 
-    public partial class SA1516CSharp9UnitTests : SA1516CSharp8UnitTests
+    public partial class SA1516CSharp9UnitTests
     {
         /// <summary>
         /// Verifies that SA1516 is reported at the correct location in top-level programs.

@@ -11,7 +11,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.Lightup
     using StyleCop.Analyzers.Test.CSharp7.Lightup;
     using Xunit;
 
-    public partial class SwitchExpressionSyntaxWrapperCSharp8UnitTests : SwitchExpressionSyntaxWrapperCSharp7UnitTests
+    public partial class SwitchExpressionSyntaxWrapperCSharp8UnitTests
     {
         [Fact]
         public void TestSyntaxNodeProperty()

@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
-    using StyleCop.Analyzers.Test.CSharp8.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1200UsingDirectivesMustBePlacedCorrectly,
         StyleCop.Analyzers.OrderingRules.UsingCodeFixProvider>;
 
-    public partial class SA1200CSharp9UnitTests : SA1200CSharp8UnitTests
+    public partial class SA1200CSharp9UnitTests
     {
         /// <summary>
         /// Verifies that having using directives in the compilation unit will not produce diagnostics for top-level

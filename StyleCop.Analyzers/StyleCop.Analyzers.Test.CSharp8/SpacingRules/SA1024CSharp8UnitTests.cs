@@ -5,14 +5,13 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp7.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1024ColonsMustBeSpacedCorrectly;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1024ColonsMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1024CSharp8UnitTests : SA1024CSharp7UnitTests
+    public partial class SA1024CSharp8UnitTests
     {
         /// <summary>
         /// Verifies the behavior of colons in case patterns.

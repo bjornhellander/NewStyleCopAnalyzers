@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1106CodeMustNotContainEmptyStatements,
         StyleCop.Analyzers.ReadabilityRules.SA1106CodeFixProvider>;
 
-    public partial class SA1106CSharp15UnitTests : SA1106CSharp14UnitTests
+    public partial class SA1106CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionWithExtraSemicolonAsync()

@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp11.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp10.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1206DeclarationKeywordsMustFollowOrder,
         StyleCop.Analyzers.OrderingRules.SA1206CodeFixProvider>;
 
-    public partial class SA1206CodeFixProviderCSharp11UnitTests : SA1206CodeFixProviderCSharp10UnitTests
+    public partial class SA1206CodeFixProviderCSharp11UnitTests
     {
         [Fact]
         public async Task VerifyFileKeywordReorderingInClassDeclarationAsync()

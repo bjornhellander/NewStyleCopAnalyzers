@@ -8,13 +8,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.OrderingRules
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
-    using StyleCop.Analyzers.Test.CSharp6.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1206DeclarationKeywordsMustFollowOrder,
         StyleCop.Analyzers.OrderingRules.SA1206CodeFixProvider>;
 
-    public partial class SA1206CSharp7UnitTests : SA1206UnitTests
+    public partial class SA1206CSharp7UnitTests
     {
         [Theory]
         [InlineData("readonly")]

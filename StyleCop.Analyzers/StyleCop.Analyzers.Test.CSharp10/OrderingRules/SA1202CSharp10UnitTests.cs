@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp10.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp9.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.OrderingRules.SA1202ElementsMustBeOrderedByAccess,
         StyleCop.Analyzers.OrderingRules.ElementOrderCodeFixProvider>;
 
-    public partial class SA1202CSharp10UnitTests : SA1202CSharp9UnitTests
+    public partial class SA1202CSharp10UnitTests
     {
         /// <summary>
         /// Verifies that the analyzer will properly handle ordering within a file-scoped namespace.

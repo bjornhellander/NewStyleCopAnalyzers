@@ -6,12 +6,11 @@ namespace StyleCop.Analyzers.Test.CSharp15.NamingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.NamingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<
         StyleCop.Analyzers.NamingRules.SA1305FieldNamesMustNotUseHungarianNotation>;
 
-    public partial class SA1305CSharp15UnitTests : SA1305CSharp14UnitTests
+    public partial class SA1305CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionFieldUsingHungarianNotationAsync()

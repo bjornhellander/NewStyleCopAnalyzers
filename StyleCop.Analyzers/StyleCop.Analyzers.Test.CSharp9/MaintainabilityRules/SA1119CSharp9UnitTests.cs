@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp9.MaintainabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp8.MaintainabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1119StatementMustNotUseUnnecessaryParenthesis,
         StyleCop.Analyzers.MaintainabilityRules.SA1119CodeFixProvider>;
 
-    public partial class SA1119CSharp9UnitTests : SA1119CSharp8UnitTests
+    public partial class SA1119CSharp9UnitTests
     {
         /// <summary>
         /// Verifies that a type cast followed by a <c>with</c> expression is handled correctly.

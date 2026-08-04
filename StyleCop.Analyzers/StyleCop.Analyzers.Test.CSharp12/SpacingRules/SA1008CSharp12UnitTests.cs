@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp12.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp11.SpacingRules;
     using Xunit;
 
     using static StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly;
@@ -14,7 +13,7 @@ namespace StyleCop.Analyzers.Test.CSharp12.SpacingRules
         StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1008CSharp12UnitTests : SA1008CSharp11UnitTests
+    public partial class SA1008CSharp12UnitTests
     {
         [Fact]
         public async Task TestTupleUsingAliasAsync()

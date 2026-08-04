@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp12.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp11.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1015ClosingGenericBracketsMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1015CSharp12UnitTests : SA1015CSharp11UnitTests
+    public partial class SA1015CSharp12UnitTests
     {
         [Theory]
         [InlineData(" M<int> ")]

@@ -4,9 +4,8 @@
 namespace StyleCop.Analyzers.Test.CSharp12.SpacingRules
 {
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp11.SpacingRules;
 
-    public partial class SA1018CSharp12UnitTests : SA1018CSharp11UnitTests
+    public partial class SA1018CSharp12UnitTests
     {
         protected override DiagnosticResult[] GetExpectedResultSyntaxErrorAtEndOfFile()
         {

@@ -7,14 +7,13 @@ namespace StyleCop.Analyzers.Test.CSharp7.LayoutRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Helpers.LanguageVersionTestExtensions;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1513ClosingBraceMustBeFollowedByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1513CodeFixProvider>;
 
-    public partial class SA1513CSharp7UnitTests : SA1513UnitTests
+    public partial class SA1513CSharp7UnitTests
     {
         /// <summary>
         /// Verifies that all valid usages of a closing brace in new C# 7 syntax without a following blank line will

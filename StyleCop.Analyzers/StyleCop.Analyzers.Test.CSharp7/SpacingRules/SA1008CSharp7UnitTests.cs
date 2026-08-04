@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp7.SpacingRules
         StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1008CSharp7UnitTests : SA1008UnitTests
+    public partial class SA1008CSharp7UnitTests
     {
         /// <summary>
         /// Verifies that spacing around tuple type casts is handled properly.

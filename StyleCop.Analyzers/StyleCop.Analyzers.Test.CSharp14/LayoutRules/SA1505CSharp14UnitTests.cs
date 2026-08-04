@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp14.LayoutRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp13.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1505OpeningBracesMustNotBeFollowedByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1505CodeFixProvider>;
 
-    public partial class SA1505CSharp14UnitTests : SA1505CSharp13UnitTests
+    public partial class SA1505CSharp14UnitTests
     {
         [Fact]
         public async Task TestExtensionBlockDeclarationAsync()

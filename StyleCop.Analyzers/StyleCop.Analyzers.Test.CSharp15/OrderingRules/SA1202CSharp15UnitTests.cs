@@ -6,12 +6,11 @@ namespace StyleCop.Analyzers.Test.CSharp15.OrderingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.OrderingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<
         StyleCop.Analyzers.OrderingRules.SA1202ElementsMustBeOrderedByAccess>;
 
-    public partial class SA1202CSharp15UnitTests : SA1202CSharp14UnitTests
+    public partial class SA1202CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionMembersOrderedByAccessAsync()

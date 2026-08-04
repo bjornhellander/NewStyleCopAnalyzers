@@ -6,14 +6,13 @@ namespace StyleCop.Analyzers.Test.CSharp11.MaintainabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp10.MaintainabilityRules;
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1400AccessModifierMustBeDeclared,
         StyleCop.Analyzers.MaintainabilityRules.SA1400CodeFixProvider>;
 
-    public partial class SA1400CSharp11UnitTests : SA1400CSharp10UnitTests
+    public partial class SA1400CSharp11UnitTests
     {
         [Theory]
         [MemberData(nameof(CommonMemberData.BaseTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]

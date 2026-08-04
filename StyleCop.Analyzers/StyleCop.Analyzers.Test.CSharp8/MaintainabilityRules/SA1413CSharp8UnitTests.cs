@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp8.MaintainabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp7.MaintainabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1413UseTrailingCommasInMultiLineInitializers,
         StyleCop.Analyzers.MaintainabilityRules.SA1413CodeFixProvider>;
 
-    public partial class SA1413CSharp8UnitTests : SA1413CSharp7UnitTests
+    public partial class SA1413CSharp8UnitTests
     {
         [Fact]
         public async Task TestSwitchExpressionAsync()

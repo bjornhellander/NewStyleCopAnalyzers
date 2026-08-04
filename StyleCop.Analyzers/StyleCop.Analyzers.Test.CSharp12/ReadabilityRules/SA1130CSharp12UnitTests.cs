@@ -4,9 +4,8 @@
 namespace StyleCop.Analyzers.Test.CSharp12.ReadabilityRules
 {
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp11.ReadabilityRules;
 
-    public partial class SA1130CSharp12UnitTests : SA1130CSharp11UnitTests
+    public partial class SA1130CSharp12UnitTests
     {
         protected override DiagnosticResult[] GetCompilerExpectedResultCodeFixSpecialCases()
         {

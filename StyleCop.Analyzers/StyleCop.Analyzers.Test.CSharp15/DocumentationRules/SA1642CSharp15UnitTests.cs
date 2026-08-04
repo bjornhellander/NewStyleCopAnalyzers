@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp15.DocumentationRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp14.DocumentationRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.DocumentationRules.SA1642ConstructorSummaryDocumentationMustBeginWithStandardText,
         StyleCop.Analyzers.DocumentationRules.SA1642SA1643CodeFixProvider>;
 
-    public partial class SA1642CSharp15UnitTests : SA1642CSharp14UnitTests
+    public partial class SA1642CSharp15UnitTests
     {
         [Fact]
         public async Task TestUnionStaticConstructorWithStructWordingAsync()

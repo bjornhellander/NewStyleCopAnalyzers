@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp7.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1130UseLambdaSyntax,
         StyleCop.Analyzers.ReadabilityRules.SA1130CodeFixProvider>;
 
-    public partial class SA1130CSharp7UnitTests : SA1130UnitTests
+    public partial class SA1130CSharp7UnitTests
     {
         [Fact]
         public async Task VerifyLocalFunctionAsync()

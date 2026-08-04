@@ -6,10 +6,9 @@ namespace StyleCop.Analyzers.Test.CSharp8.DocumentationRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp7.DocumentationRules;
     using Xunit;
 
-    public partial class SA1648CSharp8UnitTests : SA1648CSharp7UnitTests
+    public partial class SA1648CSharp8UnitTests
     {
         [Theory]
         [InlineData("void TestMethod() {}")]

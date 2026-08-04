@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp11.SpacingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp10.SpacingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.SpacingRules.SA1011ClosingSquareBracketsMustBeSpacedCorrectly,
         StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1011CSharp11UnitTests : SA1011CSharp10UnitTests
+    public partial class SA1011CSharp11UnitTests
     {
         [Fact]
         public async Task TestListPatternInSwitchCaseAsync()

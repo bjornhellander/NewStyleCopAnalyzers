@@ -5,13 +5,12 @@ namespace StyleCop.Analyzers.Test.CSharp10.ReadabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using StyleCop.Analyzers.Test.CSharp9.ReadabilityRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1121UseBuiltInTypeAlias,
         StyleCop.Analyzers.ReadabilityRules.SA1121CodeFixProvider>;
 
-    public partial class SA1121CSharp10UnitTests : SA1121CSharp9UnitTests
+    public partial class SA1121CSharp10UnitTests
     {
         [Fact]
         public async Task TestUsingNameChangeInFileScopedNamespaceAsync()

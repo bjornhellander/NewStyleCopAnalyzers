@@ -6,11 +6,10 @@ namespace StyleCop.Analyzers.Test.CSharp7.NamingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.NamingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.NamingRules.SA1305FieldNamesMustNotUseHungarianNotation>;
 
-    public partial class SA1305CSharp7UnitTests : SA1305UnitTests
+    public partial class SA1305CSharp7UnitTests
     {
         [Fact]
         public async Task TestInvalidVariableDesignatorNamesAreReportedAsync()

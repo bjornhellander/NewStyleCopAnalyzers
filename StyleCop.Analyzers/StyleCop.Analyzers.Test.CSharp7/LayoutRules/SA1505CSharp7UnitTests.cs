@@ -7,14 +7,13 @@ namespace StyleCop.Analyzers.Test.CSharp7.LayoutRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp6.LayoutRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Helpers.LanguageVersionTestExtensions;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1505OpeningBracesMustNotBeFollowedByBlankLine,
         StyleCop.Analyzers.LayoutRules.SA1505CodeFixProvider>;
 
-    public partial class SA1505CSharp7UnitTests : SA1505UnitTests
+    public partial class SA1505CSharp7UnitTests
     {
         /// <summary>
         /// Verifies that a valid local function will not produce any diagnostics.

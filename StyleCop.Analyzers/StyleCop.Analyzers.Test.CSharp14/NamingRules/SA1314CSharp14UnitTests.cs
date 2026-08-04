@@ -6,13 +6,12 @@ namespace StyleCop.Analyzers.Test.CSharp14.NamingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp13.NamingRules;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.NamingRules.SA1314TypeParameterNamesMustBeginWithT,
         StyleCop.Analyzers.NamingRules.SA1314CodeFixProvider>;
 
-    public partial class SA1314CSharp14UnitTests : SA1314CSharp13UnitTests
+    public partial class SA1314CSharp14UnitTests
     {
         [Fact]
         public async Task TestExtensionBlockDeclarationAsync()

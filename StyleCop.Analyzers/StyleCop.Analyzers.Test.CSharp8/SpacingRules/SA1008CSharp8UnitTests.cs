@@ -6,7 +6,6 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
-    using StyleCop.Analyzers.Test.CSharp7.SpacingRules;
     using Xunit;
 
     using static StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly;
@@ -15,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
             StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly,
             StyleCop.Analyzers.SpacingRules.TokenSpacingCodeFixProvider>;
 
-    public partial class SA1008CSharp8UnitTests : SA1008CSharp7UnitTests
+    public partial class SA1008CSharp8UnitTests
     {
         /// <summary>
         /// Verifies that spacing after a range expression double dots isn't required.

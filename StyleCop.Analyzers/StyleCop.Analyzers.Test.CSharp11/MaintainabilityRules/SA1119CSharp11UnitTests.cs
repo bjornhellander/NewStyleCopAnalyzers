@@ -3,9 +3,7 @@
 
 namespace StyleCop.Analyzers.Test.CSharp11.MaintainabilityRules
 {
-    using StyleCop.Analyzers.Test.CSharp10.MaintainabilityRules;
-
-    public partial class SA1119CSharp11UnitTests : SA1119CSharp10UnitTests
+    public partial class SA1119CSharp11UnitTests
     {
         // In earlier Roslyn versions, we ended up with an extra space between the opening brace
         // and the identifier. Does not happen anymore.
