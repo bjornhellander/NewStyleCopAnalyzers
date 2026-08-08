@@ -71,7 +71,7 @@ namespace NamespaceName { }
             // The settings file is missing a comma after the $schema property
             var settings = @"
 {
-  ""$schema"": ""https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json""
+  ""$schema"": ""https://raw.githubusercontent.com/bjornhellander/NewStyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json""
   ""settings"": {
     ""documentationRules"": {
       ""companyName"": ""ACME, Inc"",

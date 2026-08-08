@@ -26,7 +26,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// The ID for diagnostics produced by the <see cref="SA1124DoNotUseRegions"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1124";
-        private const string HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1124.md";
+        private const string HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1124.md";
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(ReadabilityResources.SA1124Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SA1124MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1124Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));

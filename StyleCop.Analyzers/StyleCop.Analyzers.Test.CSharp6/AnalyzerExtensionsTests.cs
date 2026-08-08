@@ -51,7 +51,7 @@ class TypeName
         internal class CompilationStartDiagnosticAnalyzer : DiagnosticAnalyzer
         {
             public const string DiagnosticId = "SA0002";
-            private const string HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA0002.md";
+            private const string HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA0002.md";
             private static readonly LocalizableString Title = new LocalizableResourceString(nameof(SpecialResources.SA0002Title), SpecialResources.ResourceManager, typeof(SpecialResources));
             private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(SpecialResources.SA0002MessageFormat), SpecialResources.ResourceManager, typeof(SpecialResources));
             private static readonly LocalizableString Description = new LocalizableResourceString(nameof(SpecialResources.SA0002Description), SpecialResources.ResourceManager, typeof(SpecialResources));

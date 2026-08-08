@@ -57,7 +57,7 @@ namespace StyleCop.Analyzers.Test.CSharp6
                     continue;
                 }
 
-                string expected = $"https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/{diagnostic.Id}.md";
+                string expected = $"https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/{diagnostic.Id}.md";
                 Assert.Equal(expected, diagnostic.HelpLinkUri);
             }
         }

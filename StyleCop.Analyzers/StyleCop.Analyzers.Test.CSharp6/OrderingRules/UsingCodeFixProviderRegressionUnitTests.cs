@@ -122,7 +122,7 @@ namespace MyNamespace
         {
             var testSettings = @"
 {
-  ""$schema"": ""https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json"",
+  ""$schema"": ""https://raw.githubusercontent.com/bjornhellander/NewStyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json"",
   ""settings"": {
     ""documentationRules"": {
       ""fileNamingConvention"": ""metadata"",

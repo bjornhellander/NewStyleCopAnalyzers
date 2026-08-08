@@ -18,7 +18,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// The ID for diagnostics produced by the <see cref="SX1101DoNotPrefixLocalMembersWithThis"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SX1101";
-        private const string HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SX1101.md";
+        private const string HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SX1101.md";
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(ReadabilityResources.SX1101Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SX1101MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SX1101Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));

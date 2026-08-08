@@ -60,7 +60,7 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1644";
-        private const string HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1644.md";
+        private const string HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1644.md";
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(DocumentationResources.SA1644Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1644MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(DocumentationResources.SA1644Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
