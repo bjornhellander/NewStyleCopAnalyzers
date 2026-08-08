@@ -1,0 +1,61 @@
+# This workflow publishes the NuGet package to nuget.org and attaches it to the
+# GitHub release whenever a release is published on GitHub.
+#
+# Before a release can be published, bump the version with SetVersion.ps1 and push
+# that commit to master. Then, on GitHub, draft a new release using a tag named
+# 'vX.Y.Z' matching the version you just set, targeting that commit, and publish it.
+#
+# Requires a repository secret named NUGET_API_KEY containing a nuget.org API key
+# with push access to the NewStyleCop.Analyzers package.
+
+name: Release
+
+on:
+  release:
+    types: [ published ]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+    - name: Set Git to use long paths
+      run: git config --system core.longpaths true
+
+    - name: Checkout code
+      uses: actions/checkout@v5
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+
+    - name: Verify release tag matches package version
+      shell: pwsh
+      run: |
+        $tag = "${{ github.event.release.tag_name }}" -replace '^v', ''
+        $nuspecVersion = (Select-Xml -Path "StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/StyleCop.Analyzers.nuspec" -XPath "//*[local-name()='version']").Node.InnerText
+        if ($tag -ne $nuspecVersion) {
+          Write-Error "Release tag 'v$tag' does not match package version '$nuspecVersion' in StyleCop.Analyzers.nuspec. Run SetVersion.ps1 and push the version bump before releasing."
+          exit 1
+        }
+
+    - name: Build
+      run: dotnet build StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/StyleCop.Analyzers.CodeFixes.csproj -c Release
+
+    - name: Push package to NuGet
+      shell: pwsh
+      run: |
+        $package = Get-ChildItem -Path "StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/bin/Release" -Filter "*.nupkg" | Where-Object { $_.Name -notlike "*.symbols.nupkg" }
+        dotnet nuget push $package.FullName --api-key $env:NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+
+    - name: Attach package to GitHub release
+      shell: pwsh
+      run: |
+        $package = Get-ChildItem -Path "StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/bin/Release" -Filter "*.nupkg" | Where-Object { $_.Name -notlike "*.symbols.nupkg" }
+        gh release upload "${{ github.event.release.tag_name }}" $package.FullName
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
