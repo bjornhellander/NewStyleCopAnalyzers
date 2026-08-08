@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp11.ReadabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.Testing;
     using Xunit;
 
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -38,6 +39,38 @@ class TestClass
                 TestSources = { source1, oldSource2 },
                 FixedSources = { source1, newSource2 },
             }.RunAsync(CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestScopedRefLocalDeclarationAsync()
+        {
+            var testCode = @"namespace System
+{
+    public class Foo
+    {
+        public void Bar()
+        {
+            int value = 5;
+            scoped ref [|Int32|] test = ref value;
+        }
+    }
+}
+";
+
+            var fixedCode = @"namespace System
+{
+    public class Foo
+    {
+        public void Bar()
+        {
+            int value = 5;
+            scoped ref int test = ref value;
+        }
+    }
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

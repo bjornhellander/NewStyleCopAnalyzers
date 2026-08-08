@@ -114,5 +114,37 @@ public class TestClass
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestSimpleLambdaParameterWithScopedModifierAsync()
+        {
+            var testCode = @"
+public delegate void ScopedSpanAction(scoped System.Span<int> value);
+
+public class TestClass
+{
+    public void Method()
+    {
+        ScopedSpanAction action = ({|#0:scoped|}@x) => { };
+    }
+}
+";
+
+            var fixedCode = @"
+public delegate void ScopedSpanAction(scoped System.Span<int> value);
+
+public class TestClass
+{
+    public void Method()
+    {
+        ScopedSpanAction action = (scoped @x) => { };
+    }
+}
+";
+
+            var expected = Diagnostic().WithArguments("scoped", string.Empty, "followed").WithLocation(0);
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
