@@ -84,5 +84,68 @@ public static class TestClass
 
             await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestInstanceCompoundAssignmentOperatorAfterStaticOperatorAsync()
+        {
+            string testCode = @"
+public class TestClass
+{
+    public int Value;
+
+    public static TestClass operator +(TestClass a, int b)
+    {
+        return a;
+    }
+
+    public void operator +=(int x)
+    {
+        this.Value += x;
+    }
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestInstanceCompoundAssignmentOperatorAfterMethodAsync()
+        {
+            string testCode = @"
+public class TestClass
+{
+    public int Value;
+
+    public void TestMethod()
+    {
+    }
+
+    {|#0:public void operator +=(int x)
+    {
+        this.Value += x;
+    }|}
+}
+";
+
+            string fixedCode = @"
+public class TestClass
+{
+    public int Value;
+
+    public void operator +=(int x)
+    {
+        this.Value += x;
+    }
+
+    public void TestMethod()
+    {
+    }
+}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("operator", "method");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

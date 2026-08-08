@@ -64,5 +64,37 @@ public static class TestClass
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestInstanceIncrementOperatorDeclarationWithSpaceBeforeParenthesisAsync()
+        {
+            var testCode = @"
+public class TestClass
+{
+    private int value;
+
+    public void operator ++ {|#0:(|})
+    {
+        this.value++;
+    }
+}
+";
+
+            var fixedCode = @"
+public class TestClass
+{
+    private int value;
+
+    public void operator ++()
+    {
+        this.value++;
+    }
+}
+";
+
+            var expected = Diagnostic(DescriptorNotPreceded).WithLocation(0);
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
