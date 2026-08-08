@@ -29,5 +29,41 @@ public static class TestClass
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestCheckedCompoundAssignmentAndIncrementOperatorDeclarationAsync()
+        {
+            // NOTE: A checked operator requires a non-checked operator as well
+            var testCode = @"
+public class MyClass
+{
+    private int value;
+
+    public void operator {|#0:checked|}+=(int x) => this.value = checked(this.value + x);
+    public void operator +=(int x) => this.value += x;
+
+    public void operator {|#1:checked|}++() => this.value = checked(this.value + 1);
+    public void operator ++() => this.value++;
+}";
+
+            var fixedCode = @"
+public class MyClass
+{
+    private int value;
+
+    public void operator checked +=(int x) => this.value = checked(this.value + x);
+    public void operator +=(int x) => this.value += x;
+
+    public void operator checked ++() => this.value = checked(this.value + 1);
+    public void operator ++() => this.value++;
+}";
+
+            var expected = new[]
+            {
+                Diagnostic().WithArguments("checked", string.Empty, "followed").WithLocation(0),
+                Diagnostic().WithArguments("checked", string.Empty, "followed").WithLocation(1),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

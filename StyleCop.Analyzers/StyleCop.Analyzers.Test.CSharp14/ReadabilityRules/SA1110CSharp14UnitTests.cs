@@ -38,5 +38,30 @@ public static class TestClass
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestInstanceIncrementOperatorDeclarationOpeningParenthesisInTheNextLineAsync()
+        {
+            var testCode = @"
+public class Foo
+{
+    public void operator ++
+        [|(|])
+    {
+    }
+}
+";
+
+            var fixedCode = @"
+public class Foo
+{
+    public void operator ++()
+    {
+    }
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
