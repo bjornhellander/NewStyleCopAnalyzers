@@ -52,7 +52,7 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// <see cref="SA1643DestructorSummaryDocumentationMustBeginWithStandardText"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1643";
-        private const string HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1643.md";
+        private static readonly string HelpLink = CreateHelpLink("SA1643");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(DocumentationResources.SA1643Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1643MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(DocumentationResources.SA1643Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));

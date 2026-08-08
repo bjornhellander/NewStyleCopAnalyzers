@@ -30,7 +30,7 @@ namespace StyleCop.Analyzers.OrderingRules
         /// The ID for diagnostics produced by the <see cref="SA1207ProtectedMustComeBeforeInternal"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1207";
-        private const string HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1207.md";
+        private static readonly string HelpLink = CreateHelpLink("SA1207");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(OrderingResources.SA1207Title), OrderingResources.ResourceManager, typeof(OrderingResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(OrderingResources.SA1207MessageFormat), OrderingResources.ResourceManager, typeof(OrderingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(OrderingResources.SA1207Description), OrderingResources.ResourceManager, typeof(OrderingResources));

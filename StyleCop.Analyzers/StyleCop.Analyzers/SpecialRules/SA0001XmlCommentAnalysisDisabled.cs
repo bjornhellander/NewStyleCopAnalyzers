@@ -20,7 +20,7 @@ namespace StyleCop.Analyzers.SpecialRules
         /// The ID for diagnostics produced by the <see cref="SA0001XmlCommentAnalysisDisabled"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA0001";
-        private const string HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA0001.md";
+        private static readonly string HelpLink = CreateHelpLink("SA0001");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(SpecialResources.SA0001Title), SpecialResources.ResourceManager, typeof(SpecialResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(SpecialResources.SA0001MessageFormat), SpecialResources.ResourceManager, typeof(SpecialResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(SpecialResources.SA0001Description), SpecialResources.ResourceManager, typeof(SpecialResources));

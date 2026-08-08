@@ -41,47 +41,47 @@ namespace StyleCop.Analyzers.DocumentationRules
         private static readonly LocalizableString SA1633MessageFormatMissing = new LocalizableResourceString(nameof(DocumentationResources.SA1633MessageFormatMissing), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1633MessageFormatMalformed = new LocalizableResourceString(nameof(DocumentationResources.SA1633MessageFormatMalformed), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1633Description = new LocalizableResourceString(nameof(DocumentationResources.SA1633Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1633HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1633.md";
+        private static readonly string SA1633HelpLink = CreateHelpLink("SA1633");
 
         private static readonly LocalizableString SA1634Title = new LocalizableResourceString(nameof(DocumentationResources.SA1634Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1634MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1634MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1634Description = new LocalizableResourceString(nameof(DocumentationResources.SA1634Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1634HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1634.md";
+        private static readonly string SA1634HelpLink = CreateHelpLink("SA1634");
 
         private static readonly LocalizableString SA1635Title = new LocalizableResourceString(nameof(DocumentationResources.SA1635Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1635MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1635MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1635Description = new LocalizableResourceString(nameof(DocumentationResources.SA1635Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1635HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1635.md";
+        private static readonly string SA1635HelpLink = CreateHelpLink("SA1635");
 
         private static readonly LocalizableString SA1636Title = new LocalizableResourceString(nameof(DocumentationResources.SA1636Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1636MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1636MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1636Description = new LocalizableResourceString(nameof(DocumentationResources.SA1636Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1636HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1636.md";
+        private static readonly string SA1636HelpLink = CreateHelpLink("SA1636");
 
         private static readonly LocalizableString SA1637Title = new LocalizableResourceString(nameof(DocumentationResources.SA1637Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1637MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1637MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1637Description = new LocalizableResourceString(nameof(DocumentationResources.SA1637Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1637HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1637.md";
+        private static readonly string SA1637HelpLink = CreateHelpLink("SA1637");
 
         private static readonly LocalizableString SA1638Title = new LocalizableResourceString(nameof(DocumentationResources.SA1638Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1638MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1638MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1638Description = new LocalizableResourceString(nameof(DocumentationResources.SA1638Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1638HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1638.md";
+        private static readonly string SA1638HelpLink = CreateHelpLink("SA1638");
 
         private static readonly LocalizableString SA1639Title = new LocalizableResourceString(nameof(DocumentationResources.SA1639Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1639MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1639MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1639Description = new LocalizableResourceString(nameof(DocumentationResources.SA1639Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1639HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1639.md";
+        private static readonly string SA1639HelpLink = CreateHelpLink("SA1639");
 
         private static readonly LocalizableString SA1640Title = new LocalizableResourceString(nameof(DocumentationResources.SA1640Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1640MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1640MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1640Description = new LocalizableResourceString(nameof(DocumentationResources.SA1640Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1640HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1640.md";
+        private static readonly string SA1640HelpLink = CreateHelpLink("SA1640");
 
         private static readonly LocalizableString SA1641Title = new LocalizableResourceString(nameof(DocumentationResources.SA1641Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1641MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1641MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1641Description = new LocalizableResourceString(nameof(DocumentationResources.SA1641Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1641HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1641.md";
+        private static readonly string SA1641HelpLink = CreateHelpLink("SA1641");
 
         /// <summary>
         /// Gets the diagnostic descriptor for SA1633 with a missing header.

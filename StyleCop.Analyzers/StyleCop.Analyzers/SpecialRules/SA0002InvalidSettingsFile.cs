@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.SpecialRules
 {
     using System;
     using System.Collections.Immutable;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using LightJson.Serialization;
     using Microsoft.CodeAnalysis;
@@ -15,13 +16,13 @@ namespace StyleCop.Analyzers.SpecialRules
     /// </summary>
     [NoCodeFix("No automatic code fix is possible for general JSON syntax errors.")]
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal class SA0002InvalidSettingsFile : DiagnosticAnalyzer
+    internal class SA0002InvalidSettingsFile : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA0002InvalidSettingsFile"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA0002";
-        private const string HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA0002.md";
+        private static readonly string HelpLink = CreateHelpLink("SA0002");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(SpecialResources.SA0002Title), SpecialResources.ResourceManager, typeof(SpecialResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(SpecialResources.SA0002MessageFormat), SpecialResources.ResourceManager, typeof(SpecialResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(SpecialResources.SA0002Description), SpecialResources.ResourceManager, typeof(SpecialResources));
@@ -37,13 +38,10 @@ namespace StyleCop.Analyzers.SpecialRules
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
             ImmutableArray.Create(Descriptor);
 
-        /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        [SuppressMessage("MicrosoftCodeAnalysisPerformance", "RS1013:Start action has no registered non-end actions", Justification = "Ok")]
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
-            context.RegisterCompilationAction(CompilationAction);
+            context.RegisterCompilationEndAction(CompilationAction);
         }
 
         private static void HandleCompilation(CompilationAnalysisContext context)

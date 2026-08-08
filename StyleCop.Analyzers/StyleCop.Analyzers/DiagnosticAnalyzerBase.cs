@@ -20,6 +20,11 @@ namespace StyleCop.Analyzers
             context.RegisterCompilationStartAction(this.HandleCompilationStart);
         }
 
+        protected static string CreateHelpLink(string ruleId)
+        {
+            return $"https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/{ruleId}.md";
+        }
+
         /// <summary>
         /// Called at the start of each compilation.
         /// </summary>

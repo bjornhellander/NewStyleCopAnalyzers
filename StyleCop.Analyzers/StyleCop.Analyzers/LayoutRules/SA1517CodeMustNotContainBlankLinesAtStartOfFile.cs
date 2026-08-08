@@ -26,7 +26,7 @@ namespace StyleCop.Analyzers.LayoutRules
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1517";
-        private const string HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1517.md";
+        private static readonly string HelpLink = CreateHelpLink("SA1517");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(LayoutResources.SA1517Title), LayoutResources.ResourceManager, typeof(LayoutResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(LayoutResources.SA1517MessageFormat), LayoutResources.ResourceManager, typeof(LayoutResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(LayoutResources.SA1517Description), LayoutResources.ResourceManager, typeof(LayoutResources));

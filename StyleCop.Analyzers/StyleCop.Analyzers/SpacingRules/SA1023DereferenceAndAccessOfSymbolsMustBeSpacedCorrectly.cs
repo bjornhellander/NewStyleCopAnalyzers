@@ -46,7 +46,7 @@ namespace StyleCop.Analyzers.SpacingRules
         /// <see cref="SA1023DereferenceAndAccessOfSymbolsMustBeSpacedCorrectly"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1023";
-        private const string HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1023.md";
+        private static readonly string HelpLink = CreateHelpLink("SA1023");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(SpacingResources.SA1023Title), SpacingResources.ResourceManager, typeof(SpacingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(SpacingResources.SA1023Description), SpacingResources.ResourceManager, typeof(SpacingResources));
 
