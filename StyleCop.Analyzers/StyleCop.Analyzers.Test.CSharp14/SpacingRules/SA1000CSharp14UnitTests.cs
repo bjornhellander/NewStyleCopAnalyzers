@@ -82,5 +82,37 @@ public class TestClass
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestSimpleLambdaParameterWithRefModifierAsync()
+        {
+            var testCode = @"
+public delegate void RefIntAction(ref int value);
+
+public class TestClass
+{
+    public void Method()
+    {
+        RefIntAction action = ({|#0:ref|}@x) => { x = 1; };
+    }
+}
+";
+
+            var fixedCode = @"
+public delegate void RefIntAction(ref int value);
+
+public class TestClass
+{
+    public void Method()
+    {
+        RefIntAction action = (ref @x) => { x = 1; };
+    }
+}
+";
+
+            var expected = Diagnostic().WithArguments("ref", string.Empty, "followed").WithLocation(0);
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
