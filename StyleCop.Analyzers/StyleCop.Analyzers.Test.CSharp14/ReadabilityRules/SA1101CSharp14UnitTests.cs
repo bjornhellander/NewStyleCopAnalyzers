@@ -44,5 +44,22 @@ public static class TestClass
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestFieldKeywordDoesNotRequireThisPrefixAsync()
+        {
+            var testCode = @"
+public class TestClass
+{
+    public int Prop
+    {
+        get => field;
+        set => field = value;
+    }
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
