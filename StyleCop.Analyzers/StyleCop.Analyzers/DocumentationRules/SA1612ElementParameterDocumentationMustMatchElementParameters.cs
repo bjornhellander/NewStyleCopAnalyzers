@@ -33,7 +33,7 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// <see cref="SA1612ElementParameterDocumentationMustMatchElementParameters"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1612";
-        private const string HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1612.md";
+        private const string HelpLink = "https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1612.md";
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(DocumentationResources.SA1612Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(DocumentationResources.SA1612Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
 

@@ -1,5 +1,5 @@
 ﻿{
-  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "$schema": "https://raw.githubusercontent.com/bjornhellander/NewStyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
   "settings": {
     "documentationRules": {
       "copyrightText": "Copyright (c) Contributors to the New StyleCop Analyzers project.\r\nLicensed under the MIT License. See LICENSE in the project root for license information.",
