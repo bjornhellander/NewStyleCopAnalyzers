@@ -65,5 +65,22 @@ public class MyClass
             };
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestFieldKeywordIsIgnoredAsync()
+        {
+            var testCode = @"
+public class TestClass
+{
+    public int Prop
+    {
+        get => field;
+        set =>field= value;
+    }
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

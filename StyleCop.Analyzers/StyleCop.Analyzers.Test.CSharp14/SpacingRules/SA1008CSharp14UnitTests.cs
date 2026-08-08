@@ -96,5 +96,47 @@ public class TestClass
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestFieldKeywordInvocationAsync()
+        {
+            var testCode = @"
+public class TestClass
+{
+    private int result;
+
+    public System.Func<int, int> Handler
+    {
+        get => field;
+        set
+        {
+            field = value;
+            this.result = field {|#0:(|}9);
+        }
+    }
+}
+";
+
+            var fixedCode = @"
+public class TestClass
+{
+    private int result;
+
+    public System.Func<int, int> Handler
+    {
+        get => field;
+        set
+        {
+            field = value;
+            this.result = field(9);
+        }
+    }
+}
+";
+
+            var expected = Diagnostic(DescriptorNotPreceded).WithLocation(0);
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
