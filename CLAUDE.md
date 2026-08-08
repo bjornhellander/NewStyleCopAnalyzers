@@ -129,4 +129,4 @@ pinned to 10 for the codebase itself regardless of the C# versions being analyze
 
 `DOCUMENTATION.md` and the per-area pages under `documentation/` (`SpacingRules.md`, `OrderingRules.md`, etc.) are
 the index of implemented rules; `documentation/SAxxxx.md` files are the per-rule reference docs and their diagnostic
-`HelpLink` targets. Keep both in sync when adding, renaming, or removing a rule.
+`HelpLink` targets. Keep both in sync when adding, renaming, removing, or updating a rule.

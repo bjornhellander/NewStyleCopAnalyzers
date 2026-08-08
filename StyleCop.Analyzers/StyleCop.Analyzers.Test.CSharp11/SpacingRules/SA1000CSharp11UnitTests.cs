@@ -45,5 +45,33 @@ public class MyClass
             };
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestScopedLocalDeclarationAsync()
+        {
+            var testCode = @"
+public class TestClass
+{
+    public void Method()
+    {
+        {|#0:scoped|}@System.Span<int> test = default;
+    }
+}
+";
+
+            var fixedCode = @"
+public class TestClass
+{
+    public void Method()
+    {
+        scoped @System.Span<int> test = default;
+    }
+}
+";
+
+            var expected = Diagnostic().WithArguments("scoped", string.Empty, "followed").WithLocation(0);
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
