@@ -20,13 +20,12 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// The ID for diagnostics produced by the <see cref="SA1133DoNotCombineAttributes"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1133";
-        private static readonly string HelpLink = CreateHelpLink("SA1133");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(ReadabilityResources.SA1133Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SA1133MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1133Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, Description);
 
         private static readonly Action<SyntaxNodeAnalysisContext> HandleAttributeListAction = HandleAttributeList;
 

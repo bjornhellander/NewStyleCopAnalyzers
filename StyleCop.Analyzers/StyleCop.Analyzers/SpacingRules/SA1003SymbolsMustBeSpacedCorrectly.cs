@@ -58,7 +58,6 @@ namespace StyleCop.Analyzers.SpacingRules
         internal const string RemoveEndOfLineTag = "RemoveEndOfLine";
         internal const string RemoveEndOfLineWithTrailingSpaceTag = "RemoveEndOfLineWithTrailingSpace";
 
-        private static readonly string HelpLink = CreateHelpLink("SA1003");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(SpacingResources.SA1003Title), SpacingResources.ResourceManager, typeof(SpacingResources));
         private static readonly LocalizableString MessageFormatNotFollowedByComment = new LocalizableResourceString(nameof(SpacingResources.SA1003MessageFormatNotFollowedByComment), SpacingResources.ResourceManager, typeof(SpacingResources));
         private static readonly LocalizableString MessageFormatPrecededByWhitespace = new LocalizableResourceString(nameof(SpacingResources.SA1003MessageFormatPrecededByWhitespace), SpacingResources.ResourceManager, typeof(SpacingResources));
@@ -144,7 +143,7 @@ namespace StyleCop.Analyzers.SpacingRules
         /// A diagnostic descriptor.
         /// </value>
         public static DiagnosticDescriptor DescriptorNotFollowedByComment { get; } =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatNotFollowedByComment, AnalyzerCategory.SpacingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatNotFollowedByComment, AnalyzerCategory.SpacingRules, Description);
 
         /// <summary>
         /// Gets the descriptor indicating that an operator should be preceded by whitespace.
@@ -153,7 +152,7 @@ namespace StyleCop.Analyzers.SpacingRules
         /// A diagnostic descriptor.
         /// </value>
         public static DiagnosticDescriptor DescriptorPrecededByWhitespace { get; } =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatPrecededByWhitespace, AnalyzerCategory.SpacingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatPrecededByWhitespace, AnalyzerCategory.SpacingRules, Description);
 
         /// <summary>
         /// Gets the descriptor indicating that an operator should be preceded by whitespace.
@@ -162,7 +161,7 @@ namespace StyleCop.Analyzers.SpacingRules
         /// A diagnostic descriptor.
         /// </value>
         public static DiagnosticDescriptor DescriptorNotPrecededByWhitespace { get; } =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatNotPrecededByWhitespace, AnalyzerCategory.SpacingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatNotPrecededByWhitespace, AnalyzerCategory.SpacingRules, Description);
 
         /// <summary>
         /// Gets the descriptor indicating that an operator should be followed by whitespace.
@@ -171,7 +170,7 @@ namespace StyleCop.Analyzers.SpacingRules
         /// A diagnostic descriptor.
         /// </value>
         public static DiagnosticDescriptor DescriptorFollowedByWhitespace { get; } =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatFollowedByWhitespace, AnalyzerCategory.SpacingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatFollowedByWhitespace, AnalyzerCategory.SpacingRules, Description);
 
         /// <summary>
         /// Gets the descriptor indicating that an operator should be preceded by whitespace.
@@ -180,7 +179,7 @@ namespace StyleCop.Analyzers.SpacingRules
         /// A diagnostic descriptor.
         /// </value>
         public static DiagnosticDescriptor DescriptorNotFollowedByWhitespace { get; } =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatNotFollowedByWhitespace, AnalyzerCategory.SpacingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatNotFollowedByWhitespace, AnalyzerCategory.SpacingRules, Description);
 
         /// <summary>
         /// Gets the descriptor indicating that an operator should be appear at the end of a text line.
@@ -189,7 +188,7 @@ namespace StyleCop.Analyzers.SpacingRules
         /// A diagnostic descriptor.
         /// </value>
         public static DiagnosticDescriptor DescriptorNotAtEndOfLine { get; } =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatNotAtEndOfLine, AnalyzerCategory.SpacingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatNotAtEndOfLine, AnalyzerCategory.SpacingRules, Description);
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =

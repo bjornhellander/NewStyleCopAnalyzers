@@ -24,13 +24,12 @@ namespace StyleCop.Analyzers.OrderingRules
         /// <see cref="SA1214ReadonlyElementsMustAppearBeforeNonReadonlyElements"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1214";
-        private static readonly string HelpLink = CreateHelpLink("SA1214");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(OrderingResources.SA1214Title), OrderingResources.ResourceManager, typeof(OrderingResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(OrderingResources.SA1214MessageFormat), OrderingResources.ResourceManager, typeof(OrderingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(OrderingResources.SA1214Description), OrderingResources.ResourceManager, typeof(OrderingResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.OrderingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.OrderingRules, Description);
 
         private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> TypeDeclarationAction = HandleTypeDeclaration;
 

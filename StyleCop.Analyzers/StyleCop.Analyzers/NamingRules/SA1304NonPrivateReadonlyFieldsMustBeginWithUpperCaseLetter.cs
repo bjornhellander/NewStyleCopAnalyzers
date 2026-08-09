@@ -33,13 +33,12 @@ namespace StyleCop.Analyzers.NamingRules
         /// <see cref="SA1304NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1304";
-        private static readonly string HelpLink = CreateHelpLink("SA1304");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(NamingResources.SA1304Title), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(NamingResources.SA1304MessageFormat), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(NamingResources.SA1304Description), NamingResources.ResourceManager, typeof(NamingResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, Description);
 
         private static readonly Action<SyntaxNodeAnalysisContext> FieldDeclarationAction = HandleFieldDeclaration;
 

@@ -32,13 +32,12 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// <see cref="SA1613ElementParameterDocumentationMustDeclareParameterName"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1613";
-        private static readonly string HelpLink = CreateHelpLink("SA1613");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(DocumentationResources.SA1613Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1613MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(DocumentationResources.SA1613Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, Description);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SA1613ElementParameterDocumentationMustDeclareParameterName"/> class.

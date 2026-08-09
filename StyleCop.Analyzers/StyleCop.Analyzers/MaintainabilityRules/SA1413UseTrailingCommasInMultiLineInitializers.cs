@@ -48,13 +48,12 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         /// The ID for diagnostics produced by the <see cref="SA1413UseTrailingCommasInMultiLineInitializers"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1413";
-        private static readonly string HelpLink = CreateHelpLink("SA1413");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(MaintainabilityResources.SA1413Title), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(MaintainabilityResources.SA1413MessageFormat), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(MaintainabilityResources.SA1413Description), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, Description);
 
         private static readonly Action<SyntaxNodeAnalysisContext> HandleObjectInitializerAction = HandleObjectInitializer;
         private static readonly Action<SyntaxNodeAnalysisContext> HandleAnonymousObjectInitializerAction = HandleAnonymousObjectInitializer;

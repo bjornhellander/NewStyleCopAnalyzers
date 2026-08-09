@@ -58,13 +58,12 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1408";
-        private static readonly string HelpLink = CreateHelpLink("SA1408");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(MaintainabilityResources.SA1408Title), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(MaintainabilityResources.SA1408MessageFormat), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(MaintainabilityResources.SA1408Description), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, Description);
 
         private static readonly ImmutableArray<SyntaxKind> HandledBinaryExpressionKinds =
             ImmutableArray.Create(SyntaxKind.LogicalAndExpression, SyntaxKind.LogicalOrExpression);

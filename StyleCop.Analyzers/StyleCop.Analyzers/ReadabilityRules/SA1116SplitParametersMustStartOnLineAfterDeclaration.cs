@@ -43,13 +43,12 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1116";
-        private static readonly string HelpLink = CreateHelpLink("SA1116");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(ReadabilityResources.SA1116Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SA1116MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1116Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, Description);
 
         private static readonly ImmutableArray<SyntaxKind> BaseMethodDeclarationKinds =
             ImmutableArray.Create(SyntaxKind.ConstructorDeclaration, SyntaxKind.MethodDeclaration, SyntaxKind.OperatorDeclaration);

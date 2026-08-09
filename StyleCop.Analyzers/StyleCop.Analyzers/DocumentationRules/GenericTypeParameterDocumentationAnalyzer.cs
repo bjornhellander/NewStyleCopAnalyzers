@@ -25,19 +25,16 @@ namespace StyleCop.Analyzers.DocumentationRules
         private static readonly LocalizableString SA1620MissingMessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1620MissingMessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1620WrongOrderMessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1620WrongOrderMessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1620Description = new LocalizableResourceString(nameof(DocumentationResources.SA1620Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1620HelpLink = CreateHelpLink("SA1620");
 
         private static readonly string SA1621DiagnosticId = "SA1621";
         private static readonly LocalizableString SA1621Title = new LocalizableResourceString(nameof(DocumentationResources.SA1621Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1621MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1621MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1621Description = new LocalizableResourceString(nameof(DocumentationResources.SA1621Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1621HelpLink = CreateHelpLink("SA1621");
 
         private static readonly string SA1622DiagnosticId = "SA1622";
         private static readonly LocalizableString SA1622Title = new LocalizableResourceString(nameof(DocumentationResources.SA1622Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1622MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1622MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString SA1622Description = new LocalizableResourceString(nameof(DocumentationResources.SA1622Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
-        private static readonly string SA1622HelpLink = CreateHelpLink("SA1622");
 
         private static readonly Action<SyntaxNodeAnalysisContext> TypeDeclarationAction = HandleTypeDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> DelegateDeclarationAction = HandleDelegateDeclaration;
@@ -48,28 +45,28 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// </summary>
         /// <value>The <see cref="DiagnosticDescriptor"/> for SA1620.</value>
         public static DiagnosticDescriptor SA1620MissingTypeParameterDescriptor { get; } =
-            new DiagnosticDescriptor(SA1620DiagnosticId, SA1620Title, SA1620MissingMessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, SA1620Description, SA1620HelpLink);
+            CreateDiagnosticDescriptor(SA1620DiagnosticId, SA1620Title, SA1620MissingMessageFormat, AnalyzerCategory.DocumentationRules, SA1620Description);
 
         /// <summary>
         /// Gets the descriptor for SA1620, where the typeparam tags is not ordered correctly.
         /// </summary>
         /// <value>The <see cref="DiagnosticDescriptor"/> for SA1620.</value>
         public static DiagnosticDescriptor SA1620WrongOrderDescriptor { get; } =
-                   new DiagnosticDescriptor(SA1620DiagnosticId, SA1620Title, SA1620WrongOrderMessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, SA1620Description, SA1620HelpLink);
+                   CreateDiagnosticDescriptor(SA1620DiagnosticId, SA1620Title, SA1620WrongOrderMessageFormat, AnalyzerCategory.DocumentationRules, SA1620Description);
 
         /// <summary>
         /// Gets the descriptor for SA1621.
         /// </summary>
         /// <value>The <see cref="DiagnosticDescriptor"/> for SA1621.</value>
         public static DiagnosticDescriptor SA1621Descriptor { get; } =
-            new DiagnosticDescriptor(SA1621DiagnosticId, SA1621Title, SA1621MessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, SA1621Description, SA1621HelpLink);
+            CreateDiagnosticDescriptor(SA1621DiagnosticId, SA1621Title, SA1621MessageFormat, AnalyzerCategory.DocumentationRules, SA1621Description);
 
         /// <summary>
         /// Gets the descriptor for SA1622.
         /// </summary>
         /// <value>The <see cref="DiagnosticDescriptor"/> for SA1621.</value>
         public static DiagnosticDescriptor SA1622Descriptor { get; } =
-            new DiagnosticDescriptor(SA1622DiagnosticId, SA1622Title, SA1622MessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, SA1622Description, SA1622HelpLink);
+            CreateDiagnosticDescriptor(SA1622DiagnosticId, SA1622Title, SA1622MessageFormat, AnalyzerCategory.DocumentationRules, SA1622Description);
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =

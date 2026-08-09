@@ -29,13 +29,12 @@ namespace StyleCop.Analyzers.OrderingRules
         /// <see cref="SA1209UsingAliasDirectivesMustBePlacedAfterOtherUsingDirectives"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1209";
-        private static readonly string HelpLink = CreateHelpLink("SA1209");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(OrderingResources.SA1209Title), OrderingResources.ResourceManager, typeof(OrderingResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(OrderingResources.SA1209MessageFormat), OrderingResources.ResourceManager, typeof(OrderingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(OrderingResources.SA1209Description), OrderingResources.ResourceManager, typeof(OrderingResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.OrderingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.OrderingRules, Description);
 
         private static readonly Action<SyntaxNodeAnalysisContext> CompilationUnitAction = HandleCompilationUnit;
         private static readonly Action<SyntaxNodeAnalysisContext> BaseNamespaceDeclarationAction = HandleBaseNamespaceDeclaration;

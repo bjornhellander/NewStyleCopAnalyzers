@@ -20,13 +20,12 @@ namespace StyleCop.Analyzers.NamingRules
         /// The ID for diagnostics produced by the <see cref="SA1301ElementMustBeginWithLowerCaseLetter"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1301";
-        private static readonly string HelpLink = CreateHelpLink("SA1301");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(NamingResources.SA1301Title), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(NamingResources.SA1301MessageFormat), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(NamingResources.SA1301Description), NamingResources.ResourceManager, typeof(NamingResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, DiagnosticSeverity.Warning, AnalyzerConstants.DisabledByDefault, Description, HelpLink, WellKnownDiagnosticTags.NotConfigurable);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, Description, isEnabledByDefault: false, customTags: new[] { WellKnownDiagnosticTags.NotConfigurable });
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =

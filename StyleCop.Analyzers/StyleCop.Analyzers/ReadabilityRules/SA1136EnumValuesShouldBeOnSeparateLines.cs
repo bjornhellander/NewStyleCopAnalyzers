@@ -21,13 +21,12 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// The ID for diagnostics produced by the <see cref="SA1136EnumValuesShouldBeOnSeparateLines"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1136";
-        private static readonly string HelpLink = CreateHelpLink("SA1136");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(ReadabilityResources.SA1136Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SA1136MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1136Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, Description);
 
         private static readonly Action<SyntaxNodeAnalysisContext> HandleEnumDeclarationAction = HandleEnumDeclaration;
 

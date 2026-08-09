@@ -28,7 +28,6 @@ namespace StyleCop.Analyzers.LayoutRules
         /// The ID for diagnostics produced by the <see cref="SA1518UseLineEndingsCorrectlyAtEndOfFile"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1518";
-        private static readonly string HelpLink = CreateHelpLink("SA1518");
 
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(LayoutResources.SA1518Title), LayoutResources.ResourceManager, typeof(LayoutResources));
 
@@ -41,13 +40,13 @@ namespace StyleCop.Analyzers.LayoutRules
 
 #pragma warning disable SA1202 // Elements should be ordered by access
         internal static readonly DiagnosticDescriptor DescriptorAllow =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatAllow, AnalyzerCategory.LayoutRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, DescriptionAllow, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatAllow, AnalyzerCategory.LayoutRules, DescriptionAllow);
 
         internal static readonly DiagnosticDescriptor DescriptorRequire =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatRequire, AnalyzerCategory.LayoutRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, DescriptionRequire, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatRequire, AnalyzerCategory.LayoutRules, DescriptionRequire);
 
         internal static readonly DiagnosticDescriptor DescriptorOmit =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatOmit, AnalyzerCategory.LayoutRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, DescriptionOmit, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatOmit, AnalyzerCategory.LayoutRules, DescriptionOmit);
 #pragma warning restore SA1202 // Elements should be ordered by access
 
         private static readonly Action<SyntaxTreeAnalysisContext, StyleCopSettings> SyntaxTreeAction = HandleSyntaxTree;

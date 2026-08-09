@@ -54,13 +54,12 @@ namespace StyleCop.Analyzers.NamingRules
         /// The ID for diagnostics produced by the <see cref="SA1305FieldNamesMustNotUseHungarianNotation"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1305";
-        private static readonly string HelpLink = CreateHelpLink("SA1305");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(NamingResources.SA1305Title), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(NamingResources.SA1305MessageFormat), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(NamingResources.SA1305Description), NamingResources.ResourceManager, typeof(NamingResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, DiagnosticSeverity.Warning, AnalyzerConstants.DisabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, Description, isEnabledByDefault: false);
 
         private static readonly ImmutableArray<string> CommonPrefixes =
             ImmutableArray.Create("as", "at", "by", "do", "go", "if", "in", "is", "it", "no", "of", "on", "or", "to");

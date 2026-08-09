@@ -43,13 +43,12 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1631";
-        private static readonly string HelpLink = CreateHelpLink("SA1631");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(DocumentationResources.SA1631Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1631MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(DocumentationResources.SA1631Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.DisabledByDefault, Description, HelpLink, WellKnownDiagnosticTags.NotConfigurable);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, Description, isEnabledByDefault: false, customTags: new[] { WellKnownDiagnosticTags.NotConfigurable });
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =

@@ -29,17 +29,16 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// The ID for diagnostics produced by the <see cref="SA1135UsingDirectivesMustBeQualified"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1135";
-        private static readonly string HelpLink = CreateHelpLink("SA1135");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(ReadabilityResources.SA1135Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString MessageFormatNamespace = new LocalizableResourceString(nameof(ReadabilityResources.SA1135MessageFormatNamespace), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString MessageFormatType = new LocalizableResourceString(nameof(ReadabilityResources.SA1135MessageFormatType), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1135Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
 
         public static DiagnosticDescriptor DescriptorNamespace { get; } =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatNamespace, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatNamespace, AnalyzerCategory.ReadabilityRules, Description);
 
         public static DiagnosticDescriptor DescriptorType { get; } =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatType, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatType, AnalyzerCategory.ReadabilityRules, Description);
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =

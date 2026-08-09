@@ -72,13 +72,12 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// The ID for diagnostics produced by the <see cref="SA1601PartialElementsMustBeDocumented"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1601";
-        private static readonly string HelpLink = CreateHelpLink("SA1601");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(DocumentationResources.SA1601Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1601MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(DocumentationResources.SA1601Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, Description);
 
         private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> BaseTypeDeclarationAction = Analyzer.HandleBaseTypeDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> MethodDeclarationAction = Analyzer.HandleMethodDeclaration;

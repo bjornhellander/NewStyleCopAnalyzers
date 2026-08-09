@@ -41,13 +41,12 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1404";
-        private static readonly string HelpLink = CreateHelpLink("SA1404");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(MaintainabilityResources.SA1404Title), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(MaintainabilityResources.SA1404MessageFormat), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(MaintainabilityResources.SA1404Description), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, Description);
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =

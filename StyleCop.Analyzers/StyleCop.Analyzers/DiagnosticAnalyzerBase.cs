@@ -3,6 +3,7 @@
 
 namespace StyleCop.Analyzers
 {
+    using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Diagnostics;
 
     internal abstract class DiagnosticAnalyzerBase : DiagnosticAnalyzer
@@ -20,9 +21,20 @@ namespace StyleCop.Analyzers
             context.RegisterCompilationStartAction(this.HandleCompilationStart);
         }
 
-        protected static string CreateHelpLink(string ruleId)
+        protected static DiagnosticDescriptor CreateDiagnosticDescriptor(string id, LocalizableString title, LocalizableString messageFormat, string category, LocalizableString description, DiagnosticSeverity defaultSeverity = DiagnosticSeverity.Warning, bool isEnabledByDefault = true, params string[] customTags)
         {
-            return $"https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/{ruleId}.md";
+            var helpLinkUri = $"https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/{id}.md";
+
+            return new DiagnosticDescriptor(
+                id,
+                title,
+                messageFormat,
+                category,
+                defaultSeverity,
+                isEnabledByDefault,
+                description,
+                helpLinkUri,
+                customTags);
         }
 
         /// <summary>

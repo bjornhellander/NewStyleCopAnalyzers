@@ -55,16 +55,15 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         /// <see cref="WellKnownDiagnosticTags.Unnecessary"/>.
         /// </summary>
         public const string ParenthesesDiagnosticId = DiagnosticId + "_p";
-        private static readonly string HelpLink = CreateHelpLink("SA1119");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(MaintainabilityResources.SA1119Title), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(MaintainabilityResources.SA1119MessageFormat), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(MaintainabilityResources.SA1119Description), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, Description);
 
         private static readonly DiagnosticDescriptor ParenthesisDescriptor =
-            new DiagnosticDescriptor(ParenthesesDiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, DiagnosticSeverity.Hidden, AnalyzerConstants.EnabledByDefault, Description, HelpLink, customTags: new[] { WellKnownDiagnosticTags.Unnecessary, WellKnownDiagnosticTags.NotConfigurable });
+            CreateDiagnosticDescriptor(ParenthesesDiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, Description, defaultSeverity: DiagnosticSeverity.Hidden, customTags: new[] { WellKnownDiagnosticTags.Unnecessary, WellKnownDiagnosticTags.NotConfigurable });
 
         private static readonly Action<SyntaxNodeAnalysisContext> ParenthesizedExpressionAction = HandleParenthesizedExpression;
 

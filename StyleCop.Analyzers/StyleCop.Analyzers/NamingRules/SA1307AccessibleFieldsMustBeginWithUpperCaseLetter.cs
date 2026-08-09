@@ -32,14 +32,13 @@ namespace StyleCop.Analyzers.NamingRules
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1307";
-        private static readonly string HelpLink = CreateHelpLink("SA1307");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(NamingResources.SA1307Title), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(NamingResources.SA1307MessageFormat), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(NamingResources.SA1307Description), NamingResources.ResourceManager, typeof(NamingResources));
 
 #pragma warning disable SA1202 // Elements should be ordered by access
         internal static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, Description);
 #pragma warning restore SA1202 // Elements should be ordered by access
 
         private static readonly Action<SyntaxNodeAnalysisContext> FieldDeclarationAction = HandleFieldDeclaration;

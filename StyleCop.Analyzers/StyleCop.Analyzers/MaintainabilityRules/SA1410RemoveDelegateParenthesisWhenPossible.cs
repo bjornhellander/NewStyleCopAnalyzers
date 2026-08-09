@@ -38,13 +38,12 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         /// The ID for diagnostics produced by the <see cref="SA1410RemoveDelegateParenthesisWhenPossible"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1410";
-        private static readonly string HelpLink = CreateHelpLink("SA1410");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(MaintainabilityResources.SA1410Title), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(MaintainabilityResources.SA1410MessageFormat), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(MaintainabilityResources.SA1410Description), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink, WellKnownDiagnosticTags.Unnecessary);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.MaintainabilityRules, Description, customTags: new[] { WellKnownDiagnosticTags.Unnecessary });
 
         private static readonly Action<SyntaxNodeAnalysisContext> AnonymousMethodExpressionAction = HandleAnonymousMethodExpression;
 

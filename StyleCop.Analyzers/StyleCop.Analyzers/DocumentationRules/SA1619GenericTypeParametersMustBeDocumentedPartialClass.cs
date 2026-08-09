@@ -83,13 +83,12 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1619";
-        private static readonly string HelpLink = CreateHelpLink("SA1619");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(DocumentationResources.SA1619Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1619MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(DocumentationResources.SA1619Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, Description);
 
         private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> TypeDeclarationAction = HandleTypeDeclaration;
 

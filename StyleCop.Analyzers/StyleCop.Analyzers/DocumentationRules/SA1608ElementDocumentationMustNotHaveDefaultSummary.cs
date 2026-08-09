@@ -39,13 +39,12 @@ namespace StyleCop.Analyzers.DocumentationRules
         public const string DiagnosticId = "SA1608";
         private const string DefaultText = "Summary description for";
 
-        private static readonly string HelpLink = CreateHelpLink("SA1608");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(DocumentationResources.SA1608Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1608MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(DocumentationResources.SA1608Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, Description);
 
         public SA1608ElementDocumentationMustNotHaveDefaultSummary()
             : base(inheritDocSuppressesWarnings: true, matchElementName: XmlCommentHelper.SummaryXmlTag)

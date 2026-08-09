@@ -21,13 +21,12 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// The ID for diagnostics produced by the <see cref="SA1129DoNotUseDefaultValueTypeConstructor"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1129";
-        private static readonly string HelpLink = CreateHelpLink("SA1129");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(ReadabilityResources.SA1129Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SA1129MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1129Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, Description);
 
         private static readonly Action<OperationAnalysisContext> ObjectCreationOperationAction = HandleObjectCreationOperation;
         private static readonly Action<OperationAnalysisContext> TypeParameterObjectCreationOperationAction = HandleTypeParameterObjectCreationOperation;

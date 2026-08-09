@@ -31,13 +31,12 @@ namespace StyleCop.Analyzers.NamingRules
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1303";
-        private static readonly string HelpLink = CreateHelpLink("SA1303");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(NamingResources.SA1303Title), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(NamingResources.SA1303MessageFormat), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(NamingResources.SA1303Description), NamingResources.ResourceManager, typeof(NamingResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, Description);
 
         private static readonly Action<SymbolAnalysisContext> FieldDeclarationAction = Analyzer.HandleFieldDeclaration;
 

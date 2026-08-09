@@ -39,13 +39,12 @@ namespace StyleCop.Analyzers.OrderingRules
         /// The ID for diagnostics produced by the <see cref="SA1206DeclarationKeywordsMustFollowOrder"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1206";
-        private static readonly string HelpLink = CreateHelpLink("SA1206");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(OrderingResources.SA1206Title), OrderingResources.ResourceManager, typeof(OrderingResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(OrderingResources.SA1206MessageFormat), OrderingResources.ResourceManager, typeof(OrderingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(OrderingResources.SA1206Description), OrderingResources.ResourceManager, typeof(OrderingResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.OrderingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.OrderingRules, Description);
 
         private static readonly ImmutableArray<SyntaxKind> HandledSyntaxKinds =
             ImmutableArray.Create(

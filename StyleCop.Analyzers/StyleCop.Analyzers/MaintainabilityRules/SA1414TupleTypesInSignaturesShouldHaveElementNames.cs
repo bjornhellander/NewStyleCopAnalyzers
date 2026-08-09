@@ -22,7 +22,6 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         /// </summary>
         public const string DiagnosticId = "SA1414";
 
-        private static readonly string HelpLink = CreateHelpLink("SA1414");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(MaintainabilityResources.SA1414Title), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(MaintainabilityResources.SA1414MessageFormat), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(MaintainabilityResources.SA1414Description), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
@@ -34,7 +33,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> ConversionOperatorDeclarationAction = HandleConversionOperatorDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> DelegateDeclarationAction = HandleDelegateDeclaration;
 
-        private static readonly DiagnosticDescriptor Descriptor = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+        private static readonly DiagnosticDescriptor Descriptor = CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, Description);
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = ImmutableArray.Create(Descriptor);

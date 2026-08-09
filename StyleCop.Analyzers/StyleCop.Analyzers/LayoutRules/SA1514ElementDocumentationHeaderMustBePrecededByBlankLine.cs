@@ -67,13 +67,12 @@ namespace StyleCop.Analyzers.LayoutRules
         /// <see cref="SA1514ElementDocumentationHeaderMustBePrecededByBlankLine"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1514";
-        private static readonly string HelpLink = CreateHelpLink("SA1514");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(LayoutResources.SA1514Title), LayoutResources.ResourceManager, typeof(LayoutResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(LayoutResources.SA1514MessageFormat), LayoutResources.ResourceManager, typeof(LayoutResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(LayoutResources.SA1514Description), LayoutResources.ResourceManager, typeof(LayoutResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.LayoutRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.LayoutRules, Description);
 
         private static readonly ImmutableArray<SyntaxKind> HandledSyntaxKinds =
             ImmutableArray.Create(

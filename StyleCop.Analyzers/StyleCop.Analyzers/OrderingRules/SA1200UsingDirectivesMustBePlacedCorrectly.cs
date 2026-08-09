@@ -159,8 +159,6 @@ namespace StyleCop.Analyzers.OrderingRules
         /// </summary>
         public const string DiagnosticId = "SA1200";
 
-        private static readonly string HelpLink = CreateHelpLink("SA1200");
-
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(OrderingResources.SA1200Title), OrderingResources.ResourceManager, typeof(OrderingResources));
 
         private static readonly LocalizableString MessageFormatInside = new LocalizableResourceString(nameof(OrderingResources.SA1200MessageFormatInside), OrderingResources.ResourceManager, typeof(OrderingResources));
@@ -171,10 +169,10 @@ namespace StyleCop.Analyzers.OrderingRules
 
 #pragma warning disable SA1202 // Elements should be ordered by access
         internal static readonly DiagnosticDescriptor DescriptorInside =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatInside, AnalyzerCategory.OrderingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, DescriptionInside, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatInside, AnalyzerCategory.OrderingRules, DescriptionInside);
 
         internal static readonly DiagnosticDescriptor DescriptorOutside =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormatOutside, AnalyzerCategory.OrderingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, DescriptionOutside, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormatOutside, AnalyzerCategory.OrderingRules, DescriptionOutside);
 #pragma warning restore SA1202 // Elements should be ordered by access
 
         private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> CompilationUnitAction = HandleCompilationUnit;

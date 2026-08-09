@@ -35,13 +35,12 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// The ID for diagnostics produced by the <see cref="SA1122UseStringEmptyForEmptyStrings"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1122";
-        private static readonly string HelpLink = CreateHelpLink("SA1122");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(ReadabilityResources.SA1122Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SA1122MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1122Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.ReadabilityRules, Description);
 
         private static readonly Action<SyntaxNodeAnalysisContext> StringLiteralExpressionAction = HandleStringLiteralExpression;
 

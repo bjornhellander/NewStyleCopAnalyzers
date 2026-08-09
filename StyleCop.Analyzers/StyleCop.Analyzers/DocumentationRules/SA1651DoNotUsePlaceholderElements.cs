@@ -46,13 +46,12 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// </summary>
         internal const string NoCodeFixKey = "NoCodeFix";
 
-        private static readonly string HelpLink = CreateHelpLink("SA1651");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(DocumentationResources.SA1651Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1651MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(DocumentationResources.SA1651Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, Description);
 
         private static readonly Action<SyntaxNodeAnalysisContext> XmlElementAction = HandleXmlElement;
         private static readonly Action<SyntaxNodeAnalysisContext> XmlEmptyElementAction = HandleXmlEmptyElement;

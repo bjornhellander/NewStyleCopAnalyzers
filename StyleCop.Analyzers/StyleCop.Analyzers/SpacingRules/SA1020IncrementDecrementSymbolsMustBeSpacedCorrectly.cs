@@ -27,13 +27,12 @@ namespace StyleCop.Analyzers.SpacingRules
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1020";
-        private static readonly string HelpLink = CreateHelpLink("SA1020");
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(SpacingResources.SA1020Title), SpacingResources.ResourceManager, typeof(SpacingResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(SpacingResources.SA1020MessageFormat), SpacingResources.ResourceManager, typeof(SpacingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(SpacingResources.SA1020Description), SpacingResources.ResourceManager, typeof(SpacingResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.SpacingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.SpacingRules, Description);
 
         private static readonly Action<SyntaxTreeAnalysisContext> SyntaxTreeAction = HandleSyntaxTree;
 
