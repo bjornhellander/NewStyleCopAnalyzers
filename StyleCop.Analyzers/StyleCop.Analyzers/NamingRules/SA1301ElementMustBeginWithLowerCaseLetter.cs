@@ -4,6 +4,7 @@
 namespace StyleCop.Analyzers.NamingRules
 {
     using System.Collections.Immutable;
+    using System.Diagnostics.CodeAnalysis;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Diagnostics;
 
@@ -13,32 +14,27 @@ namespace StyleCop.Analyzers.NamingRules
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     [NoDiagnostic("This rule has no behavior by design.")]
     [NoCodeFix("Don't fix what isn't broken.")]
-    internal class SA1301ElementMustBeginWithLowerCaseLetter : DiagnosticAnalyzer
+    internal class SA1301ElementMustBeginWithLowerCaseLetter : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1301ElementMustBeginWithLowerCaseLetter"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1301";
-        private const string HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1301.md";
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(NamingResources.SA1301Title), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(NamingResources.SA1301MessageFormat), NamingResources.ResourceManager, typeof(NamingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(NamingResources.SA1301Description), NamingResources.ResourceManager, typeof(NamingResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-#pragma warning disable RS2000 // Add analyzer diagnostic IDs to analyzer release.
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, DiagnosticSeverity.Warning, AnalyzerConstants.DisabledByDefault, Description, HelpLink, WellKnownDiagnosticTags.NotConfigurable);
-#pragma warning restore RS2000 // Add analyzer diagnostic IDs to analyzer release.
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.NamingRules, Description, isEnabledByDefault: false, customTags: new[] { WellKnownDiagnosticTags.NotConfigurable });
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-        public override void Initialize(AnalysisContext context)
+        [SuppressMessage("MicrosoftCodeAnalysisPerformance", "RS1012:Start action has no registered actions", Justification = "Not implemented")]
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
-            context.EnableConcurrentExecution();
-
             // Intentionally empty
         }
     }

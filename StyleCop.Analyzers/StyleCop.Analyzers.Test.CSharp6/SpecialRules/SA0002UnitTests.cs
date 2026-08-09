@@ -5,10 +5,10 @@ namespace StyleCop.Analyzers.Test.CSharp6.SpecialRules
 {
     using System;
     using System.Collections.Immutable;
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
+    using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Diagnostics;
     using Microsoft.CodeAnalysis.Testing;
     using Microsoft.CodeAnalysis.Text;
@@ -71,7 +71,7 @@ namespace NamespaceName { }
             // The settings file is missing a comma after the $schema property
             var settings = @"
 {
-  ""$schema"": ""https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json""
+  ""$schema"": ""https://raw.githubusercontent.com/bjornhellander/NewStyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json""
   ""settings"": {
     ""documentationRules"": {
       ""companyName"": ""ACME, Inc"",
@@ -352,31 +352,22 @@ namespace NamespaceName { }
         [Fact]
         public async Task TestUnexpectedExceptionNotCaughtAsync()
         {
-            await new CSharpTest
-            {
-                TestSources = { string.Empty },
-                SolutionTransforms =
-                {
-                    // Run additional validation here with access to a Compilation
-                    (solution, projectId) =>
-                    {
-                        var compilation = solution.GetProject(projectId).GetCompilationAsync(CancellationToken.None).GetAwaiter().GetResult();
+            var cancellationToken = TestContext.Current.CancellationToken;
 
-                        var analysisContext = new AnalysisContextMissingOptions();
-                        var analyzer = new SA0002InvalidSettingsFile();
-                        analyzer.Initialize(analysisContext);
-                        Assert.NotNull(analysisContext.CompilationAction);
+            var syntaxTree = CSharpSyntaxTree.ParseText(string.Empty, cancellationToken: cancellationToken);
+            var compilation = CSharpCompilation.Create("Test", new[] { syntaxTree });
 
-                        var additionalFiles = ImmutableArray.Create<AdditionalText>(new InvalidAdditionalText());
-                        Assert.Null(additionalFiles[0].Path);
-                        Assert.Null(additionalFiles[0].GetText(CancellationToken.None));
-                        var context = new CompilationAnalysisContext(compilation, options: new AnalyzerOptions(additionalFiles), reportDiagnostic: null, isSupportedDiagnostic: null, cancellationToken: CancellationToken.None);
-                        Assert.Throws<ArgumentNullException>(() => analysisContext.CompilationAction(context));
+            var additionalFiles = ImmutableArray.Create<AdditionalText>(new InvalidAdditionalText());
+            Assert.Null(additionalFiles[0].Path);
+            Assert.Null(additionalFiles[0].GetText(cancellationToken));
 
-                        return solution;
-                    },
-                },
-            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
+            var analyzer = new SA0002InvalidSettingsFile();
+            var compilationWithAnalyzers = compilation.WithAnalyzers(ImmutableArray.Create<DiagnosticAnalyzer>(analyzer), new AnalyzerOptions(additionalFiles), cancellationToken);
+            var diagnostics = await compilationWithAnalyzers.GetAnalyzerDiagnosticsAsync(cancellationToken).ConfigureAwait(true);
+
+            var diagnostic = Assert.Single(diagnostics);
+            Assert.Equal("AD0001", diagnostic.Id);
+            Assert.Contains(nameof(ArgumentNullException), diagnostic.GetMessage());
         }
 
         private class InvalidAdditionalText : AdditionalText
@@ -384,71 +375,6 @@ namespace NamespaceName { }
             public override string? Path => null;
 
             public override SourceText? GetText(CancellationToken cancellationToken) => null;
-        }
-
-        /// <summary>
-        /// This analysis context is used for testing the specific case where an exception occurs while evaluating the
-        /// stylecop.json settings file, but it is not one of the JSON deserialization exceptions caused by this
-        /// library's code.
-        /// </summary>
-        private class AnalysisContextMissingOptions : AnalysisContext
-        {
-            public Action<CompilationAnalysisContext>? CompilationAction { get; private set; }
-
-            [ExcludeFromCodeCoverage]
-            public override void RegisterCodeBlockAction(Action<CodeBlockAnalysisContext> action)
-            {
-                throw new NotImplementedException();
-            }
-
-            [ExcludeFromCodeCoverage]
-            public override void RegisterCodeBlockStartAction<TLanguageKindEnum>(Action<CodeBlockStartAnalysisContext<TLanguageKindEnum>> action)
-            {
-                throw new NotImplementedException();
-            }
-
-            public override void RegisterCompilationAction(Action<CompilationAnalysisContext> action)
-            {
-                this.CompilationAction = action;
-            }
-
-            [ExcludeFromCodeCoverage]
-            public override void RegisterCompilationStartAction(Action<CompilationStartAnalysisContext> action)
-            {
-                throw new NotImplementedException();
-            }
-
-            [ExcludeFromCodeCoverage]
-            public override void RegisterSemanticModelAction(Action<SemanticModelAnalysisContext> action)
-            {
-                throw new NotImplementedException();
-            }
-
-            [ExcludeFromCodeCoverage]
-            public override void RegisterSymbolAction(Action<SymbolAnalysisContext> action, ImmutableArray<SymbolKind> symbolKinds)
-            {
-                throw new NotImplementedException();
-            }
-
-            [ExcludeFromCodeCoverage]
-            public override void RegisterSyntaxNodeAction<TLanguageKindEnum>(Action<SyntaxNodeAnalysisContext> action, ImmutableArray<TLanguageKindEnum> syntaxKinds)
-            {
-                throw new NotImplementedException();
-            }
-
-            [ExcludeFromCodeCoverage]
-            public override void RegisterSyntaxTreeAction(Action<SyntaxTreeAnalysisContext> action)
-            {
-                throw new NotImplementedException();
-            }
-
-            public override void ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags analysisMode)
-            {
-            }
-
-            public override void EnableConcurrentExecution()
-            {
-            }
         }
     }
 }

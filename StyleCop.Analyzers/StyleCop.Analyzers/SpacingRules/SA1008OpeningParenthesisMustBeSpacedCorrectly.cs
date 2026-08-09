@@ -32,7 +32,6 @@ namespace StyleCop.Analyzers.SpacingRules
         /// The ID for diagnostics produced by the <see cref="SA1008OpeningParenthesisMustBeSpacedCorrectly"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1008";
-        private const string HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1008.md";
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(SpacingResources.SA1008Title), SpacingResources.ResourceManager, typeof(SpacingResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(SpacingResources.SA1008Description), SpacingResources.ResourceManager, typeof(SpacingResources));
 
@@ -47,21 +46,21 @@ namespace StyleCop.Analyzers.SpacingRules
         /// </summary>
         /// <value>The diagnostic descriptor for an opening parenthesis that should not be preceded by whitespace.</value>
         public static DiagnosticDescriptor DescriptorNotPreceded { get; }
-            = new DiagnosticDescriptor(DiagnosticId, Title, MessageNotPreceded, AnalyzerCategory.SpacingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            = CreateDiagnosticDescriptor(DiagnosticId, Title, MessageNotPreceded, AnalyzerCategory.SpacingRules, Description);
 
         /// <summary>
         /// Gets the diagnostic descriptor for an opening parenthesis that should be preceded by whitespace.
         /// </summary>
         /// <value>The diagnostic descriptor for an opening parenthesis that should be preceded by whitespace.</value>
         public static DiagnosticDescriptor DescriptorPreceded { get; }
-            = new DiagnosticDescriptor(DiagnosticId, Title, MessagePreceded, AnalyzerCategory.SpacingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            = CreateDiagnosticDescriptor(DiagnosticId, Title, MessagePreceded, AnalyzerCategory.SpacingRules, Description);
 
         /// <summary>
         /// Gets the diagnostic descriptor for an opening parenthesis that should not be followed by whitespace.
         /// </summary>
         /// <value>The diagnostic descriptor for an opening parenthesis that should not be followed by whitespace.</value>
         public static DiagnosticDescriptor DescriptorNotFollowed { get; }
-            = new DiagnosticDescriptor(DiagnosticId, Title, MessageNotFollowed, AnalyzerCategory.SpacingRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            = CreateDiagnosticDescriptor(DiagnosticId, Title, MessageNotFollowed, AnalyzerCategory.SpacingRules, Description);
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =

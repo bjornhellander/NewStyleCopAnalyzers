@@ -14,7 +14,7 @@ StyleCop Analyzers is configured using two separate mechanisms: code analysis ru
 
 Code analysis rule sets are the standard way to configure most diagnostic analyzers within Visual Studio. Information about creating and customizing these files can be found in the [Using Rule Sets to Group Code Analysis Rules](https://docs.microsoft.com/visualstudio/code-quality/using-rule-sets-to-group-code-analysis-rules) documentation on docs.microsoft.com.
 
-An example rule set file containing the default StyleCop Analyzers configuration is available at <https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/rulesets/StyleCopAnalyzersDefault.ruleset>.
+An example rule set file containing the default StyleCop Analyzers configuration is available at <https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/rulesets/StyleCopAnalyzersDefault.ruleset>.
 
 ## Getting Started with **stylecop.json**
 
@@ -28,7 +28,7 @@ A JSON schema is available for **stylecop.json**. By including a reference in **
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json"
+  "$schema": "https://raw.githubusercontent.com/bjornhellander/NewStyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json"
 }
 ```
 

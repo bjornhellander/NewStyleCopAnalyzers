@@ -3,11 +3,9 @@
 
 namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Testing;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,20 +14,6 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 
     public class SA1130UnitTests
     {
-        [SuppressMessage("MicrosoftCodeAnalysisDesign", "RS1032:Define diagnostic message correctly", Justification = "The message here matches the compiler.")]
-        private static readonly DiagnosticDescriptor CS1065 =
-                   new DiagnosticDescriptor(nameof(CS1065), "Title", "Default values are not valid in this context.", "Category", DiagnosticSeverity.Error, AnalyzerConstants.EnabledByDefault);
-
-        [SuppressMessage("MicrosoftCodeAnalysisDesign", "RS1032:Define diagnostic message correctly", Justification = "The message here matches the compiler.")]
-        private static readonly DiagnosticDescriptor CS7014 =
-                   new DiagnosticDescriptor(nameof(CS7014), "Title", "Attributes are not valid in this context.", "Category", DiagnosticSeverity.Error, AnalyzerConstants.EnabledByDefault);
-
-        private static readonly DiagnosticDescriptor CS1670 =
-                          new DiagnosticDescriptor(nameof(CS1670), "Title", "params is not valid in this context", "Category", DiagnosticSeverity.Error, AnalyzerConstants.EnabledByDefault);
-
-        private static readonly DiagnosticDescriptor CS1669 =
-                          new DiagnosticDescriptor(nameof(CS1669), "Title", "__arglist is not valid in this context", "Category", DiagnosticSeverity.Error, AnalyzerConstants.EnabledByDefault);
-
         [Fact]
         public async Task TestSimpleDelegateUseAsync()
         {
@@ -989,10 +973,10 @@ public class TypeName
         {
             return new[]
             {
-                Diagnostic(CS1065).WithLocation(12, 53),
-                Diagnostic(CS7014).WithLocation(13, 47),
-                Diagnostic(CS1670).WithLocation(14, 47),
-                Diagnostic(CS1669).WithLocation(15, 42),
+                DiagnosticResult.CompilerError("CS1065").WithLocation(12, 53),
+                DiagnosticResult.CompilerError("CS7014").WithLocation(13, 47),
+                DiagnosticResult.CompilerError("CS1670").WithLocation(14, 47),
+                DiagnosticResult.CompilerError("CS1669").WithLocation(15, 42),
             };
         }
     }

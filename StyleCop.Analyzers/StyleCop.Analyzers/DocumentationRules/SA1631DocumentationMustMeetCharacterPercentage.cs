@@ -4,6 +4,7 @@
 namespace StyleCop.Analyzers.DocumentationRules
 {
     using System.Collections.Immutable;
+    using System.Diagnostics.CodeAnalysis;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Diagnostics;
 
@@ -35,33 +36,27 @@ namespace StyleCop.Analyzers.DocumentationRules
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     [NoDiagnostic("This diagnostic was determined to be too subjective and/or misleading to developers.")]
     [NoCodeFix("Cannot generate documentation")]
-    internal class SA1631DocumentationMustMeetCharacterPercentage : DiagnosticAnalyzer
+    internal class SA1631DocumentationMustMeetCharacterPercentage : DiagnosticAnalyzerBase
     {
         /// <summary>
         /// The ID for diagnostics produced by the <see cref="SA1631DocumentationMustMeetCharacterPercentage"/>
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1631";
-        private const string HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1631.md";
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(DocumentationResources.SA1631Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(DocumentationResources.SA1631MessageFormat), DocumentationResources.ResourceManager, typeof(DocumentationResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(DocumentationResources.SA1631Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-#pragma warning disable RS2000 // Add analyzer diagnostic IDs to analyzer release.
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.DisabledByDefault, Description, HelpLink, WellKnownDiagnosticTags.NotConfigurable);
-#pragma warning restore RS2000 // Add analyzer diagnostic IDs to analyzer release.
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, Description, isEnabledByDefault: false, customTags: new[] { WellKnownDiagnosticTags.NotConfigurable });
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
             ImmutableArray.Create(Descriptor);
 
         /// <inheritdoc/>
-#pragma warning disable RS1025 // Configure generated code analysis
-#pragma warning disable RS1026 // Enable concurrent execution
-        public override void Initialize(AnalysisContext context)
-#pragma warning restore RS1026 // Enable concurrent execution
-#pragma warning restore RS1025 // Configure generated code analysis
+        [SuppressMessage("MicrosoftCodeAnalysisPerformance", "RS1012:Start action has no registered actions", Justification = "Not implemented")]
+        protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             // This diagnostic is not implemented (by design) in StyleCopAnalyzers.
         }

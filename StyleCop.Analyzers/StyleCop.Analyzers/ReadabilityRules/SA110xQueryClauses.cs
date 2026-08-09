@@ -16,10 +16,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
     /// <summary>
     /// This analyzer will analyze several diagnostics related to query expressions.
     /// </summary>
-    /// <seealso href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1102.md">SA1102 Query clause should follow previous clause</seealso>
-    /// <seealso href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1103.md">SA1103 Query clauses should be on separate lines or all on one line</seealso>
-    /// <seealso href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1104.md">SA1104 Query clause should begin on new line when previous clause spans multiple lines</seealso>
-    /// <seealso href="https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1105.md">SA1105 Query clauses spanning multiple lines should begin on own line</seealso>
+    /// <seealso href="https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1102.md">SA1102 Query clause should follow previous clause</seealso>
+    /// <seealso href="https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1103.md">SA1103 Query clauses should be on separate lines or all on one line</seealso>
+    /// <seealso href="https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1104.md">SA1104 Query clause should begin on new line when previous clause spans multiple lines</seealso>
+    /// <seealso href="https://github.com/bjornhellander/NewStyleCopAnalyzers/blob/master/documentation/SA1105.md">SA1105 Query clauses spanning multiple lines should begin on own line</seealso>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     internal class SA110xQueryClauses : DiagnosticAnalyzerBase
     {
@@ -31,22 +31,18 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly LocalizableString SA1102Title = new LocalizableResourceString(nameof(ReadabilityResources.SA1102Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString SA1102MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SA1102MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString SA1102Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1102Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
-        private static readonly string SA1102HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1102.md";
 
         private static readonly LocalizableString SA1103Title = new LocalizableResourceString(nameof(ReadabilityResources.SA1103Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString SA1103MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SA1103MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString SA1103Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1103Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
-        private static readonly string SA1103HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1103.md";
 
         private static readonly LocalizableString SA1104Title = new LocalizableResourceString(nameof(ReadabilityResources.SA1104Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString SA1104MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SA1104MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString SA1104Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1104Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
-        private static readonly string SA1104HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1104.md";
 
         private static readonly LocalizableString SA1105Title = new LocalizableResourceString(nameof(ReadabilityResources.SA1105Title), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString SA1105MessageFormat = new LocalizableResourceString(nameof(ReadabilityResources.SA1105MessageFormat), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
         private static readonly LocalizableString SA1105Description = new LocalizableResourceString(nameof(ReadabilityResources.SA1105Description), ReadabilityResources.ResourceManager, typeof(ReadabilityResources));
-        private static readonly string SA1105HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1105.md";
 
         private static readonly Action<SyntaxNodeAnalysisContext> QueryExpressionAction = HandleQueryExpression;
 
@@ -55,28 +51,28 @@ namespace StyleCop.Analyzers.ReadabilityRules
         /// </summary>
         /// <value>The <see cref="DiagnosticDescriptor"/> for SA1102.</value>
         public static DiagnosticDescriptor SA1102Descriptor { get; } =
-            new DiagnosticDescriptor(SA1102Identifier, SA1102Title, SA1102MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, SA1102Description, SA1102HelpLink);
+            CreateDiagnosticDescriptor(SA1102Identifier, SA1102Title, SA1102MessageFormat, AnalyzerCategory.ReadabilityRules, SA1102Description);
 
         /// <summary>
         /// Gets the diagnostic descriptor for SA1103.
         /// </summary>
         /// <value>The <see cref="DiagnosticDescriptor"/> for SA1103.</value>
         public static DiagnosticDescriptor SA1103Descriptor { get; } =
-            new DiagnosticDescriptor(SA1103Identifier, SA1103Title, SA1103MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, SA1103Description, SA1103HelpLink);
+            CreateDiagnosticDescriptor(SA1103Identifier, SA1103Title, SA1103MessageFormat, AnalyzerCategory.ReadabilityRules, SA1103Description);
 
         /// <summary>
         /// Gets the diagnostic descriptor for SA1104.
         /// </summary>
         /// <value>The <see cref="DiagnosticDescriptor"/> for SA1104.</value>
         public static DiagnosticDescriptor SA1104Descriptor { get; } =
-            new DiagnosticDescriptor(SA1104Identifier, SA1104Title, SA1104MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, SA1104Description, SA1104HelpLink);
+            CreateDiagnosticDescriptor(SA1104Identifier, SA1104Title, SA1104MessageFormat, AnalyzerCategory.ReadabilityRules, SA1104Description);
 
         /// <summary>
         /// Gets the diagnostic descriptor for SA1105.
         /// </summary>
         /// <value>The <see cref="DiagnosticDescriptor"/> for SA1105.</value>
         public static DiagnosticDescriptor SA1105Descriptor { get; } =
-            new DiagnosticDescriptor(SA1105Identifier, SA1105Title, SA1105MessageFormat, AnalyzerCategory.ReadabilityRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, SA1105Description, SA1105HelpLink);
+            CreateDiagnosticDescriptor(SA1105Identifier, SA1105Title, SA1105MessageFormat, AnalyzerCategory.ReadabilityRules, SA1105Description);
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =

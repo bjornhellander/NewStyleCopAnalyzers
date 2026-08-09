@@ -37,8 +37,6 @@ namespace StyleCop.Analyzers.DocumentationRules
         /// analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1608";
-        private const string HelpLink = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/SA1608.md";
-
         private const string DefaultText = "Summary description for";
 
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(DocumentationResources.SA1608Title), DocumentationResources.ResourceManager, typeof(DocumentationResources));
@@ -46,7 +44,7 @@ namespace StyleCop.Analyzers.DocumentationRules
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(DocumentationResources.SA1608Description), DocumentationResources.ResourceManager, typeof(DocumentationResources));
 
         private static readonly DiagnosticDescriptor Descriptor =
-            new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+            CreateDiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.DocumentationRules, Description);
 
         public SA1608ElementDocumentationMustNotHaveDefaultSummary()
             : base(inheritDocSuppressesWarnings: true, matchElementName: XmlCommentHelper.SummaryXmlTag)
