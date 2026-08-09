@@ -57,7 +57,7 @@ class TypeName
             private static readonly LocalizableString Description = new LocalizableResourceString(nameof(SpecialResources.SA0002Description), SpecialResources.ResourceManager, typeof(SpecialResources));
 
             private static readonly DiagnosticDescriptor Descriptor =
-                new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.SpecialRules, DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault, Description, HelpLink);
+                new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, AnalyzerCategory.SpecialRules, DiagnosticSeverity.Warning, true, Description, HelpLink);
 
             /// <inheritdoc/>
             public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =

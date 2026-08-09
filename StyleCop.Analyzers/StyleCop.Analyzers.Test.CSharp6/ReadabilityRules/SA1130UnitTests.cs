@@ -18,17 +18,17 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
     {
         [SuppressMessage("MicrosoftCodeAnalysisDesign", "RS1032:Define diagnostic message correctly", Justification = "The message here matches the compiler.")]
         private static readonly DiagnosticDescriptor CS1065 =
-                   new DiagnosticDescriptor(nameof(CS1065), "Title", "Default values are not valid in this context.", "Category", DiagnosticSeverity.Error, AnalyzerConstants.EnabledByDefault);
+                   new DiagnosticDescriptor(nameof(CS1065), "Title", "Default values are not valid in this context.", "Category", DiagnosticSeverity.Error, true);
 
         [SuppressMessage("MicrosoftCodeAnalysisDesign", "RS1032:Define diagnostic message correctly", Justification = "The message here matches the compiler.")]
         private static readonly DiagnosticDescriptor CS7014 =
-                   new DiagnosticDescriptor(nameof(CS7014), "Title", "Attributes are not valid in this context.", "Category", DiagnosticSeverity.Error, AnalyzerConstants.EnabledByDefault);
+                   new DiagnosticDescriptor(nameof(CS7014), "Title", "Attributes are not valid in this context.", "Category", DiagnosticSeverity.Error, true);
 
         private static readonly DiagnosticDescriptor CS1670 =
-                          new DiagnosticDescriptor(nameof(CS1670), "Title", "params is not valid in this context", "Category", DiagnosticSeverity.Error, AnalyzerConstants.EnabledByDefault);
+                          new DiagnosticDescriptor(nameof(CS1670), "Title", "params is not valid in this context", "Category", DiagnosticSeverity.Error, true);
 
         private static readonly DiagnosticDescriptor CS1669 =
-                          new DiagnosticDescriptor(nameof(CS1669), "Title", "__arglist is not valid in this context", "Category", DiagnosticSeverity.Error, AnalyzerConstants.EnabledByDefault);
+                          new DiagnosticDescriptor(nameof(CS1669), "Title", "__arglist is not valid in this context", "Category", DiagnosticSeverity.Error, true);
 
         [Fact]
         public async Task TestSimpleDelegateUseAsync()

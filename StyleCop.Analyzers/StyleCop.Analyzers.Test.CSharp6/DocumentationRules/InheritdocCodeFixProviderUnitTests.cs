@@ -19,7 +19,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.DocumentationRules
     {
         private static readonly DiagnosticDescriptor SA1600 = new SA1600ElementsMustBeDocumented().SupportedDiagnostics[0];
         private static readonly DiagnosticDescriptor CS1591 =
-            new DiagnosticDescriptor(nameof(CS1591), "Title", "Missing XML comment for publicly visible type or member '{0}'", "Category", DiagnosticSeverity.Warning, AnalyzerConstants.EnabledByDefault);
+            new DiagnosticDescriptor(nameof(CS1591), "Title", "Missing XML comment for publicly visible type or member '{0}'", "Category", DiagnosticSeverity.Warning, true);
 
         [Theory]
         [InlineData(false, null, "string             TestMember { get; set; }")]
