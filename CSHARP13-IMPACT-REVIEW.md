@@ -20,7 +20,6 @@ out of scope here; preview functionality is only tracked once it targets the in-
 | New `lock` object (`System.Threading.Lock`) | No new syntax, only semantic/binding change | none identified | SA1503/SA1519/SA1501 (braces around `lock`), SA1000 (`lock` keyword spacing) |
 | Implicit index (`^`) in object initializers | Reuses existing `ImplicitElementAccessSyntax` + `IndexExpression` | none identified | SA1010/SA1011 (bracket spacing), SA1008/SA1009, SA1117 |
 | `\e` escape sequence | New escape in character/string literals, no new token kind | none identified | SA1027 (tabs), any literal-scanning helper |
-| `ref`/`unsafe` in iterators & `async` methods | Relaxation of existing restrictions | none identified | SA1210/SA1216 ordering interactions with `unsafe`+`async`+iterator combos |
 
 ## Details
 
@@ -154,15 +153,6 @@ for literal escape parsing outside of `LightJson`, which is unrelated bundled JS
 risk; a single regression test (e.g. against SA1027 tabs-and-spaces-in-literals-adjacent checks, and any string/char
 literal-focused rule) to confirm `'\e'` round-trips without a spurious diagnostic is sufficient.
 
-### 8. `ref`/`unsafe` in iterators and `async` methods
-
-A relaxation of a previous restriction (compiler now allows constructs it used to reject), not new syntax. Existing
-rules already handle `unsafe`, `async`, and iterator (`yield return`) methods independently; the new risk surface is
-purely the *combination* — e.g. an `unsafe async` iterator, or a `ref` local inside an `async` method. No rule was
-found that special-cases these modifiers in a way that assumes mutual exclusivity. Recommended: a couple of
-regression tests combining `unsafe` + `async`/iterator on SA1206 (modifier order, since `unsafe async` ordering
-matters) and any rule keying off `MethodDeclarationSyntax.Modifiers` combinations.
-
 ## Prioritized follow-ups
 
 1. **Fix**: extend SA1601 / `PartialElementDocumentationSummaryBase` (SA1605, SA1607) to handle
@@ -171,4 +161,4 @@ matters) and any rule keying off `MethodDeclarationSyntax.Modifiers` combination
 2. **Regression tests only** (safe today, just uncovered): `allows ref struct` constraints through SA1127/SA1000/SA1024;
    `ref struct : IInterface` through SA1201/SA1600; `params` non-array collections through SA1611/SA1117; the new
    `Lock` type through SA1501/SA1503/SA1519/SA1000; `[^n] = value` initializers through SA1010/SA1011; `\e` through
-   any literal-adjacent rule; `unsafe`/`async`/iterator combinations through SA1206.
+   any literal-adjacent rule.
