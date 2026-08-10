@@ -22,7 +22,6 @@ out of scope here; preview functionality is only tracked once it targets the in-
 | `\e` escape sequence | New escape in character/string literals, no new token kind | none identified | SA1027 (tabs), any literal-scanning helper |
 | `ref`/`unsafe` in iterators & `async` methods | Relaxation of existing restrictions | none identified | SA1210/SA1216 ordering interactions with `unsafe`+`async`+iterator combos |
 | Method group natural type improvements | Compiler binding change only | none identified | SA1130 (use lambda syntax) |
-| Overload resolution priority attribute | New BCL attribute, no new syntax | none identified | SA1133 (attributes on own line), any attribute allow-list |
 
 ## Details
 
@@ -172,12 +171,6 @@ syntax tree at all (a method group's "natural type" is a semantic-model-level co
 method group's inferred delegate type. `SA1130UseLambdaSyntax` (rewrites `new Action(Method)` to a lambda) operates
 syntactically on the method-group argument, not its inferred type, so it's unaffected. No action needed beyond
 awareness.
-
-### 10. Overload resolution priority attribute
-
-`[OverloadResolutionPriority(n)]` is a new BCL attribute with no special syntax. No rule maintains an allow-list of
-"known" attributes that would need updating (SA1133 "do not combine attributes" and friends are structural, not
-name-based). No action needed.
 
 ## Prioritized follow-ups
 
