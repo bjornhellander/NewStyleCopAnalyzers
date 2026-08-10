@@ -21,7 +21,6 @@ out of scope here; preview functionality is only tracked once it targets the in-
 | Implicit index (`^`) in object initializers | Reuses existing `ImplicitElementAccessSyntax` + `IndexExpression` | none identified | SA1010/SA1011 (bracket spacing), SA1008/SA1009, SA1117 |
 | `\e` escape sequence | New escape in character/string literals, no new token kind | none identified | SA1027 (tabs), any literal-scanning helper |
 | `ref`/`unsafe` in iterators & `async` methods | Relaxation of existing restrictions | none identified | SA1210/SA1216 ordering interactions with `unsafe`+`async`+iterator combos |
-| Method group natural type improvements | Compiler binding change only | none identified | SA1130 (use lambda syntax) |
 
 ## Details
 
@@ -163,14 +162,6 @@ purely the *combination* — e.g. an `unsafe async` iterator, or a `ref` local i
 found that special-cases these modifiers in a way that assumes mutual exclusivity. Recommended: a couple of
 regression tests combining `unsafe` + `async`/iterator on SA1206 (modifier order, since `unsafe async` ordering
 matters) and any rule keying off `MethodDeclarationSyntax.Modifiers` combinations.
-
-### 9. Method group natural type improvements
-
-Pure overload-resolution/binding change inside the compiler; produces no new syntax and isn't observable from a
-syntax tree at all (a method group's "natural type" is a semantic-model-level concept). No StyleCop rule inspects a
-method group's inferred delegate type. `SA1130UseLambdaSyntax` (rewrites `new Action(Method)` to a lambda) operates
-syntactically on the method-group argument, not its inferred type, so it's unaffected. No action needed beyond
-awareness.
 
 ## Prioritized follow-ups
 
