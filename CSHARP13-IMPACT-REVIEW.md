@@ -5,7 +5,9 @@ Source: [What's new in C# 13](https://learn.microsoft.com/en-us/dotnet/csharp/wh
 C# 13 features, and the concrete impact each has on the existing StyleCop.Analyzers rule set. Findings are based on
 reading the current analyzer implementations, not just the language spec, and are grounded with file/line references.
 New tests belong in `StyleCop.Analyzers.Test.CSharp13` (or higher, per the "lowest project that can express the
-syntax" rule in `CLAUDE.md`) unless noted otherwise.
+syntax" rule in `CLAUDE.md`) unless noted otherwise. C# 13 is a released language version, so preview-only features
+(e.g. the `field` contextual keyword, which requires `LangVersion=preview` rather than plain `LangVersion=13`) are
+out of scope here; preview functionality is only tracked once it targets the in-progress language version (C# 15).
 
 ## Summary
 
@@ -14,7 +16,6 @@ syntax" rule in `CLAUDE.md`) unless noted otherwise.
 | Partial properties / indexers | Existing node kinds reused (`PropertyDeclaration`, `IndexerDeclaration` without a body) | SA1601, SA1605, SA1607, SA1619 (and `PartialElementDocumentationSummaryBase`) | SA1600, SA1201/SA1202/SA1206, SA1205 |
 | `allows ref struct` constraint | **New syntax node**, no Lightup wrapper exists | none identified as broken, but needs a `Lightup` audit | SA1127, SA1000, SA1024, SA1013/SA1015 |
 | `ref struct` implementing interfaces | Existing `BaseList` reused | none identified | SA1201 (interface member ordering), SA1206, documentation rules on ref-struct interface members |
-| `field` contextual keyword (preview) | Reuses `IdentifierNameSyntax`, like `value` | **SA1101** (likely false positive) | SX1309/SA1306 field naming, SA1000 |
 | `params` collections | No new syntax (same `params` modifier + parameter type) | none identified | SA1611/SA1615 doc rules, SA1117/SA1116 parameter layout, SA1026 (if array-specific) |
 | New `lock` object (`System.Threading.Lock`) | No new syntax, only semantic/binding change | none identified | SA1503/SA1519/SA1501 (braces around `lock`), SA1000 (`lock` keyword spacing) |
 | Implicit index (`^`) in object initializers | Reuses existing `ImplicitElementAccessSyntax` + `IndexExpression` | none identified | SA1010/SA1011 (bracket spacing), SA1008/SA1009, SA1117 |
@@ -114,30 +115,7 @@ unmodified, but none of the current test suites exercise a `ref struct ... : ISo
     implementations).
   - Documentation rules (SA1600 family) on a `ref struct`'s explicit interface member implementations.
 
-### 4. `field` contextual keyword (preview in C# 13, shipped later) — likely SA1101 false positive
-
-`field` behaves like the existing `value` contextual keyword (both are plain `IdentifierNameSyntax`, not a new
-`SyntaxKind`), but with one important difference: `value` binds to an *implicit setter parameter*
-(`IParameterSymbol`), which none of the "is this a member access that needs `this.`" rules treat as a class member,
-so it is naturally exempt from SA1101 without any special-casing anywhere in the codebase (confirmed: no rule file
-contains a literal `"value"` check). `field`, however, binds to a **compiler-synthesized backing field of the
-containing type** (an `IFieldSymbol`) — a real instance member. `SA1101PrefixLocalCallsWithThis`
-(`ReadabilityRules/SA1101PrefixLocalCallsWithThis.cs:76-90`) resolves identifiers via the semantic model and flags
-bare instance-member references; it has no special case for the synthesized `field` symbol. The C# 13 docs
-explicitly confirm `this.field` is valid disambiguation syntax, implying `field` really is treated as an ordinary
-instance field for binding purposes — which is exactly the shape SA1301 is designed to catch.
-
-**This needs verification against the actual preview compiler** (LangVersion 13 alone does not enable `field`; it
-requires the preview language version), so it may not be testable in `Test.CSharp13` until the feature ships
-non-preview (C# 14). Flag as a **known risk to verify once `field` is testable**, likely requiring an explicit
-exclusion in SA1101 for backing-field symbols synthesized by the `field` keyword (check
-`IFieldSymbol.IsImplicitlyDeclared` plus association with the enclosing property).
-
-Rules that are very likely unaffected but deserve a same-shape regression test once `field` is testable: SX1309 /
-SA1306 field-naming rules (a `field`-keyword property has no explicit field declaration to name-check, so nothing
-should fire), SA1201 (no new member to order).
-
-### 5. `params` collections (`params ReadOnlySpan<T>`, `params IEnumerable<T>`, etc.)
+### 4. `params` collections (`params ReadOnlySpan<T>`, `params IEnumerable<T>`, etc.)
 
 No new syntax — the `params` modifier is unchanged; only the *type* it can precede is more permissive. Grepped the
 codebase for any rule that assumes the `params` parameter is specifically an array type
@@ -149,7 +127,7 @@ zero existing test coverage for a `params` parameter of a non-array type. Add re
   - Any rule that special-cases the *last* parameter of a method (none currently identified, but worth double
     checking readability rules around method signatures).
 
-### 6. New `lock` object (`System.Threading.Lock`)
+### 5. New `lock` object (`System.Threading.Lock`)
 
 Purely a binding/codegen change — the C# `lock` statement syntax (`LockStatementSyntax`) is unchanged whether the
 locked expression is a `Lock`, a reference type, or (in `unsafe` contexts) something else. The three rules that
@@ -160,7 +138,7 @@ field through each of these three rules, plus SA1000's `LockKeyword` spacing che
 (`SpacingRules/SA1000KeywordsMustBeSpacedCorrectly.cs:99`), to document that the new `Lock` type doesn't change
 formatting requirements.
 
-### 7. Implicit "from the end" index (`^`) in object initializers
+### 6. Implicit "from the end" index (`^`) in object initializers
 
 The bracketed index-initializer form (`Prop = { [key] = value }`) already existed since C# 6 for indexers; C# 13
 only adds the `^` operator as a legal *expression* inside that bracket. Both the outer construct
@@ -170,7 +148,7 @@ wrapper work is needed. Recommended regression tests: SA1010/SA1011 (square brac
 (parenthesis spacing doesn't apply, but verify no false trigger), and SA1117/SA1500 for the surrounding initializer
 block, using the exact `buffer = { [^1] = 0, [^2] = 1 }` shape from the Microsoft docs example.
 
-### 8. `\e` escape sequence
+### 7. `\e` escape sequence
 
 A new character-literal escape, but not a new token kind — it's lexed as part of the existing character/string
 literal token text, the same way `\n`/`\t`/`` already are. No rule inspects escape-sequence contents (no hits
@@ -178,7 +156,7 @@ for literal escape parsing outside of `LightJson`, which is unrelated bundled JS
 risk; a single regression test (e.g. against SA1027 tabs-and-spaces-in-literals-adjacent checks, and any string/char
 literal-focused rule) to confirm `'\e'` round-trips without a spurious diagnostic is sufficient.
 
-### 9. `ref`/`unsafe` in iterators and `async` methods
+### 8. `ref`/`unsafe` in iterators and `async` methods
 
 A relaxation of a previous restriction (compiler now allows constructs it used to reject), not new syntax. Existing
 rules already handle `unsafe`, `async`, and iterator (`yield return`) methods independently; the new risk surface is
@@ -187,7 +165,7 @@ found that special-cases these modifiers in a way that assumes mutual exclusivit
 regression tests combining `unsafe` + `async`/iterator on SA1206 (modifier order, since `unsafe async` ordering
 matters) and any rule keying off `MethodDeclarationSyntax.Modifiers` combinations.
 
-### 10. Method group natural type improvements
+### 9. Method group natural type improvements
 
 Pure overload-resolution/binding change inside the compiler; produces no new syntax and isn't observable from a
 syntax tree at all (a method group's "natural type" is a semantic-model-level concept). No StyleCop rule inspects a
@@ -195,7 +173,7 @@ method group's inferred delegate type. `SA1130UseLambdaSyntax` (rewrites `new Ac
 syntactically on the method-group argument, not its inferred type, so it's unaffected. No action needed beyond
 awareness.
 
-### 11. Overload resolution priority attribute
+### 10. Overload resolution priority attribute
 
 `[OverloadResolutionPriority(n)]` is a new BCL attribute with no special syntax. No rule maintains an allow-list of
 "known" attributes that would need updating (SA1133 "do not combine attributes" and friends are structural, not
@@ -206,9 +184,7 @@ name-based). No action needed.
 1. **Fix**: extend SA1601 / `PartialElementDocumentationSummaryBase` (SA1605, SA1607) to handle
    `PropertyDeclaration`/`IndexerDeclaration` the same way they handle `MethodDeclaration`, with new tests in
    `Test.CSharp13`.
-2. **Investigate + likely fix**: SA1101 vs. the `field` keyword's synthesized backing-field symbol (blocked on
-   `field` becoming testable without a preview flag).
-3. **Regression tests only** (safe today, just uncovered): `allows ref struct` constraints through SA1127/SA1000/SA1024;
+2. **Regression tests only** (safe today, just uncovered): `allows ref struct` constraints through SA1127/SA1000/SA1024;
    `ref struct : IInterface` through SA1201/SA1600; `params` non-array collections through SA1611/SA1117; the new
    `Lock` type through SA1501/SA1503/SA1519/SA1000; `[^n] = value` initializers through SA1010/SA1011; `\e` through
    any literal-adjacent rule; `unsafe`/`async`/iterator combinations through SA1206.
