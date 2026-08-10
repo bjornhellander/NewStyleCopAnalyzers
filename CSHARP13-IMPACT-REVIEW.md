@@ -18,7 +18,6 @@ out of scope here; preview functionality is only tracked once it targets the in-
 | `ref struct` implementing interfaces | Existing `BaseList` reused | none identified | SA1201 (interface member ordering), SA1206, documentation rules on ref-struct interface members |
 | `params` collections | No new syntax (same `params` modifier + parameter type) | none identified | SA1611/SA1615 doc rules, SA1117/SA1116 parameter layout, SA1026 (if array-specific) |
 | New `lock` object (`System.Threading.Lock`) | No new syntax, only semantic/binding change | none identified | SA1503/SA1519/SA1501 (braces around `lock`), SA1000 (`lock` keyword spacing) |
-| Implicit index (`^`) in object initializers | Reuses existing `ImplicitElementAccessSyntax` + `IndexExpression` | none identified | SA1010/SA1011 (bracket spacing), SA1008/SA1009, SA1117 |
 
 ## Details
 
@@ -134,16 +133,6 @@ field through each of these three rules, plus SA1000's `LockKeyword` spacing che
 (`SpacingRules/SA1000KeywordsMustBeSpacedCorrectly.cs:99`), to document that the new `Lock` type doesn't change
 formatting requirements.
 
-### 6. Implicit "from the end" index (`^`) in object initializers
-
-The bracketed index-initializer form (`Prop = { [key] = value }`) already existed since C# 6 for indexers; C# 13
-only adds the `^` operator as a legal *expression* inside that bracket. Both the outer construct
-(`ImplicitElementAccessSyntax`) and the operator (`SyntaxKindEx.IndexExpression`, already present at
-`Lightup/SyntaxKindEx.cs:35` since it was added for C# 8 ranges/indices) are pre-existing to the Lightup layer, so no
-wrapper work is needed. Recommended regression tests: SA1010/SA1011 (square bracket spacing), SA1008/SA1009
-(parenthesis spacing doesn't apply, but verify no false trigger), and SA1117/SA1500 for the surrounding initializer
-block, using the exact `buffer = { [^1] = 0, [^2] = 1 }` shape from the Microsoft docs example.
-
 ## Prioritized follow-ups
 
 1. **Fix**: extend SA1601 / `PartialElementDocumentationSummaryBase` (SA1605, SA1607) to handle
@@ -151,4 +140,4 @@ block, using the exact `buffer = { [^1] = 0, [^2] = 1 }` shape from the Microsof
    `Test.CSharp13`.
 2. **Regression tests only** (safe today, just uncovered): `allows ref struct` constraints through SA1127/SA1000/SA1024;
    `ref struct : IInterface` through SA1201/SA1600; `params` non-array collections through SA1611/SA1117; the new
-   `Lock` type through SA1501/SA1503/SA1519/SA1000; `[^n] = value` initializers through SA1010/SA1011.
+   `Lock` type through SA1501/SA1503/SA1519/SA1000.
