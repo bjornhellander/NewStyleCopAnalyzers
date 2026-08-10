@@ -19,7 +19,6 @@ out of scope here; preview functionality is only tracked once it targets the in-
 | `params` collections | No new syntax (same `params` modifier + parameter type) | none identified | SA1611/SA1615 doc rules, SA1117/SA1116 parameter layout, SA1026 (if array-specific) |
 | New `lock` object (`System.Threading.Lock`) | No new syntax, only semantic/binding change | none identified | SA1503/SA1519/SA1501 (braces around `lock`), SA1000 (`lock` keyword spacing) |
 | Implicit index (`^`) in object initializers | Reuses existing `ImplicitElementAccessSyntax` + `IndexExpression` | none identified | SA1010/SA1011 (bracket spacing), SA1008/SA1009, SA1117 |
-| `\e` escape sequence | New escape in character/string literals, no new token kind | none identified | SA1027 (tabs), any literal-scanning helper |
 
 ## Details
 
@@ -145,14 +144,6 @@ wrapper work is needed. Recommended regression tests: SA1010/SA1011 (square brac
 (parenthesis spacing doesn't apply, but verify no false trigger), and SA1117/SA1500 for the surrounding initializer
 block, using the exact `buffer = { [^1] = 0, [^2] = 1 }` shape from the Microsoft docs example.
 
-### 7. `\e` escape sequence
-
-A new character-literal escape, but not a new token kind — it's lexed as part of the existing character/string
-literal token text, the same way `\n`/`\t`/`` already are. No rule inspects escape-sequence contents (no hits
-for literal escape parsing outside of `LightJson`, which is unrelated bundled JSON code, not analyzer logic). Low
-risk; a single regression test (e.g. against SA1027 tabs-and-spaces-in-literals-adjacent checks, and any string/char
-literal-focused rule) to confirm `'\e'` round-trips without a spurious diagnostic is sufficient.
-
 ## Prioritized follow-ups
 
 1. **Fix**: extend SA1601 / `PartialElementDocumentationSummaryBase` (SA1605, SA1607) to handle
@@ -160,5 +151,4 @@ literal-focused rule) to confirm `'\e'` round-trips without a spurious diagnosti
    `Test.CSharp13`.
 2. **Regression tests only** (safe today, just uncovered): `allows ref struct` constraints through SA1127/SA1000/SA1024;
    `ref struct : IInterface` through SA1201/SA1600; `params` non-array collections through SA1611/SA1117; the new
-   `Lock` type through SA1501/SA1503/SA1519/SA1000; `[^n] = value` initializers through SA1010/SA1011; `\e` through
-   any literal-adjacent rule.
+   `Lock` type through SA1501/SA1503/SA1519/SA1000; `[^n] = value` initializers through SA1010/SA1011.
