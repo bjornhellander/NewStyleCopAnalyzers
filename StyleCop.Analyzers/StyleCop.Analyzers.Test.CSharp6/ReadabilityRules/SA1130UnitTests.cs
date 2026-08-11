@@ -7,6 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Lightup;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1130UseLambdaSyntax,
@@ -14,6 +15,32 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
 
     public class SA1130UnitTests
     {
+        public static TheoryData<string> ParamsTypes
+        {
+            get
+            {
+                var data = new TheoryData<string>()
+                {
+                    "Action[]",
+                };
+
+                if (LightupHelpers.SupportsCSharp13)
+                {
+                    // params collections: params is no longer limited to array types as of C# 13.
+                    data.Add("IEnumerable<Action>");
+                    data.Add("IReadOnlyCollection<Action>");
+                    data.Add("IReadOnlyList<Action>");
+                    data.Add("ICollection<Action>");
+                    data.Add("IList<Action>");
+                    data.Add("List<Action>");
+                    data.Add("ReadOnlySpan<Action>");
+                    data.Add("Span<Action>");
+                }
+
+                return data;
+            }
+        }
+
         [Fact]
         public async Task TestSimpleDelegateUseAsync()
         {
@@ -375,43 +402,48 @@ public class TypeName
             await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
-        [Fact]
-        public async Task TestParamsAsync()
+        [Theory]
+        [MemberData(nameof(ParamsTypes))]
+        public async Task TestParamsAsync(string paramsType)
         {
-            var testCode = @"
+            var testCode = $@"
 using System;
-public class TypeName
-{
-    public void Test(params Action[] argument)
-    {
+using System.Collections.Generic;
 
-    }
+public class TypeName
+{{
+    public void Test(params {paramsType} argument)
+    {{
+
+    }}
 
     public void Test()
-    {
-        Test(delegate { }, delegate { });
-    }
-}";
+    {{
+        Test(delegate {{ }}, delegate {{ }});
+    }}
+}}";
 
-            string fixedCode = @"
+            string fixedCode = $@"
 using System;
-public class TypeName
-{
-    public void Test(params Action[] argument)
-    {
+using System.Collections.Generic;
 
-    }
+public class TypeName
+{{
+    public void Test(params {paramsType} argument)
+    {{
+
+    }}
 
     public void Test()
-    {
-        Test(() => { }, () => { });
-    }
-}";
+    {{
+        Test(() => {{ }}, () => {{ }});
+    }}
+}}";
 
             var expected = new[]
             {
-                Diagnostic().WithLocation(12, 14),
-                Diagnostic().WithLocation(12, 28),
+                Diagnostic().WithLocation(14, 14),
+                Diagnostic().WithLocation(14, 28),
             };
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
