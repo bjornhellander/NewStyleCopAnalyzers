@@ -17,7 +17,6 @@ out of scope here; preview functionality is only tracked once it targets the in-
 | `allows ref struct` constraint | **New syntax node**, no Lightup wrapper exists | none identified as broken, but needs a `Lightup` audit | SA1127, SA1000, SA1024, SA1013/SA1015 |
 | `ref struct` implementing interfaces | Existing `BaseList` reused | none identified | SA1201 (interface member ordering), SA1206, documentation rules on ref-struct interface members |
 | `params` collections | No new syntax (same `params` modifier + parameter type) | none identified | SA1611/SA1615 doc rules, SA1117/SA1116 parameter layout, SA1026 (if array-specific) |
-| New `lock` object (`System.Threading.Lock`) | No new syntax, only semantic/binding change | none identified | SA1503/SA1519/SA1501 (braces around `lock`), SA1000 (`lock` keyword spacing) |
 
 ## Details
 
@@ -122,22 +121,10 @@ zero existing test coverage for a `params` parameter of a non-array type. Add re
   - Any rule that special-cases the *last* parameter of a method (none currently identified, but worth double
     checking readability rules around method signatures).
 
-### 5. New `lock` object (`System.Threading.Lock`)
-
-Purely a binding/codegen change — the C# `lock` statement syntax (`LockStatementSyntax`) is unchanged whether the
-locked expression is a `Lock`, a reference type, or (in `unsafe` contexts) something else. The three rules that
-inspect `LockStatementSyntax` (`SA1501StatementMustNotBeOnASingleLine`, `SA1503BracesMustNotBeOmitted`,
-`SA1519BracesMustNotBeOmittedFromMultiLineChildStatement`) all operate purely on the statement's block/brace shape,
-not on the type of the locked expression, so no change is expected. Add a regression test locking a `System.Threading.Lock`
-field through each of these three rules, plus SA1000's `LockKeyword` spacing check
-(`SpacingRules/SA1000KeywordsMustBeSpacedCorrectly.cs:99`), to document that the new `Lock` type doesn't change
-formatting requirements.
-
 ## Prioritized follow-ups
 
 1. **Fix**: extend SA1601 / `PartialElementDocumentationSummaryBase` (SA1605, SA1607) to handle
    `PropertyDeclaration`/`IndexerDeclaration` the same way they handle `MethodDeclaration`, with new tests in
    `Test.CSharp13`.
 2. **Regression tests only** (safe today, just uncovered): `allows ref struct` constraints through SA1127/SA1000/SA1024;
-   `ref struct : IInterface` through SA1201/SA1600; `params` non-array collections through SA1611/SA1117; the new
-   `Lock` type through SA1501/SA1503/SA1519/SA1000.
+   `ref struct : IInterface` through SA1201/SA1600; `params` non-array collections through SA1611/SA1117.
