@@ -70,5 +70,26 @@ public ref struct TestRefStruct : IInterface
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestPartialPropertyBothPartsMissingDocumentationAsync()
+        {
+            var testCode = @"
+public partial class ClassName
+{
+    public partial int [|Test|] { get; set; }
+}
+
+public partial class ClassName
+{
+    public partial int [|Test|]
+    {
+        get => 0;
+        set { }
+    }
+}";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

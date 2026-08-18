@@ -31,5 +31,30 @@ public ref struct TestRefStruct : IInterface
 
             await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestFieldAfterPartialPropertyAsync()
+        {
+            var testCode = @"
+public partial class TypeName
+{
+    public partial int Test { get; set; }
+
+    public int {|#0:TestField|};
+}
+
+public partial class TypeName
+{
+    public partial int Test
+    {
+        get => 0;
+        set { }
+    }
+}";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("field", "property");
+
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
