@@ -14,7 +14,6 @@ out of scope here; preview functionality is only tracked once it targets the in-
 | Feature | New syntax? | Rules requiring code changes | Rules needing regression tests only |
 |---|---|---|---|
 | Partial properties / indexers | Existing node kinds reused (`PropertyDeclaration`, `IndexerDeclaration` without a body) | SA1601, SA1605, SA1607, SA1619 (and `PartialElementDocumentationSummaryBase`) | SA1600, SA1201/SA1202/SA1206, SA1205 |
-| `allows ref struct` constraint | **New syntax node**, no Lightup wrapper exists | none identified as broken, but needs a `Lightup` audit | SA1127, SA1000, SA1024, SA1013/SA1015 |
 
 ## Details
 
@@ -68,36 +67,8 @@ the test suite before:
     `SyntaxKind.PartialKeyword` in `ModifierOrderHelper.GetModifierType`,
     `Helpers/ModifierOrderHelper.cs:68`) — should just work, but had no test coverage for `partial` properties before.
 
-### 2. `allows ref struct` generic constraint — new syntax with no Lightup wrapper
-
-Confirmed by inspecting `Lightup/SyntaxKindEx.cs` (full file read) and `Lightup/Syntax.xml`: there is **no** constant
-or generated wrapper for the new `AllowsConstraintClauseSyntax` / `RefStructConstraintSyntax` node that backs
-`where T : allows ref struct`. Every other C# 6–13 syntax addition the repo already supports (patterns, `scoped`,
-`required`, file-scoped namespaces, collection expressions, etc.) has a corresponding entry there — this one is
-simply missing, most likely because it was never needed for anything (StyleCop has no rule that specifically
-validates constraint *contents*), but it means any future rule work involving generic constraints must special-case
-this node the same way `ClassOrStructConstraintSyntaxExtensions.cs` does for `class`/`struct`/`T?`.
-
-No currently-shipping rule appears to break, because the rules that touch `TypeParameterConstraintClauseSyntax`
-operate on the *whole clause* rather than switching over individual `Constraints` entries:
-  - `SA1127GenericTypeConstraintsMustBeOnOwnLine` (`ReadabilityRules/SA1127GenericTypeConstraintsMustBeOnOwnLine.cs:47-54`)
-    only looks at `syntax.WhereKeyword`, so `allows ref struct` is inert to it.
-  - `SA1000KeywordsMustBeSpacedCorrectly` treats `SyntaxKind.RefKeyword` as "always require a following space"
-    unconditionally for every `ref` token in the file (`SpacingRules/SA1000KeywordsMustBeSpacedCorrectly.cs:104`),
-    so the `ref` in `allows ref struct` is covered incidentally, not by design.
-  - `struct` (the second word of the anti-constraint) and `allows` (the contextual keyword introducing it) are not
-    in SA1000's keyword switch at all, meaning today nothing enforces "no space before the comma"/"one space after
-    allows" specifically for this construct — likely fine since generic whitespace/token rules (SA1001 comma
-    spacing, SA1025 single-space rules) still apply to the surrounding tokens, but this has zero test coverage.
-
-**Recommended action**: no code fix required, but add regression tests exercising
-`class C<T> where T : allows ref struct { }` (and multi-constraint forms, e.g. `where T : SomeInterface, allows ref
-struct`) against SA1127, SA1000, SA1001, SA1024 (colon spacing), and SA1206, to lock in that this brand-new node
-shape doesn't crash or misformat under any existing rule that walks constraint clauses/tokens.
-
 ## Prioritized follow-ups
 
 1. **Fix**: extend SA1601 / `PartialElementDocumentationSummaryBase` (SA1605, SA1607) to handle
    `PropertyDeclaration`/`IndexerDeclaration` the same way they handle `MethodDeclaration`, with new tests in
    `Test.CSharp13`.
-2. **Regression tests only** (safe today, just uncovered): `allows ref struct` constraints through SA1127/SA1000/SA1024.
