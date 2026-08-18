@@ -15,7 +15,6 @@ out of scope here; preview functionality is only tracked once it targets the in-
 |---|---|---|---|
 | Partial properties / indexers | Existing node kinds reused (`PropertyDeclaration`, `IndexerDeclaration` without a body) | SA1601, SA1605, SA1607, SA1619 (and `PartialElementDocumentationSummaryBase`) | SA1600, SA1201/SA1202/SA1206, SA1205 |
 | `allows ref struct` constraint | **New syntax node**, no Lightup wrapper exists | none identified as broken, but needs a `Lightup` audit | SA1127, SA1000, SA1024, SA1013/SA1015 |
-| `ref struct` implementing interfaces | Existing `BaseList` reused | none identified | SA1201 (interface member ordering), SA1206, documentation rules on ref-struct interface members |
 
 ## Details
 
@@ -96,22 +95,9 @@ operate on the *whole clause* rather than switching over individual `Constraints
 struct`) against SA1127, SA1000, SA1001, SA1024 (colon spacing), and SA1206, to lock in that this brand-new node
 shape doesn't crash or misformat under any existing rule that walks constraint clauses/tokens.
 
-### 3. `ref struct` types implementing interfaces
-
-No new syntax node — a `ref struct`'s `BaseList` is the same `BaseListSyntax` any class/struct uses. Rules that key
-off "does this struct implement an interface" (SA1201 ordering of interface implementations, documentation rules
-for interface member implementations, SA1206 modifier order for `readonly`/`ref` on struct members) should work
-unmodified, but none of the current test suites exercise a `ref struct ... : ISomething` declaration or the new
-"`ref struct` can have `default interface method` bodies but can only be reached through a type parameter with
-`allows ref struct`" restriction. Add regression tests for:
-  - SA1201/SA1202 ordering when a `ref struct` implements an interface (methods, explicit interface
-    implementations).
-  - Documentation rules (SA1600 family) on a `ref struct`'s explicit interface member implementations.
-
 ## Prioritized follow-ups
 
 1. **Fix**: extend SA1601 / `PartialElementDocumentationSummaryBase` (SA1605, SA1607) to handle
    `PropertyDeclaration`/`IndexerDeclaration` the same way they handle `MethodDeclaration`, with new tests in
    `Test.CSharp13`.
-2. **Regression tests only** (safe today, just uncovered): `allows ref struct` constraints through SA1127/SA1000/SA1024;
-   `ref struct : IInterface` through SA1201/SA1600.
+2. **Regression tests only** (safe today, just uncovered): `allows ref struct` constraints through SA1127/SA1000/SA1024.
