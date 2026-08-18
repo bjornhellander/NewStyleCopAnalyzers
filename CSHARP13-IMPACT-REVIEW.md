@@ -16,7 +16,6 @@ out of scope here; preview functionality is only tracked once it targets the in-
 | Partial properties / indexers | Existing node kinds reused (`PropertyDeclaration`, `IndexerDeclaration` without a body) | SA1601, SA1605, SA1607, SA1619 (and `PartialElementDocumentationSummaryBase`) | SA1600, SA1201/SA1202/SA1206, SA1205 |
 | `allows ref struct` constraint | **New syntax node**, no Lightup wrapper exists | none identified as broken, but needs a `Lightup` audit | SA1127, SA1000, SA1024, SA1013/SA1015 |
 | `ref struct` implementing interfaces | Existing `BaseList` reused | none identified | SA1201 (interface member ordering), SA1206, documentation rules on ref-struct interface members |
-| `params` collections | No new syntax (same `params` modifier + parameter type) | **SA1130** (fixed) | SA1611/SA1615 doc rules, SA1117/SA1116 parameter layout |
 
 ## Details
 
@@ -109,33 +108,10 @@ unmodified, but none of the current test suites exercise a `ref struct ... : ISo
     implementations).
   - Documentation rules (SA1600 family) on a `ref struct`'s explicit interface member implementations.
 
-### 4. `params` collections (`params ReadOnlySpan<T>`, `params IEnumerable<T>`, etc.)
-
-No new syntax — the `params` modifier is unchanged; only the *type* it can precede is more permissive.
-
-**Fixed**: `SA1130UseLambdaSyntax.GetDelegateParameterList` (`ReadabilityRules/SA1130UseLambdaSyntax.cs:73-90`)
-checked `IsParams` and only knew how to extract the delegate type when the parameter was an `IArrayTypeSymbol`; for
-any other type (i.e. every C# 13 params-collection shape) it returned `null`, which made `HandleMethodInvocation`
-silently suppress the diagnostic — SA1130 stopped offering the `delegate { }` → lambda fix entirely once the
-`params` parameter was `IEnumerable<T>`, `IReadOnlyCollection<T>`, `IReadOnlyList<T>`, `ICollection<T>`, `IList<T>`,
-`List<T>`, `Span<T>`, or `ReadOnlySpan<T>` instead of an array. (The original code even had a `TODO: Investigate!`
-comment anticipating this exact case: *"This if statement should be extended if e.g. Span params are introduced into
-the language."*) Fixed by also extracting the element type from `INamedTypeSymbol.TypeArguments[0]` when the params
-type has exactly one type argument, covering all of the above. Verified with a `[Theory]`/`TheoryData<string>`-driven
-`TestParamsAsync` in `StyleCop.Analyzers.Test.CSharp6/ReadabilityRules/SA1130UnitTests.cs`, gated on
-`LightupHelpers.SupportsCSharp13` for the new collection-type cases (fails without the fix: 8/9 cases return 0
-diagnostics instead of 2).
-
-Remaining regression-test-only gaps in this area:
-  - SA1611/SA1615/SA1617 (parameter documentation rules) with `params ReadOnlySpan<T> items`.
-  - SA1117/SA1116 (parameters on same/different lines) with a `params Span<T>`/`params IEnumerable<T>` parameter.
-  - Any other rule that special-cases the *last* parameter of a method (none currently identified, but worth double
-    checking readability rules around method signatures).
-
 ## Prioritized follow-ups
 
 1. **Fix**: extend SA1601 / `PartialElementDocumentationSummaryBase` (SA1605, SA1607) to handle
    `PropertyDeclaration`/`IndexerDeclaration` the same way they handle `MethodDeclaration`, with new tests in
    `Test.CSharp13`.
 2. **Regression tests only** (safe today, just uncovered): `allows ref struct` constraints through SA1127/SA1000/SA1024;
-   `ref struct : IInterface` through SA1201/SA1600; `params` non-array collections through SA1611/SA1117.
+   `ref struct : IInterface` through SA1201/SA1600.

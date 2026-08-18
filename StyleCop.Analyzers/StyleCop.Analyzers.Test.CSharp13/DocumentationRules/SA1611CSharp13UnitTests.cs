@@ -1,0 +1,61 @@
+﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+namespace StyleCop.Analyzers.Test.CSharp13.DocumentationRules
+{
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.Testing;
+    using Xunit;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.DocumentationRules.SA1611ElementParametersMustBeDocumented>;
+
+    public partial class SA1611CSharp13UnitTests
+    {
+        [Fact]
+        public async Task TestParamsCollectionParameterMissingDocumentationAsync()
+        {
+            var testCode = @"
+using System;
+
+/// <summary>
+/// Foo
+/// </summary>
+public class ClassName
+{
+    /// <summary>
+    /// Foo
+    /// </summary>
+    public void TestMethod(params ReadOnlySpan<int> {|#0:values|})
+    {
+    }
+}";
+
+            var expected = new[] { Diagnostic().WithLocation(0).WithArguments("values") };
+
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestParamsCollectionParameterWithDocumentationAsync()
+        {
+            var testCode = @"
+using System;
+
+/// <summary>
+/// Foo
+/// </summary>
+public class ClassName
+{
+    /// <summary>
+    /// Foo
+    /// </summary>
+    /// <param name=""values"">The values.</param>
+    public void TestMethod(params ReadOnlySpan<int> values)
+    {
+    }
+}";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+    }
+}
