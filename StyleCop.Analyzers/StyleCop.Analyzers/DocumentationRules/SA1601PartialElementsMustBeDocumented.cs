@@ -95,9 +95,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             // TODO: The action name relates to BaseTypeDeclaration, but the registered syntax kinds are TypeDeclaration
             context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.TypeDeclaration);
 
-            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-            // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
-            // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
+            // Register UnionDeclaration separately (with a duplicate-node guard, see the helper for why it is needed).
             context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(BaseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
 
             context.RegisterSyntaxNodeAction(MethodDeclarationAction, SyntaxKind.MethodDeclaration);

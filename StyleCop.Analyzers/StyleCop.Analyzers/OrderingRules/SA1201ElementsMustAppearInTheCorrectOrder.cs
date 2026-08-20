@@ -189,10 +189,7 @@ namespace StyleCop.Analyzers.OrderingRules
             context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
 
-            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-            // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
-            // Register it separately (with a duplicate-node guard, see the helper for why it is needed) so
-            // ordering is also checked among the members declared within a union's own body.
+            // Register UnionDeclaration separately (with a duplicate-node guard, see the helper for why it is needed)
             context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
         }
 

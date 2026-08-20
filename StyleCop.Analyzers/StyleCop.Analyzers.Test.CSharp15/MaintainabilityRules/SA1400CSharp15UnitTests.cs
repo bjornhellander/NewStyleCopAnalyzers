@@ -44,5 +44,81 @@ internal union TestUnion(string, int)
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestNestedUnionWithoutAccessModifierAsync()
+        {
+            var testCode = @"
+public class OuterClass
+{
+    union {|#0:TestUnion|}(string, int)
+    {
+    }
+}
+";
+
+            var fixedCode = @"
+public class OuterClass
+{
+    private union TestUnion(string, int)
+    {
+    }
+}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("TestUnion");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestUnionWithAttributesWithoutAccessModifierAsync()
+        {
+            var testCode = @"
+using System;
+
+[Obsolete]
+union {|#0:TestUnion|}(string, int)
+{
+}
+";
+
+            var fixedCode = @"
+using System;
+
+[Obsolete]
+internal union TestUnion(string, int)
+{
+}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("TestUnion");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestUnionWithDirectivesWithoutAccessModifierAsync()
+        {
+            var testCode = @"
+#if true
+union {|#0:TestUnion|}(string, int)
+{
+}
+#endif
+";
+
+            var fixedCode = @"
+#if true
+internal union TestUnion(string, int)
+{
+}
+#endif
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("TestUnion");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

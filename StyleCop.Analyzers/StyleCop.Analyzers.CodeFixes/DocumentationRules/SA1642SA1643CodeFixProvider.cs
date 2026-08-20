@@ -157,7 +157,13 @@ namespace StyleCop.Analyzers.DocumentationRules
                 return recordDeclaration.TypeParameterList;
             }
 
-            // TODO: Investigate if this is complete. Unions? "base type" also inculdes enums.
+            if (UnionDeclarationSyntaxWrapper.IsInstance(typeDeclaration))
+            {
+                var unionDeclaration = (UnionDeclarationSyntaxWrapper)typeDeclaration;
+                return unionDeclaration.TypeParameterList;
+            }
+
+            // TODO: Investigate if this is complete. "base type" also inculdes enums.
             Debug.Assert(false, $"Unhandled type {typeDeclaration.Kind()}");
             return null!; // TODO: Try to get rid of the !
         }

@@ -62,9 +62,7 @@ namespace StyleCop.Analyzers.DocumentationRules
             context.RegisterSyntaxNodeAction(this.conversionOperatorDeclarationAction, SyntaxKind.ConversionOperatorDeclaration);
             context.RegisterSyntaxNodeAction(this.baseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
 
-            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-            // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.BaseTypeDeclaration.
-            // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
+            // Register UnionDeclaration separately (with a duplicate-node guard, see the helper for why it is needed).
             context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(this.baseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
 
             context.RegisterSyntaxNodeAction(this.fieldDeclarationAction, SyntaxKind.FieldDeclaration);
