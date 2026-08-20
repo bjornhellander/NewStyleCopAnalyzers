@@ -121,6 +121,7 @@ namespace StyleCop.Analyzers.SpacingRules
             case SyntaxKind.ThrowKeyword:
             case SyntaxKind.TypeOfKeyword:
             case SyntaxKind.UncheckedKeyword:
+            case SyntaxKind.UnsafeKeyword:
             case SyntaxKind.UsingKeyword:
             case SyntaxKind.WhereKeyword:
             case SyntaxKind.WhileKeyword:

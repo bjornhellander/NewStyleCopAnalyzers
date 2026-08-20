@@ -32,6 +32,10 @@ namespace StyleCop.Analyzers.SpacingRules
     /// except where used to create a new implicitly-typed array, in which case there should be no space between the
     /// keyword and the opening array bracket.</para>
     /// </remarks>
+    // TODO: The remarks above and documentation/SA1000.md are out of sync with each other and with the analyzer:
+    // the remarks omit 'and', 'await', 'case', 'is', 'not', 'or', 'nameof', and 'unsafe' from the keyword lists, and
+    // neither doc describes the no-space exceptions for 'return' (bare 'return;' / 'return:' attribute target) or
+    // the required-space cases for 'checked'/'unchecked' (statement and operator declaration forms).
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     internal class SA1000KeywordsMustBeSpacedCorrectly : DiagnosticAnalyzerBase
     {
@@ -130,6 +134,20 @@ namespace StyleCop.Analyzers.SpacingRules
 
                     default:
                         // So far an unknown case, so we have no opinion yet
+                        break;
+                    }
+
+                    break;
+
+                case SyntaxKind.UnsafeKeyword:
+                    switch (token.Parent.Kind())
+                    {
+                    case SyntaxKindEx.UnsafeExpression:
+                        HandleDisallowedSpaceToken(ref context, token);
+                        break;
+
+                    default:
+                        // The 'unsafe' modifier and the 'unsafe' statement are not covered by this analyzer.
                         break;
                     }
 
