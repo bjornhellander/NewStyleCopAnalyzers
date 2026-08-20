@@ -146,15 +146,16 @@ namespace StyleCop.Analyzers.Test.CSharp6.Verifiers
                         .AddMetadataReference(projectId, system.WithAliases(new[] { "global", "system" }));
                 });
 
+                // TODO: Remove when the test nugets have support for c# 15
                 if (LightupHelpers.SupportsCSharp15)
                 {
-                    // The reference assemblies do not yet include the UnionAttribute and IUnion types (System.Runtime.CompilerServices).
-                    // Compile them into a small in-memory assembly (built against the same reference assemblies as the test project and
-                    // add it as a metadata reference, so union type declarations compile.
+                    // The used reference assemblies do not yet include the needed compiler support types for c# 15.
+                    // Compile them into a small in-memory assembly (built against the same reference assemblies as the test project)
+                    // and add it as a metadata reference, so union type and closed class declarations compile.
                     this.SolutionTransforms.Add((solution, projectId) =>
                     {
                         var project = solution.GetProject(projectId);
-                        return project.AddMetadataReference(CreateUnionTypesReference(project)).Solution;
+                        return project.AddMetadataReference(CreateCSharp15PreviewTypesReference(project)).Solution;
                     });
                 }
 
@@ -347,7 +348,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.Verifiers
                 return new[] { codeFixProvider };
             }
 
-            private static MetadataReference CreateUnionTypesReference(Project project)
+            private static MetadataReference CreateCSharp15PreviewTypesReference(Project project)
             {
                 var source = @"
 namespace System.Runtime.CompilerServices
@@ -361,11 +362,16 @@ namespace System.Runtime.CompilerServices
     {
         object? Value { get; }
     }
+
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+    public sealed class IsClosedTypeAttribute : Attribute
+    {
+    }
 }
 ";
 
                 var compilation = CSharpCompilation.Create(
-                        "StyleCop.Analyzers.Test.UnionTypes",
+                        "StyleCop.Analyzers.Test.CSharp15PreviewTypes",
                         new[] { CSharpSyntaxTree.ParseText(source) },
                         project.MetadataReferences,
                         new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
@@ -375,7 +381,7 @@ namespace System.Runtime.CompilerServices
                 if (!emitResult.Success)
                 {
                     throw new InvalidOperationException(
-                        "Failed to compile the synthetic union types assembly: "
+                        "Failed to compile the synthetic C# 15 preview types assembly: "
                         + string.Join(Environment.NewLine, emitResult.Diagnostics));
                 }
 

@@ -30,7 +30,7 @@ namespace StyleCop.Analyzers.OrderingRules
             Static,
 
             /// <summary>
-            /// Represents other modifiers, i.e <see langword="partial"/>, <see langword="virtual"/>, <see langword="abstract"/>, <see langword="override"/>, <see langword="extern"/>, <see langword="unsafe"/>, <see langword="new"/>, <see langword="async"/>, <see langword="const"/>, <see langword="sealed"/>, <see langword="readonly"/>, <see langword="volatile"/>, <see langword="fixed"/>, <see langword="ref"/>.
+            /// Represents other modifiers, i.e <see langword="partial"/>, <see langword="virtual"/>, <see langword="abstract"/>, <see langword="override"/>, <see langword="extern"/>, <see langword="unsafe"/>, <see langword="new"/>, <see langword="async"/>, <see langword="const"/>, <see langword="sealed"/>, <see langword="readonly"/>, <see langword="volatile"/>, <see langword="fixed"/>, <see langword="ref"/>, <see langword="required"/>, <see langword="closed"/>.
             /// </summary>
             Other,
         }
@@ -68,6 +68,7 @@ namespace StyleCop.Analyzers.OrderingRules
             case SyntaxKind.PartialKeyword:
             case SyntaxKind.RefKeyword:
             case SyntaxKindEx.RequiredKeyword:
+            case SyntaxKindEx.ClosedKeyword:
                 result = ModifierType.Other;
                 break;
             }
