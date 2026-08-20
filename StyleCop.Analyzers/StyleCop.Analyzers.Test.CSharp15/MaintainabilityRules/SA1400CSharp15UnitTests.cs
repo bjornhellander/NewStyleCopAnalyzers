@@ -120,5 +120,37 @@ internal union TestUnion(string, int)
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestClosedClassWithoutAccessModifierAsync()
+        {
+            var testCode = @"
+closed class {|#0:TestClosed|}
+{
+}
+";
+
+            var fixedCode = @"
+internal closed class TestClosed
+{
+}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("TestClosed");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestClosedClassWithAccessModifierAsync()
+        {
+            var testCode = @"
+public closed class TestClosed
+{
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

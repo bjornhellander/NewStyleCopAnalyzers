@@ -72,6 +72,13 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
                     data.Add("record struct");
                 }
 
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    data.Add("public closed partial class");
+                    data.Add("internal closed partial class");
+                    data.Add("closed class");
+                }
+
                 return data;
             }
         }
@@ -101,6 +108,11 @@ namespace StyleCop.Analyzers.Test.CSharp6.OrderingRules
                     data.Add("sealed partial record class");
 
                     data.Add("partial record struct");
+                }
+
+                if (LightupHelpers.SupportsCSharp15)
+                {
+                    data.Add("closed partial class");
                 }
 
                 return data;

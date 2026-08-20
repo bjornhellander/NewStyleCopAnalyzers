@@ -36,10 +36,25 @@ public class Foo
         [Theory]
         [InlineData("")]
         [InlineData(" ")]
-        public async Task TestUnionKeywordAsync(string spaces)
+        [InlineData("/* comment */")]
+        public async Task TestUnionKeywordAsync(string separator)
         {
             var testCode = $@"
-public union{spaces}@TestUnion(string, int);
+public union{separator}@TestUnion(string, int);
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Theory]
+        [InlineData(" ")]
+        [InlineData("/* comment */")]
+        public async Task TestClosedKeywordAsync(string separator)
+        {
+            var testCode = $@"
+public closed{separator}class TestClosed
+{{
+}}
 ";
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
