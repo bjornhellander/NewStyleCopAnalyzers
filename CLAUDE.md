@@ -104,6 +104,8 @@ and no non-default descriptor — pass `DiagnosticResult.EmptyDiagnosticResults`
 the marker alone supplies the expected diagnostic. Use `{|#0:Xyz|}` + `Diagnostic().WithLocation(0)` instead
 once you need more than `[|Xyz|]` can express: attaching arguments, or picking a specific descriptor.
 
+Do not run different test projects in parallel, because of the high memory usage it would cause.
+
 ### Rule anatomy
 
 Each rule follows a consistent triad, all named by diagnostic ID (`SAxxxx`/`SXxxxx`):

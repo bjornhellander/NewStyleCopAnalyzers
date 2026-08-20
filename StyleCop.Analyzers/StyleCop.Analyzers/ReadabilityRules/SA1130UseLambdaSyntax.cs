@@ -76,11 +76,14 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 {
                     type = arrayTypeSymbol.ElementType;
                 }
+                else if (type is INamedTypeSymbol namedTypeSymbol && namedTypeSymbol.TypeArguments.Length == 1)
+                {
+                    // params collections (C# 13 and later): Span<T>, ReadOnlySpan<T>, etc.
+                    type = namedTypeSymbol.TypeArguments[0];
+                }
                 else
                 {
-                    // TODO: Investigate!
-                    // Just to make sure that we do not crash if in future versions of the compiler other types are allowed for params.
-                    // This if statement should be extended if e.g. Span params are introduced into the language.
+                    // Just to make sure that we do not crash if future versions of the compiler allow other types.
                     return null;
                 }
             }
@@ -164,7 +167,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
                 if (parameterList == null)
                 {
-                    // This might happen if the call was using params with a type unknown to the analyzer, e.g. params Span<T>.
+                    // This might happen if the call was using params with a type unknown to the analyzer.
                     return false;
                 }
 

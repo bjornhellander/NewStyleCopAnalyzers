@@ -42,6 +42,7 @@ namespace StyleCop.Analyzers.OrderingRules
         /// <inheritdoc/>
         protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
+            // TODO: Should this handle methods etc as well?
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
 
             // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
