@@ -80,13 +80,16 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 break;
 
             case SyntaxKind.StructDeclaration:
-            case SyntaxKindEx.UnionDeclaration when declarationNode is StructDeclarationSyntax: // TODO: Update when representation of union has been changed
                 updatedDeclarationNode = HandleStructDeclaration((StructDeclarationSyntax)declarationNode);
                 break;
 
             case SyntaxKindEx.RecordDeclaration:
             case SyntaxKindEx.RecordStructDeclaration:
                 updatedDeclarationNode = HandleRecordDeclaration((RecordDeclarationSyntaxWrapper)declarationNode);
+                break;
+
+            case SyntaxKindEx.UnionDeclaration when declarationNode is not StructDeclarationSyntax: // TODO: Update when integrating the official c# 15 nuget
+                updatedDeclarationNode = HandleUnionDeclaration((UnionDeclarationSyntaxWrapper)declarationNode);
                 break;
 
             case SyntaxKind.DelegateDeclaration:
@@ -202,6 +205,23 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         }
 
         private static SyntaxNode? HandleRecordDeclaration(RecordDeclarationSyntaxWrapper node)
+        {
+            SyntaxToken triviaToken = node.Keyword;
+            if (triviaToken.IsMissing)
+            {
+                return null;
+            }
+
+            SyntaxKind defaultVisibility = IsNestedType(node) ? SyntaxKind.PrivateKeyword : SyntaxKind.InternalKeyword;
+            SyntaxTokenList modifiers = DeclarationModifiersHelper.AddModifier(node.Modifiers, ref triviaToken, defaultVisibility);
+            return node
+                .WithKeyword(triviaToken)
+                .WithModifiers(modifiers)
+                .SyntaxNode
+                .WithoutFormatting();
+        }
+
+        private static SyntaxNode? HandleUnionDeclaration(UnionDeclarationSyntaxWrapper node)
         {
             SyntaxToken triviaToken = node.Keyword;
             if (triviaToken.IsMissing)

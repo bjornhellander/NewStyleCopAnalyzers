@@ -89,6 +89,8 @@ namespace StyleCop.Analyzers.Lightup
             builder.Add(typeof(TupleTypeSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(TupleTypeSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(TypePatternSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(TypePatternSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(UnaryPatternSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(UnaryPatternSyntaxWrapper.WrappedTypeName));
+            builder.Add(typeof(UnionDeclarationSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(UnionDeclarationSyntaxWrapper.WrappedTypeName));
+            builder.Add(typeof(UnsafeExpressionSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(UnsafeExpressionSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(VariableDesignationSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(VariableDesignationSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(VarPatternSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(VarPatternSyntaxWrapper.WrappedTypeName));
             builder.Add(typeof(WhenClauseSyntaxWrapper), csharpCodeAnalysisAssembly.GetType(WhenClauseSyntaxWrapper.WrappedTypeName));

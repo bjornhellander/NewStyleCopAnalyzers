@@ -51,6 +51,7 @@ namespace StyleCop.Analyzers.NamingRules
         private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> BaseNamespaceDeclarationAction = HandleBaseNamespaceDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> ClassDeclarationAction = HandleClassDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> RecordDeclarationAction = HandleRecordDeclaration;
+        private static readonly Action<SyntaxNodeAnalysisContext> UnionDeclarationAction = HandleUnionDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> EnumDeclarationAction = HandleEnumDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> EnumMemberDeclarationAction = HandleEnumMemberDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> StructDeclarationAction = HandleStructDeclaration;
@@ -79,10 +80,8 @@ namespace StyleCop.Analyzers.NamingRules
             context.RegisterSyntaxNodeAction(EnumMemberDeclarationAction, SyntaxKind.EnumMemberDeclaration);
             context.RegisterSyntaxNodeAction(StructDeclarationAction, SyntaxKind.StructDeclaration);
 
-            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-            // SyntaxKindEx.UnionDeclaration. Register it separately (with a duplicate-node guard, see the
-            // helper for why it is needed), reusing the same handler since it operates on StructDeclarationSyntax.
-            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(StructDeclarationAction, SyntaxKindEx.UnionDeclaration);
+            // Register UnionDeclaration with a duplicate-node guard, see the helper for why it is needed.
+            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(UnionDeclarationAction, SyntaxKindEx.UnionDeclaration);
 
             context.RegisterSyntaxNodeAction(DelegateDeclarationAction, SyntaxKind.DelegateDeclaration);
             context.RegisterSyntaxNodeAction(EventDeclarationAction, SyntaxKind.EventDeclaration);
@@ -133,6 +132,11 @@ namespace StyleCop.Analyzers.NamingRules
             CheckElementNameToken(context, ((TypeDeclarationSyntax)context.Node).Identifier);
         }
 
+        private static void HandleUnionDeclaration(SyntaxNodeAnalysisContext context)
+        {
+            CheckElementNameToken(context, ((TypeDeclarationSyntax)context.Node).Identifier);
+        }
+
         private static void HandleEnumDeclaration(SyntaxNodeAnalysisContext context)
         {
             CheckElementNameToken(context, ((EnumDeclarationSyntax)context.Node).Identifier);
@@ -145,11 +149,7 @@ namespace StyleCop.Analyzers.NamingRules
 
         private static void HandleStructDeclaration(SyntaxNodeAnalysisContext context)
         {
-            // TODO: Update when representation of union has been changed
-            if (context.Node is StructDeclarationSyntax structDeclaration)
-            {
-                CheckElementNameToken(context, structDeclaration.Identifier);
-            }
+            CheckElementNameToken(context, ((StructDeclarationSyntax)context.Node).Identifier);
         }
 
         private static void HandleDelegateDeclaration(SyntaxNodeAnalysisContext context)

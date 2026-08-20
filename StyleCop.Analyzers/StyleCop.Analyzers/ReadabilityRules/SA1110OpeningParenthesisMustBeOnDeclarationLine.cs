@@ -76,9 +76,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKindEx.ExtensionBlockDeclaration);
 
-            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-            // SyntaxKindEx.UnionDeclaration, which is currently not included in SyntaxKinds.TypeDeclaration.
-            // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
+            // Register UnionDeclaration separately (with a duplicate-node guard, see the helper for why it is needed).
             context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
 
             context.RegisterSyntaxNodeAction(PrimaryConstructorBaseTypeAction, SyntaxKindEx.PrimaryConstructorBaseType);

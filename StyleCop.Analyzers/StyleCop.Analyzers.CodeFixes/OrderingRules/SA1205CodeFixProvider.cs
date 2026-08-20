@@ -111,11 +111,12 @@ namespace StyleCop.Analyzers.OrderingRules
             case SyntaxKind.InterfaceDeclaration:
                 return ((InterfaceDeclarationSyntax)node).WithModifiers(modifiers);
             case SyntaxKind.StructDeclaration:
-            case SyntaxKindEx.UnionDeclaration when node is StructDeclarationSyntax: // TODO: Update when representation of union has been changed
                 return ((StructDeclarationSyntax)node).WithModifiers(modifiers);
             case SyntaxKindEx.RecordDeclaration:
             case SyntaxKindEx.RecordStructDeclaration:
                 return ((RecordDeclarationSyntaxWrapper)node).WithModifiers(modifiers);
+            case SyntaxKindEx.UnionDeclaration when node is not StructDeclarationSyntax: // TODO: Update when integrating official c# 15 nuget
+                return ((UnionDeclarationSyntaxWrapper)node).WithModifiers(modifiers);
             }
 
             return node;

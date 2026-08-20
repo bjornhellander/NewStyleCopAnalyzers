@@ -68,9 +68,7 @@ namespace StyleCop.Analyzers.DocumentationRules
         {
             context.RegisterSyntaxNodeAction(BaseTypeLikeDeclarationAction, HandledTypeLikeDeclarationKinds);
 
-            // A 'union' declaration is parsed as a StructDeclarationSyntax with Kind() ==
-            // SyntaxKindEx.UnionDeclaration, which is currently not included in HandledTypeLikeDeclarationKinds.
-            // Register it separately (with a duplicate-node guard, see the helper for why it is needed).
+            // Register UnionDeclaration separately (with a duplicate-node guard, see the helper for why it is needed).
             context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(BaseTypeLikeDeclarationAction, SyntaxKindEx.UnionDeclaration);
 
             context.RegisterSyntaxNodeAction(MemberDeclarationAction, MemberDeclarationKinds);
