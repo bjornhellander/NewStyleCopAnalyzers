@@ -33,9 +33,10 @@ namespace StyleCop.Analyzers.SpacingRules
     /// keyword and the opening array bracket.</para>
     /// </remarks>
     // TODO: The remarks above and documentation/SA1000.md are out of sync with each other and with the analyzer:
-    // the remarks omit 'and', 'await', 'case', 'is', 'not', 'or', 'nameof', and 'unsafe' from the keyword lists, and
-    // neither doc describes the no-space exceptions for 'return' (bare 'return;' / 'return:' attribute target) or
-    // the required-space cases for 'checked'/'unchecked' (statement and operator declaration forms).
+    // the remarks omit 'and', 'await', 'break', 'case', 'continue', 'is', 'not', 'or', 'nameof', and 'unsafe' from
+    // the keyword lists, and neither doc describes the no-space exceptions for 'return' (bare 'return;' /
+    // 'return:' attribute target) or 'throw' (bare 'throw;' rethrow), or the required-space cases for
+    // 'checked'/'unchecked' (statement and operator declaration forms).
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     internal class SA1000KeywordsMustBeSpacedCorrectly : DiagnosticAnalyzerBase
     {
@@ -180,6 +181,11 @@ namespace StyleCop.Analyzers.SpacingRules
 
                 case SyntaxKind.ThrowKeyword:
                     HandleThrowKeywordToken(ref context, token);
+                    break;
+
+                case SyntaxKind.BreakKeyword:
+                case SyntaxKind.ContinueKeyword:
+                    HandleBreakOrContinueKeywordToken(ref context, token);
                     break;
 
                 default:
@@ -381,6 +387,30 @@ namespace StyleCop.Analyzers.SpacingRules
             }
 
             // otherwise treat as required
+            HandleRequiredSpaceToken(ref context, token);
+        }
+
+        private static void HandleBreakOrContinueKeywordToken(ref SyntaxTreeAnalysisContext context, SyntaxToken token)
+        {
+            if (token.IsMissing)
+            {
+                return;
+            }
+
+            /* if the next token is ;, then treat as disallowed:
+             *    break;
+             *    continue;
+             */
+            SyntaxToken nextToken = token.GetNextToken();
+            if (nextToken.IsKind(SyntaxKind.SemicolonToken))
+            {
+                HandleDisallowedSpaceToken(ref context, token);
+                return;
+            }
+
+            // otherwise treat as required, since a label follows:
+            //    break outer;
+            //    continue outer;
             HandleRequiredSpaceToken(ref context, token);
         }
     }

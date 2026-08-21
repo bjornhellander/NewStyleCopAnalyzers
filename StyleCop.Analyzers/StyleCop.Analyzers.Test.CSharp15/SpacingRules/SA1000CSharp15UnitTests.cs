@@ -87,5 +87,41 @@ public class TestClass
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Theory]
+        [InlineData("break")]
+        [InlineData("continue")]
+        public async Task TestLabeledBreakOrContinueWithMissingSpaceAsync(string keyword)
+        {
+            var testCode = $@"
+public class TestClass
+{{
+    public static void TestMethod()
+    {{
+        outer: while (true)
+        {{
+            {{|#0:{keyword}|}}/* comment */outer;
+        }}
+    }}
+}}
+";
+
+            var fixedCode = $@"
+public class TestClass
+{{
+    public static void TestMethod()
+    {{
+        outer: while (true)
+        {{
+            {keyword} /* comment */outer;
+        }}
+    }}
+}}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments(keyword, string.Empty, "followed");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
