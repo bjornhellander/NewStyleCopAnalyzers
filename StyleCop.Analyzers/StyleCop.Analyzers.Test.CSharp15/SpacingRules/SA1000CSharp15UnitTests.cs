@@ -59,5 +59,33 @@ public closed{separator}class TestClosed
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestUnsafeExpressionWithSpaceAsync()
+        {
+            var testCode = @"
+public class TestClass
+{
+    public static int TestMethod()
+    {
+        return {|#0:unsafe|} (1);
+    }
+}
+";
+
+            var fixedCode = @"
+public class TestClass
+{
+    public static int TestMethod()
+    {
+        return unsafe(1);
+    }
+}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("unsafe", " not", "followed");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

@@ -50,5 +50,38 @@ public union TestUnion(string, int)
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestUnsafeExpressionWithUnnecessaryParenthesisAsync()
+        {
+            var testCode = @"
+public class TestClass
+{
+    public static int TestMethod()
+    {
+        return unsafe((1 + 1));
+    }
+}
+";
+
+            var fixedCode = @"
+public class TestClass
+{
+    public static int TestMethod()
+    {
+        return unsafe(1 + 1);
+    }
+}
+";
+
+            DiagnosticResult[] expected =
+            {
+                Diagnostic(SA1119StatementMustNotUseUnnecessaryParenthesis.DiagnosticId).WithSpan(6, 23, 6, 30),
+                Diagnostic(SA1119StatementMustNotUseUnnecessaryParenthesis.ParenthesesDiagnosticId).WithLocation(6, 23),
+                Diagnostic(SA1119StatementMustNotUseUnnecessaryParenthesis.ParenthesesDiagnosticId).WithLocation(6, 29),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

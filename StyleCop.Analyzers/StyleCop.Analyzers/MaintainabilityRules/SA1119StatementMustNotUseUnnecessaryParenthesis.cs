@@ -150,6 +150,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
                     if (!(node.Parent is ExpressionSyntax)
                         || node.Parent is CheckedExpressionSyntax
+                        || node.Parent.IsKind(SyntaxKindEx.UnsafeExpression)
                         || node.Parent is MemberAccessExpressionSyntax)
                     {
                         if (node.Parent is MemberAccessExpressionSyntax memberAccess)
