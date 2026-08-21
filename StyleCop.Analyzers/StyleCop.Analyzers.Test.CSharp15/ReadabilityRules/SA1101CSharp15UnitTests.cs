@@ -13,6 +13,22 @@ namespace StyleCop.Analyzers.Test.CSharp15.ReadabilityRules
 
     public partial class SA1101CSharp15UnitTests
     {
+        [Fact]
+        public async Task TestExtensionBlockDeclarationIndexerAsync()
+        {
+            var testCode = @"
+public static class TestClass
+{
+    extension(string source)
+    {
+        public char this[int index] => source[index];
+    }
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
         [Theory]
         [InlineData("MyConst")]
         [InlineData("MyStaticField")]
