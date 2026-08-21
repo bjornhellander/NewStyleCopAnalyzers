@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp15.NamingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.Testing;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.NamingRules.SA1311StaticReadonlyFieldsMustBeginWithUpperCaseLetter,
@@ -18,7 +19,7 @@ namespace StyleCop.Analyzers.Test.CSharp15.NamingRules
             var testCode = @"
 public union TestUnion(string, int)
 {
-    private static readonly int {|#0:myField|} = 1;
+    private static readonly int [|myField|] = 1;
 }
 ";
 
@@ -29,10 +30,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered field declaration action three times
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

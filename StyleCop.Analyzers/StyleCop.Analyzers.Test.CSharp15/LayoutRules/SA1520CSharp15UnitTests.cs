@@ -25,15 +25,12 @@ public union TestUnion(string, int)
             System.Diagnostics.Debug.Assert(false);
         }
         else
-            {|#0:System.Diagnostics.Debug.Assert(false);|}
+            [|System.Diagnostics.Debug.Assert(false);|]
     }
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered if statement action three times
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]

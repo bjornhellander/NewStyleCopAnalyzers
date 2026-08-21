@@ -18,7 +18,7 @@ namespace StyleCop.Analyzers.Test.CSharp15.ReadabilityRules
             var testCode = @"
 public union TestUnion(string, int)
 {
-{|#0:#region Foo|}
+[|#region Foo|]
     public static void TestMethod()
     {
     }
@@ -26,10 +26,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered region directive action three times
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]

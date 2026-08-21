@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp15.MaintainabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.Testing;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1410RemoveDelegateParenthesisWhenPossible,
@@ -20,7 +21,7 @@ public union TestUnion(string, int)
 {
     public static void TestMethod()
     {
-        System.Func<int> getNumber = delegate{|#0:()|} { return 3; };
+        System.Func<int> getNumber = delegate[|()|] { return 3; };
     }
 }
 ";
@@ -35,10 +36,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered anonymous method expression action three times
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

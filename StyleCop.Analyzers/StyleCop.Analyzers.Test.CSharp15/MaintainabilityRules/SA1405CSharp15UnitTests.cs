@@ -19,13 +19,12 @@ public union TestUnion(string, int)
 {
     public static void TestMethod()
     {
-        {|#0:Debug.Assert(true)|};
+        [|Debug.Assert(true)|];
     }
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered invocation expression action three times
-            var expected = new[] { this.Diagnostic().WithLocation(0), this.Diagnostic().WithLocation(0), this.Diagnostic().WithLocation(0) };
+            var expected = DiagnosticResult.EmptyDiagnosticResults;
 
             await this.VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
