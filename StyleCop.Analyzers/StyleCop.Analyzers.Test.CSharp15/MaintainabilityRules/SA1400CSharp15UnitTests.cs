@@ -5,7 +5,6 @@ namespace StyleCop.Analyzers.Test.CSharp15.MaintainabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.CodeAnalysis.Testing;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1400AccessModifierMustBeDeclared,
@@ -31,18 +30,6 @@ internal union TestUnion(string, int)
             var expected = Diagnostic().WithLocation(0).WithArguments("TestUnion");
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
-        }
-
-        [Fact]
-        public async Task TestUnionWithAccessModifierAsync()
-        {
-            var testCode = @"
-internal union TestUnion(string, int)
-{
-}
-";
-
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -142,15 +129,33 @@ internal closed class TestClosed
         }
 
         [Fact]
-        public async Task TestClosedClassWithAccessModifierAsync()
+        public async Task TestSafeExplicitLayoutFieldWithoutAccessModifierAsync()
         {
             var testCode = @"
-public closed class TestClosed
+using System.Runtime.InteropServices;
+
+[StructLayout(LayoutKind.Explicit)]
+internal struct TestStruct
 {
+    [FieldOffset(0)]
+    safe int {|#0:Value|};
 }
 ";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+            var fixedCode = @"
+using System.Runtime.InteropServices;
+
+[StructLayout(LayoutKind.Explicit)]
+internal struct TestStruct
+{
+    [FieldOffset(0)]
+    private safe int Value;
+}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("Value");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

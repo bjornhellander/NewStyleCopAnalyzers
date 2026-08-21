@@ -20,6 +20,7 @@ namespace StyleCop.Analyzers.Lightup
         public const SyntaxKind FileKeyword = (SyntaxKind)8449;
         public const SyntaxKind UnionKeyword = (SyntaxKind)8452;
         public const SyntaxKind ClosedKeyword = (SyntaxKind)8453;
+        public const SyntaxKind SafeKeyword = (SyntaxKind)8454;
         public const SyntaxKind NullableKeyword = (SyntaxKind)8486;
         public const SyntaxKind EnableKeyword = (SyntaxKind)8487;
         public const SyntaxKind WarningsKeyword = (SyntaxKind)8488;

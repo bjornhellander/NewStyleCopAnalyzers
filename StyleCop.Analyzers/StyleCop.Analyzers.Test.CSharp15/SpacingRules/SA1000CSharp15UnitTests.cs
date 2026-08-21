@@ -60,6 +60,25 @@ public closed{separator}class TestClosed
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Theory]
+        [InlineData(" ")]
+        [InlineData("/* comment */")]
+        public async Task TestSafeKeywordAsync(string separator)
+        {
+            var testCode = $@"
+using System.Runtime.InteropServices;
+
+[StructLayout(LayoutKind.Explicit)]
+internal struct TestStruct
+{{
+    [FieldOffset(0)]
+    public safe{separator}int Value;
+}}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
         [Fact]
         public async Task TestUnsafeExpressionWithSpaceAsync()
         {
