@@ -263,6 +263,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
                 case SyntaxKind.EventDeclaration:
                 case SyntaxKind.IndexerDeclaration:
+                    // TODO: Each condition below is only relevant for one of the syntax kinds, so we might split these, or merge it with the property case below
                     var basePropertySyntax = (BasePropertyDeclarationSyntax)node;
                     return !basePropertySyntax.Modifiers.Any(SyntaxKind.StaticKeyword)
                         && !basePropertySyntax.Parent.IsKind(SyntaxKindEx.ExtensionBlockDeclaration);
