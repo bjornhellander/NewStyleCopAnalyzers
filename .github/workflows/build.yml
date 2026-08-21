@@ -31,4 +31,4 @@ jobs:
       uses: actions/setup-dotnet@v5
 
     - name: Build & Test
-      run: dotnet test StyleCop.Analyzers/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}.csproj -c ${{matrix.configuration}} --verbosity normal
+      run: dotnet test --project StyleCop.Analyzers/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}.csproj -c ${{matrix.configuration}} --verbosity normal
