@@ -75,5 +75,30 @@ public union TestUnion(string, int)
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Theory]
+        [InlineData("break")]
+        [InlineData("continue")]
+        public async Task TestLabeledBreakOrContinueDoesNotRequireThisAsync(string keyword)
+        {
+            // The label named by a labeled 'break'/'continue' shares a declaration space with labels only, so it
+            // must not be confused with the instance field of the same name below.
+            var testCode = $@"
+public class TestClass
+{{
+    private int outer;
+
+    public void TestMethod()
+    {{
+        outer: while (true)
+        {{
+            {keyword} outer;
+        }}
+    }}
+}}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

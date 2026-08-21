@@ -478,6 +478,50 @@ select x;";
         }
 
         [Fact]
+        public async Task TestBreakStatementAsync()
+        {
+            string statementWithoutSpace = @"while (true)
+{
+    break;
+}
+";
+
+            string statementWithSpace = @"while (true)
+{
+    break ;
+}
+";
+
+            await this.TestKeywordStatementAsync(statementWithoutSpace, DiagnosticResult.EmptyDiagnosticResults, statementWithoutSpace).ConfigureAwait(true);
+
+            DiagnosticResult expected = Diagnostic().WithArguments("break", " not", "followed").WithLocation(14, 5);
+
+            await this.TestKeywordStatementAsync(statementWithSpace, expected, statementWithoutSpace).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestContinueStatementAsync()
+        {
+            string statementWithoutSpace = @"while (true)
+{
+    continue;
+}
+";
+
+            string statementWithSpace = @"while (true)
+{
+    continue ;
+}
+";
+
+            await this.TestKeywordStatementAsync(statementWithoutSpace, DiagnosticResult.EmptyDiagnosticResults, statementWithoutSpace).ConfigureAwait(true);
+
+            DiagnosticResult expected = Diagnostic().WithArguments("continue", " not", "followed").WithLocation(14, 5);
+
+            await this.TestKeywordStatementAsync(statementWithSpace, expected, statementWithoutSpace).ConfigureAwait(true);
+        }
+
+        [Fact]
         public async Task TestCheckedStatementAsync()
         {
             string statementWithoutSpace = @"int x = checked(3);";
