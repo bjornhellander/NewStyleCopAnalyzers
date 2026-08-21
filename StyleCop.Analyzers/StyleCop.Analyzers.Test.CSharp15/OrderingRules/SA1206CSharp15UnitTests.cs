@@ -31,5 +31,35 @@ public closed class GateState
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task VerifySafeKeywordReorderingInExplicitLayoutFieldDeclarationAsync()
+        {
+            var testCode = @"
+using System.Runtime.InteropServices;
+
+[StructLayout(LayoutKind.Explicit)]
+internal struct TestStruct
+{
+    [FieldOffset(0)]
+    safe {|#0:public|} int Value;
+}
+";
+
+            var fixedCode = @"
+using System.Runtime.InteropServices;
+
+[StructLayout(LayoutKind.Explicit)]
+internal struct TestStruct
+{
+    [FieldOffset(0)]
+    public safe int Value;
+}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("public", "safe");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
