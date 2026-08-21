@@ -32,6 +32,7 @@ jobs:
       uses: actions/setup-dotnet@v5
 
     - name: Verify release tag matches package version
+      id: version
       shell: pwsh
       run: |
         $tag = "${{ github.event.release.tag_name }}" -replace '^v', ''
@@ -40,6 +41,7 @@ jobs:
           Write-Error "Release tag 'v$tag' does not match package version '$nuspecVersion' in StyleCop.Analyzers.nuspec. Run SetVersion.ps1 and push the version bump before releasing."
           exit 1
         }
+        Write-Output "version=$nuspecVersion" >> $env:GITHUB_OUTPUT
 
     - name: Build
       run: dotnet build StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/StyleCop.Analyzers.CodeFixes.csproj -c Release
@@ -47,15 +49,15 @@ jobs:
     - name: Push package to NuGet
       shell: pwsh
       run: |
-        $package = Get-ChildItem -Path "StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/bin/Release" -Filter "*.nupkg" | Where-Object { $_.Name -notlike "*.symbols.nupkg" }
-        dotnet nuget push $package.FullName --api-key $env:NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
+        $package = "StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/bin/Release/NewStyleCop.Analyzers.${{ steps.version.outputs.version }}.nupkg"
+        dotnet nuget push $package --api-key $env:NUGET_API_KEY --source https://api.nuget.org/v3/index.json --skip-duplicate
       env:
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
     - name: Attach package to GitHub release
       shell: pwsh
       run: |
-        $package = Get-ChildItem -Path "StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/bin/Release" -Filter "*.nupkg" | Where-Object { $_.Name -notlike "*.symbols.nupkg" }
-        gh release upload "${{ github.event.release.tag_name }}" $package.FullName
+        $package = "StyleCop.Analyzers/StyleCop.Analyzers.CodeFixes/bin/Release/NewStyleCop.Analyzers.${{ steps.version.outputs.version }}.nupkg"
+        gh release upload "${{ github.event.release.tag_name }}" $package
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
