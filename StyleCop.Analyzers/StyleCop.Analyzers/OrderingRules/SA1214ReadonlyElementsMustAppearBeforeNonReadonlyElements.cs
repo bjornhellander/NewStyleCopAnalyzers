@@ -41,9 +41,7 @@ namespace StyleCop.Analyzers.OrderingRules
         protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
-
-            // Register UnionDeclaration separately (with a duplicate-node guard, see the helper for why it is needed).
-            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
+            context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
         }
 
         private static void HandleTypeDeclaration(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
