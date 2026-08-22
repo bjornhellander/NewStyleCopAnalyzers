@@ -94,10 +94,7 @@ namespace StyleCop.Analyzers.DocumentationRules
         {
             // TODO: The action name relates to BaseTypeDeclaration, but the registered syntax kinds are TypeDeclaration
             context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.TypeDeclaration);
-
-            // Register UnionDeclaration separately (with a duplicate-node guard, see the helper for why it is needed).
-            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(BaseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
-
+            context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
             context.RegisterSyntaxNodeAction(MethodDeclarationAction, SyntaxKind.MethodDeclaration);
             context.RegisterSyntaxNodeAction(PropertyDeclarationAction, SyntaxKind.PropertyDeclaration);
             context.RegisterSyntaxNodeAction(IndexerDeclarationAction, SyntaxKind.IndexerDeclaration);

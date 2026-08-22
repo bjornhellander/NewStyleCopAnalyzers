@@ -21,20 +21,16 @@ public union TestUnion(string, int)
     /// <summary>
     /// Some documentation.
     /// </summary>
-    /// {|#0:<summary>
+    /// [|<summary>
     /// Some documentation.
-    /// </summary>|}
+    /// </summary>|]
     public static void TestMethod()
     {
     }
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered method declaration action three times
-            var expectedDiagnostic = Diagnostic().WithLocation(0);
-            var expected = new[] { expectedDiagnostic, expectedDiagnostic, expectedDiagnostic };
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]

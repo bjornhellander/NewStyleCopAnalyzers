@@ -67,10 +67,7 @@ namespace StyleCop.Analyzers.DocumentationRules
         protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             context.RegisterSyntaxNodeAction(BaseTypeLikeDeclarationAction, HandledTypeLikeDeclarationKinds);
-
-            // Register UnionDeclaration separately (with a duplicate-node guard, see the helper for why it is needed).
-            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(BaseTypeLikeDeclarationAction, SyntaxKindEx.UnionDeclaration);
-
+            context.RegisterSyntaxNodeAction(BaseTypeLikeDeclarationAction, SyntaxKindEx.UnionDeclaration);
             context.RegisterSyntaxNodeAction(MemberDeclarationAction, MemberDeclarationKinds);
         }
 

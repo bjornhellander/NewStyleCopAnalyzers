@@ -74,10 +74,7 @@ namespace StyleCop.Analyzers.LayoutRules
             context.RegisterSyntaxNodeAction(NamespaceDeclarationAction, SyntaxKind.NamespaceDeclaration);
             context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
             context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.ExtensionBlockDeclaration);
-
-            // Register UnionDeclaration separately (with a duplicate-node guard, see the helper for why it is needed).
-            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(BaseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
-
+            context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
             context.RegisterSyntaxNodeAction(AccessorListAction, SyntaxKind.AccessorList);
         }
 

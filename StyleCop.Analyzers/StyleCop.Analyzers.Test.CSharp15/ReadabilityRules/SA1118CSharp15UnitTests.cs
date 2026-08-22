@@ -60,8 +60,8 @@ public union TestUnion(string, int)
     public static void TestMethod()
     {
         Fun(10,
-            {|#0:""a"" +
-                ""b""|});
+            [|""a"" +
+                ""b""|]);
     }
 
     private static void Fun(int a, string b)
@@ -70,10 +70,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered argument list action three times
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]

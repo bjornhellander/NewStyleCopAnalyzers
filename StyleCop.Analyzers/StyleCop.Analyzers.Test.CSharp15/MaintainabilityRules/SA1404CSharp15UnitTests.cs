@@ -18,17 +18,14 @@ namespace StyleCop.Analyzers.Test.CSharp15.MaintainabilityRules
             var testCode = @"
 public union TestUnion(string, int)
 {
-    [{|#0:System.Diagnostics.CodeAnalysis.SuppressMessage(null, null)|}]
+    [[|System.Diagnostics.CodeAnalysis.SuppressMessage(null, null)|]]
     public static void TestMethod()
     {
     }
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered attribute action three times
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
