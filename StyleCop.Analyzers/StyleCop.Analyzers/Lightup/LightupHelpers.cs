@@ -144,7 +144,7 @@ namespace StyleCop.Analyzers.Lightup
 
         internal static Func<TOperation, TProperty> CreateOperationPropertyAccessor<TOperation, TProperty>(Type type, string propertyName)
         {
-            TProperty FallbackAccessor(TOperation syntax)
+            static TProperty FallbackAccessor(TOperation syntax)
             {
                 if (syntax == null)
                 {
@@ -192,7 +192,7 @@ namespace StyleCop.Analyzers.Lightup
 
         internal static Func<TOperation, ImmutableArray<IOperation>> CreateOperationListPropertyAccessor<TOperation>(Type type, string propertyName)
         {
-            ImmutableArray<IOperation> FallbackAccessor(TOperation syntax)
+            static ImmutableArray<IOperation> FallbackAccessor(TOperation syntax)
             {
                 if (syntax == null)
                 {
@@ -280,7 +280,7 @@ namespace StyleCop.Analyzers.Lightup
 
         internal static Func<TSyntax, TProperty> CreateSyntaxPropertyAccessor<TSyntax, TProperty>(Type type, string propertyName)
         {
-            TProperty FallbackAccessor(TSyntax syntax)
+            static TProperty FallbackAccessor(TSyntax syntax)
             {
                 if (syntax == null)
                 {
@@ -574,7 +574,7 @@ namespace StyleCop.Analyzers.Lightup
 
         internal static Func<TSyntax, SeparatedSyntaxListWrapper<TProperty>> CreateSeparatedSyntaxListPropertyAccessor<TSyntax, TProperty>(Type type, string propertyName)
         {
-            SeparatedSyntaxListWrapper<TProperty> FallbackAccessor(TSyntax syntax)
+            static SeparatedSyntaxListWrapper<TProperty> FallbackAccessor(TSyntax syntax)
             {
                 if (syntax == null)
                 {
@@ -634,7 +634,7 @@ namespace StyleCop.Analyzers.Lightup
 
         internal static Func<TSyntax, TProperty, TSyntax> CreateSyntaxWithPropertyAccessor<TSyntax, TProperty>(Type type, string propertyName)
         {
-            TSyntax FallbackAccessor(TSyntax syntax, TProperty newValue)
+            static TSyntax FallbackAccessor(TSyntax syntax, TProperty newValue)
             {
                 if (syntax == null)
                 {
@@ -700,7 +700,7 @@ namespace StyleCop.Analyzers.Lightup
 
         internal static Func<TSyntax, SeparatedSyntaxListWrapper<TProperty>, TSyntax> CreateSeparatedSyntaxListWithPropertyAccessor<TSyntax, TProperty>(Type type, string propertyName)
         {
-            TSyntax FallbackAccessor(TSyntax syntax, SeparatedSyntaxListWrapper<TProperty> newValue)
+            static TSyntax FallbackAccessor(TSyntax syntax, SeparatedSyntaxListWrapper<TProperty> newValue)
             {
                 if (syntax == null)
                 {
