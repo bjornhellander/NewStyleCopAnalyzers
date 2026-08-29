@@ -1,5 +1,7 @@
 # New StyleCop Analyzers for the .NET Compiler Platform
 
+[![codecov](https://codecov.io/gh/bjornhellander/NewStyleCopAnalyzers/branch/master/graph/badge.svg)](https://codecov.io/gh/bjornhellander/NewStyleCopAnalyzers)
+
 This repository contains an implementation of the StyleCop rules using the .NET Compiler Platform.
 Where possible, code fixes are also provided to simplify the process of correcting violations.
 
