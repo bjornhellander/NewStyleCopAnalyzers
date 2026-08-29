@@ -18,7 +18,7 @@ namespace StyleCop.Analyzers.Lightup
 
         static SyntaxFactsEx()
         {
-            string FallbackAccessor(SyntaxNode syntax)
+            static string FallbackAccessor(SyntaxNode syntax)
             {
                 if (syntax == null)
                 {
