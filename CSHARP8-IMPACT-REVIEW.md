@@ -16,11 +16,11 @@ supplies the other half of the partial class, and the test then re-runs in CShar
 The goal is a regression test for every related rule, including the ones that turn out to need no code change; a test
 that pins current correct behaviour is the point, not a formality.
 
-Work through the numbered items one at a time. Delete an item from this file once its tests are merged, and update
-"Current coverage" below in the same change so the two never disagree. Item numbers are stable — deleting item 6
-leaves a gap rather than renumbering, so "item 6" means the same thing across conversations. Items are ordered by
-priority, and each states its own; priority reflects how likely the rule is to behave wrongly today, not how much
-typing the test needs. Each item links the language documentation the source page points at for that feature.
+Work through the numbered items one at a time. Delete an item from this file once its tests are merged. Item numbers
+are stable — deleting item 6 leaves a gap rather than renumbering, so "item 6" means the same thing across
+conversations. Items are ordered by priority, and each states its own; priority reflects how likely the rule is to
+behave wrongly today, not how much typing the test needs. Each item links the language documentation the source page
+points at for that feature.
 
 ## Items
 
@@ -35,8 +35,8 @@ expression, plus the keyword itself.
 (`StyleCop.Analyzers/StyleCop.Analyzers/SpacingRules/SA1000KeywordsMustBeSpacedCorrectly.cs:112-118`). That rule was
 written when `switch` could only start a statement, where the keyword is *followed* by `(`. In a switch expression the
 keyword is *preceded* by the governing expression and followed by `{`, so `x switch{...}` and `x  switch {...}` need a
-decision and a test. `SA1000CSharp8UnitTests.cs` now exists (added for unmanaged constructed types) but covers only `stackalloc` and
-`sizeof` on constructed unmanaged types, nothing about switch expressions.
+decision and a test. `SA1000CSharp8UnitTests.cs` now exists (added for unmanaged constructed types) but covers only
+`stackalloc` and `sizeof` on those, nothing about switch expressions.
 
 Also untested: `=>` inside switch arms (`SA1003`), the brace layout of the arm list (`SA1500`, `SA1501`, `SA1505`,
 `SA1506`, `SA1508`), arm indentation (`SA1137`) and arms sharing a line (`SA1136`).
@@ -52,10 +52,10 @@ single-line one.
 
 **Priority:** High. **Suspected code gap:** none, but the rule is entirely unexercised for this syntax. **Docs:** [Indices and ranges](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#range-operator-)
 
-`SA1003`, `SA1008`, `SA1009`, `SA1011` and `SA1119` all have range tests. `SA1010OpeningSquareBracketsMustBeSpacedCorrectly`
-does not: `SA1010CSharp8UnitTests.cs` exists (added for unmanaged constructed types) but covers only constructed unmanaged types, and no
-test anywhere exercises index-from-end or range arguments. The rule has grown special cases for index initializers,
-list patterns and collection expressions
+`SA1003`, `SA1008`, `SA1009`, `SA1011` and `SA1119` all have range tests.
+`SA1010OpeningSquareBracketsMustBeSpacedCorrectly` does not: `SA1010CSharp8UnitTests.cs` exists (added for unmanaged
+constructed types) but covers only those, and no test anywhere exercises index-from-end or range arguments. The rule
+has grown special cases for index initializers, list patterns and collection expressions
 (`.../SpacingRules/SA1010OpeningSquareBracketsMustBeSpacedCorrectly.cs:97,115-128`) but nothing for either of those.
 
 **Proposed:** add to `SA1010CSharp8UnitTests`, covering `x[^1]`, `x[1..2]`, `x[..^1]`, `x [^1]` (diagnostic) and the
@@ -73,8 +73,9 @@ Local()` is not flagged today while the equivalent method declaration would be.
 Whether that is a bug or an intentional scope limit is the open question — `SA1206`'s upstream description is
 declaration-focused, and local functions have no access modifiers, so only the static/async ordering is at stake.
 
-Other rules already handle local functions and only need a `static` regression test: `SA1502` (`.../SA1502ElementMustNotBeOnASingleLine.cs`),
-`SA1300`, and the parameter-list family `SA1110`–`SA1117`, all of which reference `LocalFunctionStatement` today.
+Other rules already handle local functions and only need a `static` regression test: `SA1502`
+(`.../SA1502ElementMustNotBeOnASingleLine.cs`), `SA1300`, and the parameter-list family `SA1110`–`SA1117`, all of
+which reference `LocalFunctionStatement` today.
 
 **Proposed:** decide SA1206's scope, then `SA1206CSharp8UnitTests` (either the fix plus tests, or a test pinning that
 local functions are ignored), plus `SA1502` and `SA1300` tests using `static` local functions.
@@ -171,12 +172,3 @@ layout rules, so the risk is in blank-line and whitespace handling around `#null
 larger expression, which is the C# 8 change.
 
 **Proposed:** nested-expression `stackalloc` cases in `SA1000CSharp8UnitTests`, plus `SA1010`/`SA1011` bracket tests.
-
-### 11. Null-coalescing assignment
-
-**Priority:** Low. **Suspected code gap:** none. **Docs:** [Null-coalescing assignment](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/assignment-operator#null-coalescing-assignment)
-
-`SA1003CSharp8UnitTests.TestNullCoalescingAssignmentOperatorAsync` covers spacing. The parenthesis rules
-`SA1407`/`SA1408` have never seen `??=` mixed with arithmetic or conditional operators.
-
-**Proposed:** `SA1407`/`SA1408` regressions for `a ??= b + c` and `a ??= b && c`.
