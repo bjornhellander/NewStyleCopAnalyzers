@@ -113,15 +113,3 @@ separately (`SA1000KeywordsMustBeSpacedCorrectly.cs:90,95`) but has never seen t
 
 **Proposed:** `SA1316CSharp8UnitTests` (`await foreach (var (a, b) in ...)` with tuple element names), and
 `await foreach` cases in the new `SA1000CSharp8UnitTests`; plus `SA1101` and `SA1503` regressions for the loop body.
-
-### 6. `await using` and using declarations
-
-**Priority:** Medium. **Suspected code gap:** none. **Docs:** [Using declarations](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/using)
-
-`SA1503` and `SA1106` already cover the using *declaration* form. Not covered: the `await using` combination, and
-`SA1000`'s treatment of `UsingKeyword` in a declaration (`SA1000KeywordsMustBeSpacedCorrectly.cs:113`), where the
-keyword is followed by a type or `var` rather than `(`. The source page has no separate entry for asynchronous
-disposal; the linked `using` documentation covers `await using` too.
-
-**Proposed:** `await using` and `using var` cases in `SA1000CSharp8UnitTests`; `SA1002` semicolon test for a using
-declaration.

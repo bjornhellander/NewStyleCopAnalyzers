@@ -134,5 +134,76 @@ public class TestClass
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies the handling of the using keyword of a using declaration, which C# 8 introduced.
+        /// The keyword is followed by a type rather than by an opening parenthesis here.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestUsingDeclarationAsync()
+        {
+            var testCode = @"using System;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        {|#0:using|}@IDisposable resource = null;
+    }
+}
+";
+
+            var fixedCode = @"using System;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        using @IDisposable resource = null;
+    }
+}
+";
+
+            DiagnosticResult expected = Diagnostic().WithLocation(0).WithArguments("using", string.Empty, "followed");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies the handling of the using keyword of an await using declaration, which C# 8 introduced.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestAwaitUsingDeclarationAsync()
+        {
+            var testCode = @"using System;
+using System.Threading.Tasks;
+
+public class TestClass
+{
+    public async Task TestMethodAsync()
+    {
+        await {|#0:using|}@IAsyncDisposable resource = null;
+    }
+}
+";
+
+            var fixedCode = @"using System;
+using System.Threading.Tasks;
+
+public class TestClass
+{
+    public async Task TestMethodAsync()
+    {
+        await using @IAsyncDisposable resource = null;
+    }
+}
+";
+
+            DiagnosticResult expected = Diagnostic().WithLocation(0).WithArguments("using", string.Empty, "followed");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
