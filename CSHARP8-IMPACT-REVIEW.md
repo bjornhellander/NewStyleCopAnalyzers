@@ -35,8 +35,8 @@ expression, plus the keyword itself.
 (`StyleCop.Analyzers/StyleCop.Analyzers/SpacingRules/SA1000KeywordsMustBeSpacedCorrectly.cs:112-118`). That rule was
 written when `switch` could only start a statement, where the keyword is *followed* by `(`. In a switch expression the
 keyword is *preceded* by the governing expression and followed by `{`, so `x switch{...}` and `x  switch {...}` need a
-decision and a test. `SA1000CSharp8UnitTests.cs` now exists (added for unmanaged constructed types) but covers only
-`stackalloc` and `sizeof` on those, nothing about switch expressions.
+decision and a test. `SA1000CSharp8UnitTests.cs` now exists but covers only `stackalloc` and `sizeof`, nothing about
+switch expressions.
 
 Also untested: `=>` inside switch arms (`SA1003`), the brace layout of the arm list (`SA1500`, `SA1501`, `SA1505`,
 `SA1506`, `SA1508`), arm indentation (`SA1137`) and arms sharing a line (`SA1136`).
@@ -53,8 +53,8 @@ single-line one.
 **Priority:** High. **Suspected code gap:** none, but the rule is entirely unexercised for this syntax. **Docs:** [Indices and ranges](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#range-operator-)
 
 `SA1003`, `SA1008`, `SA1009`, `SA1011` and `SA1119` all have range tests.
-`SA1010OpeningSquareBracketsMustBeSpacedCorrectly` does not: `SA1010CSharp8UnitTests.cs` exists (added for unmanaged
-constructed types) but covers only those, and no test anywhere exercises index-from-end or range arguments. The rule
+`SA1010OpeningSquareBracketsMustBeSpacedCorrectly` does not: `SA1010CSharp8UnitTests.cs` exists but covers only
+`stackalloc`, and no test anywhere exercises index-from-end or range arguments. The rule
 has grown special cases for index initializers, list patterns and collection expressions
 (`.../SpacingRules/SA1010OpeningSquareBracketsMustBeSpacedCorrectly.cs:97,115-128`) but nothing for either of those.
 
@@ -160,15 +160,3 @@ layout rules, so the risk is in blank-line and whitespace handling around `#null
 
 **Proposed:** regressions for `SA1027`/`SA1028` (tabs and trailing whitespace on the directive line), and
 `SA1505`/`SA1507`/`SA1516` for a directive sitting between two members.
-
-### 10. `stackalloc` in nested expressions
-
-**Priority:** Low. **Suspected code gap:** none. **Docs:** [Stackalloc in nested expressions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/stackalloc)
-
-`SA1119CSharp8UnitTests.TestStackAllocExpressionInExpressionAsync` covers the parenthesis rule. `SA1000` routes
-`StackAllocKeyword` through `HandleNewOrStackAllocKeywordToken`
-(`SA1000KeywordsMustBeSpacedCorrectly.cs:174-176`); it is now tested for the C# 6 statement form
-(`SA1000UnitTests.cs:327`) and for a constructed unmanaged type, but not for a `stackalloc` nested inside a
-larger expression, which is the C# 8 change.
-
-**Proposed:** nested-expression `stackalloc` cases in `SA1000CSharp8UnitTests`, plus `SA1010`/`SA1011` bracket tests.

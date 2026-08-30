@@ -119,5 +119,47 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies the handling of the closing bracket of a stackalloc in a nested expression, which C# 8 allows.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestStackAllocInNestedExpressionAsync()
+        {
+            var testCode = @"using System;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        Bar(stackalloc int[3 {|#0:]|});
+    }
+
+    public void Bar(Span<int> value)
+    {
+    }
+}
+";
+
+            var fixedCode = @"using System;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        Bar(stackalloc int[3]);
+    }
+
+    public void Bar(Span<int> value)
+    {
+    }
+}
+";
+
+            DiagnosticResult expected = Diagnostic().WithLocation(0).WithArguments(" not", "preceded");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

@@ -92,5 +92,47 @@ public class TestClass
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies the handling of the stackalloc keyword in a nested expression, which C# 8 allows.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestStackAllocInNestedExpressionAsync()
+        {
+            var testCode = @"using System;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        Bar({|#0:stackalloc|}@Int32[3]);
+    }
+
+    public void Bar(Span<int> value)
+    {
+    }
+}
+";
+
+            var fixedCode = @"using System;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        Bar(stackalloc @Int32[3]);
+    }
+
+    public void Bar(Span<int> value)
+    {
+    }
+}
+";
+
+            DiagnosticResult expected = Diagnostic().WithLocation(0).WithArguments("stackalloc", string.Empty, "followed");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
