@@ -45,8 +45,8 @@ Worth confirming while here: no analyzer references `SyntaxKindEx.SwitchExpressi
 That may be correct — or it may be why the layout rules ignore arms.
 
 **Proposed:** switch expression keyword spacing added to `SA1000CSharp8UnitTests`, plus `SA1003`, `SA1136`, `SA1137`,
-`SA1500`, `SA1501`, `SA1505`, `SA1506` and `SA1508` C# 8 files covering a multi-line switch expression and a
-single-line one.
+`SA1500`, `SA1501`, `SA1506` and `SA1508` C# 8 files covering a multi-line switch expression and a single-line one,
+plus the same added to the existing `SA1505CSharp8UnitTests`.
 
 ### 2. Indices and ranges — SA1010 has no range or index tests
 
@@ -150,13 +150,3 @@ a hypothesis, not something confirmed against the code — check it before writi
 
 **Proposed:** C# 8 files for `SA1111`, `SA1112`, `SA1113`, `SA1115`, `SA1116`, `SA1117` with a multi-line positional
 pattern, and an `SA1141` regression on a tuple pattern.
-
-### 9. `#nullable` directives
-
-**Priority:** Medium. **Suspected code gap:** none. **Docs:** [Nullable reference types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-reference-types)
-
-`SyntaxKindEx.NullableDirectiveTrivia` exists but no analyzer references it. Directives are plain trivia to the
-layout rules, so the risk is in blank-line and whitespace handling around `#nullable enable` / `#nullable restore`.
-
-**Proposed:** regressions for `SA1027`/`SA1028` (tabs and trailing whitespace on the directive line), and
-`SA1505`/`SA1507`/`SA1516` for a directive sitting between two members.
