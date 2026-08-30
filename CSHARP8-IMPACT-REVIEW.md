@@ -138,15 +138,3 @@ future change to the modifier handling cannot silently break it.
 
 **Proposed:** `SA1206CSharp8UnitTests` (shared with item 3), plus `SA1201`/`SA1202`/`SA1204`/`SA1214` regressions on a
 struct with readonly members.
-
-### 8. Positional and property patterns
-
-**Priority:** Medium. **Suspected code gap:** none. **Docs:** [Pattern matching enhancements](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/patterns)
-
-Spacing is covered (`SA1008` has three pattern tests, `SA1012`, `SA1013`, `SA1024`, `SA1101`, `SA1122`). The
-parameter-list-shaped rules are not: a positional pattern `(int x, int y)` looks like a parameter list to
-`SA1111`–`SA1117`, and `SA1141UseTupleSyntax` may or may not have an opinion about tuple patterns. That resemblance is
-a hypothesis, not something confirmed against the code — check it before writing the tests.
-
-**Proposed:** C# 8 files for `SA1111`, `SA1112`, `SA1113`, `SA1115`, `SA1116`, `SA1117` with a multi-line positional
-pattern, and an `SA1141` regression on a tuple pattern.
