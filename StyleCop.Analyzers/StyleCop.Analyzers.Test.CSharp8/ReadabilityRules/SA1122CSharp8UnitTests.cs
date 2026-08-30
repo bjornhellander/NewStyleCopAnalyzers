@@ -86,5 +86,27 @@ public class TestClass
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that an empty interpolated verbatim string is not reported. C# 8 allows these strings to be
+        /// written as <c>@$"..."</c> as well as <c>$@"..."</c>.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        // TODO: Should this trigger?
+        [Fact]
+        public async Task TestEmptyInterpolatedVerbatimStringAsync()
+        {
+            string testCode = @"
+public class TestClass
+{
+    public string TestMethod()
+    {
+        return @$"""";
+    }
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

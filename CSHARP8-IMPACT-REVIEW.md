@@ -22,31 +22,6 @@ leaves a gap rather than renumbering, so "item 6" means the same thing across co
 priority, and each states its own; priority reflects how likely the rule is to behave wrongly today, not how much
 typing the test needs. Each item links the language documentation the source page points at for that feature.
 
-## Current coverage
-
-32 hand-written files in `StyleCop.Analyzers.Test.CSharp8`, covering:
-
-| Feature | Rules with C# 8 tests today |
-|---|---|
-| Pattern matching (switch expressions, property/tuple/positional patterns) | SA1008, SA1012, SA1013, SA1024, SA1101, SA1119, SA1122, SA1413 |
-| Nullable reference types (`?`, `!`) | SA1002, SA1003, SA1009, SA1011, SA1013, SA1019, SA1135, SA1514, `SymbolNameHelpers` |
-| Indices and ranges | SA1003, SA1008, SA1009, SA1011, SA1119 |
-| Using declarations | SA1106, SA1503 |
-| Default interface members | SA1202, SA1648 |
-| Unmanaged constructed types | SA1000, SA1010, SA1015, SA1023 |
-| Null-coalescing assignment | SA1003 |
-| `stackalloc` in nested expressions | SA1119 |
-| Lightup wrappers | `SwitchExpressionSyntaxWrapper`, `SwitchExpressionArmSyntaxWrapper`, `CommonForEachStatementSyntaxWrapper` |
-
-Three files exist but add no C# 8 test of their own: `SA1600CSharp8UnitTests.cs` (only sets
-`LanguageVersion.Default`), `SA1313CSharp8UnitTests.cs` and `SA1134CSharp8UnitTests.cs` (both only adjust expected
-compiler diagnostics for the newer parser).
-
-Lightup coverage is complete for the C# 8 syntax kinds — `SwitchExpression`, `SwitchExpressionArm`,
-`RecursivePattern`, `PropertyPatternClause`, `Subpattern`, `PositionalPatternClause`, `RangeExpression`,
-`IndexExpression`, `CoalesceAssignmentExpression`, `SuppressNullableWarningExpression`, `NullableDirectiveTrivia`,
-`DotDotToken` and `QuestionQuestionEqualsToken` are all in `SyntaxKindEx`. No new lightup work is expected.
-
 ## Items
 
 ### 1. Switch expressions — SA1000 is unverified, layout rules untested
@@ -205,12 +180,3 @@ larger expression, which is the C# 8 change.
 `SA1407`/`SA1408` have never seen `??=` mixed with arithmetic or conditional operators.
 
 **Proposed:** `SA1407`/`SA1408` regressions for `a ??= b + c` and `a ??= b && c`.
-
-### 12. Interpolated verbatim strings (`@$"..."`)
-
-**Priority:** Low. **Suspected code gap:** none. **Docs:** [Enhancement of interpolated verbatim strings](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated)
-
-C# 8 allows `@$"` in either order. Nothing in `StyleCop.Analyzers.Test.CSharp8` mentions it.
-
-**Proposed:** `SA1122` (`@$""` as an empty string), and `SA1009`/`SA1013` for a null-forgiving operator inside an
-interpolation hole.
