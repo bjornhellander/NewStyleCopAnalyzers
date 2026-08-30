@@ -24,7 +24,7 @@ typing the test needs. Each item links the language documentation the source pag
 
 ## Current coverage
 
-30 hand-written files in `StyleCop.Analyzers.Test.CSharp8`, covering:
+32 hand-written files in `StyleCop.Analyzers.Test.CSharp8`, covering:
 
 | Feature | Rules with C# 8 tests today |
 |---|---|
@@ -33,7 +33,7 @@ typing the test needs. Each item links the language documentation the source pag
 | Indices and ranges | SA1003, SA1008, SA1009, SA1011, SA1119 |
 | Using declarations | SA1106, SA1503 |
 | Default interface members | SA1202, SA1648 |
-| Unmanaged constructed types | SA1015, SA1023 |
+| Unmanaged constructed types | SA1000, SA1010, SA1015, SA1023 |
 | Null-coalescing assignment | SA1003 |
 | `stackalloc` in nested expressions | SA1119 |
 | Lightup wrappers | `SwitchExpressionSyntaxWrapper`, `SwitchExpressionArmSyntaxWrapper`, `CommonForEachStatementSyntaxWrapper` |
@@ -60,7 +60,8 @@ expression, plus the keyword itself.
 (`StyleCop.Analyzers/StyleCop.Analyzers/SpacingRules/SA1000KeywordsMustBeSpacedCorrectly.cs:112-118`). That rule was
 written when `switch` could only start a statement, where the keyword is *followed* by `(`. In a switch expression the
 keyword is *preceded* by the governing expression and followed by `{`, so `x switch{...}` and `x  switch {...}` need a
-decision and a test. There is no `SA1000CSharp8UnitTests.cs` at all.
+decision and a test. `SA1000CSharp8UnitTests.cs` now exists (added for unmanaged constructed types) but covers only `stackalloc` and
+`sizeof` on constructed unmanaged types, nothing about switch expressions.
 
 Also untested: `=>` inside switch arms (`SA1003`), the brace layout of the arm list (`SA1500`, `SA1501`, `SA1505`,
 `SA1506`, `SA1508`), arm indentation (`SA1137`) and arms sharing a line (`SA1136`).
@@ -68,22 +69,22 @@ Also untested: `=>` inside switch arms (`SA1003`), the brace layout of the arm l
 Worth confirming while here: no analyzer references `SyntaxKindEx.SwitchExpressionArm` or `SyntaxKindEx.Subpattern`.
 That may be correct — or it may be why the layout rules ignore arms.
 
-**Proposed:** new `SA1000CSharp8UnitTests` (switch expression keyword spacing), plus `SA1003`, `SA1136`, `SA1137`,
+**Proposed:** switch expression keyword spacing added to `SA1000CSharp8UnitTests`, plus `SA1003`, `SA1136`, `SA1137`,
 `SA1500`, `SA1501`, `SA1505`, `SA1506` and `SA1508` C# 8 files covering a multi-line switch expression and a
 single-line one.
 
-### 2. Indices and ranges — SA1010 has no C# 8 tests
+### 2. Indices and ranges — SA1010 has no range or index tests
 
 **Priority:** High. **Suspected code gap:** none, but the rule is entirely unexercised for this syntax. **Docs:** [Indices and ranges](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#range-operator-)
 
 `SA1003`, `SA1008`, `SA1009`, `SA1011` and `SA1119` all have range tests. `SA1010OpeningSquareBracketsMustBeSpacedCorrectly`
-does not — there is no `SA1010CSharp8UnitTests.cs`, even though CSharp7, CSharp11, CSharp12 and CSharp13 versions of
-that file all exist. The rule has grown special cases for index initializers, list patterns and collection expressions
-(`.../SpacingRules/SA1010OpeningSquareBracketsMustBeSpacedCorrectly.cs:97,115-128`) but nothing for index-from-end or
-range arguments.
+does not: `SA1010CSharp8UnitTests.cs` exists (added for unmanaged constructed types) but covers only constructed unmanaged types, and no
+test anywhere exercises index-from-end or range arguments. The rule has grown special cases for index initializers,
+list patterns and collection expressions
+(`.../SpacingRules/SA1010OpeningSquareBracketsMustBeSpacedCorrectly.cs:97,115-128`) but nothing for either of those.
 
-**Proposed:** `SA1010CSharp8UnitTests` covering `x[^1]`, `x[1..2]`, `x[..^1]`, `x [^1]` (diagnostic) and the same
-inside a nested expression.
+**Proposed:** add to `SA1010CSharp8UnitTests`, covering `x[^1]`, `x[1..2]`, `x[..^1]`, `x [^1]` (diagnostic) and the
+same inside a nested expression.
 
 ### 3. Static local functions — SA1206 does not see local functions
 
@@ -190,8 +191,9 @@ layout rules, so the risk is in blank-line and whitespace handling around `#null
 
 `SA1119CSharp8UnitTests.TestStackAllocExpressionInExpressionAsync` covers the parenthesis rule. `SA1000` routes
 `StackAllocKeyword` through `HandleNewOrStackAllocKeywordToken`
-(`SA1000KeywordsMustBeSpacedCorrectly.cs:174-176`) and its only test is the C# 6 statement form
-(`SA1000UnitTests.cs:327`).
+(`SA1000KeywordsMustBeSpacedCorrectly.cs:174-176`); it is now tested for the C# 6 statement form
+(`SA1000UnitTests.cs:327`) and for a constructed unmanaged type, but not for a `stackalloc` nested inside a
+larger expression, which is the C# 8 change.
 
 **Proposed:** nested-expression `stackalloc` cases in `SA1000CSharp8UnitTests`, plus `SA1010`/`SA1011` bracket tests.
 
@@ -212,12 +214,3 @@ C# 8 allows `@$"` in either order. Nothing in `StyleCop.Analyzers.Test.CSharp8` 
 
 **Proposed:** `SA1122` (`@$""` as an empty string), and `SA1009`/`SA1013` for a null-forgiving operator inside an
 interpolation hole.
-
-### 13. Unmanaged constructed types
-
-**Priority:** Low. **Suspected code gap:** none. **Docs:** [Unmanaged constructed types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/where-generic-type-constraint)
-
-Covered for the pointer-declaration case by `SA1015CSharp8UnitTests.TestGenericTypePointerAsync` and its `SA1023`
-counterpart. Untouched: `stackalloc Foo<int>[10]` and array/bracket spacing on constructed unmanaged types.
-
-**Proposed:** add these to the `SA1000` and `SA1010` C# 8 files rather than new ones.
