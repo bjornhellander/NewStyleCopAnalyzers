@@ -6,7 +6,8 @@ This repository contains an implementation of the StyleCop rules using the .NET 
 Where possible, code fixes are also provided to simplify the process of correcting violations.
 
 **This repository has been created by cloning the [StyleCopAnalyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers) project and merging some of the pull requests that were created.
-Hopefully as a temporary solution until maintenance of the original project starts working well again.**
+It started as a temporary solution until maintenance of the original repository started working well again,
+but since that doesn't seem to happen I am now planning on maintaining it long-term.**
 
 ## Using NewStyleCop.Analyzers
 
@@ -25,7 +26,3 @@ for information about known differences which you may notice when switching to S
 ## Contributing
 
 See [Contributing](https://github.com/bjornhellander/NewStyleCopAnalyzers/tree/master/CONTRIBUTING.md)
-
-## Current status
-
-An up-to-date list of which StyleCop rules are implemented and which have code fixes can be found [here](https://dotnetanalyzers.github.io/StyleCopAnalyzers/).
