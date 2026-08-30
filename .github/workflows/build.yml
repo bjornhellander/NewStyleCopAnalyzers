@@ -33,8 +33,11 @@ jobs:
     - name: Restore tools
       run: dotnet tool restore
 
-    - name: Build & Test
-      run: dotnet dotnet-coverage collect "dotnet test --project StyleCop.Analyzers/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}.csproj -c ${{matrix.configuration}} --verbosity normal" --output TestResults/coverage.cobertura.xml --output-format cobertura --settings CodeCoverage.config
+    - name: Build
+      run: dotnet build -c ${{matrix.configuration}}
+
+    - name: Test
+      run: dotnet dotnet-coverage collect "dotnet test --no-build --project StyleCop.Analyzers/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}.csproj -c ${{matrix.configuration}}" --output TestResults/coverage.cobertura.xml --output-format cobertura --settings CodeCoverage.config
 
     - name: Upload coverage
       uses: codecov/codecov-action@e53489f4d376d79066609109e7a95a29eb3740b1 # v7.0.0

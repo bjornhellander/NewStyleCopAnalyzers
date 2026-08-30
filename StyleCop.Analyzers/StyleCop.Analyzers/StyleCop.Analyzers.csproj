@@ -33,9 +33,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!--
+      SkipGetTargetFrameworkProperties suppresses the netstandard1.1 -> netstandard2.0 compatibility
+      check for this build-time-only reference. SetTargetFramework="TargetFramework=netstandard2.0"
+      does that too, but it builds the generator in a different MSBuild configuration than a solution
+      build does, so "dotnet build" on the solution builds it twice into the same obj folder and the
+      two builds race each other (MSB3491).
+    -->
     <ProjectReference
       Include="..\StyleCop.Analyzers.CodeGeneration\StyleCop.Analyzers.CodeGeneration.csproj"
-      SetTargetFramework="TargetFramework=netstandard2.0"
+      SkipGetTargetFrameworkProperties="true"
       OutputItemType="Analyzer"
       ReferenceOutputAssembly="false" />
   </ItemGroup>
