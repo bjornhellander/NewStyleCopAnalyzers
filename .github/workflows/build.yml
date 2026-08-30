@@ -33,12 +33,8 @@ jobs:
     - name: Restore tools
       run: dotnet tool restore
 
-    # Build the test project rather than the whole solution: a solution build compiles
-    # StyleCop.Analyzers.CodeGeneration twice - once as a solution entry, and once via the
-    # SetTargetFramework project reference from StyleCop.Analyzers - and the two instances
-    # race over the same obj folder, failing with MSB3491.
     - name: Build
-      run: dotnet build StyleCop.Analyzers/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}.csproj -c ${{matrix.configuration}}
+      run: dotnet build -c ${{matrix.configuration}}
 
     - name: Test
       run: dotnet dotnet-coverage collect "dotnet test --no-build --project StyleCop.Analyzers/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}.csproj -c ${{matrix.configuration}}" --output TestResults/coverage.cobertura.xml --output-format cobertura --settings CodeCoverage.config

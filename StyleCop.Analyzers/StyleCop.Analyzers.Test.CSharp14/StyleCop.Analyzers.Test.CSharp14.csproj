@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StyleCop.Analyzers.Test.CSharp13\StyleCop.Analyzers.Test.CSharp13.csproj" />
-    <ProjectReference Include="..\StyleCop.Analyzers.PrivateCodeFixes\StyleCop.Analyzers.PrivateCodeFixes.csproj" PrivateAssets="all" SetTargetFramework="TargetFramework=netstandard2.0" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\StyleCop.Analyzers.PrivateCodeFixes\StyleCop.Analyzers.PrivateCodeFixes.csproj" PrivateAssets="all" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>
