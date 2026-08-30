@@ -77,8 +77,9 @@ Other rules already handle local functions and only need a `static` regression t
 (`.../SA1502ElementMustNotBeOnASingleLine.cs`), `SA1300`, and the parameter-list family `SA1110`–`SA1117`, all of
 which reference `LocalFunctionStatement` today.
 
-**Proposed:** decide SA1206's scope, then `SA1206CSharp8UnitTests` (either the fix plus tests, or a test pinning that
-local functions are ignored), plus `SA1502` and `SA1300` tests using `static` local functions.
+**Proposed:** decide SA1206's scope, then add to the existing `SA1206CSharp8UnitTests` (either the fix plus tests,
+or a test pinning that local functions are ignored), plus `SA1502` and `SA1300` tests using `static` local
+functions.
 
 ### 4. Default interface members — SA1400 deliberately skips interfaces
 
@@ -124,17 +125,3 @@ disposal; the linked `using` documentation covers `await using` too.
 
 **Proposed:** `await using` and `using var` cases in `SA1000CSharp8UnitTests`; `SA1002` semicolon test for a using
 declaration.
-
-### 7. Readonly instance members
-
-**Priority:** Medium. **Suspected code gap:** none. **Docs:** [Readonly members](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/struct#readonly-instance-members)
-
-No C# 8 tests exist for `readonly` struct members. `SA1206` handles the relevant declaration kinds already, and
-classifies `readonly` as an "other" modifier, so `readonly public int Foo()` should be flagged and `public readonly
-int Foo()` should not — untested either way.
-
-`SA1214` orders readonly *fields* and should be unaffected by readonly *members*; that is worth a negative test so a
-future change to the modifier handling cannot silently break it.
-
-**Proposed:** `SA1206CSharp8UnitTests` (shared with item 3), plus `SA1201`/`SA1202`/`SA1204`/`SA1214` regressions on a
-struct with readonly members.
