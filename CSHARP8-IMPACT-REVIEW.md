@@ -2,9 +2,12 @@
 
 Source: [C# version 8.0](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history#c-version-80)
 
-Every C# 8 language feature, the StyleCop rules it touches, and what the repo already has. Findings come from reading
-the analyzer implementations and the existing `StyleCop.Analyzers.Test.CSharp8` tests, not just the language spec, and
-are grounded with file/line references.
+The C# 8 language features with StyleCop work still outstanding, the rules each one touches, and what the repo
+already has. Findings come from reading the analyzer implementations and the existing
+`StyleCop.Analyzers.Test.CSharp8` tests, not just the language spec, and are grounded with file/line references.
+
+The review started from all fourteen features on the source page. A feature disappears from this file once its work
+is done or once it has been confirmed to need none, so an absent feature has been dealt with, not overlooked.
 
 New tests belong in `StyleCop.Analyzers.Test.CSharp8` (the lowest project whose language version can express the
 syntax, per `CLAUDE.md`), written as `public partial class SA####CSharp8UnitTests` — the derived-test generator
@@ -13,12 +16,13 @@ supplies the other half of the partial class, and the test then re-runs in CShar
 The goal is a regression test for every related rule, including the ones that turn out to need no code change; a test
 that pins current correct behaviour is the point, not a formality.
 
-Work through the numbered items one at a time. Delete an item from this file once its tests are merged. Items are
-ordered by priority, and each states its own; priority reflects how likely the rule is to behave wrongly today, not
-how much typing the test needs. Each item links the language documentation the source page points at for that
-feature.
+Work through the numbered items one at a time. Delete an item from this file once its tests are merged, and update
+"Current coverage" below in the same change so the two never disagree. Item numbers are stable — deleting item 6
+leaves a gap rather than renumbering, so "item 6" means the same thing across conversations. Items are ordered by
+priority, and each states its own; priority reflects how likely the rule is to behave wrongly today, not how much
+typing the test needs. Each item links the language documentation the source page points at for that feature.
 
-## What already exists
+## Current coverage
 
 30 hand-written files in `StyleCop.Analyzers.Test.CSharp8`, covering:
 
@@ -217,19 +221,3 @@ Covered for the pointer-declaration case by `SA1015CSharp8UnitTests.TestGenericT
 counterpart. Untouched: `stackalloc Foo<int>[10]` and array/bracket spacing on constructed unmanaged types.
 
 **Proposed:** add these to the `SA1000` and `SA1010` C# 8 files rather than new ones.
-
-### 14. Disposable ref structs — out of scope
-
-**Priority:** none, nothing to do. **Docs:** [Disposable ref structs](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/ref-struct)
-
-`ref struct` is C# 7.2 syntax and the C# 8 change is purely semantic: a `ref struct` cannot implement an interface,
-so the compiler matches a `Dispose()` method by pattern instead of through `IDisposable`. Nothing in the rule set
-looks at that — the only `IDisposable`/`Dispose` references in the analyzers are infrastructure (`JsonWriter.cs`,
-`PooledObject`1.cs`, `SeparatedSyntaxListWrapper`1.cs`).
-
-The `ref struct` declaration itself is not unhandled: `SyntaxKind.RefKeyword` is processed by
-`Helpers/ModifierOrderHelper.cs:69`, `SA1000KeywordsMustBeSpacedCorrectly.cs:109` and
-`SA1004DocumentationLinesMustBeginWithSingleSpace.cs:111`, so SA1206 and SA1000 do see it. That is C# 7.2 syntax
-though, and `Test.CSharp13` already has `ref struct` tests (SA1001, SA1024, SA1127, SA1201, SA1202, SA1600) for the
-later change. Since C# 8 alters only what the compiler accepts, not what gets parsed, there is nothing C# 8-specific
-to regression-test here.
