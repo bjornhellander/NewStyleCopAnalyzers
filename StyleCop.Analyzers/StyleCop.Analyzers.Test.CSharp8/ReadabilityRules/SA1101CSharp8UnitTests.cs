@@ -29,5 +29,52 @@ namespace StyleCop.Analyzers.Test.CSharp8.ReadabilityRules
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that a local call in the body of an await foreach statement, which C# 8 introduced, must be
+        /// prefixed with this.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestAwaitForEachStatementAsync()
+        {
+            var testCode = @"using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class Test
+{
+    public async Task MethodAsync(IAsyncEnumerable<int> values)
+    {
+        await foreach (var value in values)
+        {
+            [|Handle|](value);
+        }
+    }
+
+    public void Handle(int value)
+    {
+    }
+}";
+
+            var fixedCode = @"using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class Test
+{
+    public async Task MethodAsync(IAsyncEnumerable<int> values)
+    {
+        await foreach (var value in values)
+        {
+            this.Handle(value);
+        }
+    }
+
+    public void Handle(int value)
+    {
+    }
+}";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

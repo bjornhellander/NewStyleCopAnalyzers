@@ -205,5 +205,46 @@ public class TestClass
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies the handling of the foreach keyword of an await foreach statement, which C# 8 introduced. The
+        /// await and foreach keywords are adjacent here.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestAwaitForEachStatementAsync()
+        {
+            var testCode = @"using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class TestClass
+{
+    public async Task TestMethodAsync(IAsyncEnumerable<int> values)
+    {
+        await {|#0:foreach|}(var value in values)
+        {
+        }
+    }
+}
+";
+
+            var fixedCode = @"using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class TestClass
+{
+    public async Task TestMethodAsync(IAsyncEnumerable<int> values)
+    {
+        await foreach (var value in values)
+        {
+        }
+    }
+}
+";
+
+            DiagnosticResult expected = Diagnostic().WithLocation(0).WithArguments("foreach", string.Empty, "followed");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

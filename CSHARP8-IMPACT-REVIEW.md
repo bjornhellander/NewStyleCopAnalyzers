@@ -102,14 +102,3 @@ exists but adds no test.
 **Proposed:** `SA1400CSharp8UnitTests` pinning the interface behaviour, plus tests for `SA1101` (`this.` inside a
 default implementation), `SA1201`/`SA1204` (ordering of static, const, field and default-implemented members in an
 interface), `SA1502` (single-line default body) and `SA1600`/`SA1601` (documentation of members with bodies).
-
-### 5. `await foreach` and async streams
-
-**Priority:** Medium. **Suspected code gap:** none. **Docs:** [Asynchronous streams](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements#await-foreach)
-
-`SA1316TupleElementNamesShouldUseCorrectCasing` is the only analyzer referencing
-`CommonForEachStatementSyntaxWrapper`, and it has no C# 8 test. `SA1000` handles `AwaitKeyword` and `ForEachKeyword`
-separately (`SA1000KeywordsMustBeSpacedCorrectly.cs:90,95`) but has never seen them adjacent.
-
-**Proposed:** `SA1316CSharp8UnitTests` (`await foreach (var (a, b) in ...)` with tuple element names), and
-`await foreach` cases in the new `SA1000CSharp8UnitTests`; plus `SA1101` and `SA1503` regressions for the loop body.
