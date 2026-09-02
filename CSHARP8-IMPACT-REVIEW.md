@@ -80,25 +80,3 @@ which reference `LocalFunctionStatement` today.
 **Proposed:** decide SA1206's scope, then add to the existing `SA1206CSharp8UnitTests` (either the fix plus tests,
 or a test pinning that local functions are ignored), plus `SA1502` and `SA1300` tests using `static` local
 functions.
-
-### 4. Default interface members — SA1400 deliberately skips interfaces
-
-**Priority:** High. **Suspected code gap:** SA1400. **Docs:** [Default interface members](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/interface#default-interface-members)
-
-`SA1400AccessModifierMustBeDeclared` bails out whenever a member's parent is an interface
-(`.../MaintainabilityRules/SA1400AccessModifierMustBeDeclared.cs:90,106,122,133,162`). Before C# 8 that was
-unambiguously right: interface members could not have access modifiers. From C# 8 they can, and a `private` or
-`static private` helper in an interface *must* be explicit. So the rule is silent on a construct it arguably now
-covers.
-
-I'd lean towards "current behaviour is still defensible" — the rule's job is to make implicit access explicit, and
-interface members are still implicitly `public` — but it needs a test that states the choice rather than leaving it
-undefined.
-
-Existing coverage is thin: `SA1202CSharp8UnitTests.TestPropertiesOfInterfaceAsync` and
-`SA1648CSharp8UnitTests.TestIncorrectMemberInheritDocFromStaticMemberInInterfaceAsync`. `SA1600CSharp8UnitTests.cs`
-exists but adds no test.
-
-**Proposed:** `SA1400CSharp8UnitTests` pinning the interface behaviour, plus tests for `SA1101` (`this.` inside a
-default implementation), `SA1201`/`SA1204` (ordering of static, const, field and default-implemented members in an
-interface), `SA1502` (single-line default body) and `SA1600`/`SA1601` (documentation of members with bodies).

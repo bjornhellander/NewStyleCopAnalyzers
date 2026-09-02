@@ -38,5 +38,39 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that a static interface member, which C# 8 introduced, must appear before an instance one.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestInterfaceMembersAsync()
+        {
+            var testCode = @"public interface ITest
+{
+    void Method()
+    {
+    }
+
+    static void [|StaticMethod|]()
+    {
+    }
+}
+";
+
+            var fixedCode = @"public interface ITest
+{
+    static void StaticMethod()
+    {
+    }
+
+    void Method()
+    {
+    }
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
