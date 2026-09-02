@@ -60,23 +60,3 @@ has grown special cases for index initializers, list patterns and collection exp
 
 **Proposed:** add to `SA1010CSharp8UnitTests`, covering `x[^1]`, `x[1..2]`, `x[..^1]`, `x [^1]` (diagnostic) and the
 same inside a nested expression.
-
-### 3. Static local functions — SA1206 does not see local functions
-
-**Priority:** High. **Suspected code gap:** SA1206. **Docs:** [Static local functions](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/local-functions)
-
-`SA1206DeclarationKeywordsMustFollowOrder` registers a fixed list of declaration kinds
-(`.../OrderingRules/SA1206DeclarationKeywordsMustFollowOrder.cs:49-66`) which does **not** include
-`LocalFunctionStatement`. A local function may carry `static`, `async`, `extern` and `unsafe`, so `async static void
-Local()` is not flagged today while the equivalent method declaration would be.
-
-Whether that is a bug or an intentional scope limit is the open question — `SA1206`'s upstream description is
-declaration-focused, and local functions have no access modifiers, so only the static/async ordering is at stake.
-
-Other rules already handle local functions and only need a `static` regression test: `SA1502`
-(`.../SA1502ElementMustNotBeOnASingleLine.cs`), `SA1300`, and the parameter-list family `SA1110`–`SA1117`, all of
-which reference `LocalFunctionStatement` today.
-
-**Proposed:** decide SA1206's scope, then add to the existing `SA1206CSharp8UnitTests` (either the fix plus tests,
-or a test pinning that local functions are ignored), plus `SA1502` and `SA1300` tests using `static` local
-functions.
