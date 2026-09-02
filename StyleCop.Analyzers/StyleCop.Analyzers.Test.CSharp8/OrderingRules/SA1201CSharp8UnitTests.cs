@@ -39,5 +39,38 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that the members an interface may hold from C# 8 onwards are ordered by element kind like the
+        /// members of any other type.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestInterfaceMembersAsync()
+        {
+            var testCode = @"public interface ITest
+{
+    void Method()
+    {
+    }
+
+    int {|#0:Property|} { get; set; }
+}
+";
+
+            var fixedCode = @"public interface ITest
+{
+    int Property { get; set; }
+
+    void Method()
+    {
+    }
+}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("property", "method");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

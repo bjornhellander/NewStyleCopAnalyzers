@@ -76,5 +76,36 @@ public class Test
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that a local call in the default implementation of an interface member, which C# 8 introduced,
+        /// must be prefixed with this.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestDefaultInterfaceMethodAsync()
+        {
+            var testCode = @"public interface ITest
+{
+    void Method();
+
+    void DefaultMethod()
+    {
+        [|Method|]();
+    }
+}";
+
+            var fixedCode = @"public interface ITest
+{
+    void Method();
+
+    void DefaultMethod()
+    {
+        this.Method();
+    }
+}";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
