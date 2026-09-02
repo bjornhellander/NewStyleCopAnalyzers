@@ -37,5 +37,36 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that a static local function, which C# 8 introduced, must not be on a single line.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestStaticLocalFunctionAsync()
+        {
+            var testCode = @"public class TestClass
+{
+    public void TestMethod()
+    {
+        static int LocalFunction() [|{|] return 0; }
+    }
+}
+";
+
+            var fixedCode = @"public class TestClass
+{
+    public void TestMethod()
+    {
+        static int LocalFunction()
+        {
+            return 0;
+        }
+    }
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

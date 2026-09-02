@@ -35,5 +35,40 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that the static keyword of a static local function, which C# 8 introduced, must precede the
+        /// other modifiers.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestStaticLocalFunctionAsync()
+        {
+            var testCode = @"using System.Threading.Tasks;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        async {|#0:static|} Task LocalFunction() => await Task.CompletedTask;
+    }
+}
+";
+
+            var fixedCode = @"using System.Threading.Tasks;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        static async Task LocalFunction() => await Task.CompletedTask;
+    }
+}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("static", "async");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

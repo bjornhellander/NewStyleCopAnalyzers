@@ -96,7 +96,7 @@ namespace StyleCop.Analyzers.Helpers
             return modifiers;
         }
 
-        internal static SyntaxTokenList GetModifiers(this MemberDeclarationSyntax syntax)
+        internal static SyntaxTokenList GetModifiers(this SyntaxNode syntax)
         {
             if (syntax is BaseMethodDeclarationSyntax)
             {
@@ -121,6 +121,10 @@ namespace StyleCop.Analyzers.Helpers
             else if (syntax is IncompleteMemberSyntax)
             {
                 return ((IncompleteMemberSyntax)syntax).Modifiers;
+            }
+            else if (LocalFunctionStatementSyntaxWrapper.IsInstance(syntax))
+            {
+                return ((LocalFunctionStatementSyntaxWrapper)syntax).Modifiers;
             }
 
             return default;
@@ -178,6 +182,9 @@ namespace StyleCop.Analyzers.Helpers
 
             case SyntaxKind.EventFieldDeclaration:
                 return ((EventFieldDeclarationSyntax)node).WithModifiers(modifiers);
+
+            case SyntaxKindEx.LocalFunctionStatement:
+                return ((LocalFunctionStatementSyntaxWrapper)node).WithModifiers(modifiers);
 
             default:
                 return node;
