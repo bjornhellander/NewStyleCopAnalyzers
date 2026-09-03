@@ -153,5 +153,86 @@ public class TestClass
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies the handling of an index-from-end argument, which C# 8 introduced.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestIndexFromEndAsync()
+        {
+            var testCode = @"public class TestClass
+{
+    public int TestMethod(int[] values)
+    {
+        var value1 = values {|#0:[|}^1];
+        var value2 = values{|#1:[|} ^1];
+        return value1 + value2 + values[^1];
+    }
+}
+";
+
+            var fixedCode = @"public class TestClass
+{
+    public int TestMethod(int[] values)
+    {
+        var value1 = values[^1];
+        var value2 = values[^1];
+        return value1 + value2 + values[^1];
+    }
+}
+";
+
+            DiagnosticResult[] expected =
+            {
+                Diagnostic(DescriptorNotPreceded).WithLocation(0),
+                Diagnostic(DescriptorNotFollowed).WithLocation(1),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies the handling of a range argument, which C# 8 introduced.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestRangeAsync()
+        {
+            var testCode = @"public class TestClass
+{
+    public void TestMethod(int[] values)
+    {
+        var range1 = values {|#0:[|}1..2];
+        var range2 = values{|#1:[|} ..^1];
+        var range3 = TestMethod2(values {|#2:[|}..]);
+    }
+
+    public int TestMethod2(int[] values) => 0;
+}
+";
+
+            var fixedCode = @"public class TestClass
+{
+    public void TestMethod(int[] values)
+    {
+        var range1 = values[1..2];
+        var range2 = values[..^1];
+        var range3 = TestMethod2(values[..]);
+    }
+
+    public int TestMethod2(int[] values) => 0;
+}
+";
+
+            DiagnosticResult[] expected =
+            {
+                Diagnostic(DescriptorNotPreceded).WithLocation(0),
+                Diagnostic(DescriptorNotFollowed).WithLocation(1),
+                Diagnostic(DescriptorNotPreceded).WithLocation(2),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
