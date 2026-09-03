@@ -47,16 +47,3 @@ That may be correct — or it may be why the layout rules ignore arms.
 **Proposed:** switch expression keyword spacing added to `SA1000CSharp8UnitTests`, plus `SA1003`, `SA1136`, `SA1137`,
 `SA1500`, `SA1501`, `SA1506` and `SA1508` C# 8 files covering a multi-line switch expression and a single-line one,
 plus the same added to the existing `SA1505CSharp8UnitTests`.
-
-### 2. Indices and ranges — SA1010 has no range or index tests
-
-**Priority:** High. **Suspected code gap:** none, but the rule is entirely unexercised for this syntax. **Docs:** [Indices and ranges](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#range-operator-)
-
-`SA1003`, `SA1008`, `SA1009`, `SA1011` and `SA1119` all have range tests.
-`SA1010OpeningSquareBracketsMustBeSpacedCorrectly` does not: `SA1010CSharp8UnitTests.cs` exists but covers only
-`stackalloc`, and no test anywhere exercises index-from-end or range arguments. The rule
-has grown special cases for index initializers, list patterns and collection expressions
-(`.../SpacingRules/SA1010OpeningSquareBracketsMustBeSpacedCorrectly.cs:97,115-128`) but nothing for either of those.
-
-**Proposed:** add to `SA1010CSharp8UnitTests`, covering `x[^1]`, `x[1..2]`, `x[..^1]`, `x [^1]` (diagnostic) and the
-same inside a nested expression.
