@@ -46,13 +46,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered else clause action three times
-            var expected = new[]
-            {
-                Diagnostic().WithLocation(0).WithArguments("else"),
-                Diagnostic().WithLocation(0).WithArguments("else"),
-                Diagnostic().WithLocation(0).WithArguments("else"),
-            };
+            var expected = Diagnostic().WithLocation(0).WithArguments("else");
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }

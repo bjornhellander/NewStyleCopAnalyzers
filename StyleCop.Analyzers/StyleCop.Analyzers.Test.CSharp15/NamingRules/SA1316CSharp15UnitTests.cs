@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp15.NamingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis.Testing;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.NamingRules.SA1316TupleElementNamesShouldUseCorrectCasing,
@@ -18,7 +19,7 @@ namespace StyleCop.Analyzers.Test.CSharp15.NamingRules
             var testCode = @"
 public union TestUnion(string, int)
 {
-    public static (int {|#0:value|}, int Other) TestMethod() => (1, 2);
+    public static (int [|value|], int Other) TestMethod() => (1, 2);
 }
 ";
 
@@ -29,10 +30,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered tuple type action three times
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

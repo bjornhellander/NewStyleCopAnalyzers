@@ -105,9 +105,7 @@ namespace StyleCop.Analyzers.LayoutRules
         protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             context.RegisterSyntaxNodeAction(DeclarationAction, HandledSyntaxKinds);
-
-            // Register UnionDeclaration separately (with a duplicate-node guard, see the helper for why it is needed).
-            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(DeclarationAction, SyntaxKindEx.UnionDeclaration);
+            context.RegisterSyntaxNodeAction(DeclarationAction, SyntaxKindEx.UnionDeclaration);
         }
 
         private static void HandleDeclaration(SyntaxNodeAnalysisContext context)
