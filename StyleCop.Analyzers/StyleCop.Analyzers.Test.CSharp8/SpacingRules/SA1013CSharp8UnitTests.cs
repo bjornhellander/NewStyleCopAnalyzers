@@ -88,5 +88,36 @@ public class Foo
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Validates the handling of the closing brace of an interpolation in an interpolated verbatim string, which
+        /// C# 8 allows to be written as <c>@$"..."</c> as well as <c>$@"..."</c>.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestClosingBraceInInterpolatedVerbatimStringAsync()
+        {
+            const string testCode = @"
+public class Foo
+{
+    public void TestMethod(string value)
+    {
+        var a = @$""{value [|}|]"";
+    }
+}
+";
+
+            const string fixedCode = @"
+public class Foo
+{
+    public void TestMethod(string value)
+    {
+        var a = @$""{value}"";
+    }
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

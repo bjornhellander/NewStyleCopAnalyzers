@@ -14,6 +14,7 @@ namespace StyleCop.Analyzers.OrderingRules
     using Microsoft.CodeAnalysis.CodeFixes;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using StyleCop.Analyzers.Helpers;
+    using StyleCop.Analyzers.Lightup;
     using static StyleCop.Analyzers.OrderingRules.ModifierOrderHelper;
 
     /// <summary>
@@ -53,29 +54,42 @@ namespace StyleCop.Analyzers.OrderingRules
         {
             var syntaxRoot = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
 
-            var memberDeclaration = syntaxRoot.FindNode(diagnostic.Location.SourceSpan).FirstAncestorOrSelf<MemberDeclarationSyntax>();
-            if (memberDeclaration == null)
+            var declaration = FindDeclaration(syntaxRoot, diagnostic);
+            if (declaration == null)
             {
                 return document;
             }
 
-            var modifierTokenToFix = memberDeclaration.FindToken(diagnostic.Location.SourceSpan.Start);
+            var modifierTokenToFix = declaration.FindToken(diagnostic.Location.SourceSpan.Start);
             if (GetModifierType(modifierTokenToFix) == ModifierType.None)
             {
                 return document;
             }
 
-            var newModifierList = PartiallySortModifiers(memberDeclaration.GetModifiers(), modifierTokenToFix);
-            syntaxRoot = UpdateSyntaxRoot(memberDeclaration, newModifierList, syntaxRoot);
+            var newModifierList = PartiallySortModifiers(DeclarationModifiersHelper.GetModifiers(declaration), modifierTokenToFix);
+            syntaxRoot = UpdateSyntaxRoot(declaration, newModifierList, syntaxRoot);
 
             return document.WithSyntaxRoot(syntaxRoot);
         }
 
-        private static SyntaxNode UpdateSyntaxRoot(MemberDeclarationSyntax memberDeclaration, SyntaxTokenList newModifiers, SyntaxNode syntaxRoot)
+        /// <summary>
+        /// Finds the declaration a diagnostic was reported on. A local function is a statement rather than a member
+        /// declaration, so it cannot be found by looking for a <see cref="MemberDeclarationSyntax"/> alone.
+        /// </summary>
+        /// <param name="syntaxRoot">The root of the syntax tree.</param>
+        /// <param name="diagnostic">The diagnostic to find the declaration for.</param>
+        /// <returns>The declaration, or <see langword="null"/> if none was found.</returns>
+        private static SyntaxNode FindDeclaration(SyntaxNode syntaxRoot, Diagnostic diagnostic)
         {
-            var newDeclaration = memberDeclaration.WithModifiers(newModifiers);
+            return syntaxRoot.FindNode(diagnostic.Location.SourceSpan)
+                .AncestorsAndSelf()
+                .FirstOrDefault(node => node is MemberDeclarationSyntax || LocalFunctionStatementSyntaxWrapper.IsInstance(node));
+        }
 
-            return syntaxRoot.ReplaceNode(memberDeclaration, newDeclaration);
+        private static SyntaxNode UpdateSyntaxRoot(SyntaxNode declaration, SyntaxTokenList newModifiers, SyntaxNode syntaxRoot)
+        {
+            var newDeclaration = DeclarationModifiersHelper.WithModifiers(declaration, newModifiers);
+            return syntaxRoot.ReplaceNode(declaration, newDeclaration);
         }
 
         /// <summary>
@@ -173,31 +187,31 @@ namespace StyleCop.Analyzers.OrderingRules
 
                 // because all modifiers can be fixed in one run, we
                 // only need to store each declaration once
-                var trackedDiagnosticMembers = new HashSet<MemberDeclarationSyntax>();
+                var trackedDiagnosticMembers = new HashSet<SyntaxNode>();
                 foreach (var diagnostic in diagnostics)
                 {
-                    var memberDeclaration = syntaxRoot.FindNode(diagnostic.Location.SourceSpan).FirstAncestorOrSelf<MemberDeclarationSyntax>();
-                    if (memberDeclaration == null)
+                    var declaration = FindDeclaration(syntaxRoot, diagnostic);
+                    if (declaration == null)
                     {
                         continue;
                     }
 
-                    var modifierToken = memberDeclaration.FindToken(diagnostic.Location.SourceSpan.Start);
+                    var modifierToken = declaration.FindToken(diagnostic.Location.SourceSpan.Start);
                     if (GetModifierType(modifierToken) == ModifierType.None)
                     {
                         continue;
                     }
 
-                    trackedDiagnosticMembers.Add(memberDeclaration);
+                    trackedDiagnosticMembers.Add(declaration);
                 }
 
                 syntaxRoot = syntaxRoot.TrackNodes(trackedDiagnosticMembers);
 
                 foreach (var member in trackedDiagnosticMembers)
                 {
-                    var memberDeclaration = syntaxRoot.GetCurrentNode(member);
-                    var newModifierList = FullySortModifiers(memberDeclaration.GetModifiers());
-                    syntaxRoot = UpdateSyntaxRoot(memberDeclaration, newModifierList, syntaxRoot);
+                    var declaration = syntaxRoot.GetCurrentNode(member);
+                    var newModifierList = FullySortModifiers(DeclarationModifiersHelper.GetModifiers(declaration));
+                    syntaxRoot = UpdateSyntaxRoot(declaration, newModifierList, syntaxRoot);
                 }
 
                 return syntaxRoot;

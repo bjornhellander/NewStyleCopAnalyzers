@@ -52,5 +52,43 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies the handling of the semicolon of a using declaration, which C# 8 introduced.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestUsingDeclarationAsync()
+        {
+            var testCode = @"namespace TestNamespace
+{
+    using System;
+
+    public class TestClass
+    {
+        public void TestMethod()
+        {
+            using IDisposable resource = null [|;|]
+        }
+    }
+}
+";
+
+            var fixedCode = @"namespace TestNamespace
+{
+    using System;
+
+    public class TestClass
+    {
+        public void TestMethod()
+        {
+            using IDisposable resource = null;
+        }
+    }
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

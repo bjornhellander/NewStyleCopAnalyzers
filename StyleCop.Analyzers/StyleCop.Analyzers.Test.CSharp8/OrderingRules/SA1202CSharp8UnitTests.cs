@@ -56,5 +56,34 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
                 NumberOfFixAllIterations = 2,
             }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that readonly instance members, which C# 8 introduced, are ordered by access like any other
+        /// member.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestReadonlyInstanceMemberAsync()
+        {
+            var testCode = @"public struct TestStruct
+{
+    private readonly int Method() => 0;
+
+    public readonly int {|#0:OtherMethod|}() => 0;
+}
+";
+
+            var fixedCode = @"public struct TestStruct
+{
+    public readonly int OtherMethod() => 0;
+
+    private readonly int Method() => 0;
+}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("public", "private");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
