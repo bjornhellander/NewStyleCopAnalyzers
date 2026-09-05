@@ -40,7 +40,7 @@ jobs:
       run: dotnet dotnet-coverage collect "dotnet test --no-build --project StyleCop.Analyzers/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}/StyleCop.Analyzers.Test.CSharp${{matrix.testversion}}.csproj -c ${{matrix.configuration}}" --output TestResults/coverage.cobertura.xml --output-format cobertura --settings CodeCoverage.config
 
     - name: Upload coverage
-      uses: codecov/codecov-action@e53489f4d376d79066609109e7a95a29eb3740b1 # v7.0.0
+      uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
       with:
         files: ./TestResults/coverage.cobertura.xml
         disable_search: true
