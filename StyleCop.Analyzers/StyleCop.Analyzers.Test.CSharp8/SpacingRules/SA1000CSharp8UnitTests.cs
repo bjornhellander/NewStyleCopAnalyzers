@@ -246,5 +246,39 @@ public class TestClass
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies the handling of the switch keyword of a switch expression, which C# 8 introduced. The keyword is
+        /// followed by a brace here rather than by an opening parenthesis, and is preceded by the governing
+        /// expression. Only the side after the keyword is checked, so the second case is not reported.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestSwitchExpressionAsync()
+        {
+            var testCode = @"public class TestClass
+{
+    public void TestMethod(int value)
+    {
+        var result1 = value {|#0:switch|}{ _ => 0 };
+        var result2 = value  switch { _ => 0 };
+    }
+}
+";
+
+            var fixedCode = @"public class TestClass
+{
+    public void TestMethod(int value)
+    {
+        var result1 = value switch { _ => 0 };
+        var result2 = value  switch { _ => 0 };
+    }
+}
+";
+
+            DiagnosticResult expected = Diagnostic().WithLocation(0).WithArguments("switch", string.Empty, "followed");
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

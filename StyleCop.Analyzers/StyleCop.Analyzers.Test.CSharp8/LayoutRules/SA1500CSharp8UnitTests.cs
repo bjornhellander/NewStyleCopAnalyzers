@@ -8,59 +8,45 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
     using Microsoft.CodeAnalysis.Testing;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
-        StyleCop.Analyzers.LayoutRules.SA1505OpeningBracesMustNotBeFollowedByBlankLine,
-        StyleCop.Analyzers.LayoutRules.SA1505CodeFixProvider>;
+        StyleCop.Analyzers.LayoutRules.SA1500BracesForMultiLineStatementsMustNotShareLine,
+        StyleCop.Analyzers.LayoutRules.SA1500CodeFixProvider>;
 
-    public partial class SA1505CSharp8UnitTests
+    public partial class SA1500CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that a blank line between an opening brace and a nullable directive, which C# 8 introduced, is
-        /// reported.
+        /// Verifies that a single-line switch expression, which C# 8 introduced, is not inspected.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestBlankLineBeforeNullableDirectiveAsync()
+        public async Task TestSwitchExpressionSingleLineAsync()
         {
             var testCode = @"public class TestClass
-[|{|]
-
-#nullable enable
-    public void Method()
-    {
-    }
-}
-";
-
-            var fixedCode = @"public class TestClass
 {
-#nullable enable
-    public void Method()
+    public int TestMethod(int value)
     {
+        return value switch { 0 => 0, _ => 1 };
     }
 }
 ";
 
-            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         /// <summary>
-        /// Verifies that the opening brace of a switch expression, which C# 8 introduced, must not be followed by a
-        /// blank line.
+        /// Verifies that diagnostics will be reported for the braces of a multi-line switch expression, which C# 8
+        /// introduced, when they share a line with other code.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
-        public async Task TestSwitchExpressionAsync()
+        public async Task TestSwitchExpressionInvalidAsync()
         {
             var testCode = @"public class TestClass
 {
     public int TestMethod(int value)
     {
-        return value switch
-        [|{|]
-
+        return value switch [|{|]
             0 => 0,
-            _ => 1,
-        };
+            _ => 1 [|}|];
     }
 }
 ";
@@ -72,7 +58,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
         return value switch
         {
             0 => 0,
-            _ => 1,
+            _ => 1
         };
     }
 }
