@@ -14,8 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.MaintainabilityRules
     public partial class SA1407CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that arithmetic precedence is still checked on the right hand side of a null-coalescing
-        /// assignment, which C# 8 introduced.
+        /// Verifies that arithmetic precedence is still checked on the right hand side of a null-coalescing assignment.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

@@ -58,8 +58,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
         }
 
         /// <summary>
-        /// Verifies that readonly instance members, which C# 8 introduced, are ordered by access like any other
-        /// member.
+        /// Verifies that readonly instance members are ordered by access like any other member.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

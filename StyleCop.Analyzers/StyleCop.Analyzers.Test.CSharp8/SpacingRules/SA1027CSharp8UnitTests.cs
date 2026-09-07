@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     public partial class SA1027CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that a tab inside a nullable directive, which C# 8 introduced, is reported.
+        /// Verifies that a tab inside a nullable directive is reported.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

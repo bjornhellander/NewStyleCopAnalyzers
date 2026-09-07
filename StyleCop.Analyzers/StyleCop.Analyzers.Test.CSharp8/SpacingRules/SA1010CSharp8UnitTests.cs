@@ -15,7 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     public partial class SA1010CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies the handling of a stackalloc of a constructed unmanaged type, which C# 8 allows.
+        /// Verifies the handling of a stackalloc of a constructed unmanaged type.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -107,7 +107,7 @@ public class TestClass
         }
 
         /// <summary>
-        /// Verifies the handling of the opening bracket of a stackalloc in a nested expression, which C# 8 allows.
+        /// Verifies the handling of the opening bracket of a stackalloc in a nested expression.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -155,7 +155,7 @@ public class TestClass
         }
 
         /// <summary>
-        /// Verifies the handling of an index-from-end argument, which C# 8 introduced.
+        /// Verifies the handling of an index-from-end argument.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -193,7 +193,7 @@ public class TestClass
         }
 
         /// <summary>
-        /// Verifies the handling of a range argument, which C# 8 introduced.
+        /// Verifies the handling of a range argument.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

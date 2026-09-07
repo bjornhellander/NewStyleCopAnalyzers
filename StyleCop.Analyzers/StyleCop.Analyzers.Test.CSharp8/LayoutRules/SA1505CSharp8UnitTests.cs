@@ -14,8 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
     public partial class SA1505CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that a blank line between an opening brace and a nullable directive, which C# 8 introduced, is
-        /// reported.
+        /// Verifies that a blank line between an opening brace and a nullable directive is reported.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -44,8 +43,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
         }
 
         /// <summary>
-        /// Verifies that the opening brace of a switch expression, which C# 8 introduced, must not be followed by a
-        /// blank line.
+        /// Verifies that the opening brace of a switch expression must not be followed by a blank line.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

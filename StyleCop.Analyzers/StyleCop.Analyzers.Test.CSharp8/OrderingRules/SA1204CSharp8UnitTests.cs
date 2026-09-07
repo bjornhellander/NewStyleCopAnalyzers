@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
     public partial class SA1204CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that a readonly instance member, which C# 8 introduced, is ordered as an instance member.
+        /// Verifies that a readonly instance member is ordered as an instance member.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -40,7 +40,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
         }
 
         /// <summary>
-        /// Verifies that a static interface member, which C# 8 introduced, must appear before an instance one.
+        /// Verifies that a static interface member must appear before an instance one.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

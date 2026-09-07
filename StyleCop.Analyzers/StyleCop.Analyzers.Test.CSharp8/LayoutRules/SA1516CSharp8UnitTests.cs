@@ -14,8 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
     public partial class SA1516CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that a nullable directive, which C# 8 introduced, does not count as the blank line required
-        /// between two elements.
+        /// Verifies that a nullable directive does not count as the blank line required between two elements.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

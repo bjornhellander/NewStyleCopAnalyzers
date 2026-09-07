@@ -13,7 +13,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
     public partial class SA1206CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that an access modifier must precede the readonly keyword of a readonly instance member, which C# 8 introduced.
+        /// Verifies that an access modifier must precede the readonly keyword of a readonly instance member.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -37,8 +37,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
         }
 
         /// <summary>
-        /// Verifies that the static keyword of a static local function, which C# 8 introduced, must precede the
-        /// other modifiers.
+        /// Verifies that the static keyword of a static local function must precede the other modifiers.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

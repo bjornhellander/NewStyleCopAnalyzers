@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.ReadabilityRules
     public partial class SA1113CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that the commas of a positional pattern, which C# 8 introduced, are inspected the same way as
+        /// Verifies that the commas of a positional pattern are inspected the same way as
         /// the commas of a parameter list.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>

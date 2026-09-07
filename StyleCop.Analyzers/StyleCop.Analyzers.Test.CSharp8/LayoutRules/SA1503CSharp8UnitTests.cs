@@ -30,7 +30,7 @@ public class Foo
         }
 
         /// <summary>
-        /// Verifies that the body of an await foreach statement, which C# 8 introduced, must be enclosed in braces.
+        /// Verifies that the body of an await foreach statement must be enclosed in braces.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

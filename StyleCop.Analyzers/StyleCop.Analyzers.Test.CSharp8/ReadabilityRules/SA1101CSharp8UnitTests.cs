@@ -31,8 +31,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.ReadabilityRules
         }
 
         /// <summary>
-        /// Verifies that a local call in the body of an await foreach statement, which C# 8 introduced, must be
-        /// prefixed with this.
+        /// Verifies that a local call in the body of an await foreach statement must be prefixed with this.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -78,7 +77,7 @@ public class Test
         }
 
         /// <summary>
-        /// Verifies that a local call in the default implementation of an interface member, which C# 8 introduced,
+        /// Verifies that a local call in the default implementation of an interface member
         /// must be prefixed with this.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>

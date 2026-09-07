@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.NamingRules
     public partial class SA1300CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that a static local function, which C# 8 introduced, must begin with an upper-case letter.
+        /// Verifies that a static local function must begin with an upper-case letter.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.ReadabilityRules
     public partial class SA1112CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that the parentheses of an empty positional pattern, which C# 8 introduced, are inspected the
+        /// Verifies that the parentheses of an empty positional pattern are inspected the
         /// same way as the parentheses of an empty parameter list.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>

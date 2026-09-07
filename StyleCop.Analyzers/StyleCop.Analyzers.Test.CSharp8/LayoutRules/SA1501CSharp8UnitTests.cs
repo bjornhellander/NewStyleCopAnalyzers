@@ -14,7 +14,8 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
     public partial class SA1501CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that a single-line switch expression, which C# 8 introduced, is not inspected. The analyzer registers statement kinds, and a switch expression is an expression.
+        /// Verifies that a single-line switch expression is not inspected.
+        /// The analyzer registers statement kinds, and a switch expression is an expression.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

@@ -219,8 +219,7 @@ namespace TestNamespace
         }
 
         /// <summary>
-        /// Verifies that the arrow of a switch expression arm, which C# 8 introduced, must be surrounded by
-        /// whitespace.
+        /// Verifies that the arrow of a switch expression arm must be surrounded by whitespace.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

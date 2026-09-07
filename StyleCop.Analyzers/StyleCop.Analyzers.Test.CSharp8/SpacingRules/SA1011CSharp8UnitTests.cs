@@ -121,7 +121,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         }
 
         /// <summary>
-        /// Verifies the handling of the closing bracket of a stackalloc in a nested expression, which C# 8 allows.
+        /// Verifies the handling of the closing bracket of a stackalloc in a nested expression.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

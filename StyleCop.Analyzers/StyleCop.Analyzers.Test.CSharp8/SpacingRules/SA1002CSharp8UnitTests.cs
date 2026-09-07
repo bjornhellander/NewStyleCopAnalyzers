@@ -54,7 +54,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
         }
 
         /// <summary>
-        /// Verifies the handling of the semicolon of a using declaration, which C# 8 introduced.
+        /// Verifies the handling of the semicolon of a using declaration.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

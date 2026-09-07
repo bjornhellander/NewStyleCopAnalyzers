@@ -14,8 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
     public partial class SA1502CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that the default implementation of an interface member, which C# 8 introduced, must not be on a
-        /// single line.
+        /// Verifies that the default implementation of an interface member must not be on a single line.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -39,7 +38,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
         }
 
         /// <summary>
-        /// Verifies that a static local function, which C# 8 introduced, must not be on a single line.
+        /// Verifies that a static local function must not be on a single line.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
     public partial class SA1500CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that a single-line switch expression, which C# 8 introduced, is not inspected.
+        /// Verifies that a single-line switch expression is not inspected.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -33,8 +33,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
         }
 
         /// <summary>
-        /// Verifies that diagnostics will be reported for the braces of a multi-line switch expression, which C# 8
-        /// introduced, when they share a line with other code.
+        /// Verifies that diagnostics will be reported for the braces of a multi-line switch expression when they share a line with other code.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

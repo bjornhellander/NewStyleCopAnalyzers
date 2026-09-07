@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.ReadabilityRules
     public partial class SA1141CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that a tuple pattern, which C# 8 introduced, is not reported. The analyzer inspects type
+        /// Verifies that a tuple pattern is not reported. The analyzer inspects type
         /// syntax, not patterns, so the pattern itself is never a candidate for tuple syntax.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>

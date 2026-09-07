@@ -13,7 +13,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.ReadabilityRules
     public partial class SA1115CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that the subpatterns of a positional pattern, which C# 8 introduced, are inspected the same way
+        /// Verifies that the subpatterns of a positional pattern are inspected the same way
         /// as the parameters of a parameter list.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>

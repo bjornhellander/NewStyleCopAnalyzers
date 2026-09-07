@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     public partial class SA1026CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies the handling of an implicitly typed stackalloc in a nested expression, which C# 8 allows.
+        /// Verifies the handling of an implicitly typed stackalloc in a nested expression.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

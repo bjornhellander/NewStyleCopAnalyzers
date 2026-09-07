@@ -14,8 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.LayoutRules
     public partial class SA1508CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that the closing brace of a switch expression, which C# 8 introduced, must not be preceded by a
-        /// blank line.
+        /// Verifies that the closing brace of a switch expression must not be preceded by a blank line.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

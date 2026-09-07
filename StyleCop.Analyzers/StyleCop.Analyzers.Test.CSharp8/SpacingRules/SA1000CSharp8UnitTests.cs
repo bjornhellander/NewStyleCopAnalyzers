@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.SpacingRules
     public partial class SA1000CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies the handling of the stackalloc keyword before a constructed unmanaged type, which C# 8 allows.
+        /// Verifies the handling of the stackalloc keyword before a constructed unmanaged type.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -54,7 +54,7 @@ public class TestClass
         }
 
         /// <summary>
-        /// Verifies the handling of the sizeof keyword applied to a constructed unmanaged type, which C# 8 allows.
+        /// Verifies the handling of the sizeof keyword applied to a constructed unmanaged type.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -94,7 +94,7 @@ public class TestClass
         }
 
         /// <summary>
-        /// Verifies the handling of the stackalloc keyword in a nested expression, which C# 8 allows.
+        /// Verifies the handling of the stackalloc keyword in a nested expression.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -136,7 +136,7 @@ public class TestClass
         }
 
         /// <summary>
-        /// Verifies the handling of the using keyword of a using declaration, which C# 8 introduced.
+        /// Verifies the handling of the using keyword of a using declaration.
         /// The keyword is followed by a type rather than by an opening parenthesis here.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
@@ -171,7 +171,7 @@ public class TestClass
         }
 
         /// <summary>
-        /// Verifies the handling of the using keyword of an await using declaration, which C# 8 introduced.
+        /// Verifies the handling of the using keyword of an await using declaration.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -207,7 +207,7 @@ public class TestClass
         }
 
         /// <summary>
-        /// Verifies the handling of the foreach keyword of an await foreach statement, which C# 8 introduced. The
+        /// Verifies the handling of the foreach keyword of an await foreach statement. The
         /// await and foreach keywords are adjacent here.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
@@ -248,7 +248,7 @@ public class TestClass
         }
 
         /// <summary>
-        /// Verifies the handling of the switch keyword of a switch expression, which C# 8 introduced. The keyword is
+        /// Verifies the handling of the switch keyword of a switch expression. The keyword is
         /// followed by a brace here rather than by an opening parenthesis, and is preceded by the governing
         /// expression. Only the side after the keyword is checked, so the second case is not reported.
         /// </summary>

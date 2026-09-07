@@ -25,7 +25,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.NamingRules
 ";
 
         /// <summary>
-        /// Verifies that the names of an await foreach deconstruction, which C# 8 introduced, are exempt from the
+        /// Verifies that the names of an await foreach deconstruction are exempt from the
         /// configured casing just like those of an ordinary foreach deconstruction.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>

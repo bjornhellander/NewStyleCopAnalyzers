@@ -14,8 +14,8 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
     public partial class SA1214CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that the rule orders readonly fields only, and that a readonly instance member,
-        /// which C# 8 introduced, is not treated as a readonly element.
+        /// Verifies that the rule orders readonly fields only, and that a readonly instance member
+        /// is not treated as a readonly element.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]

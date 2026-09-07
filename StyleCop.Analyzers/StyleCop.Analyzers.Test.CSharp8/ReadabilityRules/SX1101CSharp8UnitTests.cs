@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.ReadabilityRules
     public partial class SX1101CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that a this prefix in the default implementation of an interface member, which C# 8 introduced,
+        /// Verifies that a this prefix in the default implementation of an interface member
         /// is detected and removed.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>

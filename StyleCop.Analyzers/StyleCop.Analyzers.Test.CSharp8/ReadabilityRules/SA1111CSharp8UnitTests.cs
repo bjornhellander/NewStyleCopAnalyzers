@@ -14,7 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.ReadabilityRules
     public partial class SA1111CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that the closing parenthesis of a positional pattern, which C# 8 introduced, is inspected the
+        /// Verifies that the closing parenthesis of a positional pattern is inspected the
         /// same way as the closing parenthesis of a parameter list.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
