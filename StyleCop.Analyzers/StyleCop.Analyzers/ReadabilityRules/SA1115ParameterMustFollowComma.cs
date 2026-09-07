@@ -73,6 +73,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> ElementBindingExpressionAction = HandleElementBindingExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> ImplicitElementAccessAction = HandleImplicitElementAccess;
         private static readonly Action<SyntaxNodeAnalysisContext> WithElementAction = HandleWithElement;
+        private static readonly Action<SyntaxNodeAnalysisContext> PositionalPatternClauseAction = HandlePositionalPatternClause;
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
@@ -97,6 +98,13 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.RegisterSyntaxNodeAction(ElementBindingExpressionAction, SyntaxKind.ElementBindingExpression);
             context.RegisterSyntaxNodeAction(ImplicitElementAccessAction, SyntaxKind.ImplicitElementAccess);
             context.RegisterSyntaxNodeAction(WithElementAction, SyntaxKindEx.WithElement);
+            context.RegisterSyntaxNodeAction(PositionalPatternClauseAction, SyntaxKindEx.PositionalPatternClause);
+        }
+
+        private static void HandlePositionalPatternClause(SyntaxNodeAnalysisContext context)
+        {
+            var positionalPatternClause = (PositionalPatternClauseSyntaxWrapper)context.Node;
+            AnalyzeSyntaxList(context, SyntaxFactory.SeparatedList<SyntaxNode>(positionalPatternClause.Subpatterns.GetWithSeparators()));
         }
 
         private static void HandleWithElement(SyntaxNodeAnalysisContext context)

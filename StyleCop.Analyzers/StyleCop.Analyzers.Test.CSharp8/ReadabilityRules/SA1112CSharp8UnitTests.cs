@@ -14,11 +14,10 @@ namespace StyleCop.Analyzers.Test.CSharp8.ReadabilityRules
     public partial class SA1112CSharp8UnitTests
     {
         /// <summary>
-        /// Verifies that a positional pattern, which C# 8 introduced, is not treated as a parameter list. The
-        /// analyzer registers no pattern syntax kinds, so the parentheses of a pattern are never inspected.
+        /// Verifies that the parentheses of an empty positional pattern, which C# 8 introduced, are inspected the
+        /// same way as the parentheses of an empty parameter list.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
-        // TODO: Should this trigger?
         [Fact]
         public async Task TestMultiLinePositionalPatternAsync()
         {
@@ -34,12 +33,28 @@ public class TestClass
     public bool TestMethod(object value)
     {
         return value is Point(
-            );
+            [|)|];
     }
 }
 ";
 
-            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+            var fixedCode = @"public class Point
+{
+    public void Deconstruct()
+    {
+    }
+}
+
+public class TestClass
+{
+    public bool TestMethod(object value)
+    {
+        return value is Point();
+    }
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }
