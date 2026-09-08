@@ -1,0 +1,44 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # These are pinned to specific Roslyn/Microsoft.CodeAnalysis versions on purpose
+      # (netstandard1.1 compatibility, lightup support, and the per-C#-version test matrix),
+      # so Dependabot shouldn't bump them.
+      - dependency-name: "Microsoft.CodeAnalysis"
+      - dependency-name: "Microsoft.CodeAnalysis.CSharp"
+      - dependency-name: "Microsoft.CodeAnalysis.CSharp.CodeStyle"
+      - dependency-name: "Microsoft.CodeAnalysis.CSharp.Workspaces"
+      - dependency-name: "Microsoft.CodeAnalysis.Workspaces.MSBuild"
+    groups:
+      analyzers:
+        patterns:
+          - "AsyncUsageAnalyzers"
+          - "DotNetAnalyzers.DocumentationAnalyzers"
+          - "NewStyleCop.Analyzers"
+          - "Microsoft.CodeAnalysis.Analyzers"
+          - "Microsoft.CodeAnalysis.PublicApiAnalyzers"
+          - "Microsoft.CodeAnalysis.ResxSourceGenerator"
+      test:
+        patterns:
+          - "Microsoft.NET.Test.Sdk"
+          - "Moq"
+          - "Xunit.Combinatorial"
+          - "xunit.runner.visualstudio"
+          - "xunit.v3"
+          - "Microsoft.CodeAnalysis.CSharp.CodeFix.Testing"
+      other:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions-dependencies:
+        patterns:
+          - "*"

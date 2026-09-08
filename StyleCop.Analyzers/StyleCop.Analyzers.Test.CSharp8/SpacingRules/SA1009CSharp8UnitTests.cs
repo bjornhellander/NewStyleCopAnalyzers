@@ -194,5 +194,40 @@ namespace TestNamespace
             var expected = Diagnostic(DescriptorNotFollowed).WithLocation(0);
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies the handling of a closing parenthesis inside an interpolation of an interpolated verbatim
+        /// string, which C# 8 allows to be written as <c>@$"..."</c> as well as <c>$@"..."</c>.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestClosingParenthesisInInterpolatedVerbatimStringAsync()
+        {
+            const string testCode = @"
+public class Foo
+{
+    public string TestMethod()
+    {
+        return @$""{Bar( [|)|]}"";
+    }
+
+    public string Bar() => ""x"";
+}
+";
+
+            const string fixedCode = @"
+public class Foo
+{
+    public string TestMethod()
+    {
+        return @$""{Bar()}"";
+    }
+
+    public string Bar() => ""x"";
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

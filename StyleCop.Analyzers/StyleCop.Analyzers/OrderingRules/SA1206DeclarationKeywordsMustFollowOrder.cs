@@ -66,6 +66,7 @@ namespace StyleCop.Analyzers.OrderingRules
                 SyntaxKind.ConstructorDeclaration);
 
         private static readonly Action<SyntaxNodeAnalysisContext> DeclarationAction = HandleDeclaration;
+        private static readonly Action<SyntaxNodeAnalysisContext> LocalFunctionStatementAction = HandleLocalFunctionStatement;
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
@@ -76,12 +77,19 @@ namespace StyleCop.Analyzers.OrderingRules
         {
             context.RegisterSyntaxNodeAction(DeclarationAction, HandledSyntaxKinds);
             context.RegisterSyntaxNodeAction(DeclarationAction, SyntaxKindEx.UnionDeclaration);
+            context.RegisterSyntaxNodeAction(LocalFunctionStatementAction, SyntaxKindEx.LocalFunctionStatement);
         }
 
         private static void HandleDeclaration(SyntaxNodeAnalysisContext context)
         {
             var modifiers = DeclarationModifiersHelper.GetModifiers((MemberDeclarationSyntax)context.Node);
             CheckModifiersOrderAndReportDiagnostics(context, modifiers);
+        }
+
+        private static void HandleLocalFunctionStatement(SyntaxNodeAnalysisContext context)
+        {
+            var localFunctionStatement = (LocalFunctionStatementSyntaxWrapper)context.Node;
+            CheckModifiersOrderAndReportDiagnostics(context, localFunctionStatement.Modifiers);
         }
 
         private static void CheckModifiersOrderAndReportDiagnostics(SyntaxNodeAnalysisContext context, SyntaxTokenList modifiers)

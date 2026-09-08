@@ -70,6 +70,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> AnonymousMethodExpressionAction = HandleAnonymousMethodExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> ParenthesizedLambdaExpressionAction = HandleParenthesizedLambdaExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> ArrayCreationExpressionAction = HandleArrayCreationExpression;
+        private static readonly Action<SyntaxNodeAnalysisContext> PositionalPatternClauseAction = HandlePositionalPatternClause;
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
@@ -93,6 +94,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.RegisterSyntaxNodeAction(AnonymousMethodExpressionAction, SyntaxKind.AnonymousMethodExpression);
             context.RegisterSyntaxNodeAction(ParenthesizedLambdaExpressionAction, SyntaxKind.ParenthesizedLambdaExpression);
             context.RegisterSyntaxNodeAction(ArrayCreationExpressionAction, SyntaxKind.ArrayCreationExpression);
+            context.RegisterSyntaxNodeAction(PositionalPatternClauseAction, SyntaxKindEx.PositionalPatternClause);
         }
 
         private static void HandleArrayCreationExpression(SyntaxNodeAnalysisContext context)
@@ -226,6 +228,22 @@ namespace StyleCop.Analyzers.ReadabilityRules
         {
             var typeDeclarationSyntax = (PrimaryConstructorBaseTypeSyntaxWrapper)context.Node;
             CheckArgumentList(context, typeDeclarationSyntax.ArgumentList);
+        }
+
+        private static void HandlePositionalPatternClause(SyntaxNodeAnalysisContext context)
+        {
+            var positionalPatternClause = (PositionalPatternClauseSyntaxWrapper)context.Node;
+            var subpatterns = positionalPatternClause.Subpatterns;
+
+            if (!subpatterns.Any())
+            {
+                return;
+            }
+
+            CheckIfLocationOfLastArgumentOrParameterAndCloseTokenAreTheSame(
+                context,
+                subpatterns.Last(),
+                positionalPatternClause.CloseParenToken);
         }
 
         private static void CheckParameterList(SyntaxNodeAnalysisContext context, ParameterListSyntax? parameterList)

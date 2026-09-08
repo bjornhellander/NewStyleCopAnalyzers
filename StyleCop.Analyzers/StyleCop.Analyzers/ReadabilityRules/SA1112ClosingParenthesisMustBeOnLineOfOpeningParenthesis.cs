@@ -48,6 +48,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> ConstructorDeclarationAction = HandleConstructorDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> InvocationExpressionAction = HandleInvocationExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> ObjectCreationExpressionAction = HandleObjectCreationExpression;
+        private static readonly Action<SyntaxNodeAnalysisContext> PositionalPatternClauseAction = HandlePositionalPatternClause;
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
@@ -61,6 +62,26 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.RegisterSyntaxNodeAction(ConstructorDeclarationAction, SyntaxKind.ConstructorDeclaration);
             context.RegisterSyntaxNodeAction(InvocationExpressionAction, SyntaxKind.InvocationExpression);
             context.RegisterSyntaxNodeAction(ObjectCreationExpressionAction, SyntaxKind.ObjectCreationExpression);
+            context.RegisterSyntaxNodeAction(PositionalPatternClauseAction, SyntaxKindEx.PositionalPatternClause);
+        }
+
+        private static void HandlePositionalPatternClause(SyntaxNodeAnalysisContext context)
+        {
+            var positionalPatternClause = (PositionalPatternClauseSyntaxWrapper)context.Node;
+
+            if (positionalPatternClause.Subpatterns.Any())
+            {
+                return;
+            }
+
+            if (!positionalPatternClause.OpenParenToken.IsMissing &&
+                !positionalPatternClause.CloseParenToken.IsMissing)
+            {
+                CheckIfLocationOfOpenAndCloseTokensAreTheSame(
+                    context,
+                    positionalPatternClause.OpenParenToken,
+                    positionalPatternClause.CloseParenToken);
+            }
         }
 
         private static void HandleObjectCreationExpression(SyntaxNodeAnalysisContext context)

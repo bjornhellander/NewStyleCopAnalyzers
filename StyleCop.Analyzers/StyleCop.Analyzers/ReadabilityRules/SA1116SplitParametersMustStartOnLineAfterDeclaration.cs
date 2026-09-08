@@ -69,6 +69,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> AnonymousMethodExpressionAction = HandleAnonymousMethodExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> ParenthesizedLambdaExpressionAction = HandleParenthesizedLambdaExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> WithElementAction = HandleWithElement;
+        private static readonly Action<SyntaxNodeAnalysisContext> PositionalPatternClauseAction = HandlePositionalPatternClause;
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
@@ -93,6 +94,18 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.RegisterSyntaxNodeAction(AnonymousMethodExpressionAction, SyntaxKind.AnonymousMethodExpression);
             context.RegisterSyntaxNodeAction(ParenthesizedLambdaExpressionAction, SyntaxKind.ParenthesizedLambdaExpression);
             context.RegisterSyntaxNodeAction(WithElementAction, SyntaxKindEx.WithElement);
+            context.RegisterSyntaxNodeAction(PositionalPatternClauseAction, SyntaxKindEx.PositionalPatternClause);
+        }
+
+        private static void HandlePositionalPatternClause(SyntaxNodeAnalysisContext context)
+        {
+            var positionalPatternClause = (PositionalPatternClauseSyntaxWrapper)context.Node;
+            var subpatterns = positionalPatternClause.Subpatterns;
+
+            if (subpatterns.Count > 1)
+            {
+                Analyze(context, positionalPatternClause.OpenParenToken, subpatterns[0], subpatterns[1]);
+            }
         }
 
         private static void HandleWithElement(SyntaxNodeAnalysisContext context)
