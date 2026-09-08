@@ -115,7 +115,7 @@ namespace StyleCop.Analyzers.OrderingRules
             case SyntaxKindEx.RecordDeclaration:
             case SyntaxKindEx.RecordStructDeclaration:
                 return ((RecordDeclarationSyntaxWrapper)node).WithModifiers(modifiers);
-            case SyntaxKindEx.UnionDeclaration when node is not StructDeclarationSyntax: // TODO: Update when integrating official c# 15 nuget
+            case SyntaxKindEx.UnionDeclaration:
                 return ((UnionDeclarationSyntaxWrapper)node).WithModifiers(modifiers);
             }
 

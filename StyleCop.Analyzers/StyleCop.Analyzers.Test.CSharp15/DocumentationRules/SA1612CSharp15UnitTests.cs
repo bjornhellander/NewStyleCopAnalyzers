@@ -29,14 +29,9 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered method declaration action three times
             var expectedDiagnostic1 = Diagnostic().WithMessageFormat("The parameter documentation for '{0}' should be at position {1}").WithLocation(0).WithArguments("second", "2");
             var expectedDiagnostic2 = Diagnostic().WithMessageFormat("The parameter documentation for '{0}' should be at position {1}").WithLocation(1).WithArguments("first", "1");
-            var expected = new[]
-            {
-                expectedDiagnostic1, expectedDiagnostic1, expectedDiagnostic1,
-                expectedDiagnostic2, expectedDiagnostic2, expectedDiagnostic2,
-            };
+            var expected = new[] { expectedDiagnostic1, expectedDiagnostic2 };
 
             await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }

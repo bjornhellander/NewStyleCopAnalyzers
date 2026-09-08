@@ -88,7 +88,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 updatedDeclarationNode = HandleRecordDeclaration((RecordDeclarationSyntaxWrapper)declarationNode);
                 break;
 
-            case SyntaxKindEx.UnionDeclaration when declarationNode is not StructDeclarationSyntax: // TODO: Update when integrating the official c# 15 nuget
+            case SyntaxKindEx.UnionDeclaration:
                 updatedDeclarationNode = HandleUnionDeclaration((UnionDeclarationSyntaxWrapper)declarationNode);
                 break;
 

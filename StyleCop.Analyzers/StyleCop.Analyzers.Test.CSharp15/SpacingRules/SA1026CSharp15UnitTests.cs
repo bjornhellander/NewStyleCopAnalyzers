@@ -35,9 +35,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered implicit array creation expression action three times
-            var expectedDiagnostic = Diagnostic().WithArguments("new").WithLocation(0);
-            var expected = new[] { expectedDiagnostic, expectedDiagnostic, expectedDiagnostic };
+            var expected = Diagnostic().WithArguments("new").WithLocation(0);
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }

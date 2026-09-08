@@ -21,16 +21,13 @@ public union TestUnion(string, int)
     public static void TestMethod()
     {
         if (true)
-            {|#0:System.Diagnostics.Debug.Assert(
-                true);|}
+            [|System.Diagnostics.Debug.Assert(
+                true);|]
     }
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered if statement action three times
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]

@@ -85,18 +85,15 @@ namespace StyleCop.Analyzers
         /// <summary>
         /// Register an action to be executed at completion of semantic analysis of a <see cref="SyntaxNode"/> with
         /// the given <paramref name="syntaxKind"/>, guarding against the analyzer driver invoking the action more
-        /// than once for the same node. This is a workaround for a Roslyn quirk currently observed for very new
-        /// experimental <see cref="Microsoft.CodeAnalysis.CSharp.SyntaxKind"/> values (e.g.
-        /// <see cref="StyleCop.Analyzers.Lightup.SyntaxKindEx.UnionDeclaration"/>), where the analyzer driver
-        /// dispatches the identical node twice within a single analysis pass.
+        /// than once for the same node.
         /// </summary>
         /// <param name="context">The analysis context.</param>
         /// <param name="action">Action to be executed at completion of semantic analysis of a
         /// <see cref="SyntaxNode"/>.</param>
-        /// <param name="syntaxKind">The (experimental) kind of syntax that should be analyzed.</param>
+        /// <param name="syntaxKind">The kind of syntax that should be analyzed.</param>
         /// <typeparam name="TLanguageKindEnum">Enum type giving the syntax node kinds of the source language for which
         /// the action applies.</typeparam>
-        // TODO: Remove these methods when it's no longer needed (c# 15 officially supported)
+        [Obsolete("This should only be used temporarily when Roslyn is buggy and calls an action multiple times for the same node")]
         public static void RegisterSyntaxNodeActionWithDuplicateNodeGuard<TLanguageKindEnum>(this CompilationStartAnalysisContext context, Action<SyntaxNodeAnalysisContext> action, TLanguageKindEnum syntaxKind)
             where TLanguageKindEnum : struct
         {
@@ -115,16 +112,15 @@ namespace StyleCop.Analyzers
         /// <summary>
         /// Register an action to be executed at completion of semantic analysis of a <see cref="SyntaxNode"/> with
         /// the given <paramref name="syntaxKind"/>, guarding against the analyzer driver invoking the action more
-        /// than once for the same node. See
-        /// <see cref="RegisterSyntaxNodeActionWithDuplicateNodeGuard{TLanguageKindEnum}(CompilationStartAnalysisContext, Action{SyntaxNodeAnalysisContext}, TLanguageKindEnum)"/>
-        /// for details on why this guard is needed.
+        /// than once for the same node.
         /// </summary>
         /// <param name="context">The analysis context.</param>
         /// <param name="action">Action to be executed at completion of semantic analysis of a
         /// <see cref="SyntaxNode"/>.</param>
-        /// <param name="syntaxKind">The (experimental) kind of syntax that should be analyzed.</param>
+        /// <param name="syntaxKind">The kind of syntax that should be analyzed.</param>
         /// <typeparam name="TLanguageKindEnum">Enum type giving the syntax node kinds of the source language for which
         /// the action applies.</typeparam>
+        [Obsolete("This should only be used temporarily when Roslyn is buggy and calls an action multiple times for the same node")]
         public static void RegisterSyntaxNodeActionWithDuplicateNodeGuard<TLanguageKindEnum>(this CompilationStartAnalysisContext context, Action<SyntaxNodeAnalysisContext, StyleCopSettings> action, TLanguageKindEnum syntaxKind)
             where TLanguageKindEnum : struct
         {

@@ -18,17 +18,14 @@ namespace StyleCop.Analyzers.Test.CSharp15.ReadabilityRules
             var testCode = @"
 public union TestUnion(string, int)
 {
-    [System.Obsolete, {|#0:System.CLSCompliant|}(true)]
+    [System.Obsolete, [|System.CLSCompliant|](true)]
     public static void TestMethod()
     {
     }
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered attribute list action three times
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]

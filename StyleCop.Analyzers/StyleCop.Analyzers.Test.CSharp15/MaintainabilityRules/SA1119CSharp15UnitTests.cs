@@ -37,16 +37,10 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered parenthesized expression action three times
             DiagnosticResult mainDiagnostic = Diagnostic(SA1119StatementMustNotUseUnnecessaryParenthesis.DiagnosticId).WithSpan(6, 17, 6, 24);
             DiagnosticResult openParenDiagnostic = Diagnostic(SA1119StatementMustNotUseUnnecessaryParenthesis.ParenthesesDiagnosticId).WithLocation(6, 17);
             DiagnosticResult closeParenDiagnostic = Diagnostic(SA1119StatementMustNotUseUnnecessaryParenthesis.ParenthesesDiagnosticId).WithLocation(6, 23);
-            var expected = new[]
-            {
-                mainDiagnostic, openParenDiagnostic, closeParenDiagnostic,
-                mainDiagnostic, openParenDiagnostic, closeParenDiagnostic,
-                mainDiagnostic, openParenDiagnostic, closeParenDiagnostic,
-            };
+            var expected = new[] { mainDiagnostic, openParenDiagnostic, closeParenDiagnostic };
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }

@@ -35,9 +35,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered binary expression action three times
-            var expectedDiagnostic = Diagnostic().WithMessageFormat("Operator '{0}' should be followed by whitespace.").WithLocation(0).WithArguments("&&");
-            var expected = new[] { expectedDiagnostic, expectedDiagnostic, expectedDiagnostic };
+            var expected = Diagnostic().WithMessageFormat("Operator '{0}' should be followed by whitespace.").WithLocation(0).WithArguments("&&");
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }

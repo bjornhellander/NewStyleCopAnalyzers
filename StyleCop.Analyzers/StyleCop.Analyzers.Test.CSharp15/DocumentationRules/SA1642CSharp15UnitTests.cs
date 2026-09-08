@@ -34,13 +34,12 @@ public union TestUnion(string, int)
         [Fact]
         public async Task TestUnionStaticConstructorWithClassWordingAsync()
         {
-            // TODO: Report bug - The compiler calls the registered constructor action three times
             var testCode = @"
 public union TestUnion(string, int)
 {
-    /// {|#0:<summary>
+    /// [|<summary>
     /// Initializes static members of the <see cref=""TestUnion""/> class.
-    /// </summary>|}
+    /// </summary>|]
     static TestUnion()
     {
     }
@@ -60,9 +59,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
@@ -87,13 +84,12 @@ public union TestUnion(string, int)
         [Fact]
         public async Task TestUnionInstanceConstructorWithClassWordingAsync()
         {
-            // TODO: Report bug - The compiler calls the registered constructor action three times
             var testCode = @"
 public union TestUnion(string, int)
 {
-    /// {|#0:<summary>
+    /// [|<summary>
     /// Initializes a new instance of the <see cref=""TestUnion""/> class.
-    /// </summary>|}
+    /// </summary>|]
     public TestUnion()
         : this(string.Empty)
     {
@@ -115,21 +111,18 @@ public union TestUnion(string, int)
 }
 ";
 
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
         public async Task TestGenericUnionStaticConstructorWithClassWordingAsync()
         {
-            // TODO: Report bug - The compiler calls the registered constructor action three times
             var testCode = @"
 public union TestUnion<T>(T, int)
 {
-    /// {|#0:<summary>
+    /// [|<summary>
     /// Initializes static members of the <see cref=""TestUnion{T}""/> class.
-    /// </summary>|}
+    /// </summary>|]
     static TestUnion()
     {
     }
@@ -149,9 +142,7 @@ public union TestUnion<T>(T, int)
 }
 ";
 
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

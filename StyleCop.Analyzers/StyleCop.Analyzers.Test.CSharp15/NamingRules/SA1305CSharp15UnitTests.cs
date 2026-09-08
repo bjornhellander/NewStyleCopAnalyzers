@@ -22,13 +22,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered variable declaration action three times
-            var expected = new[]
-            {
-                Diagnostic().WithLocation(0).WithArguments("field", "nCount"),
-                Diagnostic().WithLocation(0).WithArguments("field", "nCount"),
-                Diagnostic().WithLocation(0).WithArguments("field", "nCount"),
-            };
+            var expected = Diagnostic().WithLocation(0).WithArguments("field", "nCount");
 
             await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
