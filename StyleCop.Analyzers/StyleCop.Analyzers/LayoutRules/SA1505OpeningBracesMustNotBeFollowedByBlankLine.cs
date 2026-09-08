@@ -56,6 +56,7 @@ namespace StyleCop.Analyzers.LayoutRules
         private static readonly Action<SyntaxNodeAnalysisContext> InitializerExpressionAction = HandleInitializerExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> AnonymousObjectCreationExpressionAction = HandleAnonymousObjectCreationExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> SwitchStatementAction = HandleSwitchStatement;
+        private static readonly Action<SyntaxNodeAnalysisContext> SwitchExpressionAction = HandleSwitchExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> NamespaceDeclarationAction = HandleNamespaceDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> BaseTypeDeclarationAction = HandleBaseTypeDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> AccessorListAction = HandleAccessorList;
@@ -71,6 +72,7 @@ namespace StyleCop.Analyzers.LayoutRules
             context.RegisterSyntaxNodeAction(InitializerExpressionAction, SyntaxKinds.InitializerExpression);
             context.RegisterSyntaxNodeAction(AnonymousObjectCreationExpressionAction, SyntaxKind.AnonymousObjectCreationExpression);
             context.RegisterSyntaxNodeAction(SwitchStatementAction, SyntaxKind.SwitchStatement);
+            context.RegisterSyntaxNodeAction(SwitchExpressionAction, SyntaxKindEx.SwitchExpression);
             context.RegisterSyntaxNodeAction(NamespaceDeclarationAction, SyntaxKind.NamespaceDeclaration);
             context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKinds.BaseTypeDeclaration);
             context.RegisterSyntaxNodeAction(BaseTypeDeclarationAction, SyntaxKindEx.ExtensionBlockDeclaration);
@@ -103,6 +105,12 @@ namespace StyleCop.Analyzers.LayoutRules
         {
             var switchStatement = (SwitchStatementSyntax)context.Node;
             AnalyzeOpenBrace(context, switchStatement.OpenBraceToken);
+        }
+
+        private static void HandleSwitchExpression(SyntaxNodeAnalysisContext context)
+        {
+            var switchExpression = (SwitchExpressionSyntaxWrapper)context.Node;
+            AnalyzeOpenBrace(context, switchExpression.OpenBraceToken);
         }
 
         private static void HandleNamespaceDeclaration(SyntaxNodeAnalysisContext context)

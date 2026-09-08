@@ -74,6 +74,7 @@ namespace StyleCop.Analyzers.LayoutRules
         private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> AccessorListAction = HandleAccessorList;
         private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> BlockAction = HandleBlock;
         private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> SwitchStatementAction = HandleSwitchStatement;
+        private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> SwitchExpressionAction = HandleSwitchExpression;
         private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> InitializerExpressionAction = HandleInitializerExpression;
         private static readonly Action<SyntaxNodeAnalysisContext, StyleCopSettings> AnonymousObjectCreationExpressionAction = HandleAnonymousObjectCreationExpression;
 
@@ -94,6 +95,7 @@ namespace StyleCop.Analyzers.LayoutRules
             context.RegisterSyntaxNodeAction(AccessorListAction, SyntaxKind.AccessorList);
             context.RegisterSyntaxNodeAction(BlockAction, SyntaxKind.Block);
             context.RegisterSyntaxNodeAction(SwitchStatementAction, SyntaxKind.SwitchStatement);
+            context.RegisterSyntaxNodeAction(SwitchExpressionAction, SyntaxKindEx.SwitchExpression);
             context.RegisterSyntaxNodeAction(InitializerExpressionAction, SyntaxKinds.InitializerExpression);
             context.RegisterSyntaxNodeAction(AnonymousObjectCreationExpressionAction, SyntaxKind.AnonymousObjectCreationExpression);
         }
@@ -125,6 +127,12 @@ namespace StyleCop.Analyzers.LayoutRules
         private static void HandleSwitchStatement(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
         {
             var syntax = (SwitchStatementSyntax)context.Node;
+            CheckBraces(context, settings, syntax.OpenBraceToken, syntax.CloseBraceToken);
+        }
+
+        private static void HandleSwitchExpression(SyntaxNodeAnalysisContext context, StyleCopSettings settings)
+        {
+            var syntax = (SwitchExpressionSyntaxWrapper)context.Node;
             CheckBraces(context, settings, syntax.OpenBraceToken, syntax.CloseBraceToken);
         }
 

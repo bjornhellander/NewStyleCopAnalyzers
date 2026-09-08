@@ -44,6 +44,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> AttributeArgumentListAction = HandleAttributeArgumentList;
         private static readonly Action<SyntaxNodeAnalysisContext> BlockAction = HandleBlock;
         private static readonly Action<SyntaxNodeAnalysisContext> SwitchStatementAction = HandleSwitchStatement;
+        private static readonly Action<SyntaxNodeAnalysisContext> SwitchExpressionAction = HandleSwitchExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> InitializerExpressionAction = HandleInitializerExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> CollectionExpressionAction = HandleCollectionExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> AnonymousObjectCreationExpressionAction = HandleAnonymousObjectCreationExpression;
@@ -76,6 +77,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.RegisterSyntaxNodeAction(AttributeArgumentListAction, SyntaxKind.AttributeArgumentList);
             context.RegisterSyntaxNodeAction(BlockAction, SyntaxKind.Block);
             context.RegisterSyntaxNodeAction(SwitchStatementAction, SyntaxKind.SwitchStatement);
+            context.RegisterSyntaxNodeAction(SwitchExpressionAction, SyntaxKindEx.SwitchExpression);
             context.RegisterSyntaxNodeAction(InitializerExpressionAction, SyntaxKinds.InitializerExpression);
             context.RegisterSyntaxNodeAction(CollectionExpressionAction, SyntaxKindEx.CollectionExpression);
             context.RegisterSyntaxNodeAction(AnonymousObjectCreationExpressionAction, SyntaxKind.AnonymousObjectCreationExpression);
@@ -261,6 +263,14 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
             CheckBraces(context, initializerExpression.OpenBraceToken, initializerExpression.CloseBraceToken);
             CheckElements(context, initializerExpression.Expressions);
+        }
+
+        private static void HandleSwitchExpression(SyntaxNodeAnalysisContext context)
+        {
+            var switchExpression = (SwitchExpressionSyntaxWrapper)context.Node;
+
+            CheckBraces(context, switchExpression.OpenBraceToken, switchExpression.CloseBraceToken);
+            CheckElements(context, switchExpression.Arms);
         }
 
         private static void HandleCollectionExpression(SyntaxNodeAnalysisContext context)

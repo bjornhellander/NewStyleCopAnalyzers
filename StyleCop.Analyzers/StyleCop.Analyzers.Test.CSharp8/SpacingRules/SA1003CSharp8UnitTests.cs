@@ -217,5 +217,39 @@ namespace TestNamespace
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that the arrow of a switch expression arm must be surrounded by whitespace.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestSwitchExpressionArmAsync()
+        {
+            var testCode = @"public class TestClass
+{
+    public int TestMethod(int value)
+    {
+        return value switch { _{|#0:=>|}0 };
+    }
+}
+";
+
+            var fixedCode = @"public class TestClass
+{
+    public int TestMethod(int value)
+    {
+        return value switch { _ => 0 };
+    }
+}
+";
+
+            DiagnosticResult[] expected =
+            {
+                Diagnostic(DescriptorPrecededByWhitespace).WithLocation(0).WithArguments("=>"),
+                Diagnostic(DescriptorFollowedByWhitespace).WithLocation(0).WithArguments("=>"),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

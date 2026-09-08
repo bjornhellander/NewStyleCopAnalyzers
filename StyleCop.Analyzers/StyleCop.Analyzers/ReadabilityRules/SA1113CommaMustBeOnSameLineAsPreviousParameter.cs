@@ -70,6 +70,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> ArrayCreationExpressionAction = HandleArrayCreationExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> ConstructorInitializerAction = HandleConstructorInitializer;
         private static readonly Action<SyntaxNodeAnalysisContext> WithElementAction = HandleWithElement;
+        private static readonly Action<SyntaxNodeAnalysisContext> PositionalPatternClauseAction = HandlePositionalPatternClause;
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
@@ -92,6 +93,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.RegisterSyntaxNodeAction(ArrayCreationExpressionAction, SyntaxKind.ArrayCreationExpression);
             context.RegisterSyntaxNodeAction(ConstructorInitializerAction, SyntaxKinds.ConstructorInitializer);
             context.RegisterSyntaxNodeAction(WithElementAction, SyntaxKindEx.WithElement);
+            context.RegisterSyntaxNodeAction(PositionalPatternClauseAction, SyntaxKindEx.PositionalPatternClause);
         }
 
         private static void HandleArrayCreationExpression(SyntaxNodeAnalysisContext context)
@@ -211,6 +213,17 @@ namespace StyleCop.Analyzers.ReadabilityRules
         {
             var withElement = (WithElementSyntaxWrapper)context.Node;
             HandleBaseArgumentListSyntax(context, withElement.ArgumentList);
+        }
+
+        private static void HandlePositionalPatternClause(SyntaxNodeAnalysisContext context)
+        {
+            var positionalPatternClause = (PositionalPatternClauseSyntaxWrapper)context.Node;
+            var subpatterns = positionalPatternClause.Subpatterns;
+
+            if (subpatterns.Count > 1)
+            {
+                CheckIfCommasAreAtTheSameLineAsThePreviousParameter(context, subpatterns.GetWithSeparators());
+            }
         }
 
         private static void HandleBaseArgumentListSyntax(SyntaxNodeAnalysisContext context, BaseArgumentListSyntax argumentList)
