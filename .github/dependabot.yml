@@ -13,6 +13,8 @@ updates:
       - dependency-name: "Microsoft.CodeAnalysis.CSharp.CodeStyle"
       - dependency-name: "Microsoft.CodeAnalysis.CSharp.Workspaces"
       - dependency-name: "Microsoft.CodeAnalysis.Workspaces.MSBuild"
+      # This currently causes problems if upgraded, so skip it for now. (Still in the 'analyzers' group though.)
+      - dependency-name: "DotNetAnalyzers.DocumentationAnalyzers"
     groups:
       analyzers:
         patterns:
