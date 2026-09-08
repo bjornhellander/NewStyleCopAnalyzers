@@ -22,7 +22,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.DocumentationRules
         /// interface member.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
-        // TODO: Check this!!!
+        // TODO: Investigate this behavior (the private members)!
         [Fact]
         public async Task TestInterfaceMembersWithoutDocumentationAsync()
         {
@@ -31,11 +31,19 @@ namespace StyleCop.Analyzers.Test.CSharp8.DocumentationRules
 /// </summary>
 public interface ITest
 {
-    void [|DefaultMethod|]()
+    void [|TestMethod1|]()
     {
     }
 
-    static void [|StaticMethod|]()
+    private void [|TestMethod2|]()
+    {
+    }
+
+    static void [|TestMethod3|]()
+    {
+    }
+
+    private static void [|TestMethod4|]()
     {
     }
 }
