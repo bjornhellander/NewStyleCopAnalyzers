@@ -56,8 +56,42 @@ namespace StyleCop.Analyzers.DocumentationRules
 
         public static bool NeedsComment(DocumentationSettings documentationSettings, SyntaxKind syntaxKind, SyntaxKind parentSyntaxKind, Accessibility declaredAccessibility, Accessibility effectiveAccessibility)
         {
-            if (syntaxKind == SyntaxKind.InterfaceDeclaration || parentSyntaxKind == SyntaxKind.InterfaceDeclaration)
+            if (syntaxKind == SyntaxKind.InterfaceDeclaration)
             {
+                switch (documentationSettings.DocumentInterfaces)
+                {
+                case InterfaceDocumentationMode.All:
+                    return true;
+
+                case InterfaceDocumentationMode.Exposed:
+                    switch (effectiveAccessibility)
+                    {
+                    case Accessibility.Public:
+                    case Accessibility.Protected:
+                    case Accessibility.ProtectedOrInternal:
+                        return true;
+
+                    default:
+                        break;
+                    }
+
+                    break;
+
+                default:
+                    break;
+                }
+            }
+
+            if (parentSyntaxKind == SyntaxKind.InterfaceDeclaration)
+            {
+                bool isPublicInterfaceMember = declaredAccessibility is Accessibility.Public or Accessibility.NotApplicable;
+                if (!isPublicInterfaceMember)
+                {
+                    // Non-public default interface members (e.g. private methods) are documented according to the
+                    // same setting as other private members, rather than the interface's DocumentInterfaces mode.
+                    return documentationSettings.DocumentPrivateElements;
+                }
+
                 switch (documentationSettings.DocumentInterfaces)
                 {
                 case InterfaceDocumentationMode.All:
@@ -175,6 +209,10 @@ namespace StyleCop.Analyzers.DocumentationRules
                 }
 
                 MethodDeclarationSyntax declaration = (MethodDeclarationSyntax)context.Node;
+                if (declaration.ExplicitInterfaceSpecifier != null)
+                {
+                    return;
+                }
 
                 Accessibility declaredAccessibility = declaration.GetDeclaredAccessibility(context.SemanticModel, context.CancellationToken);
                 Accessibility effectiveAccessibility = declaration.GetEffectiveAccessibility(context.SemanticModel, context.CancellationToken);
@@ -235,6 +273,10 @@ namespace StyleCop.Analyzers.DocumentationRules
                 }
 
                 PropertyDeclarationSyntax declaration = (PropertyDeclarationSyntax)context.Node;
+                if (declaration.ExplicitInterfaceSpecifier != null)
+                {
+                    return;
+                }
 
                 Accessibility declaredAccessibility = declaration.GetDeclaredAccessibility(context.SemanticModel, context.CancellationToken);
                 Accessibility effectiveAccessibility = declaration.GetEffectiveAccessibility(context.SemanticModel, context.CancellationToken);
@@ -255,6 +297,10 @@ namespace StyleCop.Analyzers.DocumentationRules
                 }
 
                 IndexerDeclarationSyntax declaration = (IndexerDeclarationSyntax)context.Node;
+                if (declaration.ExplicitInterfaceSpecifier != null)
+                {
+                    return;
+                }
 
                 Accessibility declaredAccessibility = declaration.GetDeclaredAccessibility(context.SemanticModel, context.CancellationToken);
                 Accessibility effectiveAccessibility = declaration.GetEffectiveAccessibility(context.SemanticModel, context.CancellationToken);
@@ -320,6 +366,10 @@ namespace StyleCop.Analyzers.DocumentationRules
                 }
 
                 EventDeclarationSyntax declaration = (EventDeclarationSyntax)context.Node;
+                if (declaration.ExplicitInterfaceSpecifier != null)
+                {
+                    return;
+                }
 
                 Accessibility declaredAccessibility = declaration.GetDeclaredAccessibility(context.SemanticModel, context.CancellationToken);
                 Accessibility effectiveAccessibility = declaration.GetEffectiveAccessibility(context.SemanticModel, context.CancellationToken);

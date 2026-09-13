@@ -84,5 +84,39 @@ namespace StyleCop.Analyzers.Test.CSharp8.OrderingRules
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that a default interface method with implicit (public) accessibility is ordered the same as one
+        /// with an explicit <c>public</c> modifier.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestInterfaceMembersMixingImplicitAndExplicitAccessibilityAsync()
+        {
+            var testCode = @"public interface ITest
+{
+    private void Helper() { }
+    void {|#0:ImplicitPublic|}() { }
+    public void ExplicitPublic() { }
+}
+";
+
+            var fixedCode = @"public interface ITest
+{
+    void ImplicitPublic() { }
+    public void ExplicitPublic() { }
+    private void Helper() { }
+}
+";
+
+            await new CSharpTest
+            {
+                TestCode = testCode,
+                ExpectedDiagnostics = { Diagnostic().WithLocation(0).WithArguments("public", "private") },
+                FixedCode = fixedCode,
+                NumberOfIncrementalIterations = 2,
+                NumberOfFixAllIterations = 2,
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

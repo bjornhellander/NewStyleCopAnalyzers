@@ -156,6 +156,11 @@ namespace StyleCop.Analyzers.Helpers
 
             if (!syntax.Modifiers.Any(SyntaxKind.PartialKeyword))
             {
+                if (syntax.Parent.IsKind(SyntaxKind.InterfaceDeclaration))
+                {
+                    return Accessibility.Public;
+                }
+
                 return !(syntax.Parent is BaseTypeDeclarationSyntax) ? Accessibility.Internal : Accessibility.Private;
             }
 
@@ -193,6 +198,10 @@ namespace StyleCop.Analyzers.Helpers
 
             if (syntax.IsKind(SyntaxKind.ConstructorDeclaration))
             {
+                // A constructor with no explicit access modifier is treated as private.
+                // This also covers the only kind of constructor an interface can declare:
+                // a static constructor, which never has an access and, unlike other unmarked interface members,
+                // is not implicitly public here on purpose. This is to avoid SA1600 requiring documentattion for it.
                 return Accessibility.Private;
             }
 
@@ -312,6 +321,11 @@ namespace StyleCop.Analyzers.Helpers
             if (accessLevel != AccessLevel.NotSpecified)
             {
                 return accessLevel.ToAccessibility();
+            }
+
+            if (syntax.Parent.IsKind(SyntaxKind.InterfaceDeclaration))
+            {
+                return Accessibility.Public;
             }
 
             return !(syntax.Parent is BaseTypeDeclarationSyntax) ? Accessibility.Internal : Accessibility.Private;

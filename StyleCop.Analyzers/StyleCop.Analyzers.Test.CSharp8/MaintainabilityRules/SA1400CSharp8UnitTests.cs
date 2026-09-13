@@ -6,6 +6,7 @@ namespace StyleCop.Analyzers.Test.CSharp8.MaintainabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1400AccessModifierMustBeDeclared,
@@ -15,8 +16,8 @@ namespace StyleCop.Analyzers.Test.CSharp8.MaintainabilityRules
     {
         /// <summary>
         /// Verifies that no access modifier is required on an interface member, including the kinds of member that
-        /// C# 8 added: a method with a default implementation, a static method and a static field. Interface
-        /// members are implicitly public, so the rule deliberately leaves all of them alone.
+        /// C# 8 added: a method with a default implementation, a static method, a static field and a delegate.
+        /// Interface members are implicitly public and the rule deliberately leaves all of them alone.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
@@ -41,7 +42,30 @@ namespace StyleCop.Analyzers.Test.CSharp8.MaintainabilityRules
     static void StaticMethod()
     {
     }
+
+    delegate void Handler();
 }
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies that no access modifier is required on a type declared inside an interface.
+        /// </summary>
+        /// <param name="typeKind">The keyword introducing the nested type declaration.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Theory]
+        [MemberData(nameof(CommonMemberData.BaseTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
+        public async Task TestTypeDeclarationInsideInterfaceAsync(string typeKind)
+        {
+            var testCode = $@"
+public interface ITest
+{{
+    {typeKind} NestedType
+    {{
+    }}
+}}
 ";
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
