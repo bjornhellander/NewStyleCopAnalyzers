@@ -183,7 +183,7 @@ namespace StyleCop.Analyzers.Helpers
             {
                 if (methodDeclarationSyntax.ExplicitInterfaceSpecifier == null)
                 {
-                    return Accessibility.Private;
+                    return syntax.Parent is InterfaceDeclarationSyntax ? Accessibility.Public : Accessibility.Private;
                 }
                 else
                 {
@@ -215,7 +215,7 @@ namespace StyleCop.Analyzers.Helpers
             {
                 if (propertyDeclarationSyntax.ExplicitInterfaceSpecifier == null)
                 {
-                    return Accessibility.Private;
+                    return syntax.Parent is InterfaceDeclarationSyntax ? Accessibility.Public : Accessibility.Private;
                 }
                 else
                 {
@@ -227,7 +227,7 @@ namespace StyleCop.Analyzers.Helpers
             {
                 if (indexerDeclarationSyntax.ExplicitInterfaceSpecifier == null)
                 {
-                    return Accessibility.Private;
+                    return syntax.Parent is InterfaceDeclarationSyntax ? Accessibility.Public : Accessibility.Private;
                 }
                 else
                 {
@@ -239,7 +239,7 @@ namespace StyleCop.Analyzers.Helpers
             {
                 if (eventDeclarationSyntax.ExplicitInterfaceSpecifier == null)
                 {
-                    return Accessibility.Private;
+                    return syntax.Parent is InterfaceDeclarationSyntax ? Accessibility.Public : Accessibility.Private;
                 }
                 else
                 {
@@ -279,7 +279,7 @@ namespace StyleCop.Analyzers.Helpers
 
             if (syntax.IsKind(SyntaxKind.FieldDeclaration) || syntax.IsKind(SyntaxKind.EventFieldDeclaration))
             {
-                return Accessibility.Private;
+                return syntax.Parent is InterfaceDeclarationSyntax ? Accessibility.Public : Accessibility.Private;
             }
 
             VariableDeclaratorSyntax? firstVariable = syntax.Declaration?.Variables.FirstOrDefault();

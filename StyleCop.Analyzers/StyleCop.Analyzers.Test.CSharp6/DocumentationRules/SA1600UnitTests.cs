@@ -68,16 +68,18 @@ using System;
         [InlineData("internal", false)]
         public async Task TestInterfaceExposedDocumentationModeTopLevelInterfaceAsync(string modifier, bool requiresDocumentation)
         {
-            // TODO: AccessLevelHelper.GetDeclaredAccessibility(BaseMethodDeclarationSyntax) returns Accessibility.Private
-            // for any method with no modifiers and no ExplicitInterfaceSpecifier, whether it is a plain class method
-            // (correctly implicitly private) or a plain interface method like this one (which C# actually treats as
-            // implicitly public). Because of this, MemberName() below is never seen as "exposed", regardless of the
-            // interface's own accessibility, and so never requires documentation under "exposed" mode. Only the
-            // interface declaration itself is verified here until that helper is fixed.
+            // A plain interface member (no modifiers, no explicit interface specifier) is implicitly public,
+            // unlike a plain class member (implicitly private).
             var testCode = $@"
 {modifier} interface {{|#0:IInterface|}}
 {{
-    void MemberName();
+    void {{|#1:MemberMethod|}}();
+
+    string {{|#2:MemberProperty|}} {{ get; set; }}
+
+    string {{|#3:this|}}[int index] {{ get; set; }}
+
+    event System.Action {{|#4:MemberEvent|}};
 }}
 ";
 
@@ -93,7 +95,14 @@ using System;
 ";
 
             DiagnosticResult[] expected = requiresDocumentation
-                ? new[] { Diagnostic().WithLocation(0) }
+                ? new[]
+                {
+                    Diagnostic().WithLocation(0),
+                    Diagnostic().WithLocation(1),
+                    Diagnostic().WithLocation(2),
+                    Diagnostic().WithLocation(3),
+                    Diagnostic().WithLocation(4),
+                }
                 : DiagnosticResult.EmptyDiagnosticResults;
 
             await VerifyCSharpDiagnosticAsync(this.LanguageVersion, testCode, settings, expected, CancellationToken.None).ConfigureAwait(true);
