@@ -53,5 +53,48 @@ public interface ITest
             // CS1591 warnings, which the code fix verification would require to be declared here as well.
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that interface members are treated as implicitly public under "exposed" documentation mode.
+        /// </summary>
+        /// <param name="modifier">The interface's own accessibility modifier.</param>
+        /// <param name="requiresDocumentation">A value indicating whether the members are expected to require documentation.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Theory]
+        [InlineData("public", true)]
+        [InlineData("internal", false)]
+        public async Task TestInterfaceExposedDocumentationModeCSharp8MembersAsync(string modifier, bool requiresDocumentation)
+        {
+            var testCode = $@"
+{modifier} interface {{|#0:IInterface|}}
+{{
+    event System.Action {{|#1:MemberEvent|}}
+    {{
+        add {{ }}
+
+        remove {{ }}
+    }}
+
+    static int {{|#2:MemberField|}};
+}}
+";
+
+            var settings = @"
+{
+  ""settings"": {
+    ""documentationRules"": {
+      ""documentInterfaces"": ""exposed"",
+      ""documentInternalElements"": false
+    }
+  }
+}
+";
+
+            DiagnosticResult[] expected = requiresDocumentation
+                ? new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(1), Diagnostic().WithLocation(2) }
+                : DiagnosticResult.EmptyDiagnosticResults;
+
+            await VerifyCSharpDiagnosticAsync(this.LanguageVersion, testCode, settings, expected, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

@@ -63,6 +63,119 @@ using System;
             await this.TestTypeDeclarationDocumentationAsync(type, "public partial", false, false).ConfigureAwait(true);
         }
 
+        [Theory]
+        [InlineData("public", true)]
+        [InlineData("internal", false)]
+        public async Task TestInterfaceExposedDocumentationModeTopLevelInterfaceAsync(string modifier, bool requiresDocumentation)
+        {
+            // A plain interface member (no modifiers, no explicit interface specifier) is implicitly public,
+            // unlike a plain class member (implicitly private).
+            var testCode = $@"
+{modifier} interface {{|#0:IInterface|}}
+{{
+    void {{|#1:MemberMethod|}}();
+
+    string {{|#2:MemberProperty|}} {{ get; set; }}
+
+    string {{|#3:this|}}[int index] {{ get; set; }}
+
+    event System.Action {{|#4:MemberEvent|}};
+}}
+";
+
+            var settings = @"
+{
+  ""settings"": {
+    ""documentationRules"": {
+      ""documentInterfaces"": ""exposed"",
+      ""documentInternalElements"": false
+    }
+  }
+}
+";
+
+            DiagnosticResult[] expected = requiresDocumentation
+                ? new[]
+                {
+                    Diagnostic().WithLocation(0),
+                    Diagnostic().WithLocation(1),
+                    Diagnostic().WithLocation(2),
+                    Diagnostic().WithLocation(3),
+                    Diagnostic().WithLocation(4),
+                }
+                : DiagnosticResult.EmptyDiagnosticResults;
+
+            await VerifyCSharpDiagnosticAsync(this.LanguageVersion, testCode, settings, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Theory]
+        [InlineData("none", true, true)]
+        [InlineData("none", false, false)]
+        [InlineData("all", false, true)]
+        [InlineData("exposed", false, true)]
+        public async Task TestInterfaceDocumentationModeFallsThroughToDocumentExposedElementsAsync(string mode, bool documentExposedElements, bool requiresDocumentation)
+        {
+            // DocumentInterfaces only ever adds a documentation requirement on top of the general accessibility-based
+            // rules; it never suppresses one. So "none" (and, for a non-exposed element, "exposed") must fall through
+            // to DocumentExposedElements/DocumentInternalElements/DocumentPrivateElements exactly as if the element
+            // were not part of an interface at all, rather than unconditionally exempting it.
+            var testCode = @"
+public interface {|#0:IInterface|}
+{
+}
+";
+
+            var settings = $@"
+{{
+  ""settings"": {{
+    ""documentationRules"": {{
+      ""documentInterfaces"": ""{mode}"",
+      ""documentExposedElements"": {documentExposedElements.ToString().ToLowerInvariant()}
+    }}
+  }}
+}}
+";
+
+            DiagnosticResult[] expected = requiresDocumentation
+                ? new[] { Diagnostic().WithLocation(0) }
+                : DiagnosticResult.EmptyDiagnosticResults;
+
+            await VerifyCSharpDiagnosticAsync(this.LanguageVersion, testCode, settings, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Theory]
+        [InlineData("none", true, true)]
+        [InlineData("none", false, false)]
+        [InlineData("exposed", true, true)]
+        [InlineData("exposed", false, false)]
+        public async Task TestInterfaceDocumentationModeFallsThroughToDocumentInternalElementsAsync(string mode, bool documentInternalElements, bool requiresDocumentation)
+        {
+            // Neither "none" nor "exposed" (for a non-exposed, i.e. internal, interface) force a result on their own,
+            // so DocumentInternalElements alone determines whether the interface needs documentation here.
+            var testCode = @"
+internal interface {|#0:IInterface|}
+{
+}
+";
+
+            var settings = $@"
+{{
+  ""settings"": {{
+    ""documentationRules"": {{
+      ""documentInterfaces"": ""{mode}"",
+      ""documentInternalElements"": {documentInternalElements.ToString().ToLowerInvariant()}
+    }}
+  }}
+}}
+";
+
+            DiagnosticResult[] expected = requiresDocumentation
+                ? new[] { Diagnostic().WithLocation(0) }
+                : DiagnosticResult.EmptyDiagnosticResults;
+
+            await VerifyCSharpDiagnosticAsync(this.LanguageVersion, testCode, settings, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
         [Fact]
         public async Task TestDelegateWithoutDocumentationAsync()
         {
@@ -119,6 +232,43 @@ using System;
             await this.TestMethodDeclarationDocumentationAsync("public", false, false, true).ConfigureAwait(true);
 
             await this.TestInterfaceMethodDeclarationDocumentationAsync(true).ConfigureAwait(true);
+        }
+
+        [Theory]
+        [InlineData("public", true)]
+        [InlineData("protected", true)]
+        [InlineData("protected internal", true)]
+        [InlineData("internal", false)]
+        [InlineData("private", false)]
+        public async Task TestInterfaceExposedDocumentationModeNestedInterfaceAsync(string modifier, bool requiresDocumentation)
+        {
+            var testCode = $@"
+public class OuterClass
+{{
+    {modifier} interface {{|#0:IInterface|}}
+    {{
+    }}
+}}
+";
+
+            var settings = @"
+{
+  ""settings"": {
+    ""documentationRules"": {
+      ""documentInterfaces"": ""exposed"",
+      ""documentExposedElements"": false,
+      ""documentInternalElements"": false,
+      ""documentPrivateElements"": false
+    }
+  }
+}
+";
+
+            DiagnosticResult[] expected = requiresDocumentation
+                ? new[] { Diagnostic().WithLocation(0) }
+                : DiagnosticResult.EmptyDiagnosticResults;
+
+            await VerifyCSharpDiagnosticAsync(this.LanguageVersion, testCode, settings, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]
