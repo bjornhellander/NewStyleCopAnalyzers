@@ -574,7 +574,7 @@ StyleCop Analyzers includes rules which require developers to document the major
 
 | Property | Default Value | Minimum Version | Summary |
 | --- | --- | --- | --- |
-| `documentInterfaces` | **true** | 1.0.0 | Specifies whether interface members need to be documented. When true, all interface members require documentation, regardless of accessibility. |
+| `documentInterfaces` | **"all"** | 1.0.0 | Specifies whether interface members need to be documented. Accepts `"all"` (all interface members require documentation, regardless of accessibility), `"exposed"` (only interface members which are not declared `internal` require documentation), or `"none"` (interface members do not require documentation due to this property). The boolean values `true` and `false` are also accepted as aliases for `"all"` and `"none"`, respectively. Support for `"exposed"` and the other string values was added in 1.3.0. |
 | `documentExposedElements` | **true** | 1.0.0 | Specifies whether exposed elements need to be documented. When true, all publicly-exposed types and members require documentation. |
 | `documentInternalElements` | **true** | 1.0.0 | Specifies whether internal elements need to be documented. When true, all internally-exposed types and members require documentation. |
 | `documentPrivateElements` | **false** | 1.0.0 | Specifies whether private elements need to be documented. When true, all types and members except for declared private fields require documentation. |
@@ -595,7 +595,7 @@ The following example shows a configuration file which requires developers to do
 {
   "settings": {
     "documentationRules": {
-      "documentInterfaces": true,
+      "documentInterfaces": "all",
       "documentInternalElements": false
     }
   }

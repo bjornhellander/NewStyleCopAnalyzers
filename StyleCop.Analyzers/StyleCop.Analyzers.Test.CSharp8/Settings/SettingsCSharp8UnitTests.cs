@@ -119,8 +119,37 @@ stylecop.documentation.documentPrivateFields = {valueText}
             Assert.Equal(value, styleCopSettings.DocumentationRules.DocumentExposedElements);
             Assert.Equal(value, styleCopSettings.DocumentationRules.DocumentInternalElements);
             Assert.Equal(value, styleCopSettings.DocumentationRules.DocumentPrivateElements);
-            Assert.Equal(value, styleCopSettings.DocumentationRules.DocumentInterfaces);
+            Assert.Equal(value ? InterfaceDocumentationMode.All : InterfaceDocumentationMode.None, styleCopSettings.DocumentationRules.DocumentInterfaces);
             Assert.Equal(value, styleCopSettings.DocumentationRules.DocumentPrivateFields);
+        }
+
+        [Theory]
+        [InlineData("all")]
+        [InlineData("exposed")]
+        [InlineData("none")]
+        [InlineData("not-a-valid-value")]
+        public async Task VerifyDocumentInterfacesSettingFromEditorConfigAsync(string valueText)
+        {
+            var settings = $@"root = true
+
+[*]
+stylecop.documentation.documentInterfaces = {valueText}
+";
+            var context = await this.CreateAnalysisContextFromEditorConfigAsync(settings).ConfigureAwait(true);
+
+            var styleCopSettings = context.GetStyleCopSettingsInTests(CancellationToken.None);
+
+            var expected = valueText switch
+            {
+                "all" => InterfaceDocumentationMode.All,
+                "exposed" => InterfaceDocumentationMode.Exposed,
+                "none" => InterfaceDocumentationMode.None,
+
+                // An unrecognized value falls back to the default.
+                _ => InterfaceDocumentationMode.All,
+            };
+
+            Assert.Equal(expected, styleCopSettings.DocumentationRules.DocumentInterfaces);
         }
 
         [Theory]

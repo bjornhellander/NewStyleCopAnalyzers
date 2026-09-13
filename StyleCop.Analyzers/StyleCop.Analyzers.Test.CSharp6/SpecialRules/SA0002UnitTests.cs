@@ -92,6 +92,32 @@ namespace NamespaceName { }
             }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Theory]
+        [InlineData("3")]
+        [InlineData("\"acb\"")]
+        public async Task TestInvalidSettingDocumentInterfacesValueAsync(string value)
+        {
+            var settings = $@"
+{{
+  ""settings"": {{
+    ""documentationRules"": {{
+      ""documentInterfaces"": {value}
+    }}
+  }}
+}}
+";
+
+            // This diagnostic is reported without a location
+            DiagnosticResult expected = Diagnostic();
+
+            await new CSharpTest
+            {
+                TestCode = TestCode,
+                ExpectedDiagnostics = { expected },
+                Settings = settings,
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
+        }
+
         [Fact]
         public async Task TestInvalidSettingStringValueAsync()
         {
