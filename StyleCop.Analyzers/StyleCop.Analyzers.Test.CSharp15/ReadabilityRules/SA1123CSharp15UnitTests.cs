@@ -20,17 +20,14 @@ public union TestUnion(string, int)
 {
     public static void TestMethod()
     {
-{|#0:#region Foo|}
+[|#region Foo|]
         string test = """";
 #endregion
     }
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered region directive action three times
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Fact]

@@ -22,7 +22,7 @@ public union TestUnion(string, int)
     /// <summary>
     /// A summary.
     /// </summary>
-    public static int {|#0:TestProperty|}
+    public static int [|TestProperty|]
     {
         get { return 42; }
     }
@@ -45,11 +45,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered property declaration action three times
-            var expectedDiagnostic = Diagnostic().WithLocation(0);
-            DiagnosticResult[] expected = { expectedDiagnostic, expectedDiagnostic, expectedDiagnostic };
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

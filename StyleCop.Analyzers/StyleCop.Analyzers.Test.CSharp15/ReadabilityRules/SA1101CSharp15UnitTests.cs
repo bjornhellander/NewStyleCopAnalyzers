@@ -60,7 +60,6 @@ public union TestUnion(string, int)
         [InlineData("MyInstanceFunc", "()")]
         public async Task TestUnionReferencingOwnMemberWithDiagnosticAsync(string name, string suffix = "")
         {
-            // TODO: Report bug - The compiler calls the registered member access action three times
             var testCode = $@"
 public union TestUnion(string, int)
 {{
@@ -69,7 +68,7 @@ public union TestUnion(string, int)
 
     public void TestMethod()
     {{
-        _ = {{|#0:{name}|}}{suffix};
+        _ = [|{name}|]{suffix};
     }}
 }}
 ";
@@ -87,9 +86,7 @@ public union TestUnion(string, int)
 }}
 ";
 
-            var expected = new[] { Diagnostic().WithLocation(0), Diagnostic().WithLocation(0), Diagnostic().WithLocation(0) };
-
-            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]

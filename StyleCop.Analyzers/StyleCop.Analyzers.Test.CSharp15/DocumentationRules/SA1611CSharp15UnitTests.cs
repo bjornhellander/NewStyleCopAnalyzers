@@ -27,9 +27,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered method declaration action three times
-            var expectedDiagnostic = Diagnostic().WithLocation(0).WithArguments("value");
-            var expected = new[] { expectedDiagnostic, expectedDiagnostic, expectedDiagnostic };
+            var expected = new[] { Diagnostic().WithLocation(0).WithArguments("value") };
 
             await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
