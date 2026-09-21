@@ -63,7 +63,7 @@ public interface IInterface
 /// </summary>
 public ref struct TestRefStruct : IInterface
 {
-    void IInterface.[|TestMethod|]()
+    void IInterface.TestMethod()
     {
     }
 }";

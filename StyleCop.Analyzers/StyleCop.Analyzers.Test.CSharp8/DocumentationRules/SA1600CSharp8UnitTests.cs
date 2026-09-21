@@ -18,11 +18,11 @@ namespace StyleCop.Analyzers.Test.CSharp8.DocumentationRules
         protected override LanguageVersion LanguageVersion => LanguageVersion.Default;
 
         /// <summary>
-        /// Verifies that the members an interface may hold from C# 8 onwards need documentation just like any other
-        /// interface member.
+        /// Verifies that public default interface members (including static ones) need documentation just like any
+        /// other interface member, while private default interface members follow
+        /// <see cref="StyleCop.Analyzers.Settings.ObjectModel.DocumentationSettings.DocumentPrivateElements"/> instead.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
-        // TODO: Investigate this behavior (the private members)!
         [Fact]
         public async Task TestInterfaceMembersWithoutDocumentationAsync()
         {
@@ -35,7 +35,7 @@ public interface ITest
     {
     }
 
-    private void [|TestMethod2|]()
+    private void TestMethod2()
     {
     }
 
@@ -43,7 +43,7 @@ public interface ITest
     {
     }
 
-    private static void [|TestMethod4|]()
+    private static void TestMethod4()
     {
     }
 }
@@ -95,6 +95,125 @@ public interface ITest
                 : DiagnosticResult.EmptyDiagnosticResults;
 
             await VerifyCSharpDiagnosticAsync(this.LanguageVersion, testCode, settings, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies that a static field declared inside an interface requires documentation,
+        /// whether or not it carries an explicit <c>public</c> modifier.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestInterfaceStaticFieldRequiresDocumentationAsync()
+        {
+            var testCode = @"
+/// <summary>Summary.</summary>
+public interface ITest
+{
+    public static int [|Field1|];
+
+    static int [|Field2|];
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies that a delegate nested directly inside an interface requires documentation,
+        /// whether or not it carries an explicit <c>public</c> modifier.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestInterfaceNestedDelegateRequiresDocumentationAsync()
+        {
+            var testCode = @"
+/// <summary>Summary.</summary>
+public interface ITest
+{
+    public delegate void [|Del1|]();
+
+    delegate void [|Del2|]();
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies that a class, struct, or interface nested directly inside an interface requires documentation,
+        /// whether or not it carries an explicit <c>public</c> modifier.
+        /// </summary>
+        /// <param name="typeKeyword">The type keyword to use.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Theory]
+        [InlineData("class")]
+        [InlineData("struct")]
+        [InlineData("interface")]
+        public async Task TestInterfaceNestedTypeRequiresDocumentationAsync(string typeKeyword)
+        {
+            var testCode = $@"
+/// <summary>Summary.</summary>
+public interface ITest
+{{
+    public {typeKeyword} [|Type1|] {{ }}
+
+    {typeKeyword} [|Type2|] {{ }}
+}}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies that a static constructor declared inside an interface does not require documentation. Unlike
+        /// other unmarked interface members, a static constructor is not treated as implicitly public: it can never
+        /// have an access modifier and can never be referenced from source regardless of its declaring type, so
+        /// there is nothing for documentation to require.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestInterfaceStaticConstructorDoesNotRequireDocumentationAsync()
+        {
+            var testCode = @"
+/// <summary>Summary.</summary>
+public interface ITest
+{
+    static ITest() { }
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies that a private default interface member requires documentation when
+        /// <c>documentPrivateElements</c> is enabled, even though it would not by default.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestPrivateDefaultInterfaceMethodHonorsDocumentPrivateElementsAsync()
+        {
+            var testCode = @"
+/// <summary>Summary.</summary>
+public interface ITest
+{
+    private void [|M|]()
+    {
+    }
+}
+";
+
+            var settings = @"
+{
+  ""settings"": {
+    ""documentationRules"": {
+      ""documentPrivateElements"": true
+    }
+  }
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, settings, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

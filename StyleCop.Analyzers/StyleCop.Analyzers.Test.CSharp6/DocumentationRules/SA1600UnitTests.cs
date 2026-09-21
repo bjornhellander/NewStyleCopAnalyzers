@@ -176,6 +176,81 @@ internal interface {|#0:IInterface|}
             await VerifyCSharpDiagnosticAsync(this.LanguageVersion, testCode, settings, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Theory]
+        [InlineData("none", true, true)]
+        [InlineData("none", false, false)]
+        [InlineData("all", false, true)]
+        [InlineData("exposed", false, true)]
+        public async Task TestInterfaceMemberDocumentationModeFallsThroughToDocumentExposedElementsAsync(string mode, bool documentExposedElements, bool requiresDocumentation)
+        {
+            // Like TestInterfaceDocumentationModeFallsThroughToDocumentExposedElementsAsync, but for a member of
+            // the interface rather than the interface declaration itself: DocumentInterfaces only ever adds a
+            // documentation requirement on top of the general accessibility-based rules; it never suppresses one.
+            var testCode = @"
+/// <summary>Summary.</summary>
+public interface IInterface
+{
+    void {|#0:Method|}();
+}
+";
+
+            var settings = $@"
+{{
+  ""settings"": {{
+    ""documentationRules"": {{
+      ""documentInterfaces"": ""{mode}"",
+      ""documentExposedElements"": {documentExposedElements.ToString().ToLowerInvariant()}
+    }}
+  }}
+}}
+";
+
+            DiagnosticResult[] expected = requiresDocumentation
+                ? new[] { Diagnostic().WithLocation(0) }
+                : DiagnosticResult.EmptyDiagnosticResults;
+
+            await VerifyCSharpDiagnosticAsync(this.LanguageVersion, testCode, settings, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Theory]
+        [InlineData("none", true, true)]
+        [InlineData("none", false, false)]
+        [InlineData("all", false, true)]
+        [InlineData("exposed", true, true)]
+        [InlineData("exposed", false, false)]
+        public async Task TestInterfaceMemberDocumentationModeFallsThroughToDocumentInternalElementsAsync(string mode, bool documentInternalElements, bool requiresDocumentation)
+        {
+            // Like TestInterfaceDocumentationModeFallsThroughToDocumentInternalElementsAsync, but for a member of
+            // an internal interface. The member is implicitly public within the interface, but its effective
+            // accessibility is bounded by the internal interface, so neither "none" nor "exposed" (whose own
+            // Public/Protected/ProtectedOrInternal check doesn't match here) should force a result on their own;
+            // DocumentInternalElements alone determines whether it needs documentation.
+            var testCode = @"
+/// <summary>Summary.</summary>
+internal interface IInterface
+{
+    void {|#0:Method|}();
+}
+";
+
+            var settings = $@"
+{{
+  ""settings"": {{
+    ""documentationRules"": {{
+      ""documentInterfaces"": ""{mode}"",
+      ""documentInternalElements"": {documentInternalElements.ToString().ToLowerInvariant()}
+    }}
+  }}
+}}
+";
+
+            DiagnosticResult[] expected = requiresDocumentation
+                ? new[] { Diagnostic().WithLocation(0) }
+                : DiagnosticResult.EmptyDiagnosticResults;
+
+            await VerifyCSharpDiagnosticAsync(this.LanguageVersion, testCode, settings, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
         [Fact]
         public async Task TestDelegateWithoutDocumentationAsync()
         {
@@ -210,7 +285,7 @@ internal interface {|#0:IInterface|}
         public async Task TestMethodWithoutDocumentationAsync()
         {
             await this.TestMethodDeclarationDocumentationAsync(string.Empty, false, false, false).ConfigureAwait(true);
-            await this.TestMethodDeclarationDocumentationAsync(string.Empty, true, true, false).ConfigureAwait(true);
+            await this.TestMethodDeclarationDocumentationAsync(string.Empty, true, false, false).ConfigureAwait(true);
             await this.TestMethodDeclarationDocumentationAsync("private", false, false, false).ConfigureAwait(true);
             await this.TestMethodDeclarationDocumentationAsync("protected", false, true, false).ConfigureAwait(true);
             await this.TestMethodDeclarationDocumentationAsync("internal", false, true, false).ConfigureAwait(true);
@@ -439,7 +514,7 @@ public class OuterClass
         public async Task TestPropertyWithoutDocumentationAsync()
         {
             await this.TestPropertyDeclarationDocumentationAsync(string.Empty, false, false, false).ConfigureAwait(true);
-            await this.TestPropertyDeclarationDocumentationAsync(string.Empty, true, true, false).ConfigureAwait(true);
+            await this.TestPropertyDeclarationDocumentationAsync(string.Empty, true, false, false).ConfigureAwait(true);
             await this.TestPropertyDeclarationDocumentationAsync("private", false, false, false).ConfigureAwait(true);
             await this.TestPropertyDeclarationDocumentationAsync("protected", false, true, false).ConfigureAwait(true);
             await this.TestPropertyDeclarationDocumentationAsync("internal", false, true, false).ConfigureAwait(true);
@@ -467,7 +542,7 @@ public class OuterClass
         public async Task TestIndexerWithoutDocumentationAsync()
         {
             await this.TestIndexerDeclarationDocumentationAsync(string.Empty, false, false, false).ConfigureAwait(true);
-            await this.TestIndexerDeclarationDocumentationAsync(string.Empty, true, true, false).ConfigureAwait(true);
+            await this.TestIndexerDeclarationDocumentationAsync(string.Empty, true, false, false).ConfigureAwait(true);
             await this.TestIndexerDeclarationDocumentationAsync("private", false, false, false).ConfigureAwait(true);
             await this.TestIndexerDeclarationDocumentationAsync("protected", false, true, false).ConfigureAwait(true);
             await this.TestIndexerDeclarationDocumentationAsync("internal", false, true, false).ConfigureAwait(true);
@@ -495,7 +570,7 @@ public class OuterClass
         public async Task TestEventWithoutDocumentationAsync()
         {
             await this.TestEventDeclarationDocumentationAsync(string.Empty, false, false, false).ConfigureAwait(true);
-            await this.TestEventDeclarationDocumentationAsync(string.Empty, true, true, false).ConfigureAwait(true);
+            await this.TestEventDeclarationDocumentationAsync(string.Empty, true, false, false).ConfigureAwait(true);
             await this.TestEventDeclarationDocumentationAsync("private", false, false, false).ConfigureAwait(true);
             await this.TestEventDeclarationDocumentationAsync("protected", false, true, false).ConfigureAwait(true);
             await this.TestEventDeclarationDocumentationAsync("internal", false, true, false).ConfigureAwait(true);
