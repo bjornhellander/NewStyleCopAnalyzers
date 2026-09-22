@@ -54,6 +54,7 @@ namespace StyleCop.Analyzers.OrderingRules
                 SyntaxKind.EnumDeclaration,
                 SyntaxKindEx.RecordDeclaration,
                 SyntaxKindEx.RecordStructDeclaration,
+                SyntaxKindEx.UnionDeclaration,
                 SyntaxKind.DelegateDeclaration,
                 SyntaxKind.FieldDeclaration,
                 SyntaxKind.MethodDeclaration,
@@ -76,7 +77,6 @@ namespace StyleCop.Analyzers.OrderingRules
         protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             context.RegisterSyntaxNodeAction(DeclarationAction, HandledSyntaxKinds);
-            context.RegisterSyntaxNodeAction(DeclarationAction, SyntaxKindEx.UnionDeclaration);
             context.RegisterSyntaxNodeAction(LocalFunctionStatementAction, SyntaxKindEx.LocalFunctionStatement);
         }
 

@@ -12,7 +12,6 @@ namespace StyleCop.Analyzers.DocumentationRules
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
-    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// Analyzer that covers generic typeparam documentation checks. This currently includes SA1620, SA1621, and SA1622.
@@ -76,7 +75,6 @@ namespace StyleCop.Analyzers.DocumentationRules
         protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
-            context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
             context.RegisterSyntaxNodeAction(DelegateDeclarationAction, SyntaxKind.DelegateDeclaration);
             context.RegisterSyntaxNodeAction(MethodDeclarationAction, SyntaxKind.MethodDeclaration);
         }

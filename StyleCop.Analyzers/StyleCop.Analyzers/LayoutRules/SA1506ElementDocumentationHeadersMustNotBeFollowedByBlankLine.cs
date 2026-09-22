@@ -57,6 +57,7 @@ namespace StyleCop.Analyzers.LayoutRules
                 SyntaxKind.InterfaceDeclaration,
                 SyntaxKindEx.RecordDeclaration,
                 SyntaxKindEx.RecordStructDeclaration,
+                SyntaxKindEx.UnionDeclaration,
                 SyntaxKind.EnumDeclaration,
                 SyntaxKind.EnumMemberDeclaration,
                 SyntaxKind.MethodDeclaration,
@@ -81,7 +82,6 @@ namespace StyleCop.Analyzers.LayoutRules
         protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             context.RegisterSyntaxNodeAction(DeclarationAction, HandledSyntaxKinds);
-            context.RegisterSyntaxNodeAction(DeclarationAction, SyntaxKindEx.UnionDeclaration);
         }
 
         private static void HandleDeclaration(SyntaxNodeAnalysisContext context)

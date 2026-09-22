@@ -126,6 +126,7 @@ namespace StyleCop.Analyzers.OrderingRules
         // TypeDeclarationSyntaxExtensions.WithModifiers is made public (Roslyn issue #2186)
         private static TypeDeclarationSyntax ReplaceKeyword(TypeDeclarationSyntax node, SyntaxToken keyword)
         {
+            // TODO: Improve testing of this method. The whole switch can be removed without any tests failing.
             switch (node.Kind())
             {
             case SyntaxKind.ClassDeclaration:
@@ -133,11 +134,12 @@ namespace StyleCop.Analyzers.OrderingRules
             case SyntaxKind.InterfaceDeclaration:
                 return ((InterfaceDeclarationSyntax)node).WithKeyword(keyword);
             case SyntaxKind.StructDeclaration:
-            case SyntaxKindEx.UnionDeclaration when node is StructDeclarationSyntax: // TODO: Update when representation of union has been changed
                 return ((StructDeclarationSyntax)node).WithKeyword(keyword);
             case SyntaxKindEx.RecordDeclaration:
             case SyntaxKindEx.RecordStructDeclaration:
                 return ((RecordDeclarationSyntaxWrapper)node).WithKeyword(keyword);
+            case SyntaxKindEx.UnionDeclaration:
+                return ((UnionDeclarationSyntaxWrapper)node).WithKeyword(keyword);
             }
 
             return node;

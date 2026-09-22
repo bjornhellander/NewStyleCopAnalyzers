@@ -40,6 +40,7 @@ namespace StyleCop.Analyzers.DocumentationRules
                 SyntaxKind.InterfaceDeclaration,
                 SyntaxKindEx.RecordDeclaration,
                 SyntaxKindEx.RecordStructDeclaration,
+                SyntaxKindEx.UnionDeclaration,
                 SyntaxKind.EnumDeclaration,
                 SyntaxKind.DelegateDeclaration);
 
@@ -67,7 +68,6 @@ namespace StyleCop.Analyzers.DocumentationRules
         protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             context.RegisterSyntaxNodeAction(BaseTypeLikeDeclarationAction, HandledTypeLikeDeclarationKinds);
-            context.RegisterSyntaxNodeAction(BaseTypeLikeDeclarationAction, SyntaxKindEx.UnionDeclaration);
             context.RegisterSyntaxNodeAction(MemberDeclarationAction, MemberDeclarationKinds);
         }
 

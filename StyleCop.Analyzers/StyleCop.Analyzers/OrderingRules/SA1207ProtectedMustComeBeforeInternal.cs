@@ -52,7 +52,8 @@ namespace StyleCop.Analyzers.OrderingRules
                 SyntaxKind.PropertyDeclaration,
                 SyntaxKind.StructDeclaration,
                 SyntaxKindEx.RecordDeclaration,
-                SyntaxKindEx.RecordStructDeclaration);
+                SyntaxKindEx.RecordStructDeclaration,
+                SyntaxKindEx.UnionDeclaration);
 
         private static readonly Action<SyntaxNodeAnalysisContext> DeclarationAction = HandleDeclaration;
 
@@ -64,7 +65,6 @@ namespace StyleCop.Analyzers.OrderingRules
         protected override void HandleCompilationStart(CompilationStartAnalysisContext context)
         {
             context.RegisterSyntaxNodeAction(DeclarationAction, HandledSyntaxKinds);
-            context.RegisterSyntaxNodeAction(DeclarationAction, SyntaxKindEx.UnionDeclaration);
         }
 
         private static void HandleDeclaration(SyntaxNodeAnalysisContext context)
