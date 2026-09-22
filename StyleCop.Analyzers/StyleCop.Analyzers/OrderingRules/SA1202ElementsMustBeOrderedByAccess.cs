@@ -82,9 +82,7 @@ namespace StyleCop.Analyzers.OrderingRules
             context.RegisterSyntaxNodeAction(CompilationUnitAction, SyntaxKind.CompilationUnit);
             context.RegisterSyntaxNodeAction(BaseNamespaceDeclarationAction, SyntaxKinds.BaseNamespaceDeclaration);
             context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
-
-            // Register UnionDeclaration separately (with a duplicate-node guard, see the helper for why it is needed)
-            context.RegisterSyntaxNodeActionWithDuplicateNodeGuard(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
+            context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKindEx.UnionDeclaration);
         }
 
         private static void HandleCompilationUnit(SyntaxNodeAnalysisContext context, StyleCopSettings settings)

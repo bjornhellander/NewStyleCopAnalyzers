@@ -29,13 +29,7 @@ public union TestUnion(string, int)
 }
 ";
 
-            // TODO: Report bug - The compiler calls the registered field declaration action three times
-            var expected = new[]
-            {
-                Diagnostic().WithLocation(0).WithArguments("myField"),
-                Diagnostic().WithLocation(0).WithArguments("myField"),
-                Diagnostic().WithLocation(0).WithArguments("myField"),
-            };
+            var expected = Diagnostic().WithLocation(0).WithArguments("myField");
 
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
