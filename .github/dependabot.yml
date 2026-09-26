@@ -13,26 +13,10 @@ updates:
       - dependency-name: "Microsoft.CodeAnalysis.CSharp.CodeStyle"
       - dependency-name: "Microsoft.CodeAnalysis.CSharp.Workspaces"
       - dependency-name: "Microsoft.CodeAnalysis.Workspaces.MSBuild"
-      # This currently causes problems if upgraded, so skip it for now. (Still in the 'analyzers' group though.)
+      # This currently causes problems if upgraded, so skip it for now.
       - dependency-name: "DotNetAnalyzers.DocumentationAnalyzers"
     groups:
-      analyzers:
-        patterns:
-          - "AsyncUsageAnalyzers"
-          - "DotNetAnalyzers.DocumentationAnalyzers"
-          - "NewStyleCop.Analyzers"
-          - "Microsoft.CodeAnalysis.Analyzers"
-          - "Microsoft.CodeAnalysis.PublicApiAnalyzers"
-          - "Microsoft.CodeAnalysis.ResxSourceGenerator"
-      test:
-        patterns:
-          - "Microsoft.NET.Test.Sdk"
-          - "Moq"
-          - "Xunit.Combinatorial"
-          - "xunit.runner.visualstudio"
-          - "xunit.v3"
-          - "Microsoft.CodeAnalysis.CSharp.CodeFix.Testing"
-      other:
+      nuget-dependencies:
         patterns:
           - "*"
 
