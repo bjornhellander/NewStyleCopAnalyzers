@@ -14,52 +14,6 @@ from CSharp11 (see `SA1112CSharp11UnitTests` ... `SA1117CSharp11UnitTests`). Bas
 (`: Base(...)`) have a separate issue ([dotnet/roslyn#70488](https://github.com/dotnet/roslyn/issues/70488)): they are
 duplicated on CSharp9–CSharp12 and single from CSharp13 (see `SA1110CSharp13UnitTests` ... `SA1117CSharp13UnitTests`).
 
-### Pin SA1101 for positional parameters and SA1008 for the parameter list
-
-**Priority:** Medium. **Code change:** none expected. **Docs:** [Positional syntax for property definition](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record#positional-syntax-for-property-definition)
-
-Inside a positional record, `X` means the generated property in a member body, but the constructor parameter in an
-initializer or a base-type argument. SA1101 gets this right today (confirmed), but nothing tests it.
-`SA1101CSharp9UnitTests.TestRecordWithExpressionAsync` only covers `with` on another instance. Separately, SA1008
-reports `record R (int X)` and `: R (X)`, and neither has a record test.
-
-**Tests:**
-
-- `SA1101CSharp9UnitTests`:
-
-```csharp
-[Fact]
-public async Task TestPositionalRecordParametersAsync()
-{
-    var testCode = @"public record A(int X, string Y);
-
-public record B(int X) : A(X, ""a"")
-{
-    public int Z { get; init; } = X;
-
-    public int W => [|X|];
-
-    public B M() => this with { X = [|Z|] };
-}";
-
-    var fixedCode = @"public record A(int X, string Y);
-
-public record B(int X) : A(X, ""a"")
-{
-    public int Z { get; init; } = X;
-
-    public int W => this.X;
-
-    public B M() => this with { X = this.Z };
-}";
-
-    await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
-}
-```
-
-- `SA1008CSharp9UnitTests`: a fix test for `record R11 [|(|]int X);` and `record R12(int X) : R11 [|(|]X);`. SA1008 has
-  several descriptors, so use `{|#0:(|}` with the "not preceded" descriptor.
-
 ### With expressions: pin brace spacing
 
 **Priority:** Low. **Code change:** none expected. **Docs:** [Nondestructive mutation](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record#nondestructive-mutation)
