@@ -14,6 +14,39 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
     public partial class SA1012CSharp9UnitTests
     {
         [Fact]
+        public async Task TestWithExpressionAsync()
+        {
+            var testCode = @"
+public record R(int X)
+{
+    public R M1() => this with{|#0:{|} X = 1 };
+
+    public R M2() => this with {|#1:{|}X = 1 };
+}
+";
+
+            var fixedCode = @"
+public record R(int X)
+{
+    public R M1() => this with { X = 1 };
+
+    public R M2() => this with { X = 1 };
+}
+";
+
+            DiagnosticResult[] expectedResults =
+            {
+                // SA1012: Opening brace should be preceded by a space
+                Diagnostic().WithLocation(0).WithArguments(string.Empty, "preceded"),
+
+                // SA1012: Opening brace should be followed by a space
+                Diagnostic().WithLocation(1).WithArguments(string.Empty, "followed"),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expectedResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
         public async Task TestInAndPropertyPatternsAsync()
         {
             var testCode = @"

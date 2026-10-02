@@ -1,35 +1,5 @@
 # C# 9 impact review
 
-## Records
-
-**Docs:** [Records](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record)
-
-Positional records produce each diagnostic twice on the CSharp9 leg (Roslyn 3.8,
-[dotnet/roslyn#53136](https://github.com/dotnet/roslyn/issues/53136)). Existing tests handle this by returning the
-expected results from a `protected virtual DiagnosticResult[] GetExpectedResult...()` method. That method lists each
-diagnostic twice in CSharp9, and an override lists it once from CSharp11 (`SA1111CSharp9UnitTests.cs:93`,
-`SA1111CSharp11UnitTests.cs:13`). New record tests below that expect diagnostics need the same pattern. Re-check which
-legs actually duplicate. For primary-constructor parameter lists it was CSharp9 and CSharp10, with single diagnostics
-from CSharp11 (see `SA1112CSharp11UnitTests` ... `SA1117CSharp11UnitTests`). Base-type argument lists
-(`: Base(...)`) have a separate issue ([dotnet/roslyn#70488](https://github.com/dotnet/roslyn/issues/70488)): they are
-duplicated on CSharp9–CSharp12 and single from CSharp13 (see `SA1110CSharp13UnitTests` ... `SA1117CSharp13UnitTests`).
-
-### With expressions: pin brace spacing
-
-**Priority:** Low. **Code change:** none expected. **Docs:** [Nondestructive mutation](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record#nondestructive-mutation)
-
-These were confirmed but have no `with` test:
-
-- SA1012 reports `with{` and `{X`.
-- SA1013 reports `1}`.
-- SA1009 reports `(this)with`.
-- SA1025 reports `this  with`.
-
-SA1413 (`VerifyWithInitializerAsync`), SA1101, SA1118 and SA1119 already have `with` tests.
-
-**Tests:** fix tests for `this with{ X = 1 }` in `SA1012CSharp9UnitTests`, for `this with {X = 1}` in
-`SA1012CSharp9UnitTests` and `SA1013CSharp9UnitTests` (new file), and for `(this)with { }` in `SA1009CSharp9UnitTests`.
-
 ## Init only setters
 
 **Docs:** [Init only setters](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/init)
@@ -116,8 +86,10 @@ These rules were confirmed to behave the same as inside a method body, but have 
 - SA1312 for an upper-case local variable.
 - SA1124 for `#region`.
 
-SA1137 is reported twice on the CSharp9 leg (roslyn#53136) and once on CSharp15. Use the virtual expected-result
-pattern described under Records there.
+SA1137 is reported twice on the CSharp9 leg ([dotnet/roslyn#53136](https://github.com/dotnet/roslyn/issues/53136)) and
+once on CSharp15. Return its expected results from a `protected virtual DiagnosticResult[] GetExpectedResult...()`
+method that lists the diagnostic twice, and override it to list it once from the first leg that no longer duplicates
+(as `SA1111CSharp9UnitTests` / `SA1111CSharp11UnitTests` do; find that leg by running the tests).
 
 **Tests:** one `...InTopLevelProgramAsync` test per rule, each in that rule's CSharp9 file, using
 `TestState.OutputKind = OutputKind.ConsoleApplication` as `SA1516CSharp9UnitTests` does. Use `VerifyCSharpFixAsync`
