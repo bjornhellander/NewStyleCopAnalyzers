@@ -9,105 +9,10 @@ Positional records produce each diagnostic twice on the CSharp9 leg (Roslyn 3.8,
 expected results from a `protected virtual DiagnosticResult[] GetExpectedResult...()` method. That method lists each
 diagnostic twice in CSharp9, and an override lists it once from CSharp11 (`SA1111CSharp9UnitTests.cs:93`,
 `SA1111CSharp11UnitTests.cs:13`). New record tests below that expect diagnostics need the same pattern. Re-check which
-legs actually duplicate.
-
-### SA1112–SA1117 ignore primary constructor parameter lists
-
-**Priority:** High. **Code change:** yes.
-
-SA1110 and SA1111 check a record's parameter list (`HandleTypeDeclaration` registered on `SyntaxKinds.TypeDeclaration`),
-but SA1112, SA1113, SA1114, SA1115, SA1116 and SA1117 have no registration for type declarations. All six were confirmed
-silent, on both the CSharp9 and CSharp15 compilers:
-
-```csharp
-public record R1(int X,
-    int Y);           // expected SA1116, nothing reported
-
-public record R2(
-    int X, int Y,
-    int Z);           // expected SA1117, nothing reported
-
-public record R3(
-    int X
-    , int Y);         // expected SA1113, only SA1001 reported
-
-public record R4(
-
-    int X);           // expected SA1114, nothing reported
-
-public record R5(
-    int X,
-
-    int Y);           // expected SA1115, nothing reported
-
-public record R6(
-    );                // expected SA1112, only SA1009 reported
-```
-
-`SyntaxKinds.TypeDeclaration` includes class and struct, so this also fixes C# 12 primary constructors on classes and
-structs.
-
-**Suggested change:** in each of the six analyzers, register on `SyntaxKinds.TypeDeclaration` and pass
-`TypeDeclarationSyntax.ParameterList()` (the existing lightup extension) to the helper the analyzer already uses for
-method parameter lists:
-
-```csharp
-// HandleCompilationStart
-context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
-
-private static void HandleTypeDeclaration(SyntaxNodeAnalysisContext context)
-{
-    var parameterList = ((TypeDeclarationSyntax)context.Node).ParameterList();
-    if (parameterList != null)
-    {
-        HandleParameterListSyntax(context, parameterList);
-    }
-}
-```
-
-The helper is `HandleParameterList` in SA1112, `HandleBaseParameterListSyntax` in SA1113, `AnalyzeParametersList` in
-SA1114, `AnalyzeSyntaxList(context, parameterList.Parameters)` in SA1115, and `HandleParameterListSyntax` in SA1116 and
-SA1117. SA1110 and SA1111 also register on `SyntaxKindEx.ExtensionBlockDeclaration`. That is C# 14 and outside this
-review, but check whether the six rules should do the same while editing them.
-
-**Tests:** in `StyleCop.Analyzers.Test.CSharp9/ReadabilityRules`, add one test per rule as a `[Theory]` over
-`CommonMemberData.TypeKeywordsWhichSupportPrimaryConstructors`, following
-`SA1111CSharp9UnitTests.TestPrimaryConstructorWithParameterAsync`. New files are needed for SA1112, SA1113, SA1114 and
-SA1115. SA1116 and SA1117 already have CSharp9 files. Use `VerifyCSharpFixAsync` for SA1112, SA1113 and SA1116, which
-have code fixes. SA1114, SA1115 and SA1117 are diagnostic-only. Use the virtual expected-result pattern described at
-the top of this section.
-
-```csharp
-[Theory]
-[MemberData(nameof(CommonMemberData.TypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
-public async Task TestPrimaryConstructorParametersAsync(string typeKeyword)
-{
-    var testCode = $@"
-{typeKeyword} Foo(int x,
-    {{|#0:int y|}})
-{{
-}}";
-
-    var fixedCode = $@"
-{typeKeyword} Foo(
-    int x,
-    int y)
-{{
-}}";
-
-    var expected = this.GetExpectedResultTestPrimaryConstructorParameters();
-    await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
-}
-```
-
-That sketch is for SA1116 and needs the `{|#0:|}` form only because of the virtual expected result. Each rule needs
-its own shape:
-
-- SA1112: `Foo(` then `)` on the next line.
-- SA1113: a leading comma.
-- SA1114: a blank line after `(`.
-- SA1115: a blank line after a comma.
-- SA1117: two parameters on one line and the third on its own line.
+legs actually duplicate. For primary-constructor parameter lists it was CSharp9 and CSharp10, with single diagnostics
+from CSharp11 (see `SA1112CSharp11UnitTests` ... `SA1117CSharp11UnitTests`). SA1111's base-list tests note a separate
+issue ([dotnet/roslyn#70488](https://github.com/dotnet/roslyn/issues/70488)) that keeps base-list diagnostics
+duplicated on every leg.
 
 ### SA1112–SA1117 ignore base-type argument lists
 
@@ -149,7 +54,8 @@ private static void HandlePrimaryConstructorBaseType(SyntaxNodeAnalysisContext c
 Use each analyzer's existing argument-list helper (the one its `HandleConstructorInitializer` uses). SA1112 has no
 argument-list helper. Copy the pattern from its `HandleObjectCreationExpression`, which skips non-empty lists.
 
-**Tests:** add these to the same CSharp9 files as the parameter-list tests above, as `[Theory]` over
+**Tests:** add these to `SA1112CSharp9UnitTests` ... `SA1117CSharp9UnitTests`, which already have the
+primary-constructor parameter-list tests, as `[Theory]` over
 `CommonMemberData.ReferenceTypeKeywordsWhichSupportPrimaryConstructors`. Model them on
 `SA1111CSharp9UnitTests.TestPrimaryConstructorBaseListWithArgumentsAsync`, using the same virtual expected-result
 pattern.

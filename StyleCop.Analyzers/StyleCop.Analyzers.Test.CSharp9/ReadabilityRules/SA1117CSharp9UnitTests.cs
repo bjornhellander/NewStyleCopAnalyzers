@@ -6,8 +6,10 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
-    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.ReadabilityRules.SA1117ParametersMustBeOnSameLineOrSeparateLines>;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<
+        StyleCop.Analyzers.ReadabilityRules.SA1117ParametersMustBeOnSameLineOrSeparateLines>;
 
     public partial class SA1117CSharp9UnitTests
     {
@@ -52,6 +54,49 @@ class Foo
 
             DiagnosticResult expected = Diagnostic().WithLocation(11, 16);
             await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Theory]
+        [MemberData(nameof(CommonMemberData.TypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
+        public async Task TestValidPrimaryConstructorAsync(string typeKeyword)
+        {
+            var testCode = $@"
+{typeKeyword} Foo(
+    int a,
+    int b,
+    int c)
+{{
+}}
+
+{typeKeyword} Bar(int a, int b, int c)
+{{
+}}";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Theory]
+        [MemberData(nameof(CommonMemberData.TypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
+        public async Task TestInvalidPrimaryConstructorAsync(string typeKeyword)
+        {
+            var testCode = $@"
+{typeKeyword} Foo(int a, int b,
+    {{|#0:int c|}})
+{{
+}}";
+
+            var expected = this.GetExpectedResultTestInvalidPrimaryConstructor();
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        protected virtual DiagnosticResult[] GetExpectedResultTestInvalidPrimaryConstructor()
+        {
+            return new[]
+            {
+                // Diagnostic issued twice because of https://github.com/dotnet/roslyn/issues/53136
+                Diagnostic().WithLocation(0),
+                Diagnostic().WithLocation(0),
+            };
         }
     }
 }
