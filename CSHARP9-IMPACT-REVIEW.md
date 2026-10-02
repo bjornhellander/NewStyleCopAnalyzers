@@ -10,55 +10,9 @@ expected results from a `protected virtual DiagnosticResult[] GetExpectedResult.
 diagnostic twice in CSharp9, and an override lists it once from CSharp11 (`SA1111CSharp9UnitTests.cs:93`,
 `SA1111CSharp11UnitTests.cs:13`). New record tests below that expect diagnostics need the same pattern. Re-check which
 legs actually duplicate. For primary-constructor parameter lists it was CSharp9 and CSharp10, with single diagnostics
-from CSharp11 (see `SA1112CSharp11UnitTests` ... `SA1117CSharp11UnitTests`). SA1111's base-list tests note a separate
-issue ([dotnet/roslyn#70488](https://github.com/dotnet/roslyn/issues/70488)) that keeps base-list diagnostics
-duplicated on every leg.
-
-### SA1112–SA1117 ignore base-type argument lists
-
-**Priority:** High. **Code change:** yes. **Docs:** [Inheritance](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record#inheritance)
-
-The argument list in `record B(int X, int Y) : A(X, Y)` is a `PrimaryConstructorBaseType`. SA1110 and SA1111 handle it
-(`HandlePrimaryConstructorBaseType`), and SA1118 covers it through `SyntaxKinds.BaseArgumentList`. SA1112–SA1117 do not
-handle it. Confirmed silent:
-
-```csharp
-public record R7(int X, int Y) : R1(X,
-    Y);                // expected SA1116
-
-public record R8(int X, int Y, int Z) : R2(
-    X, Y,
-    Z);                // expected SA1117
-
-public record R9(int X, int Y) : R1(
-    X
-    , Y);              // expected SA1113, only SA1001 reported
-
-public record R10(int X, int Y) : R1(
-
-    X, Y);             // expected SA1114
-```
-
-**Suggested change:** register on `SyntaxKindEx.PrimaryConstructorBaseType` in each of the six analyzers, as SA1111 does:
-
-```csharp
-context.RegisterSyntaxNodeAction(PrimaryConstructorBaseTypeAction, SyntaxKindEx.PrimaryConstructorBaseType);
-
-private static void HandlePrimaryConstructorBaseType(SyntaxNodeAnalysisContext context)
-{
-    var baseType = (PrimaryConstructorBaseTypeSyntaxWrapper)context.Node;
-    HandleArgumentListSyntax(context, baseType.ArgumentList);
-}
-```
-
-Use each analyzer's existing argument-list helper (the one its `HandleConstructorInitializer` uses). SA1112 has no
-argument-list helper. Copy the pattern from its `HandleObjectCreationExpression`, which skips non-empty lists.
-
-**Tests:** add these to `SA1112CSharp9UnitTests` ... `SA1117CSharp9UnitTests`, which already have the
-primary-constructor parameter-list tests, as `[Theory]` over
-`CommonMemberData.ReferenceTypeKeywordsWhichSupportPrimaryConstructors`. Model them on
-`SA1111CSharp9UnitTests.TestPrimaryConstructorBaseListWithArgumentsAsync`, using the same virtual expected-result
-pattern.
+from CSharp11 (see `SA1112CSharp11UnitTests` ... `SA1117CSharp11UnitTests`). Base-type argument lists
+(`: Base(...)`) have a separate issue ([dotnet/roslyn#70488](https://github.com/dotnet/roslyn/issues/70488)): they are
+duplicated on CSharp9–CSharp12 and single from CSharp13 (see `SA1110CSharp13UnitTests` ... `SA1117CSharp13UnitTests`).
 
 ### Pin SA1101 for positional parameters and SA1008 for the parameter list
 

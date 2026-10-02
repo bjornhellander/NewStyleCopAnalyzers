@@ -33,11 +33,48 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Theory]
+        [MemberData(nameof(CommonMemberData.ReferenceTypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
+        public async Task TestPrimaryConstructorBaseListWithNoArgumentsClosingParenthesisOnTheNextLineAsync(string typeKeyword)
+        {
+            var testCode = $@"
+{typeKeyword} Foo()
+{{
+}}
+
+{typeKeyword} Bar(int x) : Foo(
+{{|#0:)|}}
+{{
+}}";
+
+            var fixedCode = $@"
+{typeKeyword} Foo()
+{{
+}}
+
+{typeKeyword} Bar(int x) : Foo()
+{{
+}}";
+
+            var expected = this.GetExpectedResultTestPrimaryConstructorBaseListWithNoArgumentsClosingParenthesisOnTheNextLine();
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         protected virtual DiagnosticResult[] GetExpectedResultTestPrimaryConstructorWithNoParametersClosingParenthesisOnTheNextLine()
         {
             return new[]
             {
                 // Diagnostic issued twice because of https://github.com/dotnet/roslyn/issues/53136
+                Diagnostic().WithLocation(0),
+                Diagnostic().WithLocation(0),
+            };
+        }
+
+        protected virtual DiagnosticResult[] GetExpectedResultTestPrimaryConstructorBaseListWithNoArgumentsClosingParenthesisOnTheNextLine()
+        {
+            return new[]
+            {
+                // Diagnostic issued twice because of https://github.com/dotnet/roslyn/issues/70488
                 Diagnostic().WithLocation(0),
                 Diagnostic().WithLocation(0),
             };
