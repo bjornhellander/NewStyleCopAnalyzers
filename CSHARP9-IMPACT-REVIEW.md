@@ -1,20 +1,5 @@
 # C# 9 impact review
 
-## Init only setters
-
-**Docs:** [Init only setters](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/init)
-
-SA1212, SA1500, SA1513, SA1516 and SA1137 already have CSharp9 `init` tests.
-
-### SA1504 has no `init` test
-
-**Priority:** Low. **Code change:** none expected.
-
-SA1504 works for `get { ... }` followed by a multi-line `init` accessor (confirmed), but nothing tests it.
-
-**Tests:** `SA1504CSharp9UnitTests` (new file): a property with a single-line `get` and a multi-line `init` reports
-`[|get|]`. Use `VerifyCSharpFixAsync` if the rule's code fix applies.
-
 ## Top-level statements
 
 **Docs:** [Top-level statements](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/program-structure/top-level-statements)
