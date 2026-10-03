@@ -69,7 +69,8 @@ namespace StyleCop.Analyzers.ReadabilityRules
             {
             case SyntaxKind.Block:
             case SyntaxKind.SwitchSection:
-                // empty statements in a block or switch section can be removed
+            case SyntaxKind.GlobalStatement:
+                // empty statements in a block, switch section or among top-level statements can be removed
                 return await RemoveSemicolonTextAsync(document, node.SemicolonToken, cancellationToken).ConfigureAwait(false);
 
             case SyntaxKind.IfStatement:

@@ -6,29 +6,31 @@
 
 SA1200 and SA1516 already have CSharp9 top-level tests.
 
-### Pin the statement-level rules
+### Decide SA1123 or SA1124 for regions among top-level statements
 
-**Priority:** Low. **Code change:** none expected.
+**Priority:** Medium. **Code change:** decision needed.
 
-These rules were confirmed to behave the same as inside a method body, but have no top-level test:
+Inside a method body, a region is reported by SA1123 ("Do not place regions within elements"), and SA1124 ("Do not use
+regions") skips it: `SA1124DoNotUseRegions` only reports regions that are not completely contained in a body, using
+`SA1123DoNotPlaceRegionsWithinElements.IsCompletelyContainedInBody`, which looks for an enclosing `BlockSyntax`.
+Top-level statements have no enclosing block, so a region around them is reported by SA1124 instead of SA1123:
 
-- SA1137 for an over-indented global statement.
-- SA1106 for a stray `;`.
-- SA1503 for `if (x > 0) Console.WriteLine(x);`.
-- SA1515 for a comment directly after a statement.
-- SA1300 for a lower-case local function.
-- SA1312 for an upper-case local variable.
-- SA1124 for `#region`.
+```csharp
+#region R              // SA1124 today; inside a method body it would be SA1123
+Console.WriteLine(x);
+#endregion
+```
 
-SA1137 is reported twice on the CSharp9 leg ([dotnet/roslyn#53136](https://github.com/dotnet/roslyn/issues/53136)) and
-once on CSharp15. Return its expected results from a `protected virtual DiagnosticResult[] GetExpectedResult...()`
-method that lists the diagnostic twice, and override it to list it once from the first leg that no longer duplicates
-(as `SA1111CSharp9UnitTests` / `SA1111CSharp11UnitTests` do; find that leg by running the tests).
+This matters for configurations that disable one of the two rules, e.g. allowing regions between members (SA1124 off)
+but not inside code (SA1123 on): regions around top-level statements are then not reported at all.
 
-**Tests:** one `...InTopLevelProgramAsync` test per rule, each in that rule's CSharp9 file, using
-`TestState.OutputKind = OutputKind.ConsoleApplication` as `SA1516CSharp9UnitTests` does. Use `VerifyCSharpFixAsync`
-where the rule has a fix (SA1137, SA1106, SA1503, SA1515). SA1300 and SA1312 have rename fixes, so use the diagnostic
-form unless the existing tests for those rules verify the rename.
+**Suggested change:** decide whether top-level statements should count as a body (they are the body of the implicit
+entry point). If so, extend `IsCompletelyContainedInBody` to also accept regions whose related directives are all
+within the range of the compilation unit's global statements, so that SA1123 reports them and SA1124 skips them.
+
+**Tests:** whichever is decided, add `...InTopLevelProgramAsync` tests to `SA1123CSharp9UnitTests` and
+`SA1124CSharp9UnitTests` (new files) with `OutputKind.ConsoleApplication`, as in `SA1106CSharp9UnitTests`, covering a
+region around top-level statements and, as a contrast, a region around a type declared after them.
 
 ## Pattern matching enhancements
 

@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Testing;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -51,6 +52,42 @@ class MyAttribute : Attribute { }
 ";
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestGlobalStatementIndentationInTopLevelProgramAsync()
+        {
+            var testCode = @"System.Console.WriteLine(1);
+{|#0:  |}System.Console.WriteLine(2);
+System.Console.WriteLine(3);
+";
+
+            var fixedCode = @"System.Console.WriteLine(1);
+System.Console.WriteLine(2);
+System.Console.WriteLine(3);
+";
+
+            var test = new CSharpTest()
+            {
+                TestState =
+                {
+                    OutputKind = OutputKind.ConsoleApplication,
+                    Sources = { testCode },
+                },
+                FixedCode = fixedCode,
+            };
+            test.TestState.ExpectedDiagnostics.AddRange(this.GetExpectedResultTestGlobalStatementIndentationInTopLevelProgram());
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
+        }
+
+        protected virtual DiagnosticResult[] GetExpectedResultTestGlobalStatementIndentationInTopLevelProgram()
+        {
+            return new[]
+            {
+                // Diagnostic issued twice because of https://github.com/dotnet/roslyn/issues/58561
+                Diagnostic().WithLocation(0),
+                Diagnostic().WithLocation(0),
+            };
         }
     }
 }

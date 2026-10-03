@@ -67,8 +67,25 @@ namespace StyleCop.Analyzers.LayoutRules
             // Currently unused
             _ = cancellationToken;
 
-            var newSyntaxRoot = root.ReplaceNode(node, SyntaxFactory.Block(node));
+            var newSyntaxRoot = root.ReplaceNode(node, CreateBlock(node, node));
             return Task.FromResult(document.WithSyntaxRoot(newSyntaxRoot));
+        }
+
+        private static BlockSyntax CreateBlock(StatementSyntax originalStatement, StatementSyntax statement)
+        {
+            var block = SyntaxFactory.Block(statement);
+
+            // A statement can be last in the file in a program with top-level statements. There is no following token
+            // that the formatter would place on a new line, so keep the line break after the new block explicitly.
+            var trailingTrivia = originalStatement.GetTrailingTrivia();
+            if (originalStatement.GetLastToken().GetNextToken().IsKind(SyntaxKind.None)
+                && trailingTrivia.Count > 0
+                && trailingTrivia.Last().IsKind(SyntaxKind.EndOfLineTrivia))
+            {
+                block = block.WithTrailingTrivia(trailingTrivia.Last());
+            }
+
+            return block;
         }
 
         private static bool ContainsConditionalDirectiveTrivia(SyntaxNode node)
@@ -122,7 +139,7 @@ namespace StyleCop.Analyzers.LayoutRules
                     nodesNeedingBlocks.Add(node);
                 }
 
-                return syntaxRoot.ReplaceNodes(nodesNeedingBlocks, (originalNode, rewrittenNode) => SyntaxFactory.Block((StatementSyntax)rewrittenNode));
+                return syntaxRoot.ReplaceNodes(nodesNeedingBlocks, (originalNode, rewrittenNode) => CreateBlock((StatementSyntax)originalNode, (StatementSyntax)rewrittenNode));
             }
         }
     }
