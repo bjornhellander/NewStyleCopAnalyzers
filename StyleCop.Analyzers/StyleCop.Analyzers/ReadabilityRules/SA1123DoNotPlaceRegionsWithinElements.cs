@@ -64,25 +64,63 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 throw new ArgumentNullException(nameof(regionSyntax));
             }
 
-            BlockSyntax? syntax = null;
+            SyntaxNode? syntax = null;
             foreach (var directive in regionSyntax.GetRelatedDirectives())
             {
-                BlockSyntax blockSyntax = directive.AncestorsAndSelf().OfType<BlockSyntax>().LastOrDefault();
-                if (blockSyntax == null)
+                SyntaxNode? blockOrCompilationUnitSyntax = (SyntaxNode?)directive.AncestorsAndSelf().OfType<BlockSyntax>().LastOrDefault()
+                    ?? GetTopLevelStatementsBody(directive);
+                if (blockOrCompilationUnitSyntax == null)
                 {
                     return false;
                 }
                 else if (syntax == null)
                 {
-                    syntax = blockSyntax;
+                    syntax = blockOrCompilationUnitSyntax;
                 }
-                else if (blockSyntax != syntax)
+                else if (blockOrCompilationUnitSyntax != syntax)
                 {
                     return false;
                 }
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Gets the compilation unit if the directive is located among top-level statements, which form the body of the
+        /// implicit entry point.
+        /// </summary>
+        /// <param name="directive">The directive.</param>
+        /// <returns>The compilation unit, or <see langword="null"/> if the directive is not located among top-level
+        /// statements.</returns>
+        private static CompilationUnitSyntax? GetTopLevelStatementsBody(DirectiveTriviaSyntax directive)
+        {
+            var token = directive.ParentTrivia.Token;
+            var compilationUnit = token.Parent?.FirstAncestorOrSelf<CompilationUnitSyntax>();
+            if (compilationUnit == null)
+            {
+                // Should never happen
+                return null;
+            }
+
+            // A directive before a top-level statement belongs to the first token of that statement. A directive within
+            // a top-level statement (without a block) is not located among the top-level statements, just like a
+            // directive within an expression-bodied method is not located within a body.
+            var globalStatement = token.Parent!.FirstAncestorOrSelf<GlobalStatementSyntax>();
+            if (globalStatement != null && globalStatement.GetFirstToken() == token)
+            {
+                return compilationUnit;
+            }
+
+            // A directive after the last top-level statement in the file belongs to the end-of-file token
+            if (token.IsKind(SyntaxKind.EndOfFileToken)
+                && compilationUnit.Members.LastOrDefault() is { } lastMember
+                && lastMember.IsKind(SyntaxKind.GlobalStatement))
+            {
+                return compilationUnit;
+            }
+
+            return null;
         }
 
         private static void HandleRegionDirectiveTrivia(SyntaxNodeAnalysisContext context)

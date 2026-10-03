@@ -1,37 +1,5 @@
 # C# 9 impact review
 
-## Top-level statements
-
-**Docs:** [Top-level statements](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/program-structure/top-level-statements)
-
-SA1200 and SA1516 already have CSharp9 top-level tests.
-
-### Decide SA1123 or SA1124 for regions among top-level statements
-
-**Priority:** Medium. **Code change:** decision needed.
-
-Inside a method body, a region is reported by SA1123 ("Do not place regions within elements"), and SA1124 ("Do not use
-regions") skips it: `SA1124DoNotUseRegions` only reports regions that are not completely contained in a body, using
-`SA1123DoNotPlaceRegionsWithinElements.IsCompletelyContainedInBody`, which looks for an enclosing `BlockSyntax`.
-Top-level statements have no enclosing block, so a region around them is reported by SA1124 instead of SA1123:
-
-```csharp
-#region R              // SA1124 today; inside a method body it would be SA1123
-Console.WriteLine(x);
-#endregion
-```
-
-This matters for configurations that disable one of the two rules, e.g. allowing regions between members (SA1124 off)
-but not inside code (SA1123 on): regions around top-level statements are then not reported at all.
-
-**Suggested change:** decide whether top-level statements should count as a body (they are the body of the implicit
-entry point). If so, extend `IsCompletelyContainedInBody` to also accept regions whose related directives are all
-within the range of the compilation unit's global statements, so that SA1123 reports them and SA1124 skips them.
-
-**Tests:** whichever is decided, add `...InTopLevelProgramAsync` tests to `SA1123CSharp9UnitTests` and
-`SA1124CSharp9UnitTests` (new files) with `OutputKind.ConsoleApplication`, as in `SA1106CSharp9UnitTests`, covering a
-region around top-level statements and, as a contrast, a region around a type declared after them.
-
 ## Pattern matching enhancements
 
 **Docs:** [Relational patterns](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/patterns#relational-patterns), [Logical patterns](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/patterns#logical-patterns)
