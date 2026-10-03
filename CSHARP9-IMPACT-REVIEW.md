@@ -1,26 +1,5 @@
 # C# 9 impact review
 
-## Native sized integers
-
-**Docs:** [Native sized integers](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/integral-numeric-types#native-sized-integers)
-
-### Pin SA1121 and SA1129
-
-**Priority:** Low. **Code change:** none expected.
-
-In C# 9 and 10, `nint`/`nuint` and `IntPtr`/`UIntPtr` are different spellings with different operators. SA1121
-correctly reports neither `IntPtr` nor `nint` (confirmed). SA1129 reports both `new nint()` and `new IntPtr()`.
-
-In C# 11 with .NET 7, `nint` became a true alias of `IntPtr`. Whether SA1121 should then suggest `nint` is a question
-for the C# 11 review, not this one.
-
-**Tests:**
-
-- `SA1121CSharp9UnitTests`: no diagnostic for fields, parameters, casts and `sizeof` using `nint`, `nuint`, `IntPtr` and
-  `System.UIntPtr`.
-- `SA1129CSharp9UnitTests`: a fix test for `[|new nint()|]` → `default(nint)`. Check the expected fix output: it may be
-  `default` or `0` depending on the fixer's constant handling.
-
 ## Function pointers
 
 **Docs:** [Function pointers](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/unsafe-code#function-pointers)
