@@ -6,22 +6,22 @@
 
 SA1200 and SA1516 already have CSharp9 top-level tests.
 
-### Decide SA1649 and SA1402 for `Program.cs` with trailing types
+### Decide SA1402 for `Program.cs` with trailing types
 
 **Priority:** Medium. **Code change:** decision needed.
 
-A top-level `Program.cs` that declares a helper type after its statements gets SA1649 ("File name should match first
-type name"). That type is usually the first type in the file. If it declares two types, it also gets SA1402. Under the
-rule's letter this is consistent. In practice, it pushes people to move small helpers out of `Program.cs`, or to rename
-`Program.cs` after a helper type.
+A top-level `Program.cs` that declares two or more types after its statements gets SA1402 ("File may only contain a
+single type"). SA1649 now ignores files with top-level statements (`SA1649CSharp9UnitTests`), but SA1402 still counts
+the declared types as usual. Under the rule's letter this is consistent. In practice, it pushes people to move small
+helpers out of `Program.cs`.
 
-**Suggested change:** decide whether a compilation unit containing `GlobalStatement` members should be exempt from
-SA1649. SA1649 could also treat the implicit `Program` class as the first type. Either way, record the decision in
-`documentation/SA1649.md`.
+**Suggested change:** decide whether SA1402 should also ignore a compilation unit containing `GlobalStatement`
+members, as SA1649 does (`compilationUnit.Members.Any(SyntaxKind.GlobalStatement)`), or keep counting types there.
+Either way, record the decision in `documentation/SA1402.md`.
 
-**Tests:** in `SA1649CSharp9UnitTests` (new file), with `OutputKind.ConsoleApplication` as in
-`SA1516CSharp9UnitTests`, add `Program.cs` with `return 0;` followed by `record R(int X);`, expecting whatever is
-decided.
+**Tests:** in `SA1402CSharp9UnitTests` (or the relevant `SA1402For...CSharp9UnitTests` file), with
+`OutputKind.ConsoleApplication` as in `SA1649CSharp9UnitTests.VerifyFileWithTopLevelStatementsIsIgnoredAsync`, add a
+file with `System.Console.WriteLine();` followed by two type declarations, expecting whatever is decided.
 
 ### Pin the statement-level rules
 
