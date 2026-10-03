@@ -6,40 +6,6 @@
 
 SA1212, SA1500, SA1513, SA1516 and SA1137 already have CSharp9 `init` tests.
 
-### SA1623 ignores `init`
-
-**Priority:** Medium. **Code change:** decision needed.
-
-`PropertySummaryDocumentationAnalyzer` only recognizes `get` and `set` keywords
-(`StyleCop.Analyzers/DocumentationRules/PropertySummaryDocumentationAnalyzer.cs:114-122`). An `init` accessor is
-invisible to it:
-
-| Property | Summary | Today |
-|---|---|---|
-| `{ get; init; }` | "Gets or sets ..." | SA1623: should begin with 'Gets' |
-| `{ get; private init; }` | "Gets or sets ..." | SA1623: should begin with 'Gets' |
-| `{ get; private init; }` | "Gets ..." | no diagnostic |
-| `{ init { } }` | "Sets ..." (or anything) | no diagnostic, because no accessor is recognized |
-
-The local branch `cloned-mine/rejected/sa1623-init-accessor` (commit `7d22e5900`) treated `init` exactly like `set` for
-upstream issue [#3657](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/issues/3657). Upstream closed that issue as
-"not planned", and the closed issue doesn't say why.
-
-Options:
-
-1. Treat `init` as `set`, so "Gets or sets" is required. This is what the rejected branch did: a one-line change
-   (`case SyntaxKindEx.InitKeyword:` next to `case SyntaxKind.SetKeyword:`, plus the `InitKeyword` constant if it's
-   missing from `SyntaxKindEx`).
-2. Require new wording such as "Gets or initializes". This needs new resources, SA1624 wording, and doc updates.
-3. Keep today's behavior and document it in `documentation/SA1623.md`.
-
-Option 1 is the smallest change and matches how most code documents init properties.
-
-**Tests:** whichever option is chosen, add `SA1623CSharp9UnitTests` (new file) as a `[Theory]` over the four rows
-above, with `VerifyCSharpFixAsync` (the analyzer has a code fix). The rejected commit has a ready-made theory to start
-from (`git show 7d22e5900`). Rewrite its strings as verbatim strings and move `{|#0:|}` to wherever the diagnostic is
-reported. If option 1 is chosen, add an SA1624 case for `{ get; private init; }` with "Gets or sets".
-
 ### SA1504 has no `init` test
 
 **Priority:** Low. **Code change:** none expected.
