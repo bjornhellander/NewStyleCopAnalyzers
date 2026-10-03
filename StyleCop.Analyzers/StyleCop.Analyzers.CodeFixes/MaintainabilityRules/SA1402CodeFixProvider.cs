@@ -40,8 +40,16 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         }
 
         /// <inheritdoc/>
-        public override Task RegisterCodeFixesAsync(CodeFixContext context)
+        public override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
+            // Moving types out of a file with top-level statements is not supported, to keep the code fix provider simple.
+            var root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
+            if (root is CompilationUnitSyntax compilationUnit
+                && compilationUnit.Members.Any(SyntaxKind.GlobalStatement))
+            {
+                return;
+            }
+
             foreach (var diagnostic in context.Diagnostics)
             {
                 context.RegisterCodeFix(
@@ -51,8 +59,6 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                         nameof(SA1402CodeFixProvider)),
                     diagnostic);
             }
-
-            return SpecializedTasks.CompletedTask;
         }
 
         private static async Task<Solution> GetTransformedSolutionAsync(Document document, Diagnostic diagnostic, CancellationToken cancellationToken)
