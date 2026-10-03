@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Contributors to the New StyleCop Analyzers project.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
+namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -9,43 +9,34 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
     using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
-        StyleCop.Analyzers.LayoutRules.SA1505OpeningBracesMustNotBeFollowedByBlankLine,
-        StyleCop.Analyzers.LayoutRules.SA1505CodeFixProvider>;
+        StyleCop.Analyzers.OrderingRules.SA1203ConstantsMustAppearBeforeFields,
+        StyleCop.Analyzers.OrderingRules.ElementOrderCodeFixProvider>;
 
-    public partial class SA1505CSharp9UnitTests
+    public partial class SA1203CSharp9UnitTests
     {
-        [Fact]
-        public async Task TestSingleLineRecordAsync()
-        {
-            var testCode = @"namespace TestNamespace
-{
-    public record TestRecord;
-}
-";
-
-            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, testCode, CancellationToken.None).ConfigureAwait(true);
-        }
-
         [Theory]
         [MemberData(nameof(CommonMemberData.TypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
-        public async Task TestBlankLineAfterOpeningBraceInTypeWithPrimaryConstructorAsync(string typeKeyword)
+        public async Task TestMemberOrderInTypeWithPrimaryConstructorAsync(string typeKeyword)
         {
             var testCode = $@"public {typeKeyword} TestType(int X)
-{{|#0:{{|}}
+{{
+    public int Field = 0;
 
-    public int Property => 0;
+    public const int {{|#0:Constant|}} = 1;
 }}";
 
             var fixedCode = $@"public {typeKeyword} TestType(int X)
 {{
-    public int Property => 0;
+    public const int Constant = 1;
+
+    public int Field = 0;
 }}";
 
-            var expected = this.GetExpectedResultTestBlankLineAfterOpeningBraceInTypeWithPrimaryConstructor();
+            var expected = this.GetExpectedResultTestMemberOrderInTypeWithPrimaryConstructor();
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
-        protected virtual DiagnosticResult[] GetExpectedResultTestBlankLineAfterOpeningBraceInTypeWithPrimaryConstructor()
+        protected virtual DiagnosticResult[] GetExpectedResultTestMemberOrderInTypeWithPrimaryConstructor()
         {
             return new[]
             {

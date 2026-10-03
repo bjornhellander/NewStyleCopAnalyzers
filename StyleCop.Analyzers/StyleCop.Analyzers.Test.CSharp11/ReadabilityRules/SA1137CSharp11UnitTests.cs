@@ -17,5 +17,13 @@ namespace StyleCop.Analyzers.Test.CSharp11.ReadabilityRules
                 Diagnostic().WithLocation(0),
             };
         }
+
+        protected override DiagnosticResult[] GetExpectedResultTestMemberIndentationInPositionalRecord()
+        {
+            return new[]
+            {
+                Diagnostic().WithLocation(0),
+            };
+        }
     }
 }

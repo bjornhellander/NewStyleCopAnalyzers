@@ -80,11 +80,44 @@ System.Console.WriteLine(3);
             await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Fact]
+        public async Task TestMemberIndentationInPositionalRecordAsync()
+        {
+            var testCode = @"public record TestRecord(int X)
+{
+    public int A { get; }
+
+{|#0:  |}public int B { get; }
+}
+";
+
+            var fixedCode = @"public record TestRecord(int X)
+{
+    public int A { get; }
+
+    public int B { get; }
+}
+";
+
+            var expected = this.GetExpectedResultTestMemberIndentationInPositionalRecord();
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         protected virtual DiagnosticResult[] GetExpectedResultTestGlobalStatementIndentationInTopLevelProgram()
         {
             return new[]
             {
                 // Diagnostic issued twice because of https://github.com/dotnet/roslyn/issues/58561
+                Diagnostic().WithLocation(0),
+                Diagnostic().WithLocation(0),
+            };
+        }
+
+        protected virtual DiagnosticResult[] GetExpectedResultTestMemberIndentationInPositionalRecord()
+        {
+            return new[]
+            {
+                // Diagnostic issued twice because of https://github.com/dotnet/roslyn/issues/53136
                 Diagnostic().WithLocation(0),
                 Diagnostic().WithLocation(0),
             };
