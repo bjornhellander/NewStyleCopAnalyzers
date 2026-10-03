@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Testing;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -19,6 +20,29 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
             var testCode = @"public record Result(int Value);";
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestEmptyStatementInTopLevelProgramAsync()
+        {
+            var testCode = @"System.Console.WriteLine();
+[|;|]
+System.Console.WriteLine();
+";
+
+            var fixedCode = @"System.Console.WriteLine();
+System.Console.WriteLine();
+";
+
+            await new CSharpTest()
+            {
+                TestState =
+                {
+                    OutputKind = OutputKind.ConsoleApplication,
+                    Sources = { testCode },
+                },
+                FixedCode = fixedCode,
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

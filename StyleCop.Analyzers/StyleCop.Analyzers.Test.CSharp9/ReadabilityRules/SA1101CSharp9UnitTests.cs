@@ -31,5 +31,38 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        /// <summary>
+        /// Verifies that a positional record parameter is not reported where it refers to the constructor parameter
+        /// (initializers and base-type arguments), but is reported where it refers to the generated property.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestPositionalRecordParametersAsync()
+        {
+            var testCode = @"public record A(int X, string Y);
+
+public record B(int X) : A(X, ""a"")
+{
+    public int Z { get; init; } = X;
+
+    public int W => [|X|];
+
+    public B M() => this with { X = [|Z|] };
+}";
+
+            var fixedCode = @"public record A(int X, string Y);
+
+public record B(int X) : A(X, ""a"")
+{
+    public int Z { get; init; } = X;
+
+    public int W => this.X;
+
+    public B M() => this with { X = this.Z };
+}";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

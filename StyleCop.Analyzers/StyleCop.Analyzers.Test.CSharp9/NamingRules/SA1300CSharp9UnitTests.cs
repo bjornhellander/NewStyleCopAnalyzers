@@ -5,6 +5,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.NamingRules
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Testing;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -63,6 +64,35 @@ public record R(int A)
 ";
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestLocalFunctionInTopLevelProgramAsync()
+        {
+            var testCode = @"localFunction();
+
+void {|#0:localFunction|}()
+{
+}
+";
+
+            var fixedCode = @"LocalFunction();
+
+void LocalFunction()
+{
+}
+";
+
+            await new CSharpTest()
+            {
+                TestState =
+                {
+                    OutputKind = OutputKind.ConsoleApplication,
+                    Sources = { testCode },
+                },
+                ExpectedDiagnostics = { Diagnostic().WithLocation(0).WithArguments("localFunction") },
+                FixedCode = fixedCode,
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
         protected virtual DiagnosticResult[] GetExpectedResultTestPositionalRecord1()

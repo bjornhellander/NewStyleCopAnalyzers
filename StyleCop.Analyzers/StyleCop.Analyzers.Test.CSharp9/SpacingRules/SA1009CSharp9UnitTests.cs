@@ -43,5 +43,23 @@ public record MyQuery3() : BaseQuery<object>;";
             };
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestWithExpressionAsync()
+        {
+            const string testCode = @"
+public record R(int X)
+{
+    public R M() => (this{|#0:)|}with { X = 1 };
+}";
+            const string fixedCode = @"
+public record R(int X)
+{
+    public R M() => (this) with { X = 1 };
+}";
+
+            var expected = Diagnostic(DescriptorFollowed).WithLocation(0);
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

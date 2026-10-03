@@ -236,6 +236,11 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 //    strings checked by the analyzer above.
                 INamedTypeSymbol? symbol = semanticModel.GetSymbolInfo(identifierNameSyntax, context.CancellationToken).Symbol as INamedTypeSymbol;
 
+                // TODO: Consider reporting IntPtr/UIntPtr when nint/nuint are aliases for them (C# 11 with a runtime that
+                // supports numeric IntPtr). That would require adding them to the name checks above and to the special
+                // types below, but only when the runtime supports it (before that, they are different types for the
+                // compiler). The code fix would also need a special case for them, since nint/nuint are contextual
+                // keywords (IdentifierNameSyntax) and not predefined types like int.
                 switch (symbol?.SpecialType)
                 {
                 case SpecialType.System_Boolean:

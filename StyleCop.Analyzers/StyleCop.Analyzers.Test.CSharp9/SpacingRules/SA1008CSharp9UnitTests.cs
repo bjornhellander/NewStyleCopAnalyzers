@@ -7,6 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -97,6 +98,46 @@ class C
                 },
                 FixedCode = fixedCode,
             }.RunAsync(CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Theory]
+        [MemberData(nameof(CommonMemberData.ReferenceTypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
+        public async Task TestPrimaryConstructorAsync(string typeKeyword)
+        {
+            var testCode = $@"
+{typeKeyword} Foo {{|#0:(|}}int x)
+{{
+}}
+
+{typeKeyword} Bar{{|#1:(|}} int x) : Foo {{|#2:(|}}x)
+{{
+}}
+
+{typeKeyword} Baz(int x) : Foo{{|#3:(|}} x)
+{{
+}}";
+
+            var fixedCode = $@"
+{typeKeyword} Foo(int x)
+{{
+}}
+
+{typeKeyword} Bar(int x) : Foo(x)
+{{
+}}
+
+{typeKeyword} Baz(int x) : Foo(x)
+{{
+}}";
+
+            var expected = new[]
+            {
+                Diagnostic(DescriptorNotPreceded).WithLocation(0),
+                Diagnostic(DescriptorNotFollowed).WithLocation(1),
+                Diagnostic(DescriptorNotPreceded).WithLocation(2),
+                Diagnostic(DescriptorNotFollowed).WithLocation(3),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }
