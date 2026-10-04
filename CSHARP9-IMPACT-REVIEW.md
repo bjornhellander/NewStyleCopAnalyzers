@@ -1,21 +1,5 @@
 # C# 9 impact review
 
-## Target-typed `new` expressions
-
-**Docs:** [Target-typed new expressions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/new-operator#target-typed-new)
-
-SA1116, SA1117, SA1118 and SA1129 already have CSharp9 `new(...)` tests. SA1413 and SA1101 were confirmed to work for
-`new(...) { ... }` initializers.
-
-### Pin SA1000 for `new (`
-
-**Priority:** Low. **Code change:** none expected.
-
-SA1000 already reports "The keyword 'new' should not be followed by a space" for `new (1, 2)`, but
-`SA1000CSharp9UnitTests.TestTargetTypedNewAsync` only covers the no-space form.
-
-**Tests:** add a fix test for `new (1, 2)` → `new(1, 2)` to `SA1000CSharp9UnitTests`.
-
 ## Static anonymous functions
 
 **Docs:** [Static anonymous functions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#static-lambdas)
