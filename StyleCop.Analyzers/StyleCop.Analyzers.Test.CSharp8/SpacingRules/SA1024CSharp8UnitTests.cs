@@ -51,5 +51,38 @@ public class Foo
             var expected = Diagnostic(DescriptorNotPreceded).WithSpan(9, 49, 9, 50);
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestPropertyPatternAsync()
+        {
+            var testCode = @"public class Foo
+{
+    public int Value { get; }
+
+    public bool TestMethod(Foo value)
+    {
+        return value is { Value {|#0::|} 1 }
+            || value is { Value{|#1::|}1 };
+    }
+}";
+
+            var fixedCode = @"public class Foo
+{
+    public int Value { get; }
+
+    public bool TestMethod(Foo value)
+    {
+        return value is { Value: 1 }
+            || value is { Value: 1 };
+    }
+}";
+
+            var expected = new[]
+            {
+                Diagnostic(DescriptorNotPreceded).WithLocation(0),
+                Diagnostic(DescriptorFollowed).WithLocation(1),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
