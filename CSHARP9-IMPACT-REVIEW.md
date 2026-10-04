@@ -1,27 +1,5 @@
 # C# 9 impact review
 
-## Suppress emitting localsinit flag
-
-**Docs:** [Suppress emitting localsinit flag](https://github.com/dotnet/csharplang/blob/main/proposals/csharp-9.0/skip-localsinit.md)
-
-### No action
-
-**Priority:** none.
-
-`[SkipLocalsInit]` is an ordinary attribute with no new syntax. A probe produced no StyleCop diagnostics, and no rule
-looks at the attribute by name. Nothing to test. Delete this section once agreed.
-
-## Module initializers
-
-**Docs:** [Module initializers](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/attributes/general#moduleinitializer-attribute)
-
-### No action
-
-**Priority:** none.
-
-`[ModuleInitializer]` on an `internal static void` method is an ordinary attribute with no new syntax. A probe produced
-no StyleCop diagnostics, and no rule looks at the attribute by name. Nothing to test. Delete this section once agreed.
-
 ## New features for partial methods
 
 **Docs:** [Partial members](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/partial-member)
@@ -296,17 +274,6 @@ lightup to rewrite the modifiers.
 - `SA1410CSharp9UnitTests` (new file): a fix test showing `static delegate() { }` → `static delegate { }`, keeping
   `static`.
 - If the SA1206 change is made, an `SA1206CSharp9UnitTests` fix test for `async static x => ...`.
-
-## Target-typed conditional expressions
-
-**Docs:** [Conditional operator](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator)
-
-### No action
-
-**Priority:** none.
-
-`b ? 1 : null` is a typing change only and parses exactly as before. A probe produced no StyleCop diagnostics. Nothing
-to test. Delete this section once agreed.
 
 ## Covariant return types
 
