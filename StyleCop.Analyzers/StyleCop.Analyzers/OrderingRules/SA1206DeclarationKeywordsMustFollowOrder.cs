@@ -68,6 +68,7 @@ namespace StyleCop.Analyzers.OrderingRules
 
         private static readonly Action<SyntaxNodeAnalysisContext> DeclarationAction = HandleDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> LocalFunctionStatementAction = HandleLocalFunctionStatement;
+        private static readonly Action<SyntaxNodeAnalysisContext> AnonymousFunctionExpressionAction = HandleAnonymousFunctionExpression;
 
         /// <inheritdoc/>
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
@@ -78,6 +79,7 @@ namespace StyleCop.Analyzers.OrderingRules
         {
             context.RegisterSyntaxNodeAction(DeclarationAction, HandledSyntaxKinds);
             context.RegisterSyntaxNodeAction(LocalFunctionStatementAction, SyntaxKindEx.LocalFunctionStatement);
+            context.RegisterSyntaxNodeAction(AnonymousFunctionExpressionAction, SyntaxKinds.AnonymousFunctionExpression);
         }
 
         private static void HandleDeclaration(SyntaxNodeAnalysisContext context)
@@ -90,6 +92,12 @@ namespace StyleCop.Analyzers.OrderingRules
         {
             var localFunctionStatement = (LocalFunctionStatementSyntaxWrapper)context.Node;
             CheckModifiersOrderAndReportDiagnostics(context, localFunctionStatement.Modifiers);
+        }
+
+        private static void HandleAnonymousFunctionExpression(SyntaxNodeAnalysisContext context)
+        {
+            var anonymousFunction = (AnonymousFunctionExpressionSyntax)context.Node;
+            CheckModifiersOrderAndReportDiagnostics(context, anonymousFunction.Modifiers());
         }
 
         private static void CheckModifiersOrderAndReportDiagnostics(SyntaxNodeAnalysisContext context, SyntaxTokenList modifiers)

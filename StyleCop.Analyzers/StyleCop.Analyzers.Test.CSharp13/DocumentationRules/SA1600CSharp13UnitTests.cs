@@ -71,18 +71,47 @@ public ref struct TestRefStruct : IInterface
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
+        /// <summary>
+        /// Verifies that a partial property is not reported, since partial elements are reported by SA1601 instead.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Fact]
         public async Task TestPartialPropertyBothPartsMissingDocumentationAsync()
         {
             var testCode = @"
 public partial class ClassName
 {
-    public partial int [|Test|] { get; set; }
+    public partial int Test { get; set; }
 }
 
 public partial class ClassName
 {
-    public partial int [|Test|]
+    public partial int Test
+    {
+        get => 0;
+        set { }
+    }
+}";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies that a partial indexer is not reported, since partial elements are reported by SA1601 instead.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestPartialIndexerBothPartsMissingDocumentationAsync()
+        {
+            var testCode = @"
+public partial class ClassName
+{
+    public partial int this[int index] { get; set; }
+}
+
+public partial class ClassName
+{
+    public partial int this[int index]
     {
         get => 0;
         set { }

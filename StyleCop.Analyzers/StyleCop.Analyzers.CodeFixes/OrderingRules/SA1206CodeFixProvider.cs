@@ -73,8 +73,8 @@ namespace StyleCop.Analyzers.OrderingRules
         }
 
         /// <summary>
-        /// Finds the declaration a diagnostic was reported on. A local function is a statement rather than a member
-        /// declaration, so it cannot be found by looking for a <see cref="MemberDeclarationSyntax"/> alone.
+        /// Finds the declaration a diagnostic was reported on. Local functions and anonymous functions are not member
+        /// declarations, so they cannot be found by looking for a <see cref="MemberDeclarationSyntax"/> alone.
         /// </summary>
         /// <param name="syntaxRoot">The root of the syntax tree.</param>
         /// <param name="diagnostic">The diagnostic to find the declaration for.</param>
@@ -83,7 +83,9 @@ namespace StyleCop.Analyzers.OrderingRules
         {
             return syntaxRoot.FindNode(diagnostic.Location.SourceSpan)
                 .AncestorsAndSelf()
-                .FirstOrDefault(node => node is MemberDeclarationSyntax || LocalFunctionStatementSyntaxWrapper.IsInstance(node));
+                .FirstOrDefault(node => node is MemberDeclarationSyntax
+                    || LocalFunctionStatementSyntaxWrapper.IsInstance(node)
+                    || node is AnonymousFunctionExpressionSyntax);
         }
 
         private static SyntaxNode UpdateSyntaxRoot(SyntaxNode declaration, SyntaxTokenList newModifiers, SyntaxNode syntaxRoot)

@@ -291,6 +291,38 @@ public class TypeName
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Fact]
+        public async Task TestDelegateFollowedBySpaceAsync()
+        {
+            var testCode = @"
+using System;
+public class TypeName
+{
+    public void Test()
+    {
+        Action action1 = [|delegate|] () { };
+        Action<int> action2 = [|delegate|] (int i) { };
+        Action<int, int> action3 = [|delegate|] (int i, int j) { };
+        Action<int> action4 = [|delegate|] /*a*/ (int i) { };
+    }
+}";
+
+            string fixedCode = @"
+using System;
+public class TypeName
+{
+    public void Test()
+    {
+        Action action1 = () => { };
+        Action<int> action2 = i => { };
+        Action<int, int> action3 = (i, j) => { };
+        Action<int> action4 = /*a*/ i => { };
+    }
+}";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         /// <summary>
         /// Verify that expansion of a delegate without parameters will generate a lambda with the necessary parameters.
         /// </summary>

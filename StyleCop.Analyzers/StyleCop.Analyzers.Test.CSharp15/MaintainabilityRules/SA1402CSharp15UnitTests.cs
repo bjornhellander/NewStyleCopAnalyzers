@@ -10,7 +10,7 @@ namespace StyleCop.Analyzers.Test.CSharp15.MaintainabilityRules
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<
         StyleCop.Analyzers.MaintainabilityRules.SA1402FileMayOnlyContainASingleType>;
 
-    public class SA1402CSharp15UnitTests
+    public partial class SA1402CSharp15UnitTests
     {
         [Fact]
         public async Task TestFileWithClassAndUnionAsync()

@@ -126,6 +126,10 @@ namespace StyleCop.Analyzers.Helpers
             {
                 return ((LocalFunctionStatementSyntaxWrapper)syntax).Modifiers;
             }
+            else if (syntax is AnonymousFunctionExpressionSyntax)
+            {
+                return ((AnonymousFunctionExpressionSyntax)syntax).Modifiers();
+            }
 
             return default;
         }
@@ -185,6 +189,11 @@ namespace StyleCop.Analyzers.Helpers
 
             case SyntaxKindEx.LocalFunctionStatement:
                 return ((LocalFunctionStatementSyntaxWrapper)node).WithModifiers(modifiers);
+
+            case SyntaxKind.SimpleLambdaExpression:
+            case SyntaxKind.ParenthesizedLambdaExpression:
+            case SyntaxKind.AnonymousMethodExpression:
+                return AnonymousFunctionExpressionSyntaxExtensions.WithModifiers((AnonymousFunctionExpressionSyntax)node, modifiers);
 
             default:
                 return node;

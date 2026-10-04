@@ -11,6 +11,7 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Diagnostics;
+    using Microsoft.CodeAnalysis.Text;
     using StyleCop.Analyzers;
     using StyleCop.Analyzers.Helpers;
     using StyleCop.Analyzers.Lightup;
@@ -28,6 +29,9 @@ namespace StyleCop.Analyzers.MaintainabilityRules
     /// By default, it allows delegates, enums, structs and interfaces to be placed together with a class.</para>
     ///
     /// <para>It is also possible to place multiple parts of the same partial type within the same file.</para>
+    ///
+    /// <para>Top-level statements belong to the implicit <c>Program</c> class, which is counted as a class declared
+    /// before all other types in the file.</para>
     /// </remarks>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     internal class SA1402FileMayOnlyContainASingleType : DiagnosticAnalyzerBase
@@ -36,6 +40,9 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         /// The ID for diagnostics produced by the <see cref="SA1402FileMayOnlyContainASingleType"/> analyzer.
         /// </summary>
         public const string DiagnosticId = "SA1402";
+
+        private const string ImplicitProgramClassName = "Program";
+
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(MaintainabilityResources.SA1402Title), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(MaintainabilityResources.SA1402MessageFormat), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
         private static readonly LocalizableString Description = new LocalizableResourceString(nameof(MaintainabilityResources.SA1402Description), MaintainabilityResources.ResourceManager, typeof(MaintainabilityResources));
@@ -63,24 +70,24 @@ namespace StyleCop.Analyzers.MaintainabilityRules
 
             string suffix;
             var fileName = FileNameHelpers.GetFileNameAndSuffix(context.Tree.FilePath, out suffix);
-            var preferredTypeNode = typeNodes.FirstOrDefault(n => FileNameHelpers.GetConventionalFileName(n, settings.DocumentationRules.FileNamingConvention) == fileName) ?? typeNodes.FirstOrDefault();
+            var preferredTypeNode = typeNodes.FirstOrDefault(n => !IsImplicitProgramClass(n) && FileNameHelpers.GetConventionalFileName(n, settings.DocumentationRules.FileNamingConvention) == fileName) ?? typeNodes.FirstOrDefault();
 
             if (preferredTypeNode == null)
             {
                 return;
             }
 
-            var foundTypeName = NamedTypeHelpers.GetNameOrIdentifier(preferredTypeNode);
-            var isPartialType = NamedTypeHelpers.IsPartialDeclaration(preferredTypeNode);
+            var foundTypeName = GetTypeName(preferredTypeNode);
+            var isPartialType = IsImplicitProgramClass(preferredTypeNode) || NamedTypeHelpers.IsPartialDeclaration(preferredTypeNode);
 
             foreach (var typeNode in typeNodes)
             {
-                if (typeNode == preferredTypeNode || (isPartialType && foundTypeName == NamedTypeHelpers.GetNameOrIdentifier(typeNode)))
+                if (typeNode == preferredTypeNode || (isPartialType && foundTypeName == GetTypeName(typeNode)))
                 {
                     continue;
                 }
 
-                var location = NamedTypeHelpers.GetNameOrIdentifierLocation(typeNode);
+                var location = GetLocation(ref context, typeNode);
                 if (location != null)
                 {
                     context.ReportDiagnostic(Diagnostic.Create(Descriptor, location));
@@ -92,7 +99,33 @@ namespace StyleCop.Analyzers.MaintainabilityRules
         {
             var allTypeDeclarations = root.DescendantNodes(descendIntoChildren: node => ContainsTopLevelTypeDeclarations(node)).OfType<MemberDeclarationSyntax>().ToList();
             var relevantTypeDeclarations = allTypeDeclarations.Where(x => IsRelevantType(x, settings)).ToList();
+
+            // Top-level statements belong to the implicit Program class, which comes before all type declarations in the
+            // file. The first statement stands in for that class.
+            var firstGlobalStatement = (root as CompilationUnitSyntax)?.Members.FirstOrDefault(member => member.IsKind(SyntaxKind.GlobalStatement));
+            if (firstGlobalStatement != null && settings.MaintainabilityRules.TopLevelTypes.Contains(TopLevelType.Class))
+            {
+                relevantTypeDeclarations.Insert(0, firstGlobalStatement);
+            }
+
             return relevantTypeDeclarations;
+        }
+
+        private static string GetTypeName(MemberDeclarationSyntax node)
+        {
+            return IsImplicitProgramClass(node) ? ImplicitProgramClassName : NamedTypeHelpers.GetNameOrIdentifier(node);
+        }
+
+        private static Location GetLocation(ref SyntaxTreeAnalysisContext context, MemberDeclarationSyntax typeNode)
+        {
+            return IsImplicitProgramClass(typeNode)
+                ? Location.Create(context.Tree, new TextSpan(typeNode.SpanStart, 0))
+                : NamedTypeHelpers.GetNameOrIdentifierLocation(typeNode);
+        }
+
+        private static bool IsImplicitProgramClass(MemberDeclarationSyntax node)
+        {
+            return node.IsKind(SyntaxKind.GlobalStatement);
         }
 
         private static bool ContainsTopLevelTypeDeclarations(SyntaxNode node)

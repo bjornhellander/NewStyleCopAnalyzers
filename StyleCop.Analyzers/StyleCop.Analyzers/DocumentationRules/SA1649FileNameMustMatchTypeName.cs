@@ -65,6 +65,14 @@ namespace StyleCop.Analyzers.DocumentationRules
 
                 var syntaxRoot = context.Tree.GetRoot(context.CancellationToken);
 
+                // A file with top-level statements is the program's entry point, so its name is not determined by
+                // the types it contains.
+                if (syntaxRoot is CompilationUnitSyntax compilationUnit
+                    && compilationUnit.Members.Any(SyntaxKind.GlobalStatement))
+                {
+                    return;
+                }
+
                 var firstTypeDeclaration = GetFirstTypeDeclaration(syntaxRoot);
                 if (firstTypeDeclaration == null)
                 {

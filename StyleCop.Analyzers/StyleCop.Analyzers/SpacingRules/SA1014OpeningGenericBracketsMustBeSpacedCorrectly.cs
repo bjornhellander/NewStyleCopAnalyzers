@@ -9,6 +9,7 @@ namespace StyleCop.Analyzers.SpacingRules
     using Microsoft.CodeAnalysis.CSharp;
     using Microsoft.CodeAnalysis.Diagnostics;
     using StyleCop.Analyzers.Helpers;
+    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// An opening generic bracket within a C# element is not spaced correctly.
@@ -69,6 +70,7 @@ namespace StyleCop.Analyzers.SpacingRules
             {
             case SyntaxKind.TypeArgumentList:
             case SyntaxKind.TypeParameterList:
+            case SyntaxKindEx.FunctionPointerParameterList:
                 break;
 
             default:
@@ -79,6 +81,12 @@ namespace StyleCop.Analyzers.SpacingRules
             bool firstInLine = token.IsFirstInLine();
             bool precededBySpace = firstInLine || token.IsPrecededByWhitespace(context.CancellationToken);
             bool followedBySpace = token.IsFollowedByWhitespace();
+
+            // A space between the asterisk of a function pointer and the opening bracket is reported by SA1023
+            if (token.GetPreviousToken().IsKind(SyntaxKind.AsteriskToken))
+            {
+                precededBySpace = false;
+            }
 
             if (!firstInLine && precededBySpace)
             {

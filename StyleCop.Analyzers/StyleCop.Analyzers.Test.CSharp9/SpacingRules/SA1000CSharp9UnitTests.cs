@@ -4,7 +4,6 @@
 namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
 {
     using System.Threading.Tasks;
-    using Microsoft.CodeAnalysis.Testing;
     using Xunit;
 
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -16,9 +15,11 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
         [Fact]
         public async Task TestTargetTypedNewAsync()
         {
+            string statementWithSpace = "int a = {|#0:new|} ();";
             string statementWithoutSpace = "int a = new();";
 
-            await this.TestKeywordStatementAsync(statementWithoutSpace, DiagnosticResult.EmptyDiagnosticResults, statementWithoutSpace).ConfigureAwait(true);
+            var expected = Diagnostic().WithArguments("new", " not", "followed").WithLocation(0);
+            await this.TestKeywordStatementAsync(statementWithSpace, expected, statementWithoutSpace).ConfigureAwait(true);
         }
 
         [Fact]

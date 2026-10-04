@@ -7,6 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.SpacingRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
     using static StyleCop.Analyzers.SpacingRules.SA1008OpeningParenthesisMustBeSpacedCorrectly;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
@@ -73,6 +74,40 @@ class C
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Fact]
+        public async Task TestStaticAnonymousFunctionAsync()
+        {
+            const string testCode = @"
+using System;
+
+class C
+{
+    void Method()
+    {
+        Func<int, int> a = static{|#0:(|}x) => x;
+        Func<int, int> b = static delegate {|#1:(|}int x) { return x; };
+    }
+}";
+            const string fixedCode = @"
+using System;
+
+class C
+{
+    void Method()
+    {
+        Func<int, int> a = static (x) => x;
+        Func<int, int> b = static delegate(int x) { return x; };
+    }
+}";
+
+            var expected = new[]
+            {
+                Diagnostic(DescriptorPreceded).WithLocation(0),
+                Diagnostic(DescriptorNotPreceded).WithLocation(1),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         [Theory]
         [InlineData("")]
         [InlineData(" ")]
@@ -97,6 +132,46 @@ class C
                 },
                 FixedCode = fixedCode,
             }.RunAsync(CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Theory]
+        [MemberData(nameof(CommonMemberData.ReferenceTypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
+        public async Task TestPrimaryConstructorAsync(string typeKeyword)
+        {
+            var testCode = $@"
+{typeKeyword} Foo {{|#0:(|}}int x)
+{{
+}}
+
+{typeKeyword} Bar{{|#1:(|}} int x) : Foo {{|#2:(|}}x)
+{{
+}}
+
+{typeKeyword} Baz(int x) : Foo{{|#3:(|}} x)
+{{
+}}";
+
+            var fixedCode = $@"
+{typeKeyword} Foo(int x)
+{{
+}}
+
+{typeKeyword} Bar(int x) : Foo(x)
+{{
+}}
+
+{typeKeyword} Baz(int x) : Foo(x)
+{{
+}}";
+
+            var expected = new[]
+            {
+                Diagnostic(DescriptorNotPreceded).WithLocation(0),
+                Diagnostic(DescriptorNotFollowed).WithLocation(1),
+                Diagnostic(DescriptorNotPreceded).WithLocation(2),
+                Diagnostic(DescriptorNotFollowed).WithLocation(3),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
     }
 }

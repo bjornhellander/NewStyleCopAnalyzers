@@ -3,10 +3,56 @@
 
 namespace StyleCop.Analyzers.Test.CSharp9.DocumentationRules
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
+    using Xunit;
+    using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
+        StyleCop.Analyzers.DocumentationRules.SA1600ElementsMustBeDocumented,
+        StyleCop.Analyzers.DocumentationRules.SA1600CodeFixProvider>;
 
     public partial class SA1600CSharp9UnitTests
     {
+        [Theory]
+        [MemberData(nameof(CommonMemberData.TypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
+        public async Task TestTypeWithPrimaryConstructorWithoutDocumentationAsync(string typeKeyword)
+        {
+            var testCode = $@"public {typeKeyword} {{|#0:TestType|}}(int X);";
+
+            var expected = this.GetExpectedResultTestTypeWithPrimaryConstructorWithoutDocumentation();
+            await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        /// <summary>
+        /// Verifies that a partial method with an access modifier is not reported, since partial elements are reported
+        /// by SA1601 instead.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestPartialMethodWithAccessModifierAsync()
+        {
+            var testCode = @"/// <summary>
+/// Summary.
+/// </summary>
+public partial class TestClass
+{
+    public partial int TestMethod(out int x);
+}
+
+public partial class TestClass
+{
+    public partial int TestMethod(out int x)
+    {
+        x = 0;
+        return 0;
+    }
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
         protected override DiagnosticResult[] GetExpectedResultTestRegressionMethodGlobalNamespace(string code)
         {
             if (code == "public void {|#0:TestMember|}() { }")
@@ -22,6 +68,16 @@ namespace StyleCop.Analyzers.Test.CSharp9.DocumentationRules
             }
 
             return base.GetExpectedResultTestRegressionMethodGlobalNamespace(code);
+        }
+
+        protected virtual DiagnosticResult[] GetExpectedResultTestTypeWithPrimaryConstructorWithoutDocumentation()
+        {
+            return new[]
+            {
+                // Diagnostic issued twice because of https://github.com/dotnet/roslyn/issues/53136
+                Diagnostic().WithLocation(0),
+                Diagnostic().WithLocation(0),
+            };
         }
     }
 }

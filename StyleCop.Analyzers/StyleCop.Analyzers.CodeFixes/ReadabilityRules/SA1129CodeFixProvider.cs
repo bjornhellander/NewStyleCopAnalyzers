@@ -74,9 +74,10 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
             SyntaxNode replacement;
 
+            // nint and nuint do not expose the Zero field before C# 11, so they are then handled like other numeric types
             if (IsType<CancellationToken>(namedTypeSymbol)
-                || namedTypeSymbol?.SpecialType == SpecialType.System_IntPtr
-                || namedTypeSymbol?.SpecialType == SpecialType.System_UIntPtr
+                || ((namedTypeSymbol?.SpecialType == SpecialType.System_IntPtr || namedTypeSymbol?.SpecialType == SpecialType.System_UIntPtr)
+                    && namedTypeSymbol.GetMembers(nameof(IntPtr.Zero)).Any())
                 || IsType<Guid>(namedTypeSymbol))
             {
                 if (IsDefaultParameterValue(newExpression))
@@ -96,7 +97,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     }
                     else if (namedTypeSymbol.SpecialType == SpecialType.System_UIntPtr)
                     {
-                        fieldName = nameof(IntPtr.Zero);
+                        fieldName = nameof(UIntPtr.Zero);
                     }
                     else
                     {

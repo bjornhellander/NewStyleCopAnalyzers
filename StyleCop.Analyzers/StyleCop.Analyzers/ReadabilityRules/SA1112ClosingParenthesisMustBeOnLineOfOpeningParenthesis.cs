@@ -46,8 +46,11 @@ namespace StyleCop.Analyzers.ReadabilityRules
         private static readonly Action<SyntaxNodeAnalysisContext> MethodDeclarationAction = HandleMethodDeclaration;
         private static readonly Action<SyntaxNodeAnalysisContext> LocalFunctionStatementAction = HandleLocalFunctionStatement;
         private static readonly Action<SyntaxNodeAnalysisContext> ConstructorDeclarationAction = HandleConstructorDeclaration;
+        private static readonly Action<SyntaxNodeAnalysisContext> TypeDeclarationAction = HandleTypeDeclaration;
+        private static readonly Action<SyntaxNodeAnalysisContext> PrimaryConstructorBaseTypeAction = HandlePrimaryConstructorBaseType;
         private static readonly Action<SyntaxNodeAnalysisContext> InvocationExpressionAction = HandleInvocationExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> ObjectCreationExpressionAction = HandleObjectCreationExpression;
+        private static readonly Action<SyntaxNodeAnalysisContext> ImplicitObjectCreationExpressionAction = HandleImplicitObjectCreationExpression;
         private static readonly Action<SyntaxNodeAnalysisContext> PositionalPatternClauseAction = HandlePositionalPatternClause;
 
         /// <inheritdoc/>
@@ -60,8 +63,11 @@ namespace StyleCop.Analyzers.ReadabilityRules
             context.RegisterSyntaxNodeAction(MethodDeclarationAction, SyntaxKind.MethodDeclaration);
             context.RegisterSyntaxNodeAction(LocalFunctionStatementAction, SyntaxKindEx.LocalFunctionStatement);
             context.RegisterSyntaxNodeAction(ConstructorDeclarationAction, SyntaxKind.ConstructorDeclaration);
+            context.RegisterSyntaxNodeAction(TypeDeclarationAction, SyntaxKinds.TypeDeclaration);
+            context.RegisterSyntaxNodeAction(PrimaryConstructorBaseTypeAction, SyntaxKindEx.PrimaryConstructorBaseType);
             context.RegisterSyntaxNodeAction(InvocationExpressionAction, SyntaxKind.InvocationExpression);
             context.RegisterSyntaxNodeAction(ObjectCreationExpressionAction, SyntaxKind.ObjectCreationExpression);
+            context.RegisterSyntaxNodeAction(ImplicitObjectCreationExpressionAction, SyntaxKindEx.ImplicitObjectCreationExpression);
             context.RegisterSyntaxNodeAction(PositionalPatternClauseAction, SyntaxKindEx.PositionalPatternClause);
         }
 
@@ -105,6 +111,26 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
         }
 
+        private static void HandleImplicitObjectCreationExpression(SyntaxNodeAnalysisContext context)
+        {
+            var implicitObjectCreation = (ImplicitObjectCreationExpressionSyntaxWrapper)context.Node;
+            var argumentList = implicitObjectCreation.ArgumentList;
+            if (argumentList.IsMissing ||
+                argumentList.Arguments.Count > 0)
+            {
+                return;
+            }
+
+            if (!argumentList.OpenParenToken.IsMissing &&
+                !argumentList.CloseParenToken.IsMissing)
+            {
+                CheckIfLocationOfOpenAndCloseTokensAreTheSame(
+                    context,
+                    argumentList.OpenParenToken,
+                    argumentList.CloseParenToken);
+            }
+        }
+
         private static void HandleInvocationExpression(SyntaxNodeAnalysisContext context)
         {
             var invocationExpression = (InvocationExpressionSyntax)context.Node;
@@ -129,6 +155,36 @@ namespace StyleCop.Analyzers.ReadabilityRules
         {
             var constructotDeclarationSyntax = (ConstructorDeclarationSyntax)context.Node;
             HandleParameterList(context, constructotDeclarationSyntax.ParameterList);
+        }
+
+        private static void HandleTypeDeclaration(SyntaxNodeAnalysisContext context)
+        {
+            var typeDeclarationSyntax = (TypeDeclarationSyntax)context.Node;
+            var parameterList = typeDeclarationSyntax.ParameterList();
+            if (parameterList != null)
+            {
+                HandleParameterList(context, parameterList);
+            }
+        }
+
+        private static void HandlePrimaryConstructorBaseType(SyntaxNodeAnalysisContext context)
+        {
+            var primaryConstructorBaseType = (PrimaryConstructorBaseTypeSyntaxWrapper)context.Node;
+            var argumentList = primaryConstructorBaseType.ArgumentList;
+            if (argumentList.IsMissing ||
+                argumentList.Arguments.Count > 0)
+            {
+                return;
+            }
+
+            if (!argumentList.OpenParenToken.IsMissing &&
+                !argumentList.CloseParenToken.IsMissing)
+            {
+                CheckIfLocationOfOpenAndCloseTokensAreTheSame(
+                    context,
+                    argumentList.OpenParenToken,
+                    argumentList.CloseParenToken);
+            }
         }
 
         private static void HandleMethodDeclaration(SyntaxNodeAnalysisContext context)
