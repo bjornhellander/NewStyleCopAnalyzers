@@ -60,6 +60,31 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Fact]
+        public async Task TestTargetTypedNewExpressionAsync()
+        {
+            var testCode = @"
+class Foo
+{
+    public void Method()
+    {
+        Foo x = new(
+            [|)|];
+    }
+}";
+
+            var fixedCode = @"
+class Foo
+{
+    public void Method()
+    {
+        Foo x = new();
+    }
+}";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         protected virtual DiagnosticResult[] GetExpectedResultTestPrimaryConstructorWithNoParametersClosingParenthesisOnTheNextLine()
         {
             return new[]

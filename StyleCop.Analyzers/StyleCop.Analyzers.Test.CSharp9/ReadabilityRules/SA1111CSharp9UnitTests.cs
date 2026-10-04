@@ -90,6 +90,39 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Fact]
+        public async Task TestTargetTypedNewExpressionAsync()
+        {
+            var testCode = @"
+class Foo
+{
+    public Foo(int a, int b)
+    {
+    }
+
+    public void Method()
+    {
+        Foo x = new(1, 2
+            [|)|];
+    }
+}";
+
+            var fixedCode = @"
+class Foo
+{
+    public Foo(int a, int b)
+    {
+    }
+
+    public void Method()
+    {
+        Foo x = new(1, 2);
+    }
+}";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         protected virtual DiagnosticResult[] GetExpectedResultTestPrimaryConstructorWithParameter()
         {
             return new[]
