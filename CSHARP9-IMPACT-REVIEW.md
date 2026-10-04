@@ -1,33 +1,5 @@
 # C# 9 impact review
 
-## Static anonymous functions
-
-**Docs:** [Static anonymous functions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#static-lambdas)
-
-### Decide SA1206 for lambda modifiers, pin SA1008 and SA1410
-
-**Priority:** Low. **Code change:** decision needed.
-
-`async static x => ...` is not reported. SA1206 only registers declarations (methods, types, local functions...), not
-anonymous functions. Methods get "'static' should appear before 'async'"; lambdas and anonymous methods can now carry
-the same two modifiers.
-
-Confirmed working but untested:
-
-- SA1008 reports `static(x) => x` (should be preceded by a space) and `static delegate (int x)`.
-- SA1410 reports `static delegate() { }`.
-
-**Suggested change:** if wanted, register SA1206 on `SyntaxKinds.AnonymousFunctionExpression` and run the existing
-modifier-order check over the lightup `Modifiers()` from the SA1130 subsection. The SA1206 code fix would need the same
-lightup to rewrite the modifiers.
-
-**Tests:**
-
-- `SA1008CSharp9UnitTests`: a fix test for `static(x) => x`.
-- `SA1410CSharp9UnitTests` (new file): a fix test showing `static delegate() { }` → `static delegate { }`, keeping
-  `static`.
-- If the SA1206 change is made, an `SA1206CSharp9UnitTests` fix test for `async static x => ...`.
-
 ## Covariant return types
 
 **Docs:** [Covariant return types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/classes#1565-override-methods)

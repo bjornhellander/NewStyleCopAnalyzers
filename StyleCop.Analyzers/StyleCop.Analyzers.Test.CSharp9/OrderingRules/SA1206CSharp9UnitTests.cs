@@ -26,6 +26,45 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Fact]
+        public async Task TestModifierOrderInAnonymousFunctionsAsync()
+        {
+            var testCode = @"using System;
+using System.Threading.Tasks;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        Func<int, Task> a = async {|#0:static|} x => await Task.Delay(x);
+        Func<int, Task> b = async {|#1:static|} (x) => await Task.Delay(x);
+        Func<int, Task> c = async {|#2:static|} delegate (int x) { await Task.Delay(x); };
+    }
+}";
+
+            var fixedCode = @"using System;
+using System.Threading.Tasks;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        Func<int, Task> a = static async x => await Task.Delay(x);
+        Func<int, Task> b = static async (x) => await Task.Delay(x);
+        Func<int, Task> c = static async delegate (int x) { await Task.Delay(x); };
+    }
+}";
+
+            DiagnosticResult[] expected =
+            {
+                Diagnostic().WithLocation(0).WithArguments("static", "async"),
+                Diagnostic().WithLocation(1).WithArguments("static", "async"),
+                Diagnostic().WithLocation(2).WithArguments("static", "async"),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         protected virtual DiagnosticResult[] GetExpectedResultTestModifierOrderInTypeWithPrimaryConstructor()
         {
             return new[]
