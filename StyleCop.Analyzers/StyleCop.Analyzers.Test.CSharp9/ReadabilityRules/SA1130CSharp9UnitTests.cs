@@ -27,14 +27,12 @@ public class TestClass
     }
 }";
 
-            // TODO: The double space after 'static' is wrong. The code fix moves the space after 'delegate' in front of
-            // the parameter list. The same thing happens for non-static anonymous methods, e.g. 'delegate (int x)'.
             var fixedCode = @"using System;
 public class TestClass
 {
     public void TestMethod()
     {
-        Func<int, int> a = static  x => { return x; };
+        Func<int, int> a = static x => { return x; };
         Action b = static () => { };
     }
 }";

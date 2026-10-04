@@ -138,7 +138,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             }
             else
             {
-                parameterList = parameterList.WithLeadingTrivia(anonymousMethod.DelegateKeyword.TrailingTrivia);
+                parameterList = parameterList.WithLeadingTrivia(anonymousMethod.DelegateKeyword.TrailingTrivia.WithoutLeadingWhitespace());
 
                 arrowToken = SyntaxFactory.Token(SyntaxKind.EqualsGreaterThanToken)
                     .WithTrailingTrivia(SyntaxFactory.ElasticSpace);
