@@ -74,6 +74,40 @@ class C
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Fact]
+        public async Task TestStaticAnonymousFunctionAsync()
+        {
+            const string testCode = @"
+using System;
+
+class C
+{
+    void Method()
+    {
+        Func<int, int> a = static{|#0:(|}x) => x;
+        Func<int, int> b = static delegate {|#1:(|}int x) { return x; };
+    }
+}";
+            const string fixedCode = @"
+using System;
+
+class C
+{
+    void Method()
+    {
+        Func<int, int> a = static (x) => x;
+        Func<int, int> b = static delegate(int x) { return x; };
+    }
+}";
+
+            var expected = new[]
+            {
+                Diagnostic(DescriptorPreceded).WithLocation(0),
+                Diagnostic(DescriptorNotPreceded).WithLocation(1),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         [Theory]
         [InlineData("")]
         [InlineData(" ")]
