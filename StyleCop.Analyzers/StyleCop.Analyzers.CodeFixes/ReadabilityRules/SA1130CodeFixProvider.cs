@@ -16,6 +16,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.CodeAnalysis.Formatting;
     using StyleCop.Analyzers.Helpers;
+    using StyleCop.Analyzers.Lightup;
 
     /// <summary>
     /// Implements a code fix for <see cref="SA1130UseLambdaSyntax"/>.
@@ -174,6 +175,12 @@ namespace StyleCop.Analyzers.ReadabilityRules
                 var parameterListSyntax = RemoveType(parameterList)
                     .WithTrailingTrivia(parameterList.GetTrailingTrivia().WithoutTrailingWhitespace().Add(SyntaxFactory.ElasticSpace));
                 lambdaExpression = SyntaxFactory.ParenthesizedLambdaExpression(anonymousMethod.AsyncKeyword, parameterListSyntax, arrowToken, anonymousMethod.Body);
+            }
+
+            var modifiers = anonymousMethod.Modifiers();
+            if (modifiers.Any(SyntaxKind.StaticKeyword))
+            {
+                lambdaExpression = ((AnonymousFunctionExpressionSyntax)lambdaExpression).WithModifiers(modifiers);
             }
 
             if (anonymousMethod.Parent.IsKind(SyntaxKind.CastExpression))
