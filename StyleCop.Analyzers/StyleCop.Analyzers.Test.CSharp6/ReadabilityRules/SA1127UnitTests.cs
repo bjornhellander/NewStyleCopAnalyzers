@@ -6,6 +6,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.ReadabilityRules.SA1127GenericTypeConstraintsMustBeOnOwnLine,
@@ -33,6 +34,22 @@ namespace StyleCop.Analyzers.Test.CSharp6.ReadabilityRules
         public async Task TestNullScenariosAsync(string declaration)
         {
             await VerifyCSharpDiagnosticAsync(declaration, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        // TODO: Review redundant tests after adding this
+        [Theory]
+        [MemberData(nameof(CommonMemberData.TypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
+        public async Task TestViolationWithTypeDeclarationKeywordAsync(string keyword)
+        {
+            var testCode = $@"
+{keyword} Foo<T> [|where T : class|] {{ }}";
+
+            var fixedCode = $@"
+{keyword} Foo<T>
+    where T : class
+{{ }}";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
         [Theory]

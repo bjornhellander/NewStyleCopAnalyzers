@@ -14,6 +14,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.NamingRules
 
     public partial class SA1300CSharp9UnitTests
     {
+        // TODO: A theory in a base test class might have made this unnecessary. Check if possible to simplify.
         [Fact]
         public async Task TestPositionalRecord1Async()
         {

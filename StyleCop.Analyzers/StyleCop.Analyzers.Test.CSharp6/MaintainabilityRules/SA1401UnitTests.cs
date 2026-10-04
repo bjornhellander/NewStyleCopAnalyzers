@@ -7,6 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis.Testing;
     using StyleCop.Analyzers.MaintainabilityRules;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopDiagnosticVerifier<StyleCop.Analyzers.MaintainabilityRules.SA1401FieldsMustBePrivate>;
 
@@ -15,6 +16,32 @@ namespace StyleCop.Analyzers.Test.CSharp6.MaintainabilityRules
     /// </summary>
     public class SA1401UnitTests
     {
+        // TODO: Review redundant tests after adding this
+        [Theory]
+        [MemberData(nameof(CommonMemberData.ReferenceTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
+        public async Task TestReferenceTypeWithPublicFieldAsync(string keyword)
+        {
+            var testCode = $@"public {keyword} Foo
+{{
+    public string [|bar|];
+}}";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        // TODO: Review redundant tests after adding this
+        [Theory]
+        [MemberData(nameof(CommonMemberData.ValueTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
+        public async Task TestValueTypeWithPublicFieldAsync(string keyword)
+        {
+            var testCode = $@"public {keyword} Foo
+{{
+    public string bar;
+}}";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
         [Fact]
         public async Task TestClassWithPublicFieldAsync()
         {
