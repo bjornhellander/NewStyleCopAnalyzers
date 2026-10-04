@@ -39,5 +39,29 @@ public class TestClass
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestDiscardParametersAsync()
+        {
+            var testCode = @"using System;
+public class TestClass
+{
+    public void TestMethod()
+    {
+        Func<int, int, int> a = [|delegate|](int _, int _) { return 0; };
+    }
+}";
+
+            var fixedCode = @"using System;
+public class TestClass
+{
+    public void TestMethod()
+    {
+        Func<int, int, int> a = (_, _) => { return 0; };
+    }
+}";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }

@@ -38,5 +38,24 @@ public record R(int A)
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestLambdaDiscardParametersAsync()
+        {
+            var testCode = @"
+public class TypeName
+{
+    public void MethodName()
+    {
+        System.Func<int, int, int> function1 = (_, _) => 0;
+        System.Func<int, int, int> function2 = (int _, int _) => 0;
+        System.Func<int, int, int, int> function3 = (_, _, _) => 0;
+        System.Func<int, int, int> function4 = delegate(int _, int _) { return 0; };
+    }
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
