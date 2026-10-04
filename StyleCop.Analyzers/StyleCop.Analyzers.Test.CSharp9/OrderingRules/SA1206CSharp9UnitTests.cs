@@ -65,6 +65,37 @@ public class TestClass
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Fact]
+        public async Task TestExternLocalFunctionAsync()
+        {
+            var testCode = @"using System.Runtime.InteropServices;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        [DllImport(""kernel32.dll"")]
+        extern {|#0:static|} void LocalFunction();
+    }
+}
+";
+
+            var fixedCode = @"using System.Runtime.InteropServices;
+
+public class TestClass
+{
+    public void TestMethod()
+    {
+        [DllImport(""kernel32.dll"")]
+        static extern void LocalFunction();
+    }
+}
+";
+
+            var expected = Diagnostic().WithLocation(0).WithArguments("static", "extern");
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         protected virtual DiagnosticResult[] GetExpectedResultTestModifierOrderInTypeWithPrimaryConstructor()
         {
             return new[]

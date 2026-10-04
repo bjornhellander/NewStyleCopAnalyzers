@@ -4,19 +4,17 @@
 
 **Docs:** [Local function declarations](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/statements#1364-local-function-declarations)
 
-### Pin SA1133, SA1134, SA1137 and SA1206
+### SA1137 ignores attribute lists on local functions
 
-**Priority:** Low. **Code change:** none expected.
+**Priority:** Low. **Code change:** yes.
 
-All of these work today (confirmed):
+SA1137 compares a local function only with the other statements in its block, never with its own attribute lists. An
+attribute list indented differently from its local function is therefore not reported, while the same layout on a method
+is.
 
-- SA1134 reports `[Obsolete] static void B()` on one line.
-- SA1133 reports `[Obsolete, CLSCompliant(false)]`.
-- SA1137 reports a local function indented differently from its attribute.
-- SA1206 reports `extern static void G();` on an `extern` local function with `[DllImport]`.
+**Suggested change:** add a `LocalFunctionStatement` case to `AddMemberAndAttributes` in
+`SA1137ElementsShouldHaveTheSameIndentation.cs`, and use it from `HandleBlock`, so the attribute lists are checked
+together with the statements.
 
-Attributes on local-function parameters and `[return: ...]` produce nothing unexpected.
-
-**Tests:** one fix test each in `SA1133CSharp9UnitTests`, `SA1134CSharp9UnitTests` and `SA1137CSharp9UnitTests`, plus an
-SA1206 test for `extern static` in `SA1206CSharp9UnitTests` (new files where missing). Put each case inside a method
-body.
+**Tests:** a fix test in `SA1137CSharp9UnitTests` with a misaligned attribute list on a local function that is the only
+statement in its block, and one on a local function that follows another statement.
