@@ -7,6 +7,7 @@ namespace StyleCop.Analyzers.Test.CSharp9.LayoutRules
     using System.Threading.Tasks;
     using Microsoft.CodeAnalysis;
     using Microsoft.CodeAnalysis.Testing;
+    using StyleCop.Analyzers.Test.CSharp6.Helpers;
     using Xunit;
     using static StyleCop.Analyzers.Test.CSharp6.Verifiers.StyleCopCodeFixVerifier<
         StyleCop.Analyzers.LayoutRules.SA1516ElementsMustBeSeparatedByBlankLine,
@@ -132,6 +133,29 @@ public class Foo
         }
     }
 }
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        // TODO: A theory in a base test class would have made this unnecessary
+        [Theory]
+        [MemberData(nameof(CommonMemberData.RecordTypeDeclarationKeywords), MemberType = typeof(CommonMemberData))]
+        public async Task TestRecordMembersAsync(string keyword)
+        {
+            var testCode = $@"public {keyword} Foo
+{{
+    public int A {{ get; }}
+[|    |]public int B {{ get; }}
+}}
+";
+
+            var fixedCode = $@"public {keyword} Foo
+{{
+    public int A {{ get; }}
+
+    public int B {{ get; }}
+}}
 ";
 
             await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);

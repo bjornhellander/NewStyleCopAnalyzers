@@ -15,6 +15,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.NamingRules
     [UseCulture("en-US")]
     public class SA1300UnitTests
     {
+        // TODO: Redundant test given TestLowerCaseNamespaceAsync?
         [Fact]
         public async Task TestUpperCaseNamespaceAsync()
         {
@@ -116,6 +117,7 @@ namespace StyleCop.Analyzers.Test.CSharp6.NamingRules
             }.RunAsync(CancellationToken.None).ConfigureAwait(true);
         }
 
+        // TODO: Redundant test given TestLowerCaseClassAsync?
         [Fact]
         public async Task TestUpperCaseClassAsync()
         {
@@ -184,6 +186,7 @@ public class Test { }";
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
 
+        // TODO: Redundant test given TestLowerCaseStructAsync?
         [Fact]
         public async Task TestUpperCaseStructAsync()
         {
@@ -229,6 +232,7 @@ public class Test { }";
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        // TODO: Redundant test given TestLowerCaseEnumAsync?
         [Fact]
         public async Task TestUpperCaseEnumAsync()
         {
@@ -290,6 +294,7 @@ public class Test { }";
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        // TODO: Redundant test given TestLowerCaseEnumMemberAsync?
         [Fact]
         public async Task TestUpperCaseEnumMemberAsync()
         {
@@ -373,6 +378,7 @@ public class Test { }";
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        // TODO: Redundant test given TestLowerCaseDelegateAsync?
         [Fact]
         public async Task TestUpperCaseDelegateAsync()
         {
@@ -420,6 +426,7 @@ public int Test => 0;
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        // TODO: Redundant test given TestLowerCaseEventAsync?
         [Fact]
         public async Task TestUpperCaseEventAsync()
         {
@@ -527,6 +534,7 @@ public int Test => 0;
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        // TODO: Redundant test given TestLowerCaseEventFieldAsync?
         [Fact]
         public async Task TestUpperCaseEventFieldAsync()
         {
@@ -577,6 +585,7 @@ public int Test => 0;
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        // TODO: Redundant test given TestLowerCaseMethodAsync?
         [Fact]
         public async Task TestUpperCaseMethodAsync()
         {
@@ -635,6 +644,7 @@ public int Test(int value) => value;
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        // TODO: Redundant test given TestLowerCasePropertyAsync?
         [Fact]
         public async Task TestUpperCasePropertyAsync()
         {

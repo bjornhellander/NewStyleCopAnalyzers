@@ -84,7 +84,6 @@ namespace StyleCop.Analyzers.MaintainabilityRules
                 if (fieldSymbol.ContainingSymbol != null &&
                     fieldSymbol.ContainingSymbol.Kind == SymbolKind.NamedType)
                 {
-                    // TODO: Investigaye if this handles other types correctly, e.g. record classes
                     return ((ITypeSymbol)fieldSymbol.ContainingSymbol).TypeKind == TypeKind.Class;
                 }
 
