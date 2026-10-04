@@ -103,6 +103,140 @@ System.Console.WriteLine(3);
             await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Fact]
+        public async Task TestLocalFunctionAttributeListAsync()
+        {
+            var testCode = @"using System;
+
+class TestClass
+{
+    void TestMethod1()
+    {
+[|      |][Obsolete]
+        static void LocalFunction()
+        {
+        }
+    }
+
+    void TestMethod2()
+    {
+        int x = 0;
+[|  |][Obsolete]
+        static void LocalFunction()
+        {
+        }
+    }
+}
+";
+
+            var fixedCode = @"using System;
+
+class TestClass
+{
+    void TestMethod1()
+    {
+        [Obsolete]
+        static void LocalFunction()
+        {
+        }
+    }
+
+    void TestMethod2()
+    {
+        int x = 0;
+        [Obsolete]
+        static void LocalFunction()
+        {
+        }
+    }
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestLocalFunctionAttributeListInSwitchSectionAsync()
+        {
+            var testCode = @"using System;
+
+class TestClass
+{
+    void TestMethod(int value)
+    {
+        switch (value)
+        {
+        case 0:
+            int x = 0;
+[|          |][Obsolete]
+            static void LocalFunction()
+            {
+            }
+
+            break;
+        }
+    }
+}
+";
+
+            var fixedCode = @"using System;
+
+class TestClass
+{
+    void TestMethod(int value)
+    {
+        switch (value)
+        {
+        case 0:
+            int x = 0;
+            [Obsolete]
+            static void LocalFunction()
+            {
+            }
+
+            break;
+        }
+    }
+}
+";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestLocalFunctionAttributeListInTopLevelProgramAsync()
+        {
+            var testCode = @"using System;
+
+Console.WriteLine(1);
+{|#0:  |}[Obsolete]
+static void LocalFunction()
+{
+}
+";
+
+            var fixedCode = @"using System;
+
+Console.WriteLine(1);
+[Obsolete]
+static void LocalFunction()
+{
+}
+";
+
+            var test = new CSharpTest()
+            {
+                TestState =
+                {
+                    OutputKind = OutputKind.ConsoleApplication,
+                    Sources = { testCode },
+                },
+                FixedCode = fixedCode,
+            };
+            test.TestState.ExpectedDiagnostics.AddRange(this.GetExpectedResultTestLocalFunctionAttributeListInTopLevelProgram());
+            await test.RunAsync(CancellationToken.None).ConfigureAwait(true);
+        }
+
         protected virtual DiagnosticResult[] GetExpectedResultTestGlobalStatementIndentationInTopLevelProgram()
         {
             return new[]
@@ -118,6 +252,16 @@ System.Console.WriteLine(3);
             return new[]
             {
                 // Diagnostic issued twice because of https://github.com/dotnet/roslyn/issues/53136
+                Diagnostic().WithLocation(0),
+                Diagnostic().WithLocation(0),
+            };
+        }
+
+        protected virtual DiagnosticResult[] GetExpectedResultTestLocalFunctionAttributeListInTopLevelProgram()
+        {
+            return new[]
+            {
+                // Diagnostic issued twice because of https://github.com/dotnet/roslyn/issues/58561
                 Diagnostic().WithLocation(0),
                 Diagnostic().WithLocation(0),
             };

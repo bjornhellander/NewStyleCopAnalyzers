@@ -198,7 +198,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
         {
             var block = (BlockSyntax)context.Node;
 
-            var statements = ImmutableList.CreateBuilder<StatementSyntax>();
+            var statements = ImmutableList.CreateBuilder<SyntaxNode>();
             var labeledStatements = ImmutableList.CreateBuilder<StatementSyntax>();
 
             foreach (var statement in block.Statements)
@@ -210,7 +210,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                     statementToAlign = ((LabeledStatementSyntax)statementToAlign).Statement;
                 }
 
-                statements.Add(statementToAlign);
+                AddMemberAndAttributes(statements, statementToAlign);
             }
 
             CheckElements(context, statements.ToImmutable());
@@ -222,7 +222,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
             var switchStatement = (SwitchStatementSyntax)context.Node;
 
             var labels = ImmutableList.CreateBuilder<SwitchLabelSyntax>();
-            var statements = ImmutableList.CreateBuilder<StatementSyntax>();
+            var statements = ImmutableList.CreateBuilder<SyntaxNode>();
             var labeledStatements = ImmutableList.CreateBuilder<StatementSyntax>();
             var blockStatements = ImmutableList.CreateBuilder<BlockSyntax>();
             foreach (SwitchSectionSyntax switchSection in switchStatement.Sections)
@@ -243,7 +243,7 @@ namespace StyleCop.Analyzers.ReadabilityRules
                         statementToAlign = ((LabeledStatementSyntax)statementToAlign).Statement;
                     }
 
-                    statements.Add(statementToAlign);
+                    AddMemberAndAttributes(statements, statementToAlign);
                 }
             }
 
@@ -365,6 +365,19 @@ namespace StyleCop.Analyzers.ReadabilityRules
 
             case SyntaxKind.Parameter:
                 elements.AddRange(((ParameterSyntax)member).AttributeLists);
+                break;
+
+            case SyntaxKindEx.LocalFunctionStatement:
+                elements.AddRange(((LocalFunctionStatementSyntaxWrapper)member).AttributeLists);
+                break;
+
+            case SyntaxKind.GlobalStatement:
+                var globalStatement = ((GlobalStatementSyntax)member).Statement;
+                if (globalStatement.IsKind(SyntaxKindEx.LocalFunctionStatement))
+                {
+                    elements.AddRange(((LocalFunctionStatementSyntaxWrapper)globalStatement).AttributeLists);
+                }
+
                 break;
 
             default:
