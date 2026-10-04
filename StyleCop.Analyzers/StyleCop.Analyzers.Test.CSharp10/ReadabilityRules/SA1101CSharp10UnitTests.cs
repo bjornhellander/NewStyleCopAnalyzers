@@ -29,5 +29,57 @@ namespace StyleCop.Analyzers.Test.CSharp10.ReadabilityRules
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestStructWithExpressionAsync()
+        {
+            var testCode = @"public struct S
+{
+    public int X { get; init; }
+
+    public int Y { get; init; }
+
+    public S M() => this with { X = [|Y|] };
+}";
+
+            var fixedCode = @"public struct S
+{
+    public int X { get; init; }
+
+    public int Y { get; init; }
+
+    public S M() => this with { X = this.Y };
+}";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
+        public async Task TestAnonymousTypeWithExpressionAsync()
+        {
+            var testCode = @"public class Test
+{
+    public int X { get; set; }
+
+    public object M()
+    {
+        var a = new { X = 1 };
+        return a with { X = [|X|] };
+    }
+}";
+
+            var fixedCode = @"public class Test
+{
+    public int X { get; set; }
+
+    public object M()
+    {
+        var a = new { X = 1 };
+        return a with { X = this.X };
+    }
+}";
+
+            await VerifyCSharpFixAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
