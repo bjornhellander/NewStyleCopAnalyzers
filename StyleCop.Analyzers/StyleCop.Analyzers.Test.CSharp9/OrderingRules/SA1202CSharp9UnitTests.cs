@@ -14,6 +14,52 @@ namespace StyleCop.Analyzers.Test.CSharp9.OrderingRules
 
     public partial class SA1202CSharp9UnitTests
     {
+        /// <summary>
+        /// Verifies that partial methods with access modifiers are ordered by their declared accessibility, in each part.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestPartialMethodsWithAccessModifiersAsync()
+        {
+            var testCode = @"public partial class TestClass
+{
+    private partial bool Bar();
+
+    public partial int {|#0:Foo|}();
+}
+
+public partial class TestClass
+{
+    private partial bool Bar() => true;
+
+    public partial int {|#1:Foo|}() => 0;
+}
+";
+
+            var fixedCode = @"public partial class TestClass
+{
+    public partial int Foo();
+
+    private partial bool Bar();
+}
+
+public partial class TestClass
+{
+    public partial int Foo() => 0;
+
+    private partial bool Bar() => true;
+}
+";
+
+            DiagnosticResult[] expected =
+            {
+                Diagnostic().WithLocation(0).WithArguments("public", "private"),
+                Diagnostic().WithLocation(1).WithArguments("public", "private"),
+            };
+
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
+
         [Theory]
         [MemberData(nameof(CommonMemberData.TypeKeywordsWhichSupportPrimaryConstructors), MemberType = typeof(CommonMemberData))]
         public async Task TestMemberOrderInTypeWithPrimaryConstructorAsync(string typeKeyword)

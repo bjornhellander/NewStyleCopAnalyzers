@@ -1,26 +1,5 @@
 # C# 9 impact review
 
-## New features for partial methods
-
-**Docs:** [Partial members](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/partial-member)
-
-### Pin SA1400 and SA1202
-
-**Priority:** Low. **Code change:** none expected.
-
-Confirmed:
-
-- SA1400 does not report `partial void M();`. This is correct: in C# 9, adding `private` would make an implementation
-  mandatory.
-- SA1202 orders partial methods by their explicit accessibility (`public partial int M4();` after a `private partial`
-  is reported).
-- SA1206 reports `partial public` (also a compiler error).
-
-**Tests:**
-
-- `SA1400CSharp9UnitTests` (new file): no diagnostic for `partial void M();` with and without an implementation part.
-- `SA1202CSharp9UnitTests` (new file): a fix test reordering `private partial bool M3();` and `public partial int M4();`.
-
 ## Target-typed `new` expressions
 
 **Docs:** [Target-typed new expressions](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/new-operator#target-typed-new)
