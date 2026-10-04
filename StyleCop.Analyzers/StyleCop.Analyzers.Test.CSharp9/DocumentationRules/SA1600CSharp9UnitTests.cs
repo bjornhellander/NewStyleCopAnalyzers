@@ -24,6 +24,35 @@ namespace StyleCop.Analyzers.Test.CSharp9.DocumentationRules
             await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
+        /// <summary>
+        /// Verifies that a partial method with an access modifier is not reported, since partial elements are reported
+        /// by SA1601 instead.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestPartialMethodWithAccessModifierAsync()
+        {
+            var testCode = @"/// <summary>
+/// Summary.
+/// </summary>
+public partial class TestClass
+{
+    public partial int TestMethod(out int x);
+}
+
+public partial class TestClass
+{
+    public partial int TestMethod(out int x)
+    {
+        x = 0;
+        return 0;
+    }
+}
+";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
         protected override DiagnosticResult[] GetExpectedResultTestRegressionMethodGlobalNamespace(string code)
         {
             if (code == "public void {|#0:TestMember|}() { }")

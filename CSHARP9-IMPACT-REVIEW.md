@@ -4,49 +4,6 @@
 
 **Docs:** [Partial members](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/partial-member)
 
-### SA1600 and SA1601 both report accessible partial methods
-
-**Priority:** High. **Code change:** yes.
-
-C# 9 allows partial methods with access modifiers (`public partial int M(out int x);`). Both parts of such a method now
-get SA1600 *and* SA1601:
-
-```
-L5:28  SA1600 Elements should be documented          || public partial int M1(out int x);
-L5:28  SA1601 Partial elements should be documented  || public partial int M1(out int x);
-L27:28 SA1600 Elements should be documented          || public partial int M1(out int x)
-L27:28 SA1601 Partial elements should be documented  || public partial int M1(out int x)
-```
-
-`SA1600ElementsMustBeDocumented.HandleBaseTypeDeclaration` skips partial types ("Handled by SA1601"), but
-`HandleMethodDeclaration` does not skip partial methods. There is a TODO about this at
-`StyleCop.Analyzers/DocumentationRules/SA1600ElementsMustBeDocumented.cs:199`. Before C# 9 this never showed up,
-because partial methods were always implicitly private and private members need no documentation by default.
-
-**Suggested change:**
-
-```csharp
-MethodDeclarationSyntax declaration = (MethodDeclarationSyntax)context.Node;
-if (declaration.Modifiers.Any(SyntaxKind.PartialKeyword))
-{
-    // Handled by SA1601
-    return;
-}
-```
-
-Before removing the TODO, check whether SA1600's code fix (adding a documentation stub) should also be offered for
-SA1601.
-
-**Tests:**
-
-- `SA1600CSharp9UnitTests`: a `public partial int M(out int x);` declaration and its implementation produce no SA1600.
-- `SA1601CSharp9UnitTests` (new file): both parts report SA1601 when undocumented. A documented defining declaration
-  silences the diagnostic on that part.
-- `SA1601CSharp9UnitTests`: `partial void M();` and `private partial bool M();` are not reported with default
-  settings, and both are reported when `documentPrivateElements` is `true`.
-
-Use `[|M|]` markers, since no arguments are involved.
-
 ### Pin SA1400 and SA1202
 
 **Priority:** Low. **Code change:** none expected.
