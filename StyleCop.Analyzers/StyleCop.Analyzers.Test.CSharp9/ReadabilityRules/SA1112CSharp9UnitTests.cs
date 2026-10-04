@@ -45,6 +45,11 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 {typeKeyword} Bar(int x) : Foo(
 {{|#0:)|}}
 {{
+}}
+
+{typeKeyword} Baz(int x) : Bar(
+    x)
+{{
 }}";
 
             var fixedCode = $@"
@@ -53,6 +58,11 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
 }}
 
 {typeKeyword} Bar(int x) : Foo()
+{{
+}}
+
+{typeKeyword} Baz(int x) : Bar(
+    x)
 {{
 }}";
 
@@ -66,19 +76,31 @@ namespace StyleCop.Analyzers.Test.CSharp9.ReadabilityRules
             var testCode = @"
 class Foo
 {
+    public Foo(int a = 0)
+    {
+    }
+
     public void Method()
     {
         Foo x = new(
             [|)|];
+        Foo y = new(
+            1);
     }
 }";
 
             var fixedCode = @"
 class Foo
 {
+    public Foo(int a = 0)
+    {
+    }
+
     public void Method()
     {
         Foo x = new();
+        Foo y = new(
+            1);
     }
 }";
 
