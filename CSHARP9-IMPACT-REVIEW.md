@@ -1,16 +1,5 @@
 # C# 9 impact review
 
-## Extension `GetEnumerator` support for `foreach` loops
-
-**Docs:** [The foreach statement](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements#the-foreach-statement)
-
-### No action
-
-**Priority:** none.
-
-`foreach` over a type with an extension `GetEnumerator()` is a binding change only and parses exactly as before. A
-probe produced no StyleCop diagnostics. Nothing to test. Delete this section once agreed.
-
 ## Lambda discard parameters
 
 **Docs:** [Input parameters of a lambda expression](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions#input-parameters-of-a-lambda-expression)
