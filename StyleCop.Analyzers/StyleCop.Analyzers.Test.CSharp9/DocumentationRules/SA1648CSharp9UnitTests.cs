@@ -24,6 +24,27 @@ public {typeKeyword} TestType(int X);";
             await VerifyCSharpDiagnosticAsync(testCode, expected, CancellationToken.None).ConfigureAwait(true);
         }
 
+        [Fact]
+        public async Task TestOverrideWithCovariantReturnTypeAsync()
+        {
+            var testCode = @"/// <summary>Base type.</summary>
+public class BaseType
+{
+    /// <summary>Gets a value.</summary>
+    /// <returns>The value.</returns>
+    public virtual object Get() => null;
+}
+
+/// <summary>Derived type.</summary>
+public class DerivedType : BaseType
+{
+    /// <inheritdoc/>
+    public override string Get() => null;
+}";
+
+            await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
+        }
+
         protected virtual DiagnosticResult[] GetExpectedResultTestTypeWithPrimaryConstructorWithInvalidInheritDoc()
         {
             return new[]

@@ -1,20 +1,5 @@
 # C# 9 impact review
 
-## Covariant return types
-
-**Docs:** [Covariant return types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/classes#1565-override-methods)
-
-### Pin SA1648
-
-**Priority:** Low. **Code change:** none expected.
-
-An override with a covariant return type is still an override, and `<inheritdoc/>` on it produces no SA1648
-(confirmed). The CSharp9 test framework targets a runtime without covariant-return support (CS8830). The test therefore
-needs .NET 5 reference assemblies, as the rejected SA1623 commit used (`ReferenceAssemblies = ...Net50`).
-
-**Tests:** `SA1648CSharp9UnitTests` (new file): `public override string Get()` overriding `public virtual object Get()`
-with `/// <inheritdoc/>` gives no diagnostic.
-
 ## Extension `GetEnumerator` support for `foreach` loops
 
 **Docs:** [The foreach statement](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/iteration-statements#the-foreach-statement)
