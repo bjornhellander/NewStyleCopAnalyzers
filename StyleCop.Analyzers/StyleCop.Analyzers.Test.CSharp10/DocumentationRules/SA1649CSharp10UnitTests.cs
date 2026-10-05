@@ -43,5 +43,18 @@ public delegate void IgnoredDelegate();
             var expectedDiagnostic = Diagnostic().WithLocation(0);
             await VerifyCSharpFixAsync("TestType2.cs", testCode, StyleCopSettings, expectedDiagnostic, "TestType.cs", fixedCode, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task VerifyMappedLineDirectiveDoesNotChangeFileNameCheckAsync()
+        {
+            var testCode = @"#line 1 ""DifferentName.cs""
+public class {|#0:NotMatching|}
+{
+}
+#line default";
+
+            var expectedDiagnostic = Diagnostic().WithLocation(0);
+            await VerifyCSharpDiagnosticAsync("ActualFile.cs", testCode, testSettings: null, new[] { expectedDiagnostic }, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
