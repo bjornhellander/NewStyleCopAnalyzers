@@ -59,5 +59,48 @@ public record struct Bar(int X);
 
             await VerifyCSharpDiagnosticAsync(testCode, DiagnosticResult.EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(true);
         }
+
+        [Fact]
+        public async Task TestLambdaWithExplicitReturnTypeAsync()
+        {
+            var testCode = @"public class TestClass
+{
+    private int field;
+
+    public void TestMethod()
+    {
+        var a = int{|#0:(|}int x) => x;
+        var b = (int, int){|#1:(|}) => (1, 2);
+        var c = ref int () => ref this.field;
+        var d = static int (int x) => x;
+        var e = System.Func<int> () => () => 1;
+        var f = int[] () => new int[0];
+        var g = int? () => null;
+    }
+}";
+
+            var fixedCode = @"public class TestClass
+{
+    private int field;
+
+    public void TestMethod()
+    {
+        var a = int (int x) => x;
+        var b = (int, int) () => (1, 2);
+        var c = ref int () => ref this.field;
+        var d = static int (int x) => x;
+        var e = System.Func<int> () => () => 1;
+        var f = int[] () => new int[0];
+        var g = int? () => null;
+    }
+}";
+
+            var expected = new[]
+            {
+                Diagnostic(DescriptorPreceded).WithLocation(0),
+                Diagnostic(DescriptorPreceded).WithLocation(1),
+            };
+            await VerifyCSharpFixAsync(testCode, expected, fixedCode, CancellationToken.None).ConfigureAwait(true);
+        }
     }
 }
