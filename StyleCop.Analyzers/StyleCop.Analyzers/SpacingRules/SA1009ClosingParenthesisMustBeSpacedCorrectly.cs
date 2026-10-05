@@ -106,10 +106,12 @@ namespace StyleCop.Analyzers.SpacingRules
                 // - they are part of an if statement
                 // - they are on the same line
                 // - the open paren is part of a parenthesized expression or a tuple expression.
+                // Require a space when the close paren ends the return type of a lambda expression, e.g. a tuple type.
                 precedesStickyCharacter =
-                        !(token.Parent.IsKind(SyntaxKind.IfStatement)
-                        && (token.GetLine() == nextToken.GetLine())
-                        && (nextToken.Parent.IsKind(SyntaxKind.ParenthesizedExpression) || nextToken.Parent.IsKind(SyntaxKindEx.TupleExpression)));
+                    !(token.Parent.IsKind(SyntaxKind.IfStatement)
+                    && (token.GetLine() == nextToken.GetLine())
+                    && (nextToken.Parent.IsKind(SyntaxKind.ParenthesizedExpression) || nextToken.Parent.IsKind(SyntaxKindEx.TupleExpression)))
+                    && !(nextToken.Parent.IsKind(SyntaxKind.ParameterList) && nextToken.Parent.Parent.IsKind(SyntaxKind.ParenthesizedLambdaExpression));
                 break;
 
             case SyntaxKind.CloseParenToken:

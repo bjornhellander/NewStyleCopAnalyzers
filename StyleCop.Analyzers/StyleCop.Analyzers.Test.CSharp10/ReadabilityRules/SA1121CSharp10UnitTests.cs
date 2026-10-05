@@ -13,6 +13,34 @@ namespace StyleCop.Analyzers.Test.CSharp10.ReadabilityRules
     public partial class SA1121CSharp10UnitTests
     {
         [Fact]
+        public async Task TestLambdaReturnTypeAsync()
+        {
+            var testCode = @"public class TestClass
+{
+    public void TestMethod()
+    {
+        var a = [|System.Int32|] (int x) => x;
+    }
+}
+";
+
+            var fixedCode = @"public class TestClass
+{
+    public void TestMethod()
+    {
+        var a = int (int x) => x;
+    }
+}
+";
+
+            await new CSharpTest
+            {
+                TestCode = testCode,
+                FixedCode = fixedCode,
+            }.RunAsync(CancellationToken.None).ConfigureAwait(true);
+        }
+
+        [Fact]
         public async Task TestUsingNameChangeInFileScopedNamespaceAsync()
         {
             string oldSource = @"namespace Foo;
