@@ -58,9 +58,8 @@ namespace StyleCop.Analyzers.Lightup
         public static bool SupportsCSharp14 { get; }
             = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp14));
 
-        // TODO: Update when the CSharp15 member exists
         public static bool SupportsCSharp15 { get; }
-            = Enum.GetNames(typeof(SyntaxKind)).Contains(nameof(SyntaxKindEx.UnionKeyword));
+            = Enum.GetNames(typeof(LanguageVersion)).Contains(nameof(LanguageVersionEx.CSharp15));
 
         public static bool SupportsIOperation => SupportsCSharp73;
 
